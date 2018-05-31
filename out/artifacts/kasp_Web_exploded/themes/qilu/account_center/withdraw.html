@@ -1,0 +1,432 @@
+<link rel="stylesheet" href="${staticserver}/qilu/css/floorform.css">
+<script type="text/javascript" src="${staticserver}/qilu/common/js/libs/kjax.des.js"></script>
+
+<style type="text/css">
+	body{
+		background-color: #FAFAFA;
+	}
+	.order-page .order-board{
+		background-color: #FFFFFF;
+	}
+</style>
+<div class="container order-page charge-page">
+        <div class="border-titlebar">
+            <h2 class="title">提现</h2>
+        </div>
+		<#if '${customerno}' != "-1">
+        <div class="container">
+            <div class="darkblueTabs">
+                <ul class="nav clearfix">
+				<#if opentype == 'AL'>	
+                    <li class="nav-one"><a id="J_sfzf" class="current" href="#third_party_payment"><i class="triangle"></i>三方支付</a></li>
+                    <li class="nav-two"><a id="J_sfcg" href="#third_party_depository"><i class="triangle"></i>三方存管</a></li>
+				<#elseif opentype == 'TP'>
+					<li class="nav-one"><a id="J_sfzf" class="current" href="#third_party_payment"><i class="triangle"></i>三方支付</a></li>
+				<#elseif opentype == 'CG'>
+					<li class="nav-two"><a id="J_sfcg" href="#third_party_depository"><i class="triangle"></i>三方存管</a></li>
+				</#if>
+                </ul>
+                <div class="list-wrap">
+				<#if opentype == 'AL' || opentype == 'TP'>
+					<!------ 三方支付提现  ------>
+					<#if sfzfinfo?exists>
+					<form id="J_sfzfform" name="sfzfForm">
+					<#if opentype == 'TP'>
+                    <div id="third_party_payment" class="payment-method active">
+					<#else>
+					 <div id="third_party_payment" class="payment-method active">
+					</#if>
+                        <div id="J_sfzfbalance" class="remaining">
+                            <span>账户余额：</span>
+                            <span class="num" id="J_sfzfenablebalance" tp_val="${sfzfinfo.enablebalance!''}">${sfzfinfo.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</span>
+                            <span class="unit">元</span>
+                        </div>
+                        <div class="objectTabs">
+                            <div class="list-wrap">
+                                <div id="personal">
+                                    <div class="bank-choices">
+                                        <h4 class="title">请选择银行卡：</h4>
+                                        <ul class="bankcards clearfix">
+                                            
+											<#if sfzfbanklist?exists>
+												<#list sfzfbanklist as sfzfinfo>
+											
+													<li name="chargeinlogo" class="card " title="${sfzfinfo.bankname!''}" value="tp" data_val="tp" _bankaccount="${sfzfinfo.bankaccount!''}" _bankid="${sfzfinfo.bankcode!''}" _channelno="${sfzfinfo.channelno!''}" _capitalaccount="${sfzfinfo.capitalaccount!''}">
+														<i class="iconfont">&#xe620;</i>
+														<img  src="${kasp_url}${sfzfinfo.banklogo!''}" />
+													</li>
+											
+												</#list> 
+											</#if>
+                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout floorform">
+                            <div class="floor">
+                                <label class="property" style="width: 100px;">提现金额</label>
+                                <div class="value">
+                                    <input id="J_tp_money" name="money" value="" type="text" class="input" datatype="/^[0-9]\d*(\.\d{1,2})?$/" nullmsg="金额不能为空" errormsg="金额必须为数字且大于0,最大2位小数">
+                                    <span class="unit">元</span>
+                                </div>
+                            </div>
+							<div class="floor">
+                                <label class="property" style="width: 100px;">手续费</label>
+                                <div class="value">
+                                    <span class="num" id="feeText">0.00</span>
+                                    <span class="unit">元</span>
+                                </div>
+                            </div>
+							<div class="floor">
+                                <label class="property" style="width: 100px;">实际扣除金额</label>
+                                <div class="value">
+                                    <span class="num" id="realpaymoney">0.00</span>
+                                    <span class="unit">元</span>
+                                </div>
+                            </div>
+							<div class="floor">
+                                <label class="property" style="width: 100px;">交易密码</label>
+                                <div class="value">
+                                    <input id="J_tp_tradepwd"   class="input" type="password" datatype="n6-6" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" >
+                                </div>
+                            </div>
+                            <div class="agreement" style="padding-left: 130px;">
+                                <input id="agreement" type="checkbox" name="importantInfo" datatype="*" nullmsg="请先阅读下方重要提示">
+                                <label for="agreement">我已阅读下方重要提示信息</label>
+                            </div>
+                            <div class="actionArea" style="padding-left: 90px;">
+                                <input id="J_tp_chargeout" onclick="chargeOutTp();"  type="button" class="btn btn-md btn-orange"  btn_val="" value="确认提现">
+                            </div>
+                        </div>
+                    </div>
+					<input id="J_tp_bankaccount" 		name="bankaccount" 		value="" 			type="hidden" />
+					<input id="J_tp_bankid"				name="bankid" 			value=""  			type="hidden" />
+					<input id="J_tp_channelno" 			name="channelno" 		value=""  			type="hidden" />
+					<input id="J_tp_capitalaccount"  	name="capitalaccount" 	value="" 	 		type="hidden" />
+					<input id="J_tp_transfertype"  		name="transfertype" 	value="charge_out"  type="hidden" />
+					<input id="J_tp_cappwd"  			name="capitalpwd" 		value=""   			type="hidden" />
+					</form>
+					<#else>
+					<form id="J_sfzfform" name="sfzfForm">
+						<#if opentype == 'TP'>
+						 <div id="third_party_payment" class="payment-method active">
+						<#else>
+						 <div id="third_party_payment" class="payment-method active">
+						</#if>
+							您尚未绑定三方支付银行卡,<a href="bankmanage.html">立即绑定</a>。
+						</div>
+					</form>
+					</#if>
+				</#if>	
+				<#if opentype == 'AL' || opentype == 'CG'>		
+					<!-- 三方存管提现 -->
+					<#if sfcginfo?exists>
+					<form id="J_sfcgform" name="sfcgForm">
+                    <#if opentype == 'CG'>
+                    <div id="third_party_depository" class="payment-method active">
+					<#else>
+					<div id="third_party_depository" class="payment-method hide">
+					</#if>
+                        <div class="remaining">
+                            <span>账户余额：</span>
+                            <span class="num">${sfcginfo.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</span>
+                            <span class="unit">元</span>
+                        </div>
+                        <div class="bank-choices">
+                            <h4 class="title">请选择银行卡：</h4>
+                            <ul class="bankcards clearfix">
+                               <#if sfcginfo?exists  >
+									<li id="J_cg" name="chargeinlogo"  class="card active" name="bankselect" title="${sfcginfo.bankname!''}"  value="cg" data_val="cg" _bankaccount="${sfcginfo.bankaccount!''}" _bankid="${sfcginfo.bankcode!''}" _channelno="${sfcginfo.channelno!''}" _capitalaccount="${sfcginfo.capitalaccount!''}">
+										<i class="iconfont">&#xe620;</i>
+										<image id="sfcglogo"  src="${kasp_url}${sfcginfo.banklogo!''}" />
+									</li>
+								</#if>
+                            </ul>
+                        </div>
+                        <div class="checkout floorform">
+                            <div class="floor">
+                                <label class="property adjust">提现金额</label>
+                                <div class="value">
+                                    <input id="J_cg_money" name="money" value="" type="text" class="input" datatype="/^[0-9]\d*(\.\d{1,2})?$/" nullmsg="金额不能为空" errormsg="金额必须为数字且大于0,最大2位小数">
+                                    <span class="unit">元</span>
+                                </div>
+                            </div>
+							<div class="floor">
+                                <label class="property adjust">交易密码</label>
+                                <div class="value">
+                                    <input id="J_cg_tradepwd"   class="input" type="password" datatype="n6-6" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" >
+                                </div>
+                            </div>
+                            <div class="agreement" style="padding-left: 86px;">
+                                <input id="agreement" type="checkbox" name="importantInfo" datatype="*" nullmsg="请先阅读下方重要提示">
+                                <label for="agreement">我已阅读下方重要提示信息</label>
+                            </div>
+                            <div class="actionArea" style="padding-left: 46px;">
+                                <input id="J_cg_chargeout" onclick="chargeOutCg();"  type="button" class="btn btn-md btn-orange"  btn_val="" value="确认提现">
+                            </div>
+                        </div>
+                    </div>
+					<input id="J_cg_bankaccount" 		name="bankaccount" 		value="" 			type="hidden" />
+					<input id="J_cg_bankid"				name="bankid" 			value=""  			type="hidden" />
+					<input id="J_cg_channelno" 			name="channelno" 		value=""  			type="hidden" />
+					<input id="J_cg_capitalaccount"  	name="capitalaccount" 	value="" 	 		type="hidden" />
+					<input id="J_cg_transfertype"  		name="transfertype" 	value="charge_out"  type="hidden" />
+					<input id="J_cg_cappwd"  			name="capitalpwd" 		value=""   			type="hidden" />
+					<form>
+					<#else>
+					<form id="J_sfcgform" name="sfcgForm">
+						<#if opentype == 'CG'>
+							<div id="third_party_depository" class="payment-method active">
+						<#else>
+							<div id="third_party_depository" class="payment-method hide">
+						</#if>
+								您尚未绑定三方存管银行卡,<a href="bankmanage.html">立即绑定</a>。
+							</div>
+					</form>
+					</#if>
+				</#if>	
+					
+                </div>
+            </div>
+        </div>
+		<#else>
+			您尚未绑定银行卡,<a href="bankmanage.html">立即绑定！</a>
+		</#if>	
+        <div class="kind-tips">
+			<h3 class="title">温馨提示</h3>
+			<ol class="tips">
+				<li>请您留意，使用三方存管的招商银行或者工商银行进行转账的时间为每交易日9:00—16:30，其他时间及节假日无法操作提现；</li>
+				<li>使用三方支付方式提现的，应当遵守与该第三方的各项协议及其服务规则；在使用第三方支付服务过程中用户应当妥善保管个人信息，包括但不限于银行卡账号、密码、验证码等；</li>
+				<li>如果您在使用过程中碰到问题无法解决，请联系我们，客服电话：0771-5716611。</li>
+			</ol>
+        </div>
+    </div>
+
+<script>
+$(function() {
+	$(".objectTabs").organicTabs({
+		"speed": 200
+	});
+	
+	$(".bankcards >li:eq(0)").click();
+	
+	//$("#J_cg").click();
+	
+});
+					
+$("#J_sfzf").on("click",function(){
+	$(".bankcards >li:eq(0)").click();
+})
+$("#J_sfcg").on("click",function(){
+	$("#J_cg").click();
+})
+					
+var $sfzf_form = $("#J_sfzfform").kdValidform();
+var $sfcg_form = $("#J_sfcgform").kdValidform();
+
+
+/**
+	三方支付提现
+*/	
+function chargeOutTp(){	
+	if($sfzf_form.check()){
+		var bankid = $("#J_tp_bankid").val();
+		if(bankid == "" || bankid == 'undefined'){
+			zhejiang_alert('消息','请选择银行',function(){
+				$("#J_tp_money").val("");
+				$("#J_tp_tradepwd").val("");
+			});	
+			return;
+		}
+		var money = $("#J_tp_money").val();
+		var imoney = parseFloat(money);
+		if(imoney<0 || imoney == 0){
+			zhejiang_alert('消息','提现金额必须大于0',function(){
+				$("#J_tp_money").val("");
+				$("#J_tp_chargeout").attr("disabled",false);
+			});	
+			return;
+		}
+
+			var enablebalance = $("#J_sfzfenablebalance").attr("tp_val");
+			var amount = $("#J_tp_money").val();
+			var fee = $("#feeText").val();
+			var totalmoney = parseFloat(amount)+parseFloat(fee);
+			
+			if(parseFloat(enablebalance)<totalmoney){
+				zhejiang_alert('消息','您的可提现余额不足,手续费'+parseFloat(fee).toFixed(2)+'元,'+'提现金额'+parseFloat(amount).toFixed(2)+'元,'+'总金额'+parseFloat(totalmoney).toFixed(2)+'元,'+'可提现金额'+parseFloat(enablebalance).toFixed(2)+'元',function(){
+					window.location.href="withdraw.html";
+				})
+				return;
+			}
+	}
+	
+	
+	var $trdpwd = $("#J_tp_tradepwd").val();
+	var $despwd = $.des.getDes($trdpwd,'kingdom');
+	$("#J_tp_cappwd").val($despwd);
+	var options = {
+		type: "POST",
+		dataType:"json",
+		async:true,
+		url: "mall/qilu_charge!chargeOut.do?ajax=yes",
+		success: function(data){
+			$.kd.closeLoading();
+			  if(data.result == 1){
+				 $("#rechargePwd").val("");
+				  zhejiang_alert('消息',data.message, function() {
+					window.location.href="account_asset.html";
+				  });
+				  
+			  }else{
+				 $("input[name=money]").val("")
+				 zhejiang_alert("消息!",data.message,function(){
+					window.location.href="withdraw.html";
+				 });
+			  }
+			  $("input[type=button]").attr("disabled", false);
+		},
+		error: function(data) {
+				zhejiang_alert('消息','网络异常,请刷新页面!', function(){
+				window.location.href = "withdraw.html";
+			  });	
+			}
+		};
+		if($sfzf_form.check()){
+			$.kd.showLoading($("#J_tp_chargeout"));
+			$("#J_tp_chargeout").attr("disabled",true);
+			$("#J_sfzfform").ajaxSubmit(options);
+			
+		}
+}
+
+/**
+	三方存管提现
+**/
+function chargeOutCg(){	
+	if($sfcg_form.check()){
+		var bankid = $("#J_cg_bankid").val();
+		if(bankid == "" || bankid == 'undefined'){
+			zhejiang_alert('消息','请选择银行',function(){
+				$("#J_cg_money").val("");
+				$("#J_cg_tradepwd").val("");
+			});	
+			return;
+		}
+		var money = $("#J_cg_money").val();
+		var imoney = parseFloat(money);
+		if(imoney<0 || imoney == 0){
+			zhejiang_alert('消息','提现金额必须大于0',function(){
+				$("#J_cg_money").val("");
+				$("#J_cg_chargeout").attr("disabled",false);
+			});	
+			return;
+		}
+
+	}
+
+	var $trdpwd = $("#J_cg_tradepwd").val();
+	var $despwd = $.des.getDes($trdpwd,'kingdom');
+	$("#J_cg_cappwd").val($despwd);
+	var options = {
+		type: "POST",
+		dataType:"json",
+		async:true,
+		url: "mall/qilu_charge!chargeOut.do?ajax=yes",
+		success: function(data){
+			$.kd.closeLoading();
+			  if(data.result == 1){
+				 $("#rechargePwd").val("");
+				  zhejiang_alert('消息',data.message, function() {
+					window.location.href="account_asset.html";
+				  });
+				  
+			  }else{
+				 $("input[name=money]").val("")
+				 zhejiang_alert("消息!",data.message,function(){
+					window.location.href="withdraw.html";
+				 });
+			  }
+			  $("input[type=button]").attr("disabled", false);
+		},
+		error: function(data) {
+				zhejiang_alert('消息','网络异常,请刷新页面!', function(){
+				window.location.href = "withdraw.html";
+			  });	
+			}
+		};
+		if($sfcg_form.check()){
+			$.kd.showLoading($("#J_cg_chargeout"));
+			$("#J_cg_chargeout").attr("disabled",true);
+			$("#J_sfcgform").ajaxSubmit(options);
+			
+		}
+}
+
+$(".bankcards > li").on("click",function(){
+	var self = $(this);
+	$(".bankcards > li").removeClass("active");	
+	self.addClass("active");
+	var type = self.attr("data_val");
+	var bankaccount 	 = 	self.attr("_bankaccount");
+	var bankid		 	 = 	self.attr("_bankid");
+	var	capitalaccount	 =	self.attr("_capitalaccount");
+	var	channelno		 =	self.attr("_channelno");
+	if(type == 'tp'){
+		$("#J_tp_bankaccount").val(bankaccount);
+		$("#J_tp_bankid").val(bankid);
+		$("#J_tp_capitalaccount").val(capitalaccount);
+		$("#J_tp_channelno").val(channelno);
+	}else if(type == 'cg'){
+		$("#J_cg_bankaccount").val(bankaccount);
+		$("#J_cg_bankid").val(bankid);
+		$("#J_cg_capitalaccount").val(capitalaccount);
+		$("#J_cg_channelno").val(channelno);
+	}
+	
+})
+
+
+
+$("#J_tp_money").on("blur",function(){
+		var amount = $("#J_tp_money").val();
+		$.post(
+			'mall/qilu_withdarwfee!withdraw.do', 
+			{amount:amount}, 
+			function(data) {
+				if(data.result==0){
+					//$.kd.kdMsg(data.message);
+					$("#feeText").text("0.00");
+					$("#realpaymoney").text("0.00");
+					return false;
+				}else{
+					var enablebalance = $("#sfzfenablebalance").val();
+					var fee = data.message;
+					var totalmoney = parseFloat(amount)+parseFloat(fee);
+								
+					$("#feeText").text(parseFloat(fee).toFixed(2));
+					$("#feeText").val(fee);
+					$("#realpaymoney").text(parseFloat(totalmoney).toFixed(2));
+					$("#realpaymoney").val(totalmoney);
+				};
+   		},"json");
+})
+
+
+
+
+ $("#yield table tbody tr:nth-child(2n)").addClass("stripe");
+ 
+ $(function() {
+            $(".darkblueTabs").organicTabs({
+                "speed": 200
+            });
+        });
+        $(function() {
+            $(".objectTabs").organicTabs({
+                "speed": 200
+            });
+});
+</script>

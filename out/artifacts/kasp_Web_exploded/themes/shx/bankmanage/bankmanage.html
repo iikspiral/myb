@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="${staticserver}/shx/css/common.css">
+<link rel="stylesheet" href="${staticserver}/shx/css/normalize.css">
+<link rel="stylesheet" href="${staticserver}/shx/css/account.css">
+<link rel="stylesheet" href="${staticserver}/shx/css/register.css">
+<link rel="stylesheet" href="${staticserver}/shx/css/jquery.bxslider.css">
+
+<link rel="stylesheet" href="${staticserver}/shx/css/iconfont/iconfont.css">
+<script type="text/javascript" src="${staticserver}/shx/common/js/libs/kjax.des.js"></script>
+
+<#if '${s}' == "show">
+
+	<#include 'bankshow.html'>
+	
+<#elseif '${s}' == "select">
+
+	<#include 'bankselect.html'>	
+	
+<#elseif '${s}' == "bind">
+
+	<#include 'bankbind.html'>
+	
+<#elseif '${s}' == "fxcp">
+
+	<#include 'bind_fxcp.html'>
+<#elseif '${s}' == "drop">
+
+	<#include 'bankdrop.html'>
+	
+</#if>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+<sqlMap namespace="com.szkingdom.tbip.cif.entity.AclMenuEntity">
+ 
+	<select id="queryCustMenu" parameterClass="java.util.HashMap" resultClass="com.szkingdom.acl.entity.AclCustMenuEntity">
+		<![CDATA[
+		    select * from acl.acl_cust_menu where custno = #custNo# and  order by custno, menuid
+		]]>
+	</select>
+	
+	<select id="queryCustRole" parameterClass="java.util.HashMap" resultClass="com.szkingdom.acl.entity.AclCustRoleEntity">
+		<![CDATA[
+		    select custno,roleid,serverid,exchangeid from acl.acl_cust_role where custno = 'system' and SERVERID=#serverId# and EXCHANGEID=#exchangeId# order by custno, roleid
+		]]>
+	</select>
+
+	<select id="queryMultiRoleMenu" parameterClass="com.szkingdom.acl.key.AclRoleStringKey" resultClass="com.szkingdom.acl.entity.AclRoleMenuEntity">
+		<![CDATA[
+		    select roleid,menuid from acl.acl_role_menu where roleid in ($roleId$) order by roleid, menuid
+		]]>
+	</select>
+
+	<select id="queryMenu" parameterClass="java.util.HashMap" resultClass="com.szkingdom.acl.entity.AclMenuEntity">
+		<![CDATA[
+		    select serverid,exchangeid,sysid,menuid,parentmenuid,menuname,menutype,icon,page from acl.acl_menu 
+		    where SERVERID=#serverId# and EXCHANGEID=#exchangeId#
+		     order by menuid
+		]]>
+	</select>
+
+</sqlMap>  

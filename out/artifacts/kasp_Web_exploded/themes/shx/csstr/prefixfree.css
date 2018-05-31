@@ -1,0 +1,96 @@
+
+.statements {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 25px;
+  width: 1000px;
+  height: 600px;
+  background-color: #fff;
+}
+
+.statements ul {
+  margin: 0 auto;
+  padding: 0;
+  display: inline-block;
+}
+
+.statements li {
+  background: white;
+  word-spacing: 0;
+  width: 120px;
+  list-style: none;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: none;
+  border-bottom: none;
+  font-family: calibri light;
+  letter-spacing: 3px;
+  box-shadow: inset -50px 0 175px -50px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.statements li:hover {
+  background-color: #fff;
+}
+
+.statements li:active {
+  background: #fff;
+}
+
+.statements li span {
+  float: right;
+  font-weight: bold;
+  display: none;
+}
+
+.statements li:hover span {
+  display: block;
+}
+
+.statements div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 450px;
+  height: 100%;
+  background: white;
+  padding: 25px;
+  font-family: calibri;
+  word-spacing:3px;
+}
+
+.statements li div {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 450px;
+  height: 100%;
+  background: white;
+  padding: 25px;
+  font-family: calibri;
+  letter-spacing: 1px;
+  z-index: 10;
+}
+
+.statements div h1 {
+  margin: 0 auto;
+  font-family: calibri light;
+  font-size: 25px;
+}
+
+.statements li:focus {
+  outline: none;
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+}
+
+.statements li:focus div {
+  display: block;
+}
+
+
+/**********************我的内容*******************/

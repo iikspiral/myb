@@ -1,0 +1,978 @@
+@charset "UTF-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.shadow-inset {   
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.transition {
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.scalease {
+  -webkit-transition: -webkit-transform 0.6s ease;
+  transition: transform .6s ease;
+}
+.scalease:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.body-account {
+  background-color: #fafafa;
+}
+/* 登录 */
+.adsBG li {
+  height: 500px;
+}
+.login-board {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  margin-right: -500px;
+  width: 260px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 60px;
+  padding: 30px;
+  z-index: 99;
+}
+.login-board h2 {  
+  color: #e14619;
+  line-height: 48px;  
+  text-align: center;
+}
+.login-board .login-form li {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+.login-board .login-form li i {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  color: #a7a7a7;
+}
+.login-board .login-form li input[type=text],
+.login-board .login-form li input[type=password] {
+  width: 217px;
+  padding: 0 10px 0 33px;
+  font-size: 16px;
+  line-height: 38px;
+  height: 38px;
+  color: #a4a4a4;
+  border-radius: 10px;  
+  border: 1px solid #dedbc5;
+}
+.login-board .login-form input[type=password] {
+  letter-spacing: 1px;
+}
+.login-board .login-form .captcha input[type=text] {
+  width: 90px;
+  padding-left: 10px;
+  float: left;
+  margin-right: 10px;
+}
+.login-board .login-form .captcha img {
+  float: left;
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.login-board .login-form .login .btn {
+  width: 120px;
+  margin:0 5px;
+  float:left;
+}
+.login-board .login-form .register {
+  font-size: 13px;
+  line-height: 40px;
+}
+.login-board .login-form .register > a {
+  float: left;
+  color: #747474;
+}
+.login-board .login-form .register > span {
+  float: right;
+  color: #747474;
+}
+.login-board .login-form .register > span a {
+  color: #e14619;
+}
+/* 账户中心左侧导航 */
+.account-sidebar {
+  float: left;
+  width: 20%;
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+  margin-bottom: 60px;
+}
+.account-sidebar .user-info {
+  border-bottom: 1px solid #dadada;
+  padding: 60px 0 20px;
+}
+.account-sidebar .user-info .avatar,
+.account-sidebar .user-info .avatar a,
+.account-sidebar .user-info .avatar a img {
+  width: 90px;
+  height: 100px;
+}
+.account-sidebar .user-info .avatar {
+  margin: 0 auto 10px;
+}
+.account-sidebar .user-info .avatar a {
+  display: block;
+  border: 1px solid #dadada;
+}
+.account-sidebar .user-info .username {
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  color: #747474;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.account-sidebar .user-info .username strong {
+  color: #333333;
+}
+.account-sidebar .sidemenu li {
+  height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #dadada;
+}
+.account-sidebar .sidemenu li a {
+  display: block;
+  font-size: 14px;
+  line-height: 50px;
+  color: #333333;
+}
+.account-sidebar .sidemenu li a:hover {
+  background-color: #e1e1e1;
+}
+.account-sidebar .sidemenu li a.current {
+  background-color: #ededed;
+}
+.account-sidebar .brief-security {
+  padding: 30px;
+  color: #747474;
+}
+.account-sidebar .brief-security > span {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.account-sidebar .brief-security .progress .per-bar {
+  background-color: #e1e1e1;
+}
+.account-sidebar .brief-security .progress .per {
+  height: 10px;
+  background-color: #05c471;
+}
+.account-main {
+  float: right;
+  width: 78%;
+  margin-bottom: 60px;
+}
+.account-main .vice-titlebar {
+  margin-top: 20px;
+  border-bottom: 1px solid #dadada;
+  padding-left: 5px;
+  height: 30px;
+}
+.account-main .vice-titlebar h3 {
+  font-size: 16px;
+  line-height: 30px;
+  color: #655641;
+}
+.account-main .actionbar {
+  margin-bottom: 20px;
+}
+.account-main .actionbar .btn-start {
+  float: right;
+  margin-left: 10px;
+}
+.account-main .account-board {
+  padding: 40px;
+  background-color: #fcfcfc;
+}
+.account-main .account-board .project-name {
+  font-size: 24px;
+  margin-bottom: 40px;
+  color: #655641;
+}
+.account-main .simple-titlebar .breadcrumb {
+  padding-left: 5px;
+  font-size: 13px;
+}
+.account-main .simple-titlebar .breadcrumb a {
+  font-size: 13px;
+  color: #747474;
+}
+.account-main .simple-titlebar .breadcrumb a:hover {
+  color: #3a9bfc;
+}
+.account-main .simple-titlebar .breadcrumb .active {
+  font-size: 13px;
+}
+/* 账户总览 */
+.account-brief {
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333333;
+  border-bottom: 1px solid #dadada;
+}
+.account-brief dl {
+  float: left;
+}
+.account-brief dl dt {
+  float: left;
+  display: inline-block;
+  padding: 0 10px;
+  color: #333333;
+  line-height: 30px;
+}
+.account-brief dl dd {
+  float: left;
+  display: inline-block;
+  padding: 0 10px;
+  color: #3a9bfc;
+  line-height: 30px;
+}
+.account-brief dl {
+  margin-right: 60px;
+}
+.account-brief .yield dd {
+  font-size: 24px;
+  color: #f1723b;
+}
+.account-brief .welcome dd {
+  color: #999999;
+}
+.account-brief .icons {
+  float: left;
+}
+.account-brief .icons a {
+  float: left;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.account-brief .icons a i {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+.account-brief .icons a .identity {
+  background: url(../images/icons_account.png) no-repeat 0 0;
+}
+.account-brief .icons a .identity_active {
+  background: url(../images/icons_account.png) no-repeat -30px 0;
+}
+.account-brief .icons a .mobile {
+  background: url(../images/icons_account.png) no-repeat -60px 0;
+}
+.account-brief .icons a .mobile_active {
+  background: url(../images/icons_account.png) no-repeat -90px 0;
+}
+.account-brief .icons a .security {
+  background: url(../images/icons_account.png) no-repeat -120px 0;
+}
+.account-brief .icons a .security_active {
+  background: url(../images/icons_account.png) no-repeat -150px 0;
+}
+.account-brief em {
+  color: #f1723b;
+}
+.account-statis {
+  position: relative;
+}
+.account-statis .title {
+  font-size: 16px;
+  line-height: 18px;
+  margin: 10px 0;
+  color: #747474;
+}
+.account-statis .title h3 {
+  border-left: 3px solid #3a9bfc;
+  padding-left: 10px;
+  font-size: 16px;
+  line-height: 18px;
+}
+.account-statis .balance {
+  font-size: 13px;
+  line-height: 30px;
+  color: #333333;
+}
+.account-statis .amount {
+  font-size: 28px;
+  line-height: 30px;
+  color: #FF0029;
+}
+.account-statis .remain-wrap .remain-total {
+  padding: 20px;
+  border-radius: 2px;
+}
+.account-statis .remain-wrap .remain-total .action {
+  margin-top: 20px;
+}
+.account-statis .remain-wrap .remain-total .action a {
+  float: left;
+  margin-right: 10px;
+}
+.account-statis .remain-accounts {
+  width: 100%;
+  margin-top: 10px;
+}
+.account-statis .remain-accounts .remain-wrap {
+  float: left;
+  width: 50%;
+}
+.account-statis .remain-accounts .remain-wrap .remain {
+  padding: 20px;
+}
+.account-statis .remain-accounts .remain-wrap .remain .display {
+  margin-top: 10px;
+}
+.account-statis .remain-accounts .remain-wrap .remain .account {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 30px;
+  color: #666666;
+}
+.account-statis .remain-accounts .remain-wrap .remain .account label {
+  margin-bottom: 0;
+  font-weight: normal;
+  color: #333333;
+}
+.account-statis .total-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 402px;
+}
+.account-statis .total-wrap .total {
+  padding: 15px 15px 10px 20px;
+  background-color: #fafafa;
+}
+.account-statis .total-wrap .total .manage {
+  margin-top: 15px;
+}
+.account-statis .total-wrap .total .manage li {
+  font-size: 12px;
+  color: #666666;
+  margin-bottom: 10px;
+}
+.account-statis .total-wrap .total .manage li label {
+  display: inline-block;
+  width: 70px;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+.account-statis .total-wrap .total .manage li a {
+  display: inline-block;
+  padding-left: 10px;
+  color: #3a9bfc;
+}
+.account-statis .total-wrap .total .manage .separate {
+  font-size: 14px;
+  color: #dadada;
+}
+.asset-statis-wrap {
+  float: right;
+  width: 30%;
+  height: 237px;
+  margin-left: -1px;
+  border-left: 1px solid #dadada;
+}
+.asset-statis {
+  padding: 20px;
+}
+.asset-statis .title h3 {
+  float: left;
+  font-size: 14px;
+  line-height: 30px;
+  color: #747474;
+}
+.asset-statis .title .btn {
+  float: right;
+  margin: 3px 0 0 5px;
+}
+.asset-statis dl {
+  margin-top: 20px;
+  color: #655641;
+}
+.asset-statis dl dt {
+  font-size: 14px;
+  line-height: 30px;
+  color: #747474;
+}
+.asset-statis dl dd {
+  font-size: 24px;
+  line-height: 28px;
+  color: #655641;
+}
+.trade-history {
+  margin-top: 20px;
+}
+/* 账户中心的多重选项卡筛选器 */
+.tabs-filter .nav {
+  border-bottom: 2px solid #dadada;
+  margin-bottom: 30px;
+}
+.tabs-filter .nav > li {
+  float: left;
+}
+.tabs-filter .nav > li > a {
+  display: block;
+  font-size: 16px;
+  line-height: 40px;
+  color: #333333;
+  padding: 0 40px;
+}
+.tabs-filter .nav > li > a:hover,
+.tabs-filter .nav > li > a.current,
+.tabs-filter .nav > li > a:focus {
+  color: #3a9bfc;
+  border-bottom: 2px solid #3a9bfc;
+  margin-bottom: -2px;
+  background-color: transparent;
+}
+.tabs-filter .nav > li span {
+  display: block;
+  font-size: 16px;
+  line-height: 36px;
+  color: #dadada;
+  margin: 0 5px;
+}
+.tabs-filter .thefilter {
+  margin-bottom: 20px;
+}
+.tabs-filter .thefilter .nav-filter {
+  *zoom: 1;
+}
+.tabs-filter .thefilter .nav-filter:before,
+.tabs-filter .thefilter .nav-filter:after {
+  content: " ";
+  display: table;
+}
+.tabs-filter .thefilter .nav-filter:after {
+  clear: both;
+}
+.tabs-filter .thefilter .nav-filter li {
+  float: left;
+  margin-right: 10px;
+}
+.tabs-filter .thefilter .nav-filter li a {
+  display: block;
+  font-size: 13px;
+  line-height: 30px;
+  color: #747474;
+  padding: 0 10px;
+  border-radius: 2px;
+}
+.tabs-filter .thefilter .nav-filter li a:hover,
+.tabs-filter .thefilter .nav-filter li a.current {
+  color: #3a9bfc;
+}
+.tabs-filter .thefilter .nav-filter .property {
+  float: left;
+  width: 8%;
+  font-size: 13px;
+  line-height: 30px;
+  text-align: right;
+  color: #5a5a5a;
+}
+.tabs-filter .thefilter .nav-filter .value {
+  float: left;
+  width: 92%;
+}
+.tabs-filter .thefilter .nav-filter .value a {
+  float: left;
+  font-size: 13px;
+  line-height: 30px;
+  margin: 0 10px;
+  color: #747474;
+}
+.tabs-filter .thefilter .nav-filter .value a:hover,
+.tabs-filter .thefilter .nav-filter .value a:focus,
+.tabs-filter .thefilter .nav-filter .value a.chosen {
+  color: #3a9bfc;
+}
+.tabs-filter .records-list {
+  width: 100%;
+  border: 1px solid #dadada;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: #655641;
+}
+.tabs-filter .records-list th {
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #dadada;
+  background-color: #fafafa;
+}
+.tabs-filter .records-list td {
+  padding: 20px 0;
+  border-bottom: 1px solid #dadada;
+}
+.tabs-filter .records-list .news-title {
+  padding: 10px;
+}
+.tabs-filter .records-list .news-title a {
+  color: #3a9bfc;
+}
+.tabs-filter .records-list .news-title a:hover {
+  color: #0881fb;
+}
+.tabs-filter .records-list .project {
+  padding: 20px;
+}
+.tabs-filter .records-list .project .avatar {
+  float: left;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #fafafa;
+  margin-right: 10px;
+}
+.tabs-filter .records-list .project .avatar img {
+  width: 100px;
+  height: 100px;
+}
+.tabs-filter .records-list .project .info {
+  float: left;
+  width: 310px;
+}
+.tabs-filter .records-list .project .info .title {
+  width: 100%;
+  height: 30px;
+  font-size: 14px;
+  line-height: 30px;
+  color: #3a9bfc;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.tabs-filter .records-list .project .info .title a {
+  font-size: 14px;
+  line-height: 30px;
+  color: #3a9bfc;
+}
+.tabs-filter .records-list .project .info .title a:hover {
+  color: #0881fb;
+}
+.tabs-filter .records-list .project .info .willing {
+  clear: left;
+  font-size: 12px;
+  line-height: 30px;
+  margin-bottom: 5px;
+  color: #747474;
+}
+.tabs-filter .records-list .project .info .labels {
+  margin: 5px 0 10px;
+  *zoom: 1;
+}
+.tabs-filter .records-list .project .info .labels:before,
+.tabs-filter .records-list .project .info .labels:after {
+  content: " ";
+  display: table;
+}
+.tabs-filter .records-list .project .info .labels:after {
+  clear: both;
+}
+.tabs-filter .records-list .project .info .labels .label {
+  float: left;
+  margin-right: 5px;
+  padding: 0 6px;
+  font-size: 12px;
+  line-height: 22px;
+  height: 22px;
+  text-align: left;
+  color: #7e5a28;
+  border: 1px solid #dadada;
+  background-color: #fafafa;
+  font-weight: normal;
+  cursor: default;
+  border-radius: 2px;
+}
+.tabs-filter .records-list .project .info .properties dl {
+  float: left;
+  font-size: 12px;
+  margin-right: 30px;
+  line-height: 24px;
+}
+.tabs-filter .records-list .project .info .content {
+  font-size: 12px;
+  line-height: 24px;
+  color: #747474;
+}
+.tabs-filter .records-list .project .info .content .comment {
+  height: 96px;
+  overflow: hidden;
+}
+.tabs-filter .records-list .project .info .nlp {
+  font-size: 13px;
+  line-height: 34px;
+}
+.tabs-filter .records-list .project .info .nlp li .btn {
+  margin-left: 5px;
+}
+.tabs-filter .records-list .project .info .nlp li i {
+  color: #a7a7a7;
+}
+.tabs-filter .records-list .achieved,
+.tabs-filter .records-list .status {
+  text-align: center;
+  line-height: 24px;
+}
+.tabs-filter .records-list .achieved a,
+.tabs-filter .records-list .status a {
+  display: inline-block;
+  color: #3a9bfc;
+  margin: 0 5px;
+}
+.tabs-filter .records-list .achieved a:hover,
+.tabs-filter .records-list .status a:hover {
+  color: #0881fb;
+}
+.tabs-filter .records-list .action {
+  font-size: 12px;
+  text-align: center;
+}
+.tabs-filter .records-list .action a {
+  display: block;
+  font-size: 12px;
+  color: #3a9bfc;
+  line-height: 24px;
+}
+.tabs-filter .records-list .mail {
+  padding: 0 20px;
+}
+.tabs-filter .records-list .mail .mail-content {
+  font-size: 13px;
+  line-height: 24px;
+  color: #747474;
+  height: 48px;
+  overflow: hidden;
+}
+.tabs-filter .records-list .mail .actionArea {
+  margin-top: 5px;
+  text-align: right;
+}
+/* 我的理财 */
+.statis-asset {
+  margin-bottom: 30px;
+}
+.statis-asset .border-box {
+  float: left;
+  width: 160px;
+  padding: 20px;
+  border: 2px solid #dadada;
+  margin: 20px 40px;
+}
+.statis-asset .border-box dt {
+  font-size: 18px;
+  line-height: 40px;
+  color: #747474;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.statis-asset .border-box dd {
+  font-size: 48px;
+  line-height: 40px;
+  text-align: center;
+  color: #655641;
+}
+.statis-asset .border-box > dd + dd {
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: normal;
+}
+.statis-asset .others {
+  width: 500px;
+  padding: 40px 0 0;
+  float: left;
+}
+.statis-asset .others dl {
+  float: left;
+  width: 50%;
+  font-size: 16px;
+  color: #655641;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+.statis-asset .others dl dd {
+  font-size: 22px;
+}
+.statis-asset .others dl dd span {
+  font-size: 20px;
+}
+.recommend .list li {
+  height: 40px;
+  border-bottom: 1px dotted #c0c0c0;
+  *zoom: 1;
+}
+.recommend .list li:before,
+.recommend .list li:after {
+  content: " ";
+  display: table;
+}
+.recommend .list li:after {
+  clear: both;
+}
+.recommend .list li .title {
+  float: left;
+  margin-left: 5px;
+  font-size: 14px;
+  line-height: 40px;
+  color: #747474;
+  width: 80%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.recommend .list li .title:hover {
+  color: #272727;
+}
+.recommend .list li .btn {
+  float: right;
+  margin: 7px 5px 0 0;
+}
+.my-financing {
+  margin-bottom: 30px;
+}
+.my-financing .border-box {
+  float: left;
+  width: 42%;
+  height: 100%;
+  padding: 3%;
+  text-align: center;
+}
+.my-financing > .border-box + .border-box {
+  float: right;
+}
+.my-financing .num {
+  margin-bottom: 20px;
+}
+.my-financing .num dt {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: normal;
+  color: #747474;
+}
+.my-financing .num dd {
+  font-size: 36px;
+  line-height: 56px;
+  color: #655641;
+}
+.my-financing .details li {
+  font-size: 13px;
+  line-height: 30px;
+  color: #747474;
+}
+.my-financing .details li label {
+  display: inline-block;
+  width: 160px;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+.my-financing .details li span {
+  font-size: 14px;
+}
+.my-financing .details .action a {
+  color: #3a9bfc;
+}
+.my-financing .details .action a:hover {
+  text-decoration: underline;
+}
+.panel-info .achieved {
+  padding: 20px 30px;
+}
+.panel-info .achieved h3 {
+  font-size: 24px;
+  line-height: 60px;
+  margin-bottom: 20px;
+  color: #655641;
+}
+.panel-info .achieved .data dl {
+  float: left;
+  width: 33.3%;
+}
+.panel-info .achieved .data dl dt {
+  font-size: 14px;
+  line-height: 20px;
+  color: #747474;
+}
+.panel-info .achieved .data dl dd {
+  font-size: 20px;
+  line-height: 34px;
+}
+.bankcards .section {
+  padding: 30px 30px 0 30px;
+}
+.bankcards .section .title {
+  font-size: 16px;
+  line-height: 30px;
+  color: #655641;
+  margin-bottom: 10px;
+}
+.bankcards > div:last-child {
+  padding-bottom: 20px;
+}
+.bankcards-list {
+  padding: 0 1px;
+}
+.bankcards-list .card,
+.bankcards-list .new-card {
+  float: left;
+  position: relative;
+  width: 198px;
+  height: 118px;
+  margin: 0 17px 30px;
+  padding: 10px;
+  border: 1px solid #c1c1c1;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+.bankcards-list .card .bank,
+.bankcards-list .new-card .bank {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  height: 18px;
+}
+.bankcards-list .card .number,
+.bankcards-list .new-card .number {
+  position: absolute;
+  display: block;
+  width: 100%;
+  font-size: 15px;
+  line-height: 68px;
+  background-color: #ffffff;
+  top: 25%;
+  margin-left: -10px;
+  text-align: center;
+  color: #747474;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
+}
+.bankcards-list .card .platform,
+.bankcards-list .new-card .platform {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  height: 18px;
+}
+.bankcards-list .card .btn,
+.bankcards-list .new-card .btn {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  font-size: 12px;
+  display: inline-block;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.bankcards-list .card .btn:hover,
+.bankcards-list .new-card .btn:hover {
+  color: #3a9bfc;
+}
+.bankcards-list .new-card {
+  display: block;
+  background-color: #ffffff;
+  border: 1px solid #dadada;
+  cursor: pointer;
+  position: relative;
+}
+.bankcards-list .new-card:hover {
+  border: 1px dashed #3a9bfc;
+}
+.bankcards-list .new-card .add {
+  display: block;
+  font-size: 32px;
+  width: 100%;
+  color: #3a9bfc;
+  line-height: 118px;
+  text-align: center;
+}
+.bankcards-list .new-card .bind {
+  position: absolute;
+  display: block;
+  width: 100%;
+  margin-top: -10px;
+  font-size: 14px;
+  color: #3a9bfc;
+  top: 50%;
+  right: 0;
+  text-align: center;
+}
+.qualification .content {
+  font-size: 14px;
+  line-height: 30px;
+  color: #747474;
+}
+.qualification .content p {
+  margin-bottom: 2em;
+}
+.qualification .agreement {
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  margin: 30px 0;
+}
+.qualification .agreement label {
+  font-weight: normal;
+}
+.qualification .agreement label a {
+  color: #3a9bfc;
+}
+.qualification .actionArea {
+  text-align: center;
+}
+.account-tips {
+  margin-top: 60px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 30px;
+  color: #a7a7a7;
+}
+.account-tips .title {
+  font-size: 13px;
+}

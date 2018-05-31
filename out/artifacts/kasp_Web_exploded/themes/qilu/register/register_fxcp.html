@@ -1,0 +1,159 @@
+<div>
+	<div class="risk_assessment">
+		<p class="description">
+			<i class="iconfont">&#xe617;</i> 
+			亲爱的投资者，为了对您的风险承受能力做出评估，请您认真、客观地填写以下问卷。对于您填写的个人信息，本中心将予以严格保密，不会向任何第三方透露。因监管部门履行监管职责要求或司法部门依法行使调阅查询权除外。
+		</p>
+		<form id="doEstimateForm" class="assess-survey">
+		<#if fxcpList?exists>
+		<#assign i = 0>
+		<#list fxcpList as item>
+		<#assign i = i + 1>
+			<dl>
+				<dt>${i}.${item.qusname!''}:
+					<input type="radio" name="questionnaire${i-1}" style="display: none;" datatype="*" nullmsg="请选择答案!" />
+				</dt>
+				<dd>
+					<input type="radio" value="1" name="questionnaire${i-1}" id="questionnaire${i-1}1" />
+					<label for="questionnaire${i-1}1">A.${item.ans1!''}</label>
+				</dd>
+				<dd>
+					<input type="radio" value="2" name="questionnaire${i-1}" id="questionnaire${i-1}2"/>
+					<label for="questionnaire${i-1}2">B.${item.ans2!''}</label>
+				</dd>
+				<dd>
+					<input type="radio" value="3" name="questionnaire${i-1}" id="questionnaire${i-1}3" />
+					<label for="questionnaire${i-1}3">C.${item.ans3!''}</label>
+				</dd>
+				<#if item.ans4 != ''>
+				<dd>
+					<input type="radio" value="4" name="questionnaire${i-1}" id="questionnaire${i-1}4" />
+					<label for="questionnaire${i-1}4">D.${item.ans4!''}</label>
+				</dd>
+				</#if>
+			</dl>
+		</#list>
+		</#if>	
+		</form>
+		<form id="checkForm" class="agreement-form">
+		 <div class="agreement">
+         <input id="serviceAgreement" name="serviceAgreement" datatype="*" type="checkbox"> 
+          <label for="serviceAgreement">我持有20万资金证明,阅读并同意<a id="fxs" onclick="windowUp()" href="javascript:void(0);" >《风险揭示书》</a></label>
+        </div>
+        <div class="actionArea">
+          <input id="doEstimate"  class="btn btn-lg btn-orange" type="button" value="下一步">
+        </div>
+		</form>
+
+	</div>	
+</div>
+ 
+	
+<div id="fxjss" style="display: none">
+		<div class="regist-questionnaire" >
+			<div class="regist-questionnaire_con" style="height: 300px;font-size: 14px;overflow:auto;text-align:justify">
+				
+
+
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">齐鲁股权交易中心众筹业务合格投资者风险揭示书</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;"><br />
+</span>
+</p>
+
+					<h3 style="padding: 0;text-indent:0;">
+					投资者参与在齐鲁股权交易中心（以下简称“齐鲁股交中心”）众筹平台的项目之前，应当仔细核对自身是否具备合格投资者资格，充分了解众筹项目的特点及风险，审慎评估自身的经济状况和财务能力，考虑是否适合参与。具体包括:</h3>
+					<dl><dt> 一、众筹项目在齐鲁股交中心众筹平台发布、信息披露，但齐鲁股交中心并不对融资人的经营风险、诉讼风险以及众筹项目的投资风险或收益等作出判断或保证。
+					</dt> </dl>	<dl><dt> 二、投资者众筹投资时，应当认真阅读项目融资说明书及有关的信息披露文件（可向融资人、推荐人及其他信息披露义务人查阅），对众筹项目信息披露的真实性、准确性、完整性和及时性进行独立分析，并据以独立判断投资价值，自行承担投资风险。
+					</dt> </dl>	<dl><dt>三、投资者应当详细了解《齐鲁股权交易中心众筹业务规则（试行）》等众筹业务相关办法，充分关注众筹投资可能存在的如下风险：
+					</dt> </dl>	<dl><dt>
+					1.	投资损失。若投资项目失败，很可能使投资者失去部分或全部投资资金，齐鲁股交中心众筹平台与融资人不承担返还任何投资金额的义务。投资者投资众筹项目的资金金额应限于投资者愿意并有能力承担全部损失的额度。投资者并可通过多样化投资组合的方式来分散风险，提高整体投资回报率。
+					</dt> </dl>	<dl><dt>2.	流动性风险。由于融资人大多处于初创期或成长初期，所投资股权可能对潜在买家缺少吸引力，而导致缺乏流动性。
+					</dt> </dl>	<dl><dt>
+					3.	股息支付的不确定性。由于融资人通常处于初创期或成长初期，无法确定其是否会向投资者支付股息。这意味着投资者可能在短期内看不到被投资项目的投资回报。
+					</dt> </dl>	<dl><dt>4.	宏观经济风险。由于我国及周边国家、地区经济活动和物价水平波动，其可能导致融资人价值不同程度地贬损，齐鲁股交中心和众筹平台将不承担任何责任，投资者将承担由此造成的损失。
+					</dt></dl><dl><dt> 5.	政策风险。法律、法规及相关政策发生变化，或者平台的制度、规则发生变化，可能导致融资人经营的波动和相关信息披露的变化，齐鲁股交中心和众筹平台将不承担任何责任，投资者将承担由此造成的损失。
+					</dt></dl><dl><dt>  
+					6.	主体风险。融资人的内部管理和外部决策不在平台的控制范围内，平台只能在法律法规及平台制度、业务规则允许的范围内尽可能促使融资人向投资者进行完整的信息披露。因此，投资者将承担由于相关融资人业务风险造成的损失。大部分融资人处于种子期或初创期，规模较小，抗市场风险和行业风险的能力较弱，主营业务收入可能波动较大，在一定程度上容易引起其价值的波动，甚至导致其破产清算，由此造成投资者的损失，齐鲁股交中心和众筹平台将不承担任何责任，投资者将承担由此造成的损失。
+					</dt></dl><dl><dt>  7.	违约风险。融资人是否有能力或有意愿完全履约不在平台的控制范围内，若融资人因未能完全履行其义务导致违约事件发生，齐鲁股交中心和众筹平台将不承担任何责任，投资者将承担由此造成的损失。
+					</dt></dl><dl><dt>  8.	技术风险。因众筹平台、其他合作方或相关电信部门的互联网软硬件设备故障或失灵、或人为操作疏忽而全部或部分中断、延迟、遗漏、产生误导或造成资料传输或储存上的错误、或遭第三人侵入系统篡改或伪造变造资料等，齐鲁股交中心和众筹平台将不承担任何责任，投资者将承担由其电脑终端故障或其他非因平台原因导致系统故障而造成的损失。
+					</dt></dl><dl><dt >9.	不可抗力因素导致的风险。诸如地震、火灾、水灾等自然灾害以及战争、政府行为等不可抗力因素可能导致的损害，齐鲁股交中心和众筹平台将不承担任何责任，投资者将承担由此导致的损失。
+					</dt></dl><dl><dt>  10.	自身过错。因投资者过错可能导致自身损失，包括但不限于：决策失误、操作不当、遗忘或泄露密码、密码被他人破解、使用的计算机系统被第三方侵入、委托他人代理交易时他人恶意或不当操作而造成的损失。
+					</dt></dl>
+					<dl><dt>  四、本风险认知书的风险揭示事项未能详尽列明众筹业务的所有风险，投资者应对其它相关风险因素也有所了解和掌握，并确信自己已做好足够的风险评估与财务安排，避免因参与众筹项目投资而遭受难以承受的损失。
+					</dt></dl>
+					<dl><dt>  
+					<h style="padding: 0;text-indent:">
+					本人对上述《齐鲁股权交易中心众筹业务合格投资者风险认知书》的内容已经充分理解，承诺本人具备齐鲁股权交易中心众筹业务合格投资者资格，愿意参与众筹业务的投资，并愿意承担众筹业务的投资风险。
+        特此声明。（投资者阅读并点选视为接受该风险揭示书注意事项）
+
+					</h>
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var $riskForm;
+	var banktype='${banktype}';
+	var $doEstimateFormValidate;
+	$(function(){
+		$doEstimateFormValidate = $("#doEstimateForm").kdValidform();
+		  $riskForm = $("#checkForm");
+		$riskForm = $riskForm.kdValidform();
+		$("#doEstimate").bind('click',function(){
+			var options = {
+					type: "POST",
+					dataType:"json",
+					async:true,
+					url: "${kasp_url}mall/qilu_riskmate!doEstimate.do?ajax=yes",
+					success: function(data){
+						$.kd.closeLoading();
+			 			$("input[type=button]").attr("disabled", false);
+			 			if (data.result == '1') {
+			 				 zhejiang_alert('消息',data.message, function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+			 			}else{
+							zhejiang_alert('消息',data.message, function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+						}
+						
+					},
+					error: function(data) {
+						  zhejiang_alert('消息',"系统异常", function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+					}
+				};
+			if( $riskForm.check()&&$doEstimateFormValidate.check()){
+				$.kd.showLoading($("#doEstimate"));
+			 	$("input[type=button]").attr("disabled", true);
+			 	$("#doEstimateForm").ajaxSubmit(options);
+			}
+			
+		});
+	});
+	function next() {
+		zhejiang_alert('消息',"完成注册及绑定", function() {
+				window.location.href='${kasp_url}account_asset.html';
+		});	
+	}
+$("#fxs").bind("click",function(){
+	$(".modal-dialog").css("width","800");
+})	
+function windowUp(){
+	
+	zhejiang_alert('风险揭示书',$('#fxjss').html(),function(){
+		
+	})
+}	
+	
+</script>
+

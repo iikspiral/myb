@@ -1,0 +1,1228 @@
+<span class="user-h">安全设置</span>
+<div class="user-content-head">
+ 	<div class="user-content-head-di"></div>
+</div>
+<div class="user-box-con-1">
+	<ul id="saftyPageList" class="kd-form-style user-safety-options-list"
+		style="overflow: hidden">
+		 
+
+		
+		<li class="user-safety-options-item user-safety-options-email">
+			<a name="email" style="height: 0;"></a>
+			<div class="user-safety-options-show">
+							 <#if EMAIL?exists>
+							 <span class="user-safety-options-name"><i class="icon-check"></i><strong>邮箱验证</strong>
+							 </span>
+							 	<span class="user-safety-options-value user-safety-options-value-true">
+								<#if EMAIL?length gte 4>
+								${EMAIL?substring(0,2)}****${EMAIL?substring(EMAIL?index_of("@"))}
+								<#else>
+								${EMAIL}
+								</#if>
+								</span>
+								<span class="user-safety-options-state" switchtext="取消修改">修改</span>
+							 <#else>	
+								<span class="user-safety-options-name"><i class="icon-tanhao"></i><strong>邮箱验证</strong>
+								</span>
+								<span class="user-safety-options-value user-safety-options-value-false">未设置</span>
+								<span class="user-safety-options-state" switchtext="取消认证">认证</span>
+							 </#if>
+						
+			</div>
+
+			<div class="form-box" style="display: none">
+				<div class="form-box-content" style="height: 150px">
+					<div class="step form-style">
+						<form id="emailForm">
+						<ul class="kd-form-style" style="margin: 30px 0 30px 120px">
+							<li class="kd-form-style-item need" style="width:580px"><label
+								class="kd-form-style-label"> 请输入邮箱 <em>*</em>
+							</label> <span class="kd-form-style-value"> <input name="emailAddress"
+								class="input" type="text" datatype="e"	nullmsg="请输入真实邮箱邮箱" errormsg="邮箱输入有误！" ajaxurl="/mall/v2email!setEmail.do"/>
+							</span></li>
+							<li class="kd-form-style-item"><label
+								class="kd-form-style-label"></label> <span
+								class="kd-form-style-value"> <input id="email_validate"
+									class="kdmall-btn cancel" value="发送验证邮件" type="button" />
+							</span></li>
+						</ul>
+						</form>
+					</div>
+				</div>
+
+				<div class="link-trigger"
+					onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();">
+					<a>温馨提示</a><span></span>
+				</div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">1、请填写真实有效的邮箱地址，您可通过邮箱进行找回密码等操作。 </a>
+						</li>
+						<li class="list-rule-item">2、河北金交在线网会对用户的所有资料进行严格保密。</li>
+						<li class="list-rule-item">3、使用过程遇到问题，请联系河北金交在线客服。</li>
+					</ul>
+				</div>
+			</div></li>
+			
+			
+			<li class="user-safety-options-item"><a name="quest" style="height: 0;"></a>
+			<div class="user-safety-options-show">
+						<#if safeQuestionSeted?exists>
+							<span class="user-safety-options-name"> <i class="icon-check"></i>
+							<strong>密码保护</strong>
+						</span> <span class="user-safety-options-value user-safety-options-value-true">已设置</span>
+						<span id="questionBtn1" class="user-safety-options-state"
+					switchtext="取消设置">重新设置</span>
+						<#else>
+							<span class="user-safety-options-name"> <i class="icon-tanhao"></i>
+							<strong>密码保护</strong>
+							</span> 
+							<span	class="user-safety-options-value user-safety-options-value-false">未设置</span>
+							<span id="questionBtn1" class="user-safety-options-state"
+							switchtext="取消设置">设置</span>
+						</#if>
+				
+			</div>
+
+			<div class="form-box" style="display: none;">
+				<div class="form-box-content" style="height: 370px;">
+					<div class="options-step">
+						<div class="options-step-con">
+							<#if safeQuestionSeted?exists>
+								<span class="options-step-current">密保验证<strong>1</strong></span>
+								<span>设置新的密码保护<strong>2</strong></span>
+								<span>成功<strong>3</strong></span>
+							<#else>
+								<span class="options-step-current">设置新的密码保护<strong>1</strong></span>
+								<span>成功<strong>2</strong></span>
+							</#if>
+						 
+						</div>
+					</div>
+					<#if safeQuestionSeted?exists>
+					<div class="step">
+						<form id="verifyQAForm">
+								<ul class="kd-form-style" style="margin: 30px 0 0 120px">
+								<li class="kd-form-style-item"><label
+									class="kd-form-style-label">密保问题一 </label> <span
+									class="kd-form-style-value">
+									
+
+									<input 	class="input readonly" type="text" value="${Q1!'你最想去的地方是哪里？'}" readonly> </span>
+									<input style="display:none"	name="verifyQAForm.question1" class="input readonly" type="text" value="${usrQA.Q1}" readonly> </span>
+
+									
+									</li>
+
+								<li class="kd-form-style-item need" style="width:500px"><label
+									class="kd-form-style-label">密保答案 <em>*</em>
+								</label> <span class="kd-form-style-value"> <input class="input"
+										name="verifyQAForm.answer1" type="text" datatype="*"  nullmsg="请输密保答案" errormsg="密保答案不能为空！" />
+								</span></li>
+
+								<li class="kd-form-style-item"><label
+									class="kd-form-style-label">密保问题二 </label> <span
+									class="kd-form-style-value">
+
+									<input class="input readonly" type="text" value="${Q2!'你妈妈的生日是哪天？'}" readonly>
+									<input style="display:none"	name="verifyQAForm.question2" class="input readonly" type="text" value="${usrQA.Q2}" readonly> </span>
+
+									
+								</span></li>
+
+								<li class="kd-form-style-item need" style="width:500px"><label
+									class="kd-form-style-label">密保答案 <em>*</em>
+								</label> <span class="kd-form-style-value"> <input class="input"
+										name="verifyQAForm.answer2" type="text" datatype="*"  nullmsg="请输密保答案" errormsg="密保答案不能为空！" />
+								</span></li>
+
+								<li class="kd-form-style-item"><label
+									class="kd-form-style-label">密保问题三 </label> <span
+									class="kd-form-style-value">
+
+									<input class="input readonly" type="text" value="${Q3!'你妈妈的生日是哪天？'}" readonly>
+									<input style="display:none"	name="verifyQAForm.question3" class="input readonly" type="text" value="${usrQA.Q3}" readonly> </span>
+
+								
+								</span>
+								</li>
+
+								<li class="kd-form-style-item need" style="width:500px"><label
+									class="kd-form-style-label">密保答案 <em>*</em>
+								</label> <span class="kd-form-style-value"> <input class="input"
+										name="verifyQAForm.answer3" type="text" datatype="*"  nullmsg="请输密保答案" errormsg="密保答案不能为空！" />
+								</span></li>
+
+								<li class="kd-form-style-item"><label
+									class="kd-form-style-label"></label> <span
+									class="kd-form-style-value"> 
+									<input 	class="kdmall-btn cancel" value="验证" type="button"
+										id="vefy_next" onclick="verifyMySafeQA()">
+								</span>
+								</li>
+							</ul>
+							
+						</form>
+					</div>
+					<#else>
+						 <!--  ??   -->
+					</#if>
+					<div class="step" 		<#if safeQuestionSeted?exists> style="display: none" </#if> >
+						<form id="setQAForm">
+							<ul class="kd-form-style" style="margin: 30px 0 0 120px">
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label">密保问题一 <em>*</em>
+								</label> <span class="kd-form-style-value"> <select
+										name="setQAForm.question1" class="select" onchange="generateQuestion($(this))">
+											<option value="">请选择...</option>
+											<#if questions?exists> 
+												<#list questions as que>
+												<option value="${que.dict_key}">${que.dict_value!''}</option>
+												</#list> 
+											</#if>
+									</select>
+								</span></li>
+
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label">密保答案 <em>*</em>
+								</label> <span class="kd-form-style-value"><input class="input"
+										name="setQAForm.answer1" type="text" datatype="*"> </span></li>
+
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label">密保问题二 <em>*</em>
+								</label> <span class="kd-form-style-value"> <select
+										name="setQAForm.question2" class="select" onchange="generateQuestion($(this))">
+											<option value="">请选择...</option>
+											<#if questions?exists> 
+												<#list questions as que>
+												<option value="${que.dict_key}">${que.dict_value!''}</option>
+												</#list> 
+											</#if>
+									</select>
+								</span></li>
+
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label">密保答案 <em>*</em>
+								</label> <span class="kd-form-style-value"><input class="input"
+										name="setQAForm.answer2" type="text" datatype="*"> </span></li>
+
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label">密保问题三 <em>*</em>
+								</label> <span class="kd-form-style-value"> <select
+										name="setQAForm.question3" class="select">
+											<option value="">请选择...</option>
+											<#if questions?exists> 
+												<#list questions as que>
+												<option value="${que.dict_key}">${que.dict_value!''}</option>
+												</#list> 
+											</#if>
+									</select>
+								</span></li>
+
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label">密保答案 <em>*</em>
+								</label> <span class="kd-form-style-value"><input class="input"
+										name="setQAForm.answer3" type="text" datatype="*"> </span></li>
+								<li class="kd-form-style-item"><label
+									class="kd-form-style-label"></label> <span
+									class="kd-form-style-value">
+									 <input id="setMySafeID"	class="kdmall-btn cancel" value="下一步" type="button"
+										onclick="reSetQA()">
+								</span></li>
+							</ul>
+						</form>
+					</div>
+
+					<div class="step" style="display: none">
+						<div style="text-align: center; padding-top: 60px;">
+							<div>恭喜你，密码保护修改成功！</div>
+								系统将会在<span id="succesSQA">&nbsp;5&nbsp;</span>秒后自动跳回
+						</div>
+					</div>
+				</div>
+				<div class="link-trigger">
+					<a
+						onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();">温馨提示</a><span></span>
+				</div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">1.请牢记您设置的密码保护问题，密码问题将用于找回密码等重要操作。
+						</li>
+						<li class="list-rule-item">2.使用过程遇到问题，请联河北金交在线客服。</li>
+					</ul>
+				</div>
+			</div></li>
+			
+			<li class="user-safety-options-item"><a name="phone" style="height: 0;"></a>
+			<div class="user-safety-options-show">
+				<span class="user-safety-options-name"> <i class="icon-check"></i>
+					<strong>手机认证</strong>
+				</span> <span
+					class="user-safety-options-value user-safety-options-value-true">
+							 <#if mobiletel?exists>
+							 		${mobiletel?substring(0,3)}****${mobiletel?substring(7)}
+							 <#else>
+							 	.		
+							 </#if>
+					</span>
+				<span id="phoneBtn1" class="user-safety-options-state"
+					switchtext="取消修改">修改</span>
+			</div>
+			<div class="form-box" style="display: none">
+				<div class="form-box-content" style="height: 330px">
+					<div class="options-step">
+						<div class="options-step-con">
+							<span class="options-step-current">身份验证<strong>1</strong>
+							</span> <span>验证新手机号码<strong>2</strong>
+							</span> <span>成功<strong>3</strong>
+							</span>
+						</div>
+					</div>
+					<div class="step form-style">
+						<form id="verify4alertPhoneForm">
+							<ul class="kd-form-style" style="margin: 30px 0 0 120px;">
+								<li class="kd-form-style-item need" style="width: 600px">
+									<label 	  class="kd-form-style-label">登录密码 <em>*</em>
+									</label> 
+									<span class="kd-form-style-value"> 
+										<input id="phpas" name="alterPhone.loginPasswd" 
+										class="input" type="password" datatype="checkPassword" nullmsg="请输入登录密码！" errormsg="登录密码输入有误！" >
+									</span>
+								</li>
+								
+								<li class="kd-form-style-item need" style="width: 600px">
+								<#if safeStatus?exists>
+									<#if safeStatus.individualorinstitution == "1">
+										<label 	class="kd-form-style-label"> 证件号码 <em>*</em>
+										</label> 
+										<span class="kd-form-style-value"> 
+											<input id="phidcard" name="alterPhone.idcard" class="input" type="text" datatype="*" nullmsg="请输入证件号码！" errormsg="证件号码不能为空！" />
+										</span>
+										</span>
+									<#else>
+										<label 	class="kd-form-style-label"> 身份证号 <em>*</em>
+										</label> 
+										<span class="kd-form-style-value"> 
+											<input id="phidcard" name="alterPhone.idcard" class="input" type="text" datatype="idcard" nullmsg="请输入真实的身份证号！" errormsg="身份证号输入有误！" />
+										</span>
+										</span>
+									</#if>
+								</#if>
+								</li>
+								<li class="kd-form-style-item need" style="width: 600px">
+								<label
+									class="kd-form-style-label"> 请选择问题 <em>*</em>
+								 </label> 
+								 <span class="kd-form-style-value"> <select id="question"
+										name="alterPhone.question" class="select">
+											<#if safeQuestionSeted?exists>
+												<option value="1">${Q1!'你最想去的地方是哪里？'}</option>
+												<option value="2">${Q2!'你妈妈的生日是哪天？'}</option>
+												<option value="3">${Q3!'你妈妈的生日是哪天？'}</option>
+											<#else>
+												<#if questions?exists> 
+													<#list questions as que>
+													<option value="${que_index+1}">${que.dict_value!''}</option>
+												</#list> 
+												</#if>
+											</#if> 
+										
+									</select>
+								</span>
+								</li>
+								<li class="kd-form-style-item need" style="width: 600px">
+									<label
+										class="kd-form-style-label"> 请输入答案 <em>*</em>
+									</label> 
+									<span class="kd-form-style-value">
+										<input id="phanswer" name="alterPhone.answer" class="input" type="text" datatype="*" nullmsg="请输入答案!" errormsg="答案不能为空"> 
+									</span>
+								</li>
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label"></label> <span
+									class="kd-form-style-value"> 
+									<input id="verify4alertPhoneId"	class="kdmall-btn cancel" value="下一步" type="button"
+										onclick="verify4alertPhone()" />
+								</span></li>
+							</ul>
+						</form>
+					</div>
+
+					<div class="step form-style" style="display: none;">
+						<form id="step2vcodeFormId">
+							<ul style="margin: 30px 0 0 120px;">
+								<li class="kd-form-style-item need" style="width: 600px"><label
+									class="kd-form-style-label">新的手机号码 <em>*</em>
+								</label> 
+									<span class="kd-form-style-value">
+											<input id="step2phone" name="mobiletel" type="text" class="input " value=""
+											 datatype="m" nullmsg="请输入手机号码" errormsg="手机号码不合法"  ajaxurl="/mall/newRegister!regPhone.do"/>
+										<input name="upphone" id="step2vcode" class="kdmall-btn cancel" value="获取验证码" type="button" onclick="obtainCode()"/>
+									</span>
+								</li>
+
+								<li class="kd-form-style-item need" style="width: 600px"><label
+									class="kd-form-style-label">验证码 <em>*</em>
+								</label> 
+									<span class="kd-form-style-value"> 
+										<input name="txt_validatecode" type="text" class="input" value="" 	datatype="n6-6" class="input" errormsg="请输入6位数字验证码！"/>
+									</span>
+								</li>
+								<li class="kd-form-style-item need"><label
+									class="kd-form-style-label"></label> 
+								<span 	class="kd-form-style-value"> 
+								<input id="step2PhoneValidate"	class="kdmall-btn cancel" value="下一步" type="button"
+										onclick="isValidatCodeMatchphone()" />
+								</span>
+								</li>
+							</ul>
+						</form>
+					</div>
+					<div class="step form-style"
+						style="display: none; text-align: center; padding-top: 50px;">
+						<span>恭喜你修改手机号码成功!</span>
+						系统将会在<span id="successPHO">&nbsp;5&nbsp;</span>秒后自动跳回
+					</div>
+				</div>
+				<div class="link-trigger"
+					onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();">
+					<a>温馨提示</a><span></span>
+				</div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">1、请填写真实有效的手机号，手机号将作为验证用户身份的重要手段。 </a>
+						</li>
+						<li class="list-rule-item">2、河北金交在线会对用户的所有资料进行严格保密。</li>
+						<li class="list-rule-item">3、使用过程遇到问题，请联系河北金交在线客服。</li>
+					</ul>
+				</div>
+			</div></li>
+			
+
+		<li class="user-safety-options-item">
+			<div class="user-safety-options-show">
+				<span class="user-safety-options-name"> <i class="icon-check"></i><strong>登录密码</strong>
+				</span> <span
+					class="user-safety-options-value user-safety-options-value-true">******</span>
+				<span class="user-safety-options-state" switchtext="取消修改">修改</span>
+			</div>
+
+			<div class="form-box" style="display: none;">
+				<div class="form-box-content" style="height: 250px;">
+					<div class="options-step">
+						<div class="options-step-con">
+							<span class="options-step-current">手机验证<strong>1</strong>
+							</span> <span>重新设置密码<strong>2</strong>
+							</span> <span>成功<strong>3</strong>
+							</span>
+						</div>
+					</div>
+
+					<div class="step">
+						<form id="resetpassform">
+							<ul class="kd-form-style" style="margin: 30px 0 0 120px;">
+								<li class="kd-form-style-item" style="width:550px">
+									<label 	class="kd-form-style-label">
+									</label>
+									<span 	class="kd-form-style-value" style="width:450px">
+									验证码将发送到你注册时的尾号为****
+									<#if mobiletel?exists>
+									<input type="hidden" name="mobiletel" value="${mobiletel}">
+										<#if mobiletel?length gte 11>
+										${mobiletel?substring(7)}
+										<#else>
+										${mobiletel}
+										</#if>
+									<#else>
+										****
+									</#if>
+									的手机上
+									</span>
+									<input style="display:none" id="randno" name="randno" type="text" class="input" 
+									value="<#if mobiletel?exists> ${mobiletel} </#if>" /> 
+								</li>
+								<li class="kd-form-style-item need" style="width: 600px">
+								<label
+									class="kd-form-style-label">手机验证码 <em>*</em>
+								</label> <span class="kd-form-style-value"> 
+								<input name="txt_validatecode" type="text" datatype="/^\d{6}$/" class="input"> 
+								<input id="alterPassValidate" class="kdmall-btn cancel" value="获取验证码" type="button" onclick="obtainCode1()"/>
+								</span></li>
+								<li class="kd-form-style-item">
+								<label 	class="kd-form-style-label"></label> 
+								<span class="kd-form-style-value">
+									<input id="topas" class="kdmall-btn cancel" value="验证" type="button" onclick="isValidatCodeMatchlp()"   /> </span>
+								</li>
+							</ul>
+						</form>
+					</div>
+
+					<div class="step" style="display: none">
+						<form id="dropdofrom">
+							<ul class="kd-form-style" style="margin: 30px 0 0 120px;">
+								<!-- <li class="kd-form-style-item need"><label
+									class="kd-form-style-label"> 原登录密码 <em>*</em>
+								</label> <span class="kd-form-style-value"><input name="realname"
+										type="text" class="input"> </span></li> -->
+								<li class="kd-form-style-item need" style="width: 600px">
+								<label class="kd-form-style-label">输入新密码<em>*</em></label>
+						        	<input type="password" name="newPassword" id="password" class="input" datatype="checkPassword" nullmsg="请设置密码！" errormsg="6-16位字符，至少包含数字、字母(区分大小写),不能使用空格！" />
+									<span class="kdValidform_checktip">密码范围在6~16位之间,不能使用空格</span>
+								</li>
+								<li class="kd-form-style-item need" style="width: 600px">
+								<label class="kd-form-style-label">确认密码<em>*</em></label>
+					        	<input type="password" name="newPassword2" id="password2" class="input" datatype="*" recheck="newPassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！" />
+								<span class="kdValidform_checktip">两次输入密码需一致</span>
+								</li>
+								<li class="kd-form-style-item" style="width: 600px">
+								<label 	class="kd-form-style-label"></label> 
+									<span class="kd-form-style-value">
+										<input id="dropdo" onclick="dropmypas()"	class="kdmall-btn cancel" value="修改" type="button" > 
+									</span>
+								</li>
+							</ul>
+						</form>
+					</div>
+
+					<div class="step" style="display: none">
+						<div style="text-align: center; padding-top: 20px;">
+							<div>恭喜你，登陆密码修改成功！</div>
+							<div>
+								<span id="dropdoTimeConter" style="color: red">5</span>&nbsp;秒钟后页面将自动跳转到“登录”，如果浏览器不能自动跳转，请
+								<a style="text-decoration: underline"
+									href="javascript: window.location.href = 'login.html';">点击此处</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="link-trigger">
+					<a
+						onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();">温馨提示</a><span></span>
+				</div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">1.首先需验证账号绑定的手机。</li>
+						<li class="list-rule-item">2.请牢记您设置的新密码，登录密码可通过密码找回功能找回。</li>
+					</ul>
+				</div>
+			</div>
+		</li>
+		<li class="user-safety-options-item"><a name="payPwd" style="height: 0;"></a>
+			<div class="user-safety-options-show">
+				<#if signbank?exists>
+				<#if signbank.channeltype == '01' || safeStatus.depositaccount == "1" || safeStatus.depositaccount == "0">
+				<span class="user-safety-options-name"> <i class="icon-check"></i><strong>交易密码</strong>
+				</span> 
+				<span class="user-safety-options-value user-safety-options-value-true">******</span>
+				<span class="user-safety-options-state" switchtext="取消修改">修改</span>
+				<#else>
+				<span class="user-safety-options-name"> <i class="icon-tanhao"></i><strong>交易密码</strong>
+				</span>  
+				<span 	class="user-safety-options-value user-safety-options-value-false">未设置</span>
+				<span class="user-safety-options-state" switchtext="取消设置">设置</span>
+				</#if>
+				<#else>
+				<span class="user-safety-options-name"> <i class="icon-tanhao"></i><strong>交易密码</strong>
+				</span>  
+				<span 	class="user-safety-options-value user-safety-options-value-false">未设置</span>
+				<span class="user-safety-options-state" switchtext="取消设置">设置</span>
+				</#if>
+			</div>
+			<div class="form-box" style="display: none;">
+				<div class="form-box-content" style="height: 300px;">
+					<div id="payPwdCon1" class="form-style" style="display: none;">
+						 
+					</div>
+					<div id="payPwdCon2" class="form-style">
+						<div class="options-step">
+							<div class="options-step-con">
+								<span class="options-step-current">短信验证<strong>1</strong>
+								</span> <span>交易密码修改<strong>2</strong>
+								</span> <span>成功<strong>3</strong>
+								</span>
+							</div>
+						</div>
+
+						<div class="step form-style">
+							<form id="resetpassformtd">
+								<ul class="kd-form-style" style="margin: 30px 0 0 120px;">
+									<li class="kd-form-style-item" style="width:550px">
+									<label 	class="kd-form-style-label"></label>
+							  
+									<span 	class="kd-form-style-value" style="width:450px">
+									验证码将发送到你注册时的尾号为****
+									<#if mobiletel?exists>
+									<input type="hidden" name="mobiletel" value="${mobiletel}">
+										<#if mobiletel?length gte 11>
+											${mobiletel?substring(7)}
+										<#else>
+											${mobiletel}
+										</#if>
+									<#else>
+										****
+									</#if>
+									的手机上
+									</span>
+									<input style="display:none" id="randno" name="randno" type="text" class="input" 
+									value="<#if mobiletel?exists> ${mobiletel} </#if>" /> 
+									</li>
+									<li class="kd-form-style-item need" style="width: 600px">
+										<label class="kd-form-style-label">短信口令 <em>*</em>
+									</label> <span class="kd-form-style-value">
+								 
+									<input name="txt_validatecode" type="text" datatype="/^\d{6}$/" class="input"> 
+									<input id="btn_get_validatecode"	class="kdmall-btn cancel" value="获取短信口令" type="button" onclick="obtainCode2()" />
+									</span>
+									</li>
+									<li class="kd-form-style-item"><label
+										class="kd-form-style-label"></label> <span
+										class="kd-form-style-value"> 
+										<input id="tdValCo" 	class="kdmall-btn cancel" value="下一步" type="button"
+											onclick="isValidatCodeMatchtd()">
+									</span></li>
+								</ul>
+							</form>
+						</div>
+
+						<div class="step form-style" style="display: none;">
+							<form id="updttpForm">
+								<ul class="kd-form-style" style="margin: 30px 0 0 120px;">
+							 		
+						<li class="kd-form-style-item need itemWidth">
+		                    <label  class="kd-form-style-label">新交易密码<em>*</em></label>
+		                    <span class="kd-form-style-value">
+		                    	<input id="tradePWD11" name="tradePWD1" type="password" class="input" datatype="n6-6" nullmsg="请输入6位数字交易密码！" errormsg="请输入6位数字交易密码！" />
+		                    </span>
+		                </li>
+		                <li class="kd-form-style-item need itemWidth">
+		                    <label class="kd-form-style-label">新交易密码确认<em>*</em></label>
+		                    <span class="kd-form-style-value">
+		                    	<input id="tradePWD22" name="tradePWD1" type="password" class="input" datatype="*" recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！" />
+		                    </span>
+		                </li>
+									 
+									 
+									<li class="kd-form-style-item"><label
+										class="kd-form-style-label"></label> <span
+										class="kd-form-style-value"> 
+										 
+										<input id="updttp"	class="kdmall-btn cancel" value="下一步" type="button"
+											onclick="updateTp()">
+									</span>
+								</li>
+								</ul>
+							</form>
+						</div>
+
+						<div class="step form-style" style="display: none">
+							<span style="padding-left: 290px;">恭喜你修改交易密码成功!</span>
+							系统将会在<span id="successTPD">&nbsp;5&nbsp;</span>秒后自动跳回
+							<!-- <div>
+								<span id="tradeTimeConter" style="color: red">5</span>&nbsp;秒钟后页面将自动调回认证中心
+							</div> -->
+						</div>
+					</div>
+
+				 
+				</div>
+				<div class="link-trigger">
+					<a
+						onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();">温馨提示</a><span></span>
+				</div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">1.请牢记您设置的交易密码，交易密码将用于投资，提现等重要操作。</li>
+						 
+					</ul>
+				</div>
+			</div>
+			</li>
+
+		
+	</ul>
+</div>
+<!--验证码-->
+ <div id="codeimg" style="display:none">
+ <div style="">
+	<li class="kd-form-style-item need" style="width: 380px;">
+	<label class="kd-form-style-label" style="width:60px">验证码<em>*</em></label>
+		<span class="kd-form-style-value">
+		<input name="validcode" style="width:90px;height:30px;float:left;vertical-align:middle;border: 1px solid #CC9966;" type="text" value='' id="validcode" datatype="*" class="input" errormsg="请输入右侧的验证码！"/>
+		<img id="codeimg" style="width: 100px;height: 30px;float:left;margin: 4px;vertical-align: middle;cursor: pointer;border: 1px solid #EFEFEF;" title="看不清楚？" src="/validcode.do?vtype=admin&rmd=' + new Date().getTime();" onclick="$(this).attr('src', '/validcode.do?vtype=admin&rmd=' + new Date().getTime())"></img>
+		<span class="kdValidform_checktip" style="vertical-align:middle;">请输入验证码！</span>
+		</span>
+	</li>
+	<input type="hidden" id='hiddencode' />
+ </div>
+ </div>
+<script>
+		var $dropdofrom;
+		var $veryQA ;
+		var $emailForm  ;
+		var $verify4alertPhoneform;
+		var $step2vcodeform ;
+		var $updttpform ;
+	$(function(){
+		$step2vcodeform = $("#step2vcodeFormId").kdValidform();
+		$updttpform = $("#updttpForm").kdValidform();
+		$veryQA = $("#verifyQAForm").kdValidform();
+		$emailForm =$("#emailForm").kdValidform();
+		$dropdofrom = $("#dropdofrom").kdValidform();
+		$verify4alertPhoneform = $("#verify4alertPhoneForm").kdValidform();
+		
+		//手机验证点击时判断是否设置了密保
+		$("#phoneBtn1").bind("click",function(){
+		$.post(
+			"mall/securityquestion!getSecurityQuestion.do?ajax=yes"	,
+			{},
+			function(data) {
+				if (data.result=="1") {
+
+					}else{
+					$.kd.kdAlert(data.message, function() {
+						window.location.href = "/account_certification_center.html?_="+new Date().getTime();
+					},"手机认证");
+					}
+			},
+			"json"
+			);	
+		});
+		
+		$("#email_validate").bind('click',function(){
+	 		 var options = {
+	 					type:'post',//可选get
+	 					url : "/mall/v2email!sendEmail.do?ajax=yes",
+	 					dataType : "json",
+	 					success : function(data) {
+	 						$('#email_validate').attr("disabled", false).removeClass('disabled');
+							var response = data.responseText;
+	 						var obj = eval(response);
+	 						if (obj[0].success) {
+		 						$.kd.kdMsg('已向您的新邮箱发送一封验证邮件!');	
+	 						}else{
+								$.kd.kdAlert(obj[0].msg);
+							}
+	 					},
+	 					error : function(data) {
+	 						$('#email_validate').attr("disabled", false).removeClass('disabled');
+	 						var response = data.responseText;
+	 						var obj = eval(response);
+	 						if (obj[0].success) {
+		 						$.kd.kdMsg('已向您的新邮箱发送一封验证邮件!');	
+	 						}else{
+								$.kd.kdAlert(obj[0].msg);
+							}
+	 					}
+	 				};
+			 $emailForm =$("#emailForm").kdValidform();
+	 		 if($emailForm.check()&& $("input.kdValidform_error").size() == 0){
+	 			$('#email_validate').attr("disabled", true).addClass('disabled');
+	 			$("#emailForm").ajaxSubmit(options);
+	 			
+	 		 }
+	 			
+	 		 });
+		 $("#alterPassValidat").bind('click',function(){
+				$.ajax({
+					type: "POST",
+					dataType:"json",
+					async:true,
+					url: "mall/newRegister!obtainValidateCode.do?ajax=yes",
+					 
+					success: function(data){
+						var response = data.responseText;
+						var obj = eval(response);
+						if (obj[0].success) {
+							$.kd.kdMsg('验证码已发送!');
+						    var wait=60;  
+						    timeCounter(wait,$("#alterPassValidate"));
+						}
+					},
+					error: function(data) {
+						var response = data.responseText;
+						var obj = eval(response);
+						if (obj[0].success) {
+							$.kd.kdMsg('验证码已发送!');
+						    var wait=60;  
+						    timeCounter(wait,$("#alterPassValidate"));
+						}
+					}
+				});
+			});
+		 
+		$("#btn_get_validatecod").bind('click',function(){
+			$.ajax({
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/newRegister!obtainValidateCode.do?ajax=yes",
+				 
+				success: function(data){
+					var response = data.responseText;
+					var obj = eval(response);
+					if (obj[0].success) {
+						$.kd.kdMsg('验证码已发送!');
+					    var wait=60;  
+					    timeCounter(wait,$("#btn_get_validatecode"));
+					}
+				},
+				error: function(data) {
+					var response = data.responseText;
+					var obj = eval(response);
+					if (obj[0].success) {
+						$.kd.kdMsg('验证码已发送!');
+					    var wait=60;  
+					    timeCounter(wait,$("#btn_get_validatecode"));
+					}
+				}
+			});
+		});
+		
+	
+	});
+	
+	function verifyMySafeQA(){
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/newSafeQA!verifyQAs.do?ajax=yes",
+				success: function(data){
+					$("input[type=button]").attr("disabled", false);
+				},
+				error: function(data) {
+		 			  $("input[type=button]").attr("disabled", false);
+			 		  if(!data) return ;
+			 		  var text = data.responseText;
+			 		  var res = eval(text)[0];
+			 		  if(res.success){
+			 			  if(res.flag1 &&res.flag2&& res.flag3){
+			 			  next($("#vefy_next"));
+			 			  }else if(!res.flag1&&res.flag2&&res.flag3){
+			 				  $.kd.kdMsg('问题一回答错误');
+			 			  }else if(res.flag1&&!res.flag2&&res.flag3){
+			 				  $.kd.kdMsg('问题二回答错误');
+			 			  }else if(res.flag1&&res.flag2&&!res.flag3){
+			 				  $.kd.kdMsg('问题三回答错误');
+			 			  }else{
+			 				 $.kd.kdMsg('回答错误');
+			 			  }
+			 		  }else{
+			 			  $.kd.kdMsg("设置密保问题失败!");
+			 		  }  
+				}
+			};
+		if($veryQA.check()){
+			$("#verifyQAForm").ajaxSubmit(options);
+		}else{
+			$.kd.kdMsg('密保问题必填');
+		}
+		
+	}
+	
+	function reSetQA(){
+
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/newSafeQA!updateMysafeQA.do?ajax=yes",
+				success: function(data){
+					$("input[type=button]").attr("disabled", false);
+				},
+				error: function(data) {
+		 			  $("input[type=button]").attr("disabled", false);
+			 		  if(!data) return ;
+			 		  var text = data.responseText;
+			 		  var res = eval(text)[0];
+			 		  if(res.success){
+			 			  next($("#setMySafeID"));
+			 			 timeOutRelocate(5, 'account_certification_center.html','succesSQA')
+			 		  }else{
+			 			  $.kd.kdMsg("设置密保问题失败!");
+			 		  }  
+				}
+			};
+		if( true){
+			if($("select[name='setQAForm.question3']").val()==''||$("select[name='setQAForm.question1']").val()==''||$("select[name='setQAForm.question2']").val()==''){
+				$.kd.kdMsg("设置密保问题答案不能为空!");
+				return ;
+			}
+		 	$("input[type=button]").attr("disabled", true);
+		 	$("#setQAForm").ajaxSubmit(options);
+		}
+  	}
+	function timeCounter(wait,$btn) {  
+        if (wait == 0) {  
+        	$btn.attr("disabled", false).val("获取验证码");            
+            wait = 60;  
+        } else {  
+        	$btn.attr("disabled", "disabled").val("重新发送(" + wait + ")");  
+            wait--;  
+            setTimeout(function() {  
+                timeCounter(wait,$btn)  
+            },  
+            1000)  
+        }  
+	}
+	
+	function generateQuestion($select) {
+		var $con = $select.closest("div");
+		var $curLi = $select.closest("li");
+		$("option", $con).show();
+		
+		if($select.attr("name") == "setQAForm.question1") {
+			$("option[value=" + $select.val() + "]", $curLi.nextAll("li")).hide();
+		} else if($select.attr("name") == "setQAForm.question2") {
+			$("option[value=" + $("[name='setQAForm.question1']").val() + "]", $select).hide();
+			$("option[value=" + $select.val() + "]", $curLi.nextAll("li")).hide();
+			$("option[value=" + $("[name='setQAForm.question1']").val() + "]", $curLi.nextAll("li")).hide();
+		}
+		$("select", $curLi.nextAll("li")).not($select).val("");
+	}
+	function timeOutRelocate(time, url,id){
+		var n = time, temp = setInterval(function() {
+			if(n == 0) {
+				clearInterval(temp);
+				window.location.href = url;
+			}
+			$("#"+id).text(n--);
+		}, 1000);
+	}
+	
+	function timeOutlogout(time, loFunc,id){
+		var n = time, temp = setInterval(function() {
+			if(n == 0) {
+				loFunc();
+			}
+			$("#"+id).text(n--);
+		}, 1000);
+	}
+	
+
+
+	function dropmypas(){
+			if($dropdofrom.check()){
+				var _$_ = $("#password").val();
+				var _$_ = $.des.getDes(_$_,'kingdom');
+				$("#password").val(_$_);
+				$("#password2").val(_$_);
+				var options ={
+							dataType : "text",
+							url : "/mall/newSetCustPWD!resetLoginPwd.do?ajax=yes",
+							success : function(data) {
+								if(!data) {
+									$.kd.kdAlert("出错了！");
+									$("#password").val("");
+					  				$("#password2").val("");
+								} else {
+									var data =  eval("("+data+")");
+									//var json = eval(data)[0];
+									if(data.result == "1"){
+										next($("#dropdo"));
+										timeOutlogout(5, logout,'dropdoTimeConter');
+									}
+								}
+						 
+							},
+							
+			error : function(data){
+					if (!data)
+					{
+						$.kd.kdAlert("出错了！");
+						$("#password").val("");
+						$("#password2").val("");
+					}
+					else
+					{
+						var data =  eval("("+data+")");
+						if (data.result == "1") 
+						{
+							next($("#dropdo"));
+							timeOutlogout(5, logout, 'dropdoTimeConter');
+						}
+					}
+				}
+
+			};
+			$("#dropdofrom").ajaxSubmit(options);
+		}
+
+		
+	function logout() {
+			$.post("mall/newlogin!newlogout.do", {}, function(data){
+				var result = eval("("+data+")");//$.parseJSON(data);
+				if (result.result == 1) 
+				{
+					window.location.href = "/index.html?_="
+							+ new Date().getTime();
+				} else 
+				{
+					rdmAlert(result.message);
+				}
+			});
+		}
+	}
+	
+
+	function isValidatCodeMatchlp(){
+ 		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/newPhone!isValidatCodeMatch.do?ajax=yes",
+				success: function(data){
+					//var redata = eval("("+data+")");
+					if(data.result==1){
+						$("input[type=button]").attr("disabled", true);
+						next($("#topas"));
+					}else{
+						$.kd.kdAlert(data.message);
+						return;
+					}
+					$("input[type=button]").attr("disabled", false);
+				},
+				error: function(data) {
+					$.kd.kdAlert("出错啦!"); 
+					return;
+				}
+			};
+ 		if(true){
+ 			$("#resetpassform").ajaxSubmit(options);
+ 		}
+ 	}	
+	
+		function isValidatCodeMatchphone(){
+ 		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/newPhone!isValidatCodeMatch.do?ajax=yes",
+				success: function(data){
+					//var redata = eval("("+data+")");
+					if(data.result==1){
+						$("input[type=button]").attr("disabled", true);
+						updatePhoneNo();
+					}else{
+						$.kd.kdAlert(data.message);
+					}
+					$("input[type=button]").attr("disabled", false);
+				},
+				error: function(data) {
+					$.kd.kdAlert("验证码错误!"); 
+				}
+			};
+ 			$("#step2vcodeFormId").ajaxSubmit(options);
+ 	}
+	
+	function isValidatCodeMatchtd(){//tdValCo
+ 		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/newPhone!isValidatCodeMatch.do?ajax=yes",
+				success: function(data){
+					if(data.result==1){
+						$("input[type=button]").attr("disabled", true);
+						next($("#tdValCo"));
+					}else{
+						$.kd.kdAlert(data.message);
+						return;
+					}
+					$("input[type=button]").attr("disabled", false);
+				},
+				error: function(data) {
+					$.kd.kdAlert("出错啦!"); 
+						return; 
+				}
+			};
+ 		if(true){
+ 			//resetpassformtd
+ 			$("#resetpassformtd").ajaxSubmit(options);
+ 		}
+ 	}	
+	
+	function verify4alertPhone(){
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/changePhone!validate4ChangeMobile.do?ajax=yes",
+				success: function(data){
+					$("input[type=button]").attr("disabled", false);
+				},
+				error: function(data) {
+						 
+		 			  $("input[type=button]").attr("disabled", false);
+			 		  if(!data) return ; 
+			 		  var text = data.responseText;
+			 		  var res = eval(text)[0];
+			 		  if(res.success){
+			 			 next($("#verify4alertPhoneId"));
+			 		  }else{
+			 			 if(res.code == 1){$("#phpas").val(""); $("#phpas").focus()}
+			 			 if(res.code == 2){$("#phidcard").val(""); $("#phidcard").focus()}
+			 			 if(res.code == 3){$("#phanswer").val(""); $("#phanswer").focus()}
+			 			  $.kd.kdMsg(res.msg);
+			 			  
+			 		  }  
+				}
+			};
+ 		if($verify4alertPhoneform.check()){
+ 			//resetpassformtd
+ 			var _ps_ = $("#phpas").val();
+ 			_ps_ = $.des.getDes(_ps_,'kingdom');
+ 			 $("#phpas").val(_ps_);
+ 			 $("input[type=button]").attr("disabled", true);
+ 			$("#verify4alertPhoneForm").ajaxSubmit(options);
+ 		}
+	}
+	
+	function updatePhoneNo(){
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/changePhone!updatePhone.do?ajax=yes",
+				success: function(data){
+					$("input[type=button]").attr("disabled", false);
+					
+					if (data.result == '1'){
+						$.kd.kdMsg(data.data.msg);
+					     next($("#step2PhoneValidate"));
+					     timeOutRelocate(5, 'account_certification_center.html','successPHO')
+					}else{
+						$.kd.kdAlert(data.message);
+					}
+				},
+				error: function(data){
+					$.kd.kdAlert("手机号修改失败！");
+				}
+			};
+			if($step2vcodeform.check()){
+				$("input[type=button]").attr("disabled", true);
+				$("#step2vcodeFormId").ajaxSubmit(options);	
+			}
+	}
+	
+	function updateTp(){
+		var _tradepwd_ =$("#tradePWD11").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd_,'kingdom');
+		 
+		var dataPWD = {npassword:_tradepwd_};
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				data:dataPWD,
+				url: "mall/newRegister!addtradePwd.do?ajax=yes",
+				  
+				success: function(data){
+					$.kd.closeLoading();
+					if(data.result == 1){
+						$.kd.kdMsg( "修改交易密码成功!");
+						next($("#updttp"));
+						timeOutRelocate(5, 'account_certification_center.html?type=safe','successTPD');
+					}else{
+			 		  	 $.kd.kdMsg( "修改交易密码,请重试!");
+			 		  	$("input[type=button]").attr("disabled", false);
+			 		  }
+				},
+				error: function(data) {
+					 $.kd.kdAlert( "修改交易密码失败!");
+				}
+			};
+			if($updttpform.check() ){
+				$.kd.showLoading($("#updttp"));
+				$("input[type=button]").attr("disabled", true);
+				$.ajax(options);
+			}
+	}
+	
+	
+		function obtainCode(){
+		if($("#step2vcodeFormId span span").hasClass("kdValidform_checktip kdValidform_wrong")){
+			//$("#step2vcodeFormId input[name='upphone']").attr("disabled", true);
+			return;
+		}else{
+			$("#step2vcodeFormId input[name='upphone']").attr("disabled", false);
+		}
+		var wa = $("#step2vcode").val();
+		var array = wa.match(/\d+/);
+		if(!(array==null)){
+			wa = array[0];
+		}
+		if( wa && wa >0 && wa < 300){
+			return ;
+		}
+		var step2phone = $("#step2phone").val();
+		if($.trim(step2phone).length != 11){
+			return;
+		}
+
+		checkcode(90,$("#step2vcode"),$.trim(step2phone));
+	}
+	
+	function obtainCode1(){
+		var wa = $("#randno").val();
+		var array = wa.match(/\d+/);
+		if(!(array==null)){
+			wa = array[0];
+		}
+		if( wa && wa >0 && wa < 300){
+			return ;
+		}
+		var step2phone = $("#randno").val()
+		if($.trim(step2phone).length != 11){
+			return;
+		}
+
+		checkcode(90,$("#alterPassValidate"),$.trim(step2phone));
+	}
+	
+	function obtainCode2(){
+		var wa = $("#randno").val();
+		var array = wa.match(/\d+/);
+		if(!(array==null)){
+			wa = array[0];
+		}
+		if( wa && wa >0 && wa < 300){
+			return ;
+		}
+		var step2phone = $("#randno").val()
+		if($.trim(step2phone).length != 11){
+			return;
+		}
+
+		checkcode(90,$("#btn_get_validatecode"),$.trim(step2phone));
+	}
+	
+	function checkcode(wait,$btn,mobiletel){
+		$("#codeimg").attr('src','/validcode.do?vtype=admin&rmd=' + new Date().getTime());
+    	$.kd.kdConfirm($('#codeimg').html(), function(){
+    		sendcode(wait,$btn,mobiletel);
+    	}, function(){}, '', '确定', '取消');
+    }
+	
+	function sendcode(wait,$btn,mobiletel){
+   		var code = $("#hiddencode").val();
+   		$.post('/mall/newPhone!sendMsg.do', {validcode:code,mobiletel:mobiletel}, function(data) {
+   			var redata = eval("("+data+")");
+   			if(redata.result == 0){
+   				$.kd.kdMsg(redata.message);
+   				return;
+   			}else{
+   				$.kd.kdMsg('验证码已发送!'); 
+				timeCounter(wait,$btn);
+   			};
+   		});
+   	}
+	
+	$("#kd-ui-dialog-content-border #validcode").live('blur', function(event) {
+   		$('#hiddencode').val($(this).val());
+   	});
+	
+
+	
+</script>

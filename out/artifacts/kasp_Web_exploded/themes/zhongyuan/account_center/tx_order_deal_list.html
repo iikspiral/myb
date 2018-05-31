@@ -1,0 +1,343 @@
+<script type="text/javascript" src="js/myproject.flow.js"></script>
+<style>
+
+.table tr td{
+	font-size:12px;
+	text-align:left;
+	
+}
+#tabsCont{
+	float:left;
+	height:auto;
+	line-height:40px;
+	
+	width: 748px;
+}
+#tabsCont ul li{
+	float:left;
+}
+.ordertitles{
+	width:200px;
+	max-width:200px;
+
+}	
+
+.ui-tabs-anchor{
+	height:30px;
+	line-height:30px;
+	margin-right:20px;
+	font-size:15px;
+	background: #F5F5F5;
+	border-radius: 3px;
+}
+
+.ui-tabs-anchor-current{
+	height:30px;
+	line-height:30px;
+	margin-right:20px;
+	font-size:15px;
+	background: #3371DD;
+	border-radius: 3px;
+	color:#fff;
+}
+.linkButtonOk {
+	width: 60px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	border-radius: 3px;
+	color: #FFF!important;
+	text-decoration: none!important;
+	padding: 0 5px;
+	cursor: pointer;
+	background: #9EABC2;
+	display: block;
+}
+</style>
+
+ <div class="account-main">
+
+	<div class="user-content">
+		<div class="ordertitles"><span class="user-h">订单列表</span></div>
+		
+		
+		<div class="user-content-head" >
+	      	<div class="user-content-head-di"></div>
+	    </div>
+	<div class="orderCheck">
+		
+			<ul id="orderstatus">
+				<li>订单状态：</li>
+				<li><a href="javascript: void(0);" order-status="0" <#if paymethod=="0"> class="current" </#if> >未支付订单</a></li>
+				<li><a href="javascript: void(0);" order-status="2" <#if paymethod=="2"> class="current" </#if> >已完成订单</a></li>
+				<li><a href="javascript: void(0);" order-status="3" <#if paymethod=="3"> class="current" </#if> >取消的订单</a></li>
+			</ul>
+			<ul id="ordertype">
+				<li>订单类型：</li>
+				<li><a href="javascript: void(0);" dealtype="10002" <#if dealtype=="10002"> class="current" </#if> >债权</a></li>
+				<li><a href="javascript: void(0);" dealtype="10003" <#if dealtype=="10003"> class="current" </#if> >转让</a></li>
+			</ul>
+	</div>
+		
+		<table class="table" id="tabs-1" >
+			<tr>
+				<th >订单编号</th>
+				<th >产品名称</th>
+				<th >金额(元)</th>
+				<th >已支付金额(元)</th>
+				<th >发生时间</th>	
+				<th >支付状态</th>
+				<th >确认支付</th>
+			</tr>
+			<#if orderlist?exists>
+			<#if (orderlist?size>0)>
+	            <#list orderlist as order>
+			<tr>
+				<td><div ><a id="order-detail" kd-value="${order.sbbh!''}" href="/tx_order_detail.html?orderno=${order.sbbh!''}">${order.sbbh!''}</a></div></td>
+
+				<td title="${order.borrowtitle!''}"><div style="width:130px;" >${order.borrowtitle!''}</div></td>
+				
+				<td class="center"><div >${order.investamount?default("0.00")?number?string("###,###,###,##0.00")}</div></td>
+				<td >${order.paymoney!'0.00'}</td>
+				<td class="center"><div >${order.sbrq!''}</div></td>
+				<#if order.paymethod == '0'>
+				<#if order.dealtype=='10002'>
+				<td class="center"><div >未支付</div></td>
+				<td class="center">
+					<div style="width:50px;float:left;margin-top:7px;margin-right:3px;">
+						<a id="order_10002_${order.sbbh!''}"  kd-value="${order.sbbh!''}" href="${kisp_url!''}order_payment.html?orderno=${order.sbbh!''}" style="width:40px" class="linkButton" title="订单到${order.loseefficacy}将失效,自动取消订单" >支付</a>					
+					</div>&nbsp;&nbsp;&nbsp;&nbsp;
+					<div style="width:50px;float:left;margin-top:7px;margin-left:3px;">
+						<a  id="cancelbutton1" class="linkButton lasttime" surplusTime="${order.ajs!''}" b-value="${order.sbbh!''}" style="width:40px" onclick="bondOrderCancel('${order.sbbh!''}','onclick');">取消</a>						
+					</div>
+				</td>
+				<#elseif order.dealtype=='10003'>
+				<td class="center"><div >未支付</div></td>
+				<td class="center">
+					<div style="width:50px;float:left;margin-top:7px;margin-right:3px;">
+						<a id="order_10003_${order.sbbh!''}" kd-value="${order.sbbh!''}" href="order_payment.html?orderno=${order.sbbh!''}"  style="width:40px" class="linkButton"  title="订单到${order.loseefficacy}将失效，自动取消订单">支付</a>					
+					</div>&nbsp;&nbsp;&nbsp;&nbsp;
+					<div style="width:50px;float:left;margin-top:7px;margin-left:3px;">
+						<a  id="cancelbutton2" class="linkButton losetime" surplusTime="${order.ajs!''}" t-value="${order.sbbh!''}" style="width:40px" onclick="transferOrderCancel('${order.sbbh!''}','onclick');">取消</a>						
+					</div>
+				</td>
+				</#if>
+				<#elseif  order.paymethod == '2'>
+				<td class="center"><div >已支付</div></td>
+				<td class="center"><div ><a class="linkButtonOk" >完成</a></div></td>
+				<#elseif order.paymethod == '3'>
+				<td class="center"><div >未支付</div></td>
+				<td class="center"><div ><a class="linkButtonOk"  >已取消</a></div></td>
+				</#if>
+			</tr>
+
+			</#list>
+			<#else>
+				<tr><td colspan="7" style="text-align:center">暂无订单记录</td></tr>
+			</#if>
+			</#if>
+		</table>
+		
+		<input id="currentpaymethod" value="${paymethod}" type="hidden"/>
+		<input id="currenttype" value="${dealtype}" type="hidden"/>
+		
+		<div id="page_area" class="pager-info" style="padding-left:0px;"></div>
+	
+		</div>
+	</div>
+</div>
+<script>		
+    	//分页
+		$.kd.kdPager.init({
+			currentPage: '${page_orderlist!'1'}',
+			totalPage: '${totalPage_orderlist!'1'}',
+			totalRecords: '${totalCount_orderlist!'0'}',
+			prefix: '/tx_order_deal_list.html',
+			suffix: function(n) {
+				return generalParam() +"&page=" + n;
+				
+			}
+		});
+		
+	function generalParam() {
+			var currentpaymethod = $("#currentpaymethod").val();
+			var currenttype = $("#currenttype").val();
+			param = "paymethod="+currentpaymethod+"&dealtype="+currenttype;
+			return param ;
+		}
+		
+	/**
+		转让订单取消
+	**/	
+	function transferOrderCancel(sbbh,cancelway){
+		var datas ={
+			orderno:sbbh
+	};
+			$.kd.kdAlert('确认取消',function(){	
+			$("#cancelbutton2").attr("disabled",true);
+			$.ajax({
+				url:"mall/cancelorder!cancelTransferOrder.do?ajax=yes",	
+				dataType:"text",
+				data: datas,								
+				success:function(data) {
+					var json = eval("("+data+")");
+					if(json.result == 1){
+						if(cancelway =='onclick'){
+							$.kd.kdAlert("订单取消成功!",function(){
+							window.location.href = "/tx_order_deal_list.html"
+						});
+						}else{
+							window.location.href = "/tx_order_deal_list.html"
+						}
+						
+					}else{
+						$.kd.kdAlert(json.message)
+					}
+				},
+				error:function(data) {
+					var json = eval("("+data+")");
+					$.kd.kdAlert(json.data.msg);					
+					return false;
+				}
+			});		
+		});	
+	}
+	
+	/**
+		认购订单取消
+	**/	
+	function bondOrderCancel(sbbh,cancelway){
+		var datas ={
+			orderno:sbbh
+			};
+			$.kd.kdAlert('确认取消',function(){	
+			$("#cancelbutton1").attr("disabled",true);
+			$.ajax({
+				url:"mall/cancelorder!cancelBondOrder.do?ajax=yes",	
+				dataType:"text",
+				data: datas,								
+				success:function(data) {
+					var json = eval("("+data+")");
+					if(json.result == 1){
+						if(cancelway =='onclick'){
+							$.kd.kdAlert("订单取消成功!",function(){
+							window.location.href = "/tx_order_deal_list.html"
+						});
+						}else{
+							window.location.href = "/tx_order_deal_list.html"
+						}
+						
+					}else if(json.result == 0){
+						$.kd.kdAlert(json.message);
+					}
+				},
+				error:function(data) {
+					var json = eval("("+data+")");
+					$.kd.kdAlert(json.message);					
+					return false;
+				}
+			});		
+		});	
+	}
+	
+	
+	$(function(){
+		
+		
+	})
+	
+	
+	$("#orderstatus li a").bind("click",function(){
+		var currentpaymethod = $("#currentpaymethod").val();
+		var currenttype = $("#currenttype").val();
+		var cvaltype="";
+		$("#orderstatus li a").removeClass("current");
+		var paymethod = $(this).addClass("current");
+		var current = $(this);
+		cvalstatus = current.attr("order-status");
+		var url = "/tx_order_deal_list.html";
+		var data = {paymethod:cvalstatus,dealtype:currenttype};
+		$.kutil.pageReload(url,data);
+		//window.location.href = "/tx_order_deal_list.html?paymethod="+cvalstatus+"&dealtype="+currenttype;
+
+	})
+	
+	$("#ordertype li a").bind("click",function(){
+		var currentpaymethod = $("#currentpaymethod").val();
+		var currenttype = $("#currenttype").val();
+		var cvalstatus="";
+		$("#ordertype li a").removeClass("current");
+		var paymethod = $(this).addClass("current");
+		var current = $(this);
+	    cvaltype = current.attr("dealtype");
+		var url = "/tx_order_deal_list.html";
+		var data = {paymethod:currentpaymethod,dealtype:cvaltype};
+		$.kutil.pageReload(url,data);
+		//window.location.href = "/tx_order_deal_list.html?paymethod="+currentpaymethod+"&dealtype="+cvaltype;
+
+	})
+	
+
+	$("#order_10002").bind("click",function(){
+		var orderno = $("#order_10003").attr("kd-value");
+		var url = "/order_payment.html";
+		var data = {orderno:orderno};
+		$.kutil.pageReload(url,data);
+	})
+	$("#order_10003").bind("click",function(){
+		var orderno = $("#order_10003").attr("kd-value");
+		var url = "/order_payment.html";
+		var data = {orderno:orderno};
+		$.kutil.pageReload(url,data);
+	})
+	
+	$("#order-detail").bind("click",function(){
+		var orderno = $("#order-detail").attr("kd-value");
+		var url = "/tx_order_detail.html";
+		var data = {orderno:orderno};
+		$.kutil.pageReload(url,data);
+	})
+orderLostTime();
+function orderLostTime()
+	{
+		$(".linkButton.lasttime").each(function(i){
+			var sbbh = this.getAttribute("b-value");
+			var surplusTime = this.getAttribute("surplusTime");
+			this.setAttribute("surplusTime",--surplusTime);
+			if(surplusTime > 0)
+			{
+				var second = Math.floor(surplusTime % 60);     
+				var minite = Math.floor((surplusTime / 60) % 60);
+				var hour = Math.floor((surplusTime / 3600) % 24);
+				var day = Math.floor((surplusTime / 3600) / 24);
+				//$(this).html(day+"天"+hour+"小时"+minite+"分"+second+"秒");
+			}else{
+				
+				//bondOrderCancel(sbbh,"");
+				//location.reload();
+				//window.location.href = "/index.html";
+			}
+	 });
+	// setTimeout("updateEndTime()",1);
+	 
+	 $(".linkButton.losetime").each(function(i){
+			var sbbh = this.getAttribute("t-value");
+			var surplusTime = this.getAttribute("surplusTime");
+			this.setAttribute("surplusTime",--surplusTime);
+			if(surplusTime > 0)
+			{
+				var second = Math.floor(surplusTime % 60);     
+				var minite = Math.floor((surplusTime / 60) % 60);
+				var hour = Math.floor((surplusTime / 3600) % 24);
+				var day = Math.floor((surplusTime / 3600) / 24);
+				//$(this).html(day+"天"+hour+"小时"+minite+"分"+second+"秒");
+			}else{
+				//bondOrderCancel(sbbh,"");
+				//location.reload();
+			}
+	 });
+	// setTimeout("updateEndTime()",1);
+	 
+	};	
+	
+</script>

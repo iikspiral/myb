@@ -1,0 +1,167 @@
+<div class="right-title">
+    <h2>债权信息</h2>
+</div>
+<ul class="kd-form-style clearfix" style="margin-top: 30px">
+	<li class="kd-form-style-item oneline need ">
+		<label class="kd-form-style-label">是否回购<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="b_1" type="radio" name="paramBorrow.backornot" value="1" datatype="checkback"/><label for="b_1">是</label>
+			<input id="b_2" type="radio" name="paramBorrow.backornot" value="2" datatype="checkback" checked/><label for="b_2">否</label>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label ">募集周期(天)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="raiseterm" name="paramBorrow.raiseterm" class="input" type="text" value="${borrow.raiseterm!''}" datatype="n,raiseterm" nullmsg="请填写募集周期！" errormsg="募集周期不能大于90天" />
+			<span class="kdValidform_checktip"></span>
+		</span>				
+	</li>
+	<li class="kd-form-style-item oneline need" style="display: none;">
+		<label class="kd-form-style-label">回购周期(天)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="buyback" name="paramBorrow.buyback" class="input" type="text" value="${borrow.buyback!''}" nullmsg="请填写回购周期！" errormsg="请正确填写回购周期！" />
+			<span class="kdValidform_checktip"></span>
+		</span>				
+	</li>
+	
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">还款方式<em>*</em></label>
+		<span class="kd-form-style-value">
+			<select id="paymentmode" name="paramBorrow.paymentmode" class="select" onchange="$('#deadline').val('');" datatype="*" nullmsg="请选择还款方式！">
+				<option value="0">--请选择--</option>
+				<#if paymentmode?exists>
+				<#list paymentmode as i>
+				
+				<!-- 获取按日计息还款方式字典 -->
+				<#if  i.dict_key == "6" || i.dict_key == "7" || i.dict_key == "8" || i.dict_key == "9">
+				<option value="${i.dict_key!''}" <#if borrow.paymentmode?exists && i.dict_key == borrow.paymentmode>selected="true"</#if>>
+					${i.dict_value!''}
+				</option>
+				</#if>
+				<!-- 获取所以还款方式字典 -->
+				<!--<option value="${i.dict_key!''}" <#if borrow.paymentmode?exists && i.dict_key == borrow.paymentmode>selected="true"</#if>>
+					${i.dict_value!''}
+				</option>-->
+				
+				</#list>
+				</#if>
+				<!--							
+				1 (按月计息)按月等额本息还款 2 (按月计息)一次性还本按月付息	3 (按月计息)一次性还本付息	4 (按月计息)一次性还本按季付息
+				5 (按月计息)一次性还本按半年付息	6  （按日计息）回购 一次性还本付息	7  按日计息，按月付息，到期还本 8 (按日计息)按季付息,到期还本
+				9 (按日计息)按半年付息,到期还本		
+				-->
+			</select>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline clear-left">
+		<label class="kd-form-style-label">投资者人数(不超过)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="investor_num" type="text" class="input" name="paramBorrow.investorable" value="${borrow.investorable!''}" datatype="n,investorable" nullmsg="请填写投资者人数！" errormsg="投资者人数不能大于200人" />
+		</span>
+	</li>
+
+	<li class="kd-form-style-item oneline need ">
+		<label class="kd-form-style-label">预期年化收益率(%)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="annualrate" name="paramBorrow.annualrate" type="text" class="input" value="${borrow.annualrate!''}" datatype="n" nullmsg="请填写预期年化收益率！" errormsg="请正确填写预期年化收益率！" />
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need clear-left">
+		<label class="kd-form-style-label">资金募集总额(万元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="withdrawAmount" name="paramBorrow.borrowamount" type="text" class="input" value="${borrow.borrowamount!''}" datatype="n" nullmsg="请填写资金募集总额！" errormsg="请正确填写资金募集总额！" />
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need ">
+		<label class="kd-form-style-label">增信状态<em>*</em></label>
+		<span class="kd-form-style-value">
+			<select id="creditstatus" name="paramBorrow.creditstatus" class="select" datatype="*" nullmsg="请选择还款方式！">
+				<option value="">--请选择--</option>
+				<option value="1" <#if borrow.creditstatus?exists && borrow.creditstatus == "1">selected="true"</#if>>有</option>
+				<option value="0" <#if borrow.creditstatus?exists && borrow.creditstatus == "0">selected="true"</#if>>无</option>						
+			</select>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need clear-left">
+		<label class="kd-form-style-label">融资期限(月)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="deadline" name="paramBorrow.deadline" type="text" class="input" value="${borrow.deadline!''}" datatype="n,deadline" nullmsg="请填写融资期限！"/>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need ">
+		<label class="kd-form-style-label">是否本息担保<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="r_1" type="radio" name="paramBorrow.counteragent" value="1" checked/><label for="r_1">是</label>
+			<input id="r_2" type="radio" name="paramBorrow.counteragent" value="2" <#if borrow.counteragent == '2'>checked</#if> datatype="*" nullmsg="请选择是否本息担保！"/><label for="r_2">否</label>
+		</span>
+	</li>
+
+	<li class="kd-form-style-item oneline need clear-left">
+		<label class="kd-form-style-label">是否可以转让<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="r_3" type="radio" name="paramBorrow.isdebt" value="-1" checked /><label for="r_3">是</label>
+			<input id="r_4" type="radio" name="paramBorrow.isdebt" value="1" <#if borrow.isdebt == '1'>checked</#if> datatype="*" nullmsg="请选择是否可以转让！"/> <label for="r_4">否</label>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">资金认购起点(万元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="lest_amount" name="paramBorrow.mintenderedsum" class="input" type="text" value="${borrow.mintenderedsum!''}" datatype="n" nullmsg="请填写资金认购起点！"/>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need clear-left">
+		<label class="kd-form-style-label">最小认购单位(万元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="min_per_amount" name="paramBorrow.smallestflowunit" class="input" type="text" value="${borrow.smallestflowunit!''}" datatype="n" nullmsg="请填写最小认购单位！"/>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label">募集资金用途<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="moneypurposes" name="paramBorrow.moneypurposes" type="text" class="textarea" datatype="*" nullmsg="请填写募集资金用途！">${borrow.moneypurposes!''}</textarea>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label">偿债保障机制<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="lvl" name="paramBorrow.lvl" type="text" class="textarea" datatype="*" nullmsg="请填写偿债保障机制！">${borrow.lvl!''}</textarea>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label">增信措施<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="credit" name="paramBorrow.credit" type="text" class="textarea" datatype="*" nullmsg="请填写增信措施！">${borrow.credit!''}</textarea>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label">认购协议<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea name="paramBorrow.buyagreement" class="textarea" type="text" datatype="*" nullmsg="请填写认购协议！">${borrow.buyagreement!''}</textarea> 
+		</span>
+	</li>
+</ul>
+
+<ul class="kd-form-style clearfix">
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">&nbsp;</label>
+		<span class="kd-form-style-value">
+			<input type="button" class="kdmall-btn" value="保存" onclick="save();" style="width: 80px;float: left;">
+			<input type="button" class="kdmall-btn" value="重置" onclick="$form.resetForm();" style="width: 80px;float: left;">
+		</span>
+	</li>
+</ul>
+
+<script>
+	$(function() {
+		if("${borrow.buyback!''}") {
+			$("#raiseterm, #deadline")
+			.attr({"readonly": true}).removeAttr("datatype")
+			.addClass("kdValidform_readonly")
+			.removeClass("kdValidform_right")
+			.removeClass("kdValidform_wrong")
+			.val("");
+		}
+	});
+</script>

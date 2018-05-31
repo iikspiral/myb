@@ -1,0 +1,130 @@
+<!-- 右边栏 -->
+<!-- 数据统计 -->
+<div class="statistics" id="total-content">
+			 
+</div>
+<!-- 公告专栏 -->
+<div class="newslist">
+	<h2>公告专栏</h2>
+	<ul id="notice_content">
+		
+	</ul>
+</div>
+
+<!-- 行业动态 -->
+<div class="newslist">
+	<h2>行业动态</h2>
+	<ul id="news_content">
+		 
+	</ul>
+</div>
+
+<script>
+var kifpwebindex = kifpwebindex || {};
+kifpwebindex.notice = {
+	init:function(){
+		var self = this;
+		//self.getTotal();
+		self.getNews();
+		//self.getNotice();
+	}
+	,getTotal:function(){
+		$.post(
+					"/mall/advshow!getInvestTotal.do?ajax=yes",
+					{},
+					function(retData){	
+						  Handlebars.registerHelper("transformat",function(value){
+						  var money = value;
+						  var moneyformat = $.kutil.formatMoney(money);
+						  return moneyformat;
+						});
+						if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+								
+							var items1 = retData.kdjson.items;
+						    kifpwebindex.notice.template1 = Handlebars.compile( $("#index_total_tpl").html() );
+							var renderHtml1 = kifpwebindex.notice.template1(items1);							
+							$("#total-content").html(renderHtml1);
+						//	$.kd.kdMsg("change to js template data");
+							kifpwebindex.notice.getNotice();
+						
+						}else{
+							kifpwebindex.notice.getNotice();
+						}
+					},"json");
+	}
+	,getNews:function(){
+		$.post(
+				"/mall/newshow!getIndexNews.do?ajax=yes&type=news",
+				{},
+				function(retData){						
+					if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+						var items1 = retData.kdjson.items;
+						kifpwebindex.notice.template2 = Handlebars.compile( $("#news_tpl").html() );
+						var renderHtml1 = kifpwebindex.notice.template2(items1);							
+						$("#news_content").html(renderHtml1);
+					//	$.kd.kdMsg("change to js template data");
+						kifpwebindex.notice.getTotal();
+					}else{
+						kifpwebindex.notice.getTotal();
+					}
+										
+				},"json");
+				
+	}
+	,getNotice:function(){
+		$.post(
+				"/mall/newshow!getIndexNews.do?ajax=yes&type=notice",
+				{},
+				function(retData){						
+					if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+						var items1 = retData.kdjson.items;
+						kifpwebindex.notice.template3 = Handlebars.compile( $("#notice_tpl").html() );
+						var renderHtml1 = kifpwebindex.notice.template3(items1);							
+						$("#notice_content").html(renderHtml1);
+						
+						
+					//	$.kd.kdMsg("change to js template data");
+						kifpwebindex.priorityproductlist.init();	 
+					} else{
+						kifpwebindex.priorityproductlist.init();
+					}
+				},"json");
+	} 
+}
+$(function(){
+		kifpwebindex.notice.init();	 			
+});
+</script>
+ 
+<script id="index_total_tpl" type="text/x-handlebars-template">
+{{#each this}}
+	<h2><i class="iconfont">&#xe606;</i> 数据统计</h2>
+				<dl>
+					<dt>综合年化收益率</dt>
+					<dd>8%~21%</dd>
+					<dt>用户投资总额</dt>
+					<dd>{{transformat totalinvestamount}}元</dd>
+					<dt>用户预计可赚取收益</dt>
+					<dd>{{transformat totalhasinterest}}元</dd>
+	</dl>
+{{/each}}
+</script>
+
+<script id="news_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<li>
+			<i class="iconfont">&#xe60e;</i>
+			<a target="_blank" href="/getmorearticlelook.html?type={{cat_id}}&article_id={{article_id}}">{{title}}</a>
+		</li>
+{{/each}}
+</script>
+<script id="notice_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<li>
+			<i class="iconfont">&#xe60e;</i>
+			<a target="_blank" href="/getmorearticlelook.html?type={{cat_id}}&article_id={{article_id}}">{{title}}</a>
+		</li>
+{{/each}}
+</script>

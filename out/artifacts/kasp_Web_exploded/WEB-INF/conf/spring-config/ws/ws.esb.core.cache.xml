@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="cache" class="com.websuites.esb.cache.Cache">
+    	<property name="cacheFile">
+    		 <value>WEB-INF\conf\cache-config\cache-file-config.xml</value>
+    	</property>
+    	<property name="broadcast">
+    		 <value>off</value>
+    	</property>
+        <property name="senderAdapter">
+            <ref bean="senderAdapter"/>
+        </property>
+        <property name="receiverAdapter">
+            <ref bean="receiverAdapter"/>
+        </property>
+	</bean>	
+</beans>

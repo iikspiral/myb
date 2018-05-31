@@ -1,0 +1,60 @@
+	<!-- 此层为基本信息---------------------------->
+	<div class="identity">
+	<input name="personalaccount" value="1" type="hidden"/>
+		<h3>机构信息</h3>
+		<ul>
+		<li>
+			<label>开户机构</label>
+			<#if branchname?exists && branchname != '-1'>
+			<input name="branchcode" value="${branchcode!''}" type="hidden" readonly="readonly"/>
+			<input name="branchname" value="${branchname!''}" type="text" readonly="readonly"/>
+			<#else>
+			<select id="yyb" name="branchcode" style="height: auto;">
+				<#if yywd?exists>
+				<#list yywd as yyb >
+					<option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+				</#list>
+				</#if>
+			</select>
+			</#if>
+			<input name="branchcodeflag" value="1" style="display:none" type="text">
+		</li>
+	
+		<li>
+			<label for="realname">企业名称</label>
+			<#if chineseName?exists>
+				<input name="certificateName" type="text" value="${chineseName!''}" readonly="readonly"/>
+			<#else>
+				<input name="certificateName" type="text"  datatype="*" nullmsg="请输入名称！" errormsg="请输入企业名称！"/>
+			</#if>
+		</li>
+		
+		<#if certificateno?exists>
+			<input name="branchcodeflag" value="1"  type="hidden">
+			<input name="certificatetype" value="${certificatetype!''}"  type="hidden">
+		<#else>
+		<li>
+			<label>证件类型 </label>
+			<select id="certificatetype" name="certificatetype" style="height: auto;">
+				<#if certTypeList?exists>
+						<#list certTypeList as item >
+					<option value="${item.subitem}">${item.subitemname}</option>
+				</#list>
+				</#if>
+			</select>
+			<input name="branchcodeflag" value="1" style="display:none" type="text">
+		</li>
+		</#if>
+		
+		<li>
+			<label for="idnum">证件号码</label>
+			<#if certificateno?exists>
+				<input name="certificateNo" type="text" value="${certificateno!''}" readonly="readonly"/>
+			<#else>
+				<input name="certificateNo" type="text" datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" />
+			</#if>
+		</li>
+		
+	</ul>
+    </div>
+	<!--  end -------------------------------------------------------------------------------------------------------------->

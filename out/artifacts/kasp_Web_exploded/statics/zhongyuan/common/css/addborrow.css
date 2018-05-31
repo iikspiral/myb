@@ -1,0 +1,183 @@
+﻿.addproject.left {
+	float: left;
+	width: 240px;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+	border: 1px solid #E7E7E7;
+	box-shadow: 0 0 10px #C7C5C5;
+}
+
+.addproject.right {
+	float: right;
+	width: 730px;
+	padding: 10px;
+	margin-top: 10px!important;
+	margin-bottom: 10px;
+	text-align: left;
+	border: 1px solid #E7E7E7;
+	box-shadow: 0 0 10px #C7C5C5;
+}
+
+.addproject .step {
+    width: 240px;
+}
+
+.addproject .step ul li {
+    border-radius: 5px 5px 5px 5px;
+    height: 60px;
+    line-height: 60px;
+    list-style: none outside none;
+    margin: 10px 0;
+    padding-bottom: 1px;
+    width: 240px;
+    border: 1px solid #E7E7E7;
+}
+
+.addproject .step ul li span.nav1,
+.addproject .step ul li span.nav2,
+.addproject .step ul li span.nav3,
+.addproject .step ul li span.backend{
+	float: left;
+    width: 70px;
+	background: url("../images/icons.png") no-repeat;
+}
+
+.addproject .step ul li span.nav1 {
+    background-position: -5px -637px;
+}
+.addproject .step ul li span.nav2 {
+    background-position: -5px -699px;
+}
+.addproject .step ul li span.nav3 {
+    background-position: -5px -762px;
+}
+.addproject .step ul li span.backend {
+    width: 30px;
+    background-position: -403px -367px;
+}
+.addproject .step ul li span.text {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    width: 135px;
+}
+.addproject .step ul li span.text a {
+    color: #555;
+	height: 61px;
+    display: block;
+    cursor: pointer;
+	font-size: 16px;
+	line-height: 63px;
+}
+
+.addproject .step ul li:hover,
+.addproject .step ul li.cur {
+    background: #CCC;
+}
+
+.addproject .step ul li:hover span.nav1,
+.addproject .step ul li.cur span.nav1 {
+    background-position: -54px -637px;
+}
+.addproject .step ul li:hover span.nav2,
+.addproject .step ul li.cur span.nav2 {
+    background-position: -54px -699px;
+}
+.addproject .step ul li:hover span.nav3,
+.addproject .step ul li.cur span.nav3 {
+    background-position: -54px -762px;
+}
+.addproject .step ul li:hover span.backend,
+.addproject .step ul li.cur span.backend {
+    width: 30px;
+    background-position: -403px -367px;
+}
+
+.addproject .step ul li:hover span.text a,
+.addproject .step ul li.cur span.text a {
+    color: #FFF;
+}
+
+.addproject .step ul li.save {
+	border-radius: 0;
+    height: auto;
+    line-height: auto;
+    list-style: none outside none;
+    margin: 0;
+    padding-bottom: 0;
+    width: 240px;
+    border: 0;
+}
+.addproject .step ul li.save span {
+	background-image: url("../images/icons.png");
+	background-repeat: no-repeat;
+	display: block;
+	height: 40px;
+	left: 25px;
+	position: absolute;
+	width: 21px;
+}
+
+.addproject .step ul li.save .save span {
+	background-position: -20px -891px;
+}
+
+.addproject .step ul li.save .save:hover {
+	color: #FFF!important;
+	background-color: #2900FF;
+}
+
+.addproject .step ul li.save .save:hover span {
+	background-position: -46px -891px;
+}
+
+.addproject .step ul li.save .preview span {
+	background-position: -20px -928px;
+}
+
+.addproject .step ul li.save .preview:hover {
+	color: #FFF!important;
+	background-color: #2900FF;
+}
+
+.addproject .step ul li.save .preview:hover span {
+	background-position: -49px -928px;
+}
+
+.addproject .step ul li.save a {
+	position: relative;
+	background-color: #411DFF;
+	float: left;
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 1px;
+	padding-left: 20px;
+	width: 98px;
+	font-family: 'Microsoft Yahei';
+	border-radius: 3px 3px 3px 3px;
+	color: #BBB;
+	text-align: center;
+}
+
+.right-title {
+	margin-top: 10px;
+	height: 40px;
+	width: 100%;
+	border-bottom: 2px solid #DCD8CD;
+	position: relative;
+}
+
+.right-title h2 {
+	color: #666;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	margin-bottom: -2px;
+	float: left;
+	font: 400 22px/40px 'Microsoft Yahei';
+	border-bottom: 2px solid #F75000;
+}

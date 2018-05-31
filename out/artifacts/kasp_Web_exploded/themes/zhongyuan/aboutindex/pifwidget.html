@@ -1,0 +1,88 @@
+<script>
+    $(function() {
+	
+		$("#privatelending").css("display","block");
+		$("#incomeright").css("display","none");
+		$("#privateproduct").css("display","none");
+		$("#badproducttransfer").css("display","none");
+		$('.lava').css({left:$('a.item:first').position()['left']});
+		$('a.item:first').css("color", "#fff");
+	    // 分类产品
+		//set the default location (fix ie 6 issue)
+		/*$('.lava').css({left:$('a.item:first').position()['left']});
+		$('a.item:first').css("color", "#fff");
+		$('.item').mouseover(function () {
+			var $this = $(this);
+			//scroll the lava to current item position
+			$('.lava').stop().animate({left:$(this).position()['left']}, 'fast');
+			$('.item').css("color", "#713d86");
+			$this.css("color", "#fff");		
+			//scroll the panel to the correct content
+			$('.panel').stop().animate({left:$(this).position()['left'] * (-4.4)}, 'fast');
+		});*/
+		$("#privatelending_item").mouseover(function(){
+			$("#privatelending").css("display","block");
+			$("#incomeright").css("display","none");
+			$("#privateproduct").css("display","none");
+			$("#badproducttransfer").css("display","none");
+			var $this = $(this);
+			//scroll the lava to current item position
+			$('.lava').stop().animate({left:$(this).position()['left']}, 'fast');
+			$('.item').css("color", "#713d86");
+			$this.css("color", "#fff");		
+			//scroll the panel to the correct content
+			//$('.panel').stop().animate({left:$(this).position()['left'] * (-4.4)}, 'fast');
+		});
+		$("#incomeright_item").mouseover(function(){
+			$("#privatelending").css("display","none");
+			$("#incomeright").css("display","block");
+			$("#privateproduct").css("display","none");
+			$("#badproducttransfer").css("display","none");
+			var $this = $(this);
+			//scroll the lava to current item position
+			$('.lava').stop().animate({left:$(this).position()['left']}, 'fast');
+			$('.item').css("color", "#713d86");
+			$this.css("color", "#fff");		
+			//scroll the panel to the correct content
+			//$('.panel').stop().animate({left:$(this).position()['left'] * (-4.4)}, 'fast');
+		});
+		$("#privateproduct_item").mouseover(function(){
+			$("#privatelending").css("display","none");
+			$("#incomeright").css("display","none");
+			$("#privateproduct").css("display","block");
+			$("#badproducttransfer").css("display","none");
+			var $this = $(this);
+			//scroll the lava to current item position
+			$('.lava').stop().animate({left:$(this).position()['left']}, 'fast');
+			$('.item').css("color", "#713d86");
+			$this.css("color", "#fff");		
+			//scroll the panel to the correct content
+			//$('.panel').stop().animate({left:$(this).position()['left'] * (-4.4)}, 'fast');
+		});
+		$("#badproducttransfer_item").mouseover(function(){
+			$("#privatelending").css("display","none");
+			$("#incomeright").css("display","none");
+			$("#privateproduct").css("display","none");
+			$("#badproducttransfer").css("display","block");
+			var $this = $(this);
+			//scroll the lava to current item position
+			$('.lava').stop().animate({left:$(this).position()['left']}, 'fast');
+			$('.item').css("color", "#713d86");
+			$this.css("color", "#fff");		
+			//scroll the panel to the correct content
+			//$('.panel').stop().animate({left:$(this).position()['left'] * (-4.4)}, 'fast');
+		});
+		
+		$(".p-img img").each(function() {
+			var current = $(this);
+			var imgval = current.attr("imgval");
+			var imgsrc = current.attr("imgsrc");
+			if(imgval!=undefined && imgval!=null && imgval!=""){
+				current.attr("src",imgsrc);
+			}else{
+				current.attr("src","${staticserver}/common/images/project_min.gif");
+			}
+			//new $.kd.kdLoadImage(current, current.attr("imgsrc"), "${staticserver}/common/images/project_min.gif").load();
+		});
+	});
+</script>

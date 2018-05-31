@@ -1,0 +1,178 @@
+<script type="text/javascript" src="js/myproject.flow.js"></script>
+<div class="rightcontent">
+	<div class="user-content">
+		<span class="user-h">订单列表</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"></div>
+	    </div>
+		<table class="table">
+			<tr>
+				<th>序号</th>
+				<th>订单编号</th>
+				<th>投资金额</th>
+				<th>年化收益率</th>
+				<th>融资期限</th>
+				<th>操作1</th>	
+				<th>操作2</th>
+				<th>操作3</th>
+			</tr>
+			<#if orderlist?exists>
+			<#list orderlist as order>	
+			<tr>
+				<td></td>
+				<td><div >${order.sbbh!''}</div></td>
+				<td class="center"><div >${order.investamount!''}</div></td>
+				<td class="center"><div >12%</div></td>
+				<td >12个月</td>
+				<td class="center"><div ><a class="linkButton" href="/order_payment.html">立即支付</a></div></td>
+				<td class="center"><div ><a class="linkButton" href="/my_orderlist.html?type=detail&&ssbh=${order.sbbh!''}" >查看详情</a></div></td>
+				<td class="center"><div ><a class="linkButton" href="#" >订单取消</a></div></td>
+			</tr>
+			<tr>
+				<td colspan="8" style="text-align:center">您的订单还需支付<b>${((order.investamount?default("0.00")?number)-(order.paymoney?default("0.00")?number))?string("###,###,###,##0.00")}</b>元</td>
+			</tr>
+			</#list>
+			</#if>
+		</table>
+	</div>
+		
+
+</div>
+<script>
+$(function() {	
+	$("#restartSubmit").bind('click',function() {			
+		var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data:{},
+			url:"mall/newjudge!restart.do?ajax=yes",										
+			success:function(data) {
+				//alert("11111");
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href ="/addborrow.html";
+					} else {
+
+					window.location.href ="/apply_usertype.html";  
+
+					}
+				})
+						
+			}
+		}
+		$.ajax(options);
+	});
+});
+
+function judge(id, onlyid) {	
+	$.ajax({
+		type: "POST",
+		dataType:"json",
+		async:true,
+		data: {id: id},
+		url:"mall/judge!checkIftransfer.do?ajax=yes",										
+		success:function(data) {
+		},
+		error:function(data) {
+			if(!data) return;
+			var ss = data.responseText;
+			var resultJson = eval(ss);
+				if(resultJson[0].result){
+					window.location.href = "bondtransfer.html?id=" + id + "&onlyid=" + onlyid;
+				}else{
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href = "bondtransfer.html?id=" + id + "&onlyid=" + onlyid;
+					} else {
+						
+					}
+				})
+			}
+		}
+	});
+}
+
+function judge2(id, onlyid) {	
+
+	window.location.href = "/transferorder.html?id=" + id + "&onlyid=" + onlyid;
+	/* $.ajax({
+		type: "POST",
+		dataType:"json",
+		async:true,
+		data: {id: id},
+		url:"mall/judge!checkIftransfer.do?ajax=yes",										
+		success:function(data) {
+		},
+		error:function(data) {
+			if(!data) return;
+			var ss = data.responseText;
+			var resultJson = eval(ss);
+				if(resultJson[0].result){
+					window.location.href = "transferorder.html?id=" + id + "&onlyid=" + onlyid;
+				}else{
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href = "transferorder.html?id=" + id + "&onlyid=" + onlyid;
+					} else {
+						
+					}
+				})
+			}
+		}
+	}); */
+}
+
+function cancel2(id, onlyid,appsheetserialno) {	
+	$.kd.kdConfirm('确认撤单？',function(){
+		$.ajax({
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data: {borrowid: id,onlyid:onlyid,appsheetserialno:appsheetserialno},
+			url:"mall/v2transfer!cancelTransfer.do?ajax=yes",										
+			success:function(data) {
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+					if (resultJson[0].success) {	
+						location.reload();
+				}
+			}
+		});
+	});
+	
+}
+
+function cancel(id, onlyid) {	
+	$.kd.kdConfirm('确认撤单？',function(){
+		$.ajax({
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data: {borrowid: id,onlyid:onlyid},
+			url:"mall/judge!cancelTransfer.do?ajax=yes",										
+			success:function(data) {
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+					if (resultJson[0].success) {	
+						location.reload();
+				}
+			}
+		});
+	});
+	
+}
+
+
+</script>

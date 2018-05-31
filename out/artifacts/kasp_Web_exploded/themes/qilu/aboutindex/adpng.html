@@ -1,0 +1,74 @@
+<div class="flexslider">
+		<ul class="slides" id="adv-content">
+	
+		</ul>
+</div>
+
+<div class="advantages clearfix">
+	<dl>
+		<dt>
+			<img src="images/nationalized.jpg" />
+			<span>国有品牌</span>
+		</dt>
+		<dd>金交在线平台通过国有资本的注入，打造规范、稳健、安全、可靠的互联网金融示范性平台，探索国有资本引领下的普惠金融创新发展。<a href="/helper.html?type=safe&pid=helper">了解详情...</a></dd>
+	</dl>
+	
+	<dl>
+		<dt>
+			<img src="images/security.jpg" />
+			<span>资金安全</span>
+		</dt>
+		<dd>金交在线平台为确保投资者资金安全，委托第三方银行机构对投融资双方账户进行资金管理，真正实现投资者与融资企业的直接对接。<a href="/helper.html?type=safe&pid=helper">了解详情...</a></dd>
+	</dl>
+	
+	<dl style="margin-right:0;">
+		<dt>
+			<img src="images/guarantee.jpg" />
+			<span>产品保障</span>
+		</dt>
+		<dd>本平台的投资项目是经过会员推荐，具备担保增信措施，进行严格的内部审核筛选，对投资方和融资方设立高审核标准。<a href="/helper.html?type=safe&pid=helper">了解详情...</a></dd>
+	</dl>
+</div>
+
+
+<script>
+var kifpwebindex = kifpwebindex || {};
+kifpwebindex.adv = {
+	init:function(){
+		var self = this;
+		self.getAdv();
+	}
+	,getAdv:function(){
+		$.post(
+					"/mall/advshow!getIndexAdv.do?ajax=yes",
+					{},
+					function(retData){						
+						if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+								
+							var items1 = retData.kdjson.items;
+						    kifpwebindex.adv.template = Handlebars.compile( $("#index_adv_tpl").html() );
+							var renderHtml1 = kifpwebindex.adv.template(items1);							
+							$("#adv-content").html(renderHtml1);
+						//	$.kd.kdMsg("change to js template data");
+							$('.flexslider').flexslider({ 
+									directionNav: true, 
+									pauseOnAction: false 
+							});
+						} 
+					},"json");
+    } 
+}
+$(function(){
+		kifpwebindex.adv.init();	 			
+});
+</script>
+
+<script id="index_adv_tpl" type="text/x-handlebars-template">
+{{#each this}}
+	
+	<li style="background:url('${fileserver}/{{atturl}}') 50% 0 no-repeat;">
+		<a href="{{url}}"></a>
+	</li>
+			
+{{/each}}
+</script>

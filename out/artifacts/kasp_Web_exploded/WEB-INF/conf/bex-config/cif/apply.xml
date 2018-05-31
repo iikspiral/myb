@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+<!-- 通过custid select客户权限(身份资质申请)  -->
+<bex id="f_get_cif_investors_by_custid" ibatis="query_kifp_cif_investors" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="custid" source="custid"	type="string"	 />	
+	</request>
+</bex>
+<!--  通过custid select交易权限(有限众筹、无限众筹) -->
+<bex id="f_get_cif_crowfunding_by_custid" ibatis="query_kifp_cif_crowfunding" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="custid" source="custid"	type="string"	 />	
+	</request>
+</bex>
+
+
+<bex id="f_insert_kifp_cif_investors" ibatis="insert_kifp_cif_investors" operate="insert" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_insert_kifp_cif_crowfunding" ibatis="insert_kifp_cif_crowfunding" operate="insert" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_update_kifp_cif_investors" ibatis="update_kifp_cif_investors" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_update_kifp_cif_crowfunding" ibatis="update_kifp_cif_crowfunding" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_update_kifp_pif_borrow_checkstatus" ibatis="update_kifp_pif_borrow_checkstatus" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_update_kifp_pif_project_summary_checkstatus" ibatis="update_kifp_pif_project_summary_checkstatus" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_select_kifp_pif_project_basic_info_cycle" ibatis="select_kifp_pif_project_basic_info" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_select_select_kifp_cif_leader_applyinfo" ibatis="select_kifp_cif_leader_applyinfo" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_insert_kifp_cif_leader_applyinfo" ibatis="insert_kifp_cif_leader_applyinfo" operate="insert" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+
+
+
+</websuites>

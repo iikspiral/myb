@@ -1,0 +1,58 @@
+<div class="user-info">
+	<dl>
+		<dt class="user-avatar"><img id="usericon" imgsrc="${fileserver}${safeStatus.headicon!''}"  onclick="editIcon('${safeStatus.headicon!''}')"></dt>
+		<dd class="user-name">${username!''}</dd>
+	</dl>
+	<p class="signature"><i class="iconfont">&#xe60c;</i> 
+	<#if safeStatus?exists>
+		<#if safeStatus.individualorinstitution == "1">
+			机构用户
+		<#elseif safeStatus.individualorinstitution == "0">
+			个人账户
+		<#else>
+			游客
+		</#if>
+	</#if>
+	</p>
+</div>
+
+<script>
+	$(function() {
+		 var imgsrc = $("#usericon").attr("imgsrc");
+		 if ( $.trim(imgsrc)!= "" ) {
+			 if ( imgsrc.indexOf("?") > -1) {
+				 imgsrc +="&_t="+new Date().getTime();
+			 } else  {
+				 imgsrc +="?_t="+new Date().getTime();
+			 }
+		 }
+		new $.kd.kdLoadImage($("#usericon"),imgsrc , "${staticserver}/zhongyuan/images/user.gif").load();
+	});
+	function editIcon(s) {
+		<#if safeStatus?exists && safeStatus.customerno == "-1">
+			zhejiang_alert('消息','绑定银行卡后可设置个人头像',function(){
+				window.location.href='bankmanage.html';
+			})
+			return;
+		</#if>
+		$.kd.kdWin(915, 450, "修改头像", "${kasp_url}/imagecut.html?type=user&nw=35&nh=35&xw=80&xh=80&tw=80&th=80&prev=" + s, null, 0, "iframe");
+	}
+
+	function addItem(image) {
+		var fileserver = "${fileserver}";
+		$("#usericon").attr("src", fileserver + image + '?v=' + new Date().getTime());
+		$.ajax({
+			url : "mall/zhongyuan_newcust!updateIcon.do",
+			type : "POST",
+			dataType : "json",
+			data: {"paramCust.headicon": image},
+			success : function(e) {
+				location.reload(true);
+			},
+			error : function(e) {
+				location.reload(true);
+			}
+		});
+		$("#kd-ui-dialog-close").click();
+	}
+</script>

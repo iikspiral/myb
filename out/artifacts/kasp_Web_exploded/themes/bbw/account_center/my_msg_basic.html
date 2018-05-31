@@ -1,0 +1,342 @@
+<div class="account-main">	      
+	<div class="simple-titlebar clearfix">
+        <h2 class="title">我的消息</h2>
+    </div>
+    <div class="container-full">
+    	<div class="tabs-filter" id="accountTabs">
+	        <!--<ul class="nav clearfix">
+	            <li class="nav-one"><a class="current" href="#holden" >我的消息</a></li>
+	            <li><span>|</span></li>
+	            <li class="nav-two"><a href="#buying">系统消息</a></li>
+	        </ul>-->
+	        <div class="list-wrap">
+	        	<div id="holden">
+	        		<div class="thefilter">
+						<div class="nav-filter">
+							<div id="orderstatus">
+								<a href="my_msg.html?type=send" class="btn-start btn-xs btn-grey">发送消息</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pyd">标记已读</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pwd">标记未读</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pzy">标记重要</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pqx">取消重要</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pdel">删除</a>
+							</div>
+						</div>
+					</div>
+					<table class="records-table">
+						<thead>
+							<tr>
+								<th>
+									<input  id="check_all" type="checkbox">
+								</th>
+								<th>来自</th>
+								<th>标题</th>
+								<th class="project-name">消息状态</th>
+								<th>时间</th>
+							</tr>
+						</thead>
+						<tbody id="J-msg-list-content">
+							 <#if msglist?exists>
+	           					 <#list msglist as msg>
+	           					 <tr>
+									<td><input type="checkbox" id="checkboxs"  value="${msg.id!''}" data-status="${msg.is_read!''}"></td>
+									<td><a class="link" href="my_msg.html?type=detail&id=${msg.id!''}&flag=0">${msg.name!''}</a></td>
+									<td style="text-align: left;"><a class="link" href="my_msg.html?type=detail&id=${msg.id!''}&flag=0" onmouseover="this.title=this.innerText">${msg.msgtitle!''}</a></td>
+									<td>
+										<#switch msg.is_read>
+									        <#case "0">
+									              <span style="color:black;">未读</span>
+									         <#break>
+									         <#case "1">
+									            已读                                               
+									         <#break>
+									         <#case "2">
+									             <span style="color:red;"> 重要</span>
+									         <#break>
+									         <#case "">
+									             <span style="color:black;">系统消息</span>
+									         <#break>
+									     </#switch>
+									</td>
+									<td>${msg.addtime!''}</td>
+								</tr>
+							    </#list>
+							</#if>
+						</tbody>
+					</table>
+					<div id="page_person" class="pager-info"></div>
+	        	</div>
+	        	<div id="buying" class="hide">
+					<table class="records-table">
+						<thead>
+							<tr>
+								<th>来自</th>
+								<th class="project-name">标题</th>
+								<th>时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#if syslist?exists>
+	            				<#list syslist as ms>
+							<td>${ms.name!''}</td>
+							<td style="text-align: left;"><a class="link" href="my_msg.html?type=detail&id=${ms.id!''}&flag=-1">${ms.msgtitle!''}</a></td>
+							<td>${ms.addtime!''}</td>
+								</#list>
+           				 </#if>
+						</tbody>
+					</table>
+					<div id="page_system" class="pager-info"></div>
+	        	</div>
+		    </div>
+	    </div>
+	</div>
+</div>
+
+ <script type="text/javascript">
+   $(function(){
+   	 $("#accountTabs").organicTabs({
+            "speed": 100
+        });
+        $(".records-table tbody tr:nth-child(even)").addClass("changebg");
+   });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+    	//分页
+    	//私有消息
+    	 $.kd.kdPager.init({
+				pager : 'page_person',
+				currentPage: '${page_person!'1'}',
+				totalPage: '${totalPage_person!'1'}',
+				totalRecords: '${totalCount_person!'0'}',
+				prefix: 'my_msg.html',
+				suffix: function(n) {
+					return "page_person=" + n+"&tab=0";
+				},
+			});
+    	 //系统消息
+    	 $.kd.kdPager.init({
+				pager : 'page_system',
+				currentPage: '${page_system!'1'}',
+				totalPage: '${totalPage_system!'1'}',
+				totalRecords: '${totalCount_system!'0'}',
+				prefix: 'my_msg.html',
+				suffix: function(n) {
+					return "page_system=" + n+"&tab=2";
+				},
+			});
+       //全选
+        $("#check_all").click(function(){
+             if($("#check_all").attr("checked")){
+             $("#J-msg-list-content :checkbox").attr("checked",true);
+             }else{
+             $("#J-msg-list-content :checkbox").attr("checked",false);
+             }
+        });
+	      //单个点击事件
+	      $("#J-msg-list-content :checkbox").click(function(){
+	          if($("#check_all").attr("checked")){
+      	           $("#check_all").attr("checked",false);
+      	     }
+	      });
+	    //标记已读
+	    $("#J_pyd").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#J-msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				if($(this).attr("data-status")!=1){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				}else{
+				   $.kd.kdMsg("此消息状态已为已读状态 无需标记已读！");
+	               return false;
+				}
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+	          zhejiang_confirm("消息","执行标记已读操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!updMsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	zhejiang_alert("消息标记",data.message, function() {  
+								 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+									 });
+								 } else {
+										zhejiang_alert("消息标记",data.message, function() {  
+									 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										 });
+								};
+	               },"json");   
+	            });
+	       }
+	    });
+	    //标记未读
+	    $("#J_pwd").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#J-msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				   if($(this).attr("data-status")!=0){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				 }else{
+				    $.kd.kdMsg("此消息状态已为未读 无需标记未读！");
+	                return false;
+				 }
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+	          zhejiang_confirm("消息","执行标记未读操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!wdMsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	zhejiang_alert("消息标记",data.message, function() {  
+								 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+									 });
+								 } else {
+										zhejiang_alert("消息标记",data.message, function() {  
+									 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										 });
+								};
+	               },"json");   
+	            });
+	       }
+	    });
+	    //标记重要
+	    $("#J_pzy").click(function(){
+	        var mglist = "";
+	       var relist = "";
+	       $("#J-msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				if($(this).attr("data-status")!=2){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				}else{
+				    $.kd.kdMsg("此消息状态已为重要状态，无需标记重要");
+	               return false;
+				}
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+			 zhejiang_confirm("消息","执行标记重要操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!zyMg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	zhejiang_alert("消息标记",data.message, function() {  
+								 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+									 });
+								 } else {
+										zhejiang_alert("消息标记",data.message, function() {  
+									 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										 });
+								};
+	               },"json");   
+	            });
+	       }
+	       
+	       
+	    });
+	    //取消标记
+	    $("#J_pqx").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#J-msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				if($(this).attr("data-status")==2){
+				    var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				}else{
+				   $.kd.kdMsg("此消息不是重要消息，无需取消重要标记！");
+				   return false;
+				}
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+			 zhejiang_confirm("消息","执行取消标记操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!qxMg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	zhejiang_alert("消息标记",data.message, function() {  
+								 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+									 });
+								 } else {
+										zhejiang_alert("消息标记",data.message, function() {  
+									 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										 });
+								};
+	               },"json");   
+	            });
+	       }      
+	    });
+	    //删除
+	    $("#J_pdel").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#J-msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	       if(mglist == ""){
+	          $.kd.kdMsg("请从消息列表中勾选要删除的消息");
+	          return false;
+	       }
+	       zhejiang_confirm("消息","执行删除操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!delMsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	zhejiang_alert("消息删除",data.message, function() {  
+								 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+									 });
+								 } else {
+										zhejiang_alert("消息删除",data.message, function() {  
+									 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										 });
+								};
+	               },"json");   
+	            });
+      });
+	  $(".linkMore").click(function(){
+	         window.location.href="my_msg.html?type=send&_="+new Date().getTime();
+	  });
+	  $("#msg-title").click(function(){
+	       $(".msg-title").css("color","green");
+	  })
+})
+</script>
+
+
+

@@ -1,0 +1,30 @@
+<div class="clearfix">
+	<p class="tips">
+	<i class="iconfont">&#xe628;</i> 设置新密码</br>
+	<i class="iconfont">&#xe628;</i> 温馨提示:密码涉及您的账户安全,请勿随意泄露。
+	</p>
+	
+	<form class="awesomeForm" id="fpwd_form" method="post">
+		<ul>
+			<li>
+				<label for="password">新密码</label>
+				<input name="newPassword" id="password" class="input" type="password"  datatype="checkPassword" nullmsg="请设置密码！" errormsg="6-16位字符，至少包含数字、字母(区分大小写),不能使用空格！"/>
+				<span class="kdValidform_checktip">密码范围在6~16位之间,不能使用空格</span>
+			</li>
+			<li>
+				<label for="pwdagain">确认新密码</label>
+				<input name="newPassword2" id="password2" class="input" type="password" datatype="*" recheck="newPassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！"/>
+				<span class="kdValidform_checktip">两次输入密码需一致</span>
+			</li>	
+			<li>
+				<input id="safe_newpwd_next"  	type="button" name="button"	value="完成"  class="btn btn-lg btn-orange"/>
+			</li>
+		</ul>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+  
+</script>
+

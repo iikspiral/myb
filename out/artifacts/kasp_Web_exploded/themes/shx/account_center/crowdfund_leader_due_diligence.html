@@ -1,0 +1,301 @@
+
+    <div class="container">
+        <div class="page-wrap account-page clearfix">
+            <div class="account-main">
+                <div class="simple-titlebar clearfix">
+                    <ul class="breadcrumb">
+                    	<li><a>账户中心</a></li>
+                    	<li><i class="iconfont">&#xe615;</i></li>
+                    	<li><a>我的众筹</a></li>
+                    	<li><i class="iconfont">&#xe615;</i></li>
+                    	<li><a>我投资的</a></li>
+                    	<li><i class="iconfont">&#xe615;</i></li>
+                    	<li><a>领投的项目</a></li>
+                    	<li><i class="iconfont">&#xe615;</i></li>
+                    	<li class="active"><span>尽职调查</span></li>
+                    </ul>
+                </div>
+                <div class="account-board">
+                    <form class="floorform" id="form_report">
+                    <#if projectlist?exists>
+                    <#list projectlist as project>
+						<input id="projectid" value="${projectid!''}" type="hidden"/>
+						<input id="leaderid" value="${leaderid!''}" type="hidden"/>
+                    	<h3 class="project-name">${project.project_name!''}</h3>
+                    	<div class="floor">
+                    			<label class="property">已完成</label>
+                    			<div class="value"><span class="en">${project.percent!'0'}%</span></div>
+                    	</div>
+                    	<div class="floor">
+                    			<label class="property">已筹集</label>
+                    			<div class="value"><span class="en">${project.current_fund?number / 10000}</span>万元</div>
+                    	</div>
+                    	<div class="floor">
+                    			<label class="property">出让股份</label>
+                    			<div class="value"><span class="en">${project.sell_shares!'0'}%</span></div>
+                    	</div>
+                    	<div class="floor">
+                            <div class="floor" id="fileContainer">
+								<label for="video" class="property required">尽职调查及协议</label>
+								<div name="fileList" class="clearfix" style="margin-left: 162px">  
+									<#if uploadlist?? && uploadlist?size gt 0>
+									<#list uploadlist as upload>                          
+										<div name="attach" class="value">
+											<input type="file" id="upfile" name="upfile" class="input"/>
+											<input type="hidden" name="uploadid" value="${upload.id!''}" >
+											<input type="hidden" name="uploadfile" value="${upload.addr}"/> 
+											<input type="hidden" name="uploadname" value="${upload.name}"/>
+											<input type="hidden" id="uploadsize" name="uploadsize" value=""/>
+											<input name="imgFile" id="imgFile" type="button" value="上传" imgfile1="imgFile" class="btn-xs btn-grey upload" rel="num"/>
+											<br>
+											<a name="attachment" href="${fileserver!''}/${upload.addr!''}" target="_blank" >${upload.name!'附件'}</a>
+											<a style="margin-left: 30px; color: #747474;" class="btn-xs btn-text del_attch" data="deletefile" href="javascript:void(0);">删除</a>
+											<p class="tips">支持的格式：doc, docx, xls, xlsx, ppt, txt, zip, rar.</p>
+										</div>
+									</#list>
+									<#else>
+									<div name="attach" class="value">
+										<input type="file" name="upfile" class="input"/>
+										<input type="hidden" name="uploadid" value="" >
+										<input type="hidden" name="uploadfile" value=""/> 
+										<input type="hidden" name="uploadname" value=""/>
+										<input type="hidden" name="uploadsize" value=""/>
+										<input name="imgFile" type="button" value="上传" imgfile1="imgFile" class="btn-xs btn-grey upload" rel="num">
+										<a style="margin-left: 30px; color: #747474;" class="btn-xs btn-text del_attch" data="deletefile" href="javascript:void(0);">重新上传</a>
+										<br>
+										<a name="attachment" class="hide" href="#" target="_blank"></a>
+										<p class="tips">支持的格式：doc, docx, xls, xlsx, ppt, txt, zip, rar.</p>
+									</div>
+									</#if>
+								</div>
+                            </div> 
+                        </div>
+						<div class="floor">
+							<label class="property" style="line-height: 24px;">我为创业者还能提供的其他帮助</label>
+							<div class="value"><textarea style="width: 560px;" datatype="*" id="J_suggestion" name="suggestion"  onkeyup="comlength(this.id,'countNum_1')">${(leaderlist[0].suggestion)!''}</textarea>		
+							<p class="tips">最多可以输入500字，还剩<em id="countNum_1">500</em>个字可以输入</p>
+							</div>
+						</div>
+						<div class="floor">
+							<label class="property">对创业团队的评价</label>
+							<div class="value">
+								<textarea style="width: 560px;" datatype="*" id="J_teamvaluation" name="teamvaluation"  onkeyup="comlength(this.id,'countNum_2')"> ${(leaderlist[0].teamvaluation)!''}</textarea>
+								<p class="tips">最多可以输入500字，还剩<em id="countNum_2">500</em>个字可以输入</p>
+							</div>
+						</div>
+						<div class="floor">
+							<label class="property">对创业项目的评价</label>
+							<div class="value">
+								<textarea style="width: 560px;" datatype="*" id="J_projectvaluation" name="projectvaluation"  onkeyup="comlength(this.id,'countNum_3')" >${(leaderlist[0].projectvaluation)!''}</textarea>
+								<p class="tips">最多可以输入500字，还剩<em id="countNum_3">500</em>个字可以输入</p>
+							</div>
+						</div>
+						<div class="actionArea">
+							<input type="button" value="提交" class="btn-lg btn-orange" id="submitbutton" onclick="saveFile()">
+						</div>
+                    	</form>
+                    </#list>
+                    </#if>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+        
+            // 删除附件
+            $("body").on("click","a[data='deletefile']",function(){
+                 var current = $(this);
+                 sort_num=$("a[data='deletefile']").index($(this));
+                 var uploadid = current.siblings("input[name='uploadid']").val();
+                    if (uploadid!=undefined && uploadid!="") {
+
+                    var operateid = "pif_delete_attachment";
+                    var param = {};
+                    param.id = uploadid;
+                    param = JSON.stringify(param);
+                     $.post("mall/shx_DeleteData!deleteData.do?ajax=yes",
+                    {param:param},function(data){
+                    window.location.reload();
+                
+                    },"json");
+                     
+
+                    }
+                    if( $("a[data='deletefile']").size() > 2 ){
+                        current.parent().remove();
+                    }else{
+                        current.siblings("input[type='hidden'],input[type='file']").val("");
+                        current.siblings("a[name='attachment']").html("");
+                    }
+                    
+            });
+
+            $("body").on("click","input[imgFile1='imgFile']",function(){
+                    var current = $(this);
+                    var fileaction = "${fileserver}/file!upload.do";
+                    var options = {
+                        url : fileaction,
+                        type : "POST",
+                        dataType : "json",
+                        success : function(data) {
+                                document.cookie = parent.umesession ;
+                            try {
+                                    var json = data;
+                                    if(json.result == 0) {
+                                        zhejiang_alert("消息","上传失败！",function(){        
+                                        });
+                                    } else{
+                                        var uploadfile = current.parent("div").children("input[name='uploadfile']").val();
+                                        if ( $.trim(json.message) != "") {
+                                            current.parent("div").children("input[name='uploadfile']").val(json.message );
+                                             
+                                             current.parent("div").children("input[name='uploadname']").val(json.name );
+                                             current.parent("div").children("input[name='uploadsize']").val(json.size );
+                                            current.siblings("a[name='attachment']").attr("href","${fileserver}"+json.message).html(json.name).show();
+                                        }                              
+                                        zhejiang_alert("消息","上传成功！",function(){
+                                        });
+                                    }
+                                } catch(d) {
+                                    zhejiang_alert("消息","上传失败！",function(){            
+                                    });    
+                                }
+                        },
+                        error : function(e) {
+                            document.cookie = parent.umesession ;
+                            try {
+                                var json = eval('(' + e.responseText + ')');
+                                //var json = e;
+                                if(json.result == 0) {
+                                    zhejiang_alert("消息","上传失败！",function(){
+                                        
+                                });
+                                    
+                                } else{
+                                    //var uploadfile = $("#uploadfile").val();
+                                    var uploadfile = current.parent("div").children("input[name='uploadfile']").val();
+                                    if ( $.trim(json.message) != "") {
+                                        current.parent("div").children("input[name='uploadfile']").val(json.message );       
+                                         current.parent("div").children("input[name='uploadname']").val(json.name );
+                                         current.parent("div").children("input[name='uploadsize']").val(json.size );
+                                        current.siblings("a[name='attachment']").attr("href","${fileserver}"+json.message).html(json.name).show();
+                                    }
+                                    
+                                    zhejiang_alert("消息","上传成功！",function(){
+                                });
+                                }
+                            } catch(d) {
+                                zhejiang_alert("消息","上传失败！",function(){
+                                        
+                                });                       
+                            }
+                        }
+                    };                   
+                    window.umesession = document.cookie.replace("undefined; ", "").replace(" undefined;", "");
+                    $("#form_report").ajaxSubmit(options);
+                    return false;      
+            }); 
+        });
+        function addLeaderReport() {          
+    			var $form=$('#form_report').kdValidform();
+                var v_suggestion=$('#J_suggestion').val();
+                var v_teamvaluation=$('#J_teamvaluation').val();
+				var v_projectvaluation=$('#J_projectvaluation').val();
+				var v_projectid=$('#projectid').val();
+                if ($form.check()){
+                    $.post("mall/crowdfundleaderreport!addLeaderReport.do?ajax=yes",{suggestion:v_suggestion,teamvaluation:v_teamvaluation,projectvaluation:v_projectvaluation,projectid:v_projectid},
+                        function(data){     
+                            $("input[type=submit]").attr("disabled", false);
+                            if(!data){
+                                zhejiang_alert("消息","数据提交失败！");
+                            } else {
+                                if(data.kdjson.flag== 1 ) {
+                                    zhejiang_alert("提示","尽职调查提交成功",function(){
+										window.location.href="myCrowdfunding.html?type=invest";
+									});
+
+                                } else {
+                                    zhejiang_alert("提示信息",data.kdjson.msg,function(){
+										//window.location.href="myCrowdfunding.html?type=invest";
+									});                                                  
+                                }
+                            }
+                    
+                    },"json");
+                }
+        }
+        
+		function comlength(id1,id2){
+				var length=$('#'+id1).val().length;
+                var value=$('#'+id1).val();
+                var leftLength;
+				if (length>'500'){
+					 $('#'+id1).val(value.substring(0,500));
+				}else{
+					leftLength=500-length;	
+					$('#'+id2).text(leftLength);
+				}
+		}
+
+        function getInputParams(){
+
+            var project_id = $("#leaderid").val();
+			var param_list = [];
+
+           $("#form_report > .floor > .floor div[name='attach']").each(function(){
+	
+				var  id  = $(this).find("input[name='uploadid']").val();
+				var name = $(this).find("input[name='uploadname']").val();
+				var size = $(this).find("input[name='uploadsize']").val();
+				var addr = $(this).find("input[name='uploadfile']").val();
+
+				var item = {};
+				item.id = id;
+				item.name = name;
+				item.fsize = size;
+				item.addr = addr;
+				item.objecttype = "1";
+				item.objectid = project_id;
+				if(name==null || name=="" || addr==null || addr==""){
+				}else{
+					param_list.push(item);
+				}
+
+			});
+			return param_list;
+
+        }
+
+        function saveFile(){
+				var $form=$('#form_report').kdValidform();
+                var v_suggestion=$('#J_suggestion').val();
+                var v_teamvaluation=$('#J_teamvaluation').val();
+				var v_projectvaluation=$('#J_projectvaluation').val();
+				var v_projectid=$('#projectid').val();
+                if ($form.check()){
+					var param_list_1 = getInputParams();
+					var param_list = JSON.stringify(param_list_1);
+						if (param_list_1.length>0){
+						 $.post("mall/shx_UploadInfo!shxUploadInfo.do?ajax=yes",{param_list:param_list},
+								function(data1){     
+									$("input[type=button]").attr("disabled", false);
+									if(!data1){
+										zhejiang_alert("消息","尽职调查及协议保存失败！");
+									} else {
+										if(data1.kdjson.flag== 1 ) {
+											addLeaderReport();
+										} else {
+											zhejiang_alert("提示","尽职调查及协议保存失败！");                                           
+										}
+									}
+								
+							},"json");
+						}else {
+							zhejiang_alert("提示","请先上传尽职调查及协议");
+						}
+				}
+        }
+
+ </script>
+

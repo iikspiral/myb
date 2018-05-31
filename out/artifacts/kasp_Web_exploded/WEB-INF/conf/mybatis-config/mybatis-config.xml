@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/.dtd">
+<configuration>
+
+	<mappers>		
+
+		
+	</mappers>
+
+</configuration>

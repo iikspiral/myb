@@ -1,0 +1,253 @@
+
+            <div class="account-main">
+                <!--
+                <div class="messager">
+                    <i class="iconfont">&#xe61c;</i>
+                    <a href="">此处显示最及时的新闻以便投资者了解众筹相关的信息</a>
+                    <i class="close iconfont">&#xe624;</i>
+                </div>
+                -->
+
+                <div class="titlebar clearfix">
+                    <h2>我的融资</h2>
+                </div>
+
+                <div class="container-full">
+                    <div class="actionbar clearfix">
+                    </div>
+                </div>
+
+                <div class="container-full">
+                    <div class="my-financing clearfix">
+                        <div class="border-box">
+                            <dl class="num">
+                                <dt>未还款总额（元）</dt>
+                                <dd>${stillvol!'0'}</dd>
+                            </dl>
+                            <ul class="details">
+                                <li>
+                                    <label>下次还款日：</label>
+                                    <span>${nextdate!'0'}</span>
+                                </li>
+                                <li>
+                                    <label>下次应还本息（元）：</label>
+                                    <span>${amount!'0'}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="border-box">
+                            <dl class="num">
+                                <dt>融资总额（元）</dt>
+                                <dd>${totalamount!'0'}</dd>
+                            </dl>
+                            <ul class="details">
+                                <li>
+                                    <label>融资本金（元）：</label>
+                                    <span>${stillprincipal!'0'}</span>
+                                </li>
+                                <li>
+                                    <label>融资利息（元）：</label>
+                                    <span>${stillinterest!'0'}</span>
+                                </li>
+                                <li class="action">
+                                    <a href="">查看我的已还款明细</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tabs" id="accountTabs">
+                        <ul class="nav">
+                            <li class="nav-one"><a class="current" href="#holden">发起的项目</a></li>
+                            <li class="nav-two"><a href="#repay">还款中</a></li>
+							<li class="nav-two"><a href="#hasrepay">已还款</a></li>
+                        </ul>
+                        <div class="list-wrap">
+						    <div class="actionbar clearfix">
+						     <a class="btn-start btn-sm btn-cyan" href="">发起项目</a>
+							</div>
+                            <table id="holden" class="records-table">
+                                <thead>
+                                    <tr>
+									    <th>行号</th>
+                                        <th style="width: 30%;">项目名称</th>
+                                        <th>期限</th>
+                                        <th>年化收益率</th>
+                                        <th>募集总额(万)</th>
+                                        <th>已募集金额(万)</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+								<#if startBond?exists>
+                                <#if (startBond?size>0)>
+                                    <#assign i = 0>
+								<#list startBond as item>
+                                    <#assign i = i + 1>
+                                    <tr>
+                                        <td>${item.id!""}</td>
+										<td>${item.borrowtitle!""}</td>
+										<#if  item.newview == "0"  >	
+											<td>
+											${item.deadline!""}
+											<#if (item.deadlineunit)?exists && (item.deadlineunit) =='M'>
+												个月
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='D'>
+												天
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='Y'>
+												年
+											<#else>
+												个月
+											</#if>
+											</td>
+											<#elseif item.newview == "1">
+											<td>${item.buyback!""}天</td>
+										</#if>
+                                        <td>${item.annualrate!""}%</td>
+                                        <td><#assign borrowamount=item.borrowamount!"0">
+											<#assign borrowamount1=borrowamount?number>
+											${borrowamount1/10000}
+										</td>
+                                        <td><#assign hasinvestamount=item.hasinvestamount!"0">
+											<#assign hasinvestamount1=hasinvestamount?number>
+											${hasinvestamount1/10000}
+										</td>
+                                        <td>
+										<#assign checkstatus=item.checkstatus!''>
+										<#assign status=item.status!''>
+										<#if checkstatus == "0">
+											<span><strong>项目审核中</strong></span>
+										<#elseif checkstatus == "2">
+											<span><strong>未通过审核</strong></span>	
+										<#elseif status == "5">
+											<span><strong>完成</strong></span>			  	
+										<#elseif status == "4">
+											<span><strong>完成</strong></span>
+										<#elseif status == "3">
+											<a class="btn-xs btn-grey"    kifp-action="bpm" data-value="${item.project_id!''}" data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">结束募集</a>
+										<#elseif status == "2">
+											<a class="btn-xs btn-grey"    kifp-action="bpm"   data-value="${item.project_id!''}" data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">发起募集</a>
+										<#elseif  status == "99">
+											<a id="bondpublish" class="btn-xs btn-grey"   kifp-action="bpm"  data-value="${item.project_id!''}"data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">材料审核</a>
+										<#elseif status == "77">
+											<span><strong>已下架</strong></span>
+										</#if>
+										</td>
+                                    </tr>
+                                   
+                                 </#list>
+                                 <#else>
+                                  <tr>
+                                        <td colspan="6">暂无关注的项目记录</td>
+                                    </tr>
+									</#if>
+									</#if>
+                                </tbody>
+                            </table>
+                            <table id="repay" class="records-table hide">
+                                <thead>
+                                    <tr>
+                                        <th>行号</th>
+                                        <th style="width: 30%;">项目名称</th>
+                                        <th>待还总金额</th>
+                                        <th>待还总本金</th>
+                                        <th>待还总利息</th>
+                                        <th>最近还款日期</th>
+										<th>操作1</th>
+										<th>操作2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+								    <#if repayplan?exists>
+									<#assign i = 0>
+									<#list repayplan as item>
+									<#assign i = i + 1>
+                                    <tr>
+									    <td>${i}</td>
+                                        <td>${item.borrowtitle!""}</td>
+                                        <td>${item.stillvol?default("0.00")?number?string("###,###,###,##0.00")}</td>
+                                        <td>${item.stillprincipal?default("0.00")?number?string("###,###,###,##0.00")}</td>
+                                        <td>${item.stillinterest?default("0.00")?number?string("###,###,###,##0.00")}</td>
+                                        <td>${item.repaydate!""}</td>
+										<td>
+											<#if ((item.checkstatus)?exists) && (item.checkstatus)=="0"&& ((item.status)?exists) && (item.status) == "0">
+											<a class="btn-xs btn-grey" disabled="disabled">提前还款审核中</a>
+											<#elseif ((item.checkstatus)?exists) && (item.checkstatus)=="1" && ((item.status)?exists) && (item.status) == "1" && ((item.hasfrozenstatus)?exists) && (item.hasfrozenstatus)=="2" && ((item.repaystatus)?exists) && (item.repaystatus)=="1">
+											<a class="btn-xs btn-grey" disabled="disabled">提前还款资金冻结</a>
+											<#elseif ((item.checkstatus)?exists) && (item.checkstatus)=="1" &&((item.status)?exists) && (item.status) == "1">
+											<a href="product_repay_plan.html?type=advance&proid=${item.id!''}&proname=${item.borrowtitle!''}&&advanced_repaydate=${item.advanced_repaydate!''}"> <input type="button" class="kdmall-btn cancel" value="提前还款"></a>
+											<#else>
+											<a href="product_repay_plan.html?type=apply&proid=${item.id!''}&paymentmode=${item.paymentmode!''}"> <input type="button" class="kdmall-btn cancel" value="申请提前还款"></a>
+											</#if>
+											</td>	
+											
+											<td> 
+											<#if ((item.checkstatus)?exists) && (item.checkstatus)=="1" &&((item.status)?exists) && (item.status) == "1">
+											<a class="btn-xs btn-grey" disabled="disabled">已申请提前还款</a>
+											<#else>
+											<a href="product_repay_plan.html?type=repayplandetail&proid=${item.id!''}&startdate1=${startdate1!''}&enddate1=${enddate1!''}"> <input type="button" class="kdmall-btn cancel" value="正常还款"></a>
+											</#if>
+											</td>								
+                                    </tr>
+									</#list>
+									</#if>
+                                </tbody>
+                            </table>
+							<table id="hasrepay" class="records-table hide">
+                                <thead>
+                                    <tr>
+									    <th>行号</th>
+                                        <th style="width: 30%;">项目名称</th>
+                                        <th>应还利息</th>
+										<th>已还利息</th>
+										<th>应还本金</th>
+                                        <th>已还本金</th>
+										<th>应还本息总和</th>
+										<th>已还本息总和</th>
+                                        <th>还款日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+								   <#if repayplan?exists>
+									<#assign i = 0>
+									<#list repayplan as item>
+									<#assign i = i + 1>
+                                    <tr>
+									    <td>${i}</td>
+                                        <td>${item.borrowtitle!""}</td>
+                                        <td>${item.stillinterest!""}</td>
+                                        <td>${item.hasinterest!""}</td>
+                                        <td>${item.stillprincipal!""}</td>
+                                        <td>${item.hasprincipal!""}</td>
+										<td>${item.stillvol!""}</td>
+										<td>${item.hasvol!""}</td>
+                                        <td>${item.repaydate!""}</td>
+                                    </tr>
+								   </#list>
+								   </#if>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+        $("#accountTabs").organicTabs({
+            "speed": 100
+        });
+        $(".records-table tbody tr:nth-child(even)").addClass("changebg");
+		$("#accountTabs ul li a").click(function(){
+		    if($(this).attr("href")=="#holden"){
+			     $("#page_has").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","none");
+			}else if($(this).attr("href")=="#buying"){
+			     $("#page_has").css("display","none");
+				 $("#page_doing").css("display","block");
+				 $("#page_order").css("display","none");
+			}else{
+			      $("#page_has").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","block");
+			}
+		})
+</script>

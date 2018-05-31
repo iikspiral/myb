@@ -1,0 +1,126 @@
+<!-- 抢购中 -->
+<div class="sellingout">
+	<h2><i class="iconfont">&#xe60f;</i> 抢购中</h2>
+	<div id="records">
+		<ul id="buyingpro_content">
+			
+		</ul>
+	</div>
+</div>
+<!-- 公告专栏 -->
+<div class="newslist">
+	<h2>公告专栏</h2>
+	<ul id="notice_content">
+		
+	</ul>
+</div>
+
+<!-- 行业动态 -->
+<div class="newslist">
+	<h2>行业动态</h2>
+	<ul id="news_content">
+		 
+	</ul>
+</div>
+
+<script>
+var kifpwebindex = kifpwebindex || {};
+kifpwebindex.notice = {
+	init:function(){
+		var self = this;
+		self.getproduct();
+		$("#records").autoScroll({timer:3000});
+	}
+	,getNews:function(){
+		$.post(
+				"/mall/newshow!getIndexNews.do?ajax=yes&type=news",
+				{},
+				function(retData){						
+					if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+						var items1 = retData.kdjson.items;
+						kifpwebindex.notice.template2 = Handlebars.compile( $("#news_tpl").html() );
+						var renderHtml1 = kifpwebindex.notice.template2(items1);							
+						$("#news_content").html(renderHtml1);
+						kifpwebindex.notice.getNotice();
+						 
+					}else{
+						kifpwebindex.notice.getNotice();
+					}
+				},"json");
+				
+	}
+	,getNotice:function(){
+		$.post(
+				"/mall/newshow!getIndexNews.do?ajax=yes&type=notice",
+				{},
+				function(retData){						
+					if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+						var items2 = retData.kdjson.items;
+						kifpwebindex.notice.template3 = Handlebars.compile( $("#notice_tpl").html() );
+						var renderHtml2 = kifpwebindex.notice.template3(items2);							
+						$("#notice_content").html(renderHtml2);
+						
+						
+					//	$.kd.kdMsg("change to js template data");
+						 	 
+					} 
+				},"json");
+	}
+	,getproduct:function(){
+		$.post(
+				"/mall/buyingproduct!getBuyingProduct.do?ajax=yes",
+				{
+					rownum:"10"
+				},
+				function(retData){						
+					if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+						var items3 = retData.kdjson.items;
+						kifpwebindex.notice.template4 = Handlebars.compile( $("#product_tpl").html() );
+						var renderHtml3 = kifpwebindex.notice.template4(items3);							
+						$("#buyingpro_content").html(renderHtml3);
+						kifpwebindex.notice.getNews(); 	 
+					}else{
+						kifpwebindex.notice.getNews();
+					}
+					
+				},"json");
+	
+	}
+}
+$(function(){
+		kifpwebindex.notice.init();	 			
+});
+</script>
+
+<script id="product_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<li>
+				<img src="images/sellingout.png" />
+				<a href="javascript:void(0);" title="{{borrowtitle}}">{{borrowtitle}}</a>
+				<span>{{LOGIN_NAME}}购买了该产品</span>
+		</li>
+{{/each}}
+
+
+</script>
+
+<script id="news_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<li>
+			<i class="iconfont">&#xe60e;</i>
+			<a target="_blank" href="/getmorearticlelook.html?type={{cat_id}}&article_id={{article_id}}">{{title}}</a>
+		</li>
+{{/each}}
+</script>
+
+<script id="notice_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<li>
+			<i class="iconfont">&#xe60e;</i>
+			<a target="_blank" href="/getmorearticlelook.html?type={{cat_id}}&article_id={{article_id}}">{{title}}</a>
+		</li>
+{{/each}}
+</script>

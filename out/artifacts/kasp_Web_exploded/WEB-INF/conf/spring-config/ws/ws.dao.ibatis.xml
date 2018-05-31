@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/conf/mybatis-config/ibatis-config.xml" />  
+		<property name="dataSource" ref="defaultDataSource" />  
+	</bean>
+
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+<!--	<bean id="sqlMapClient1" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/conf/mybatis-config/ibatis-config.xml" />  
+		<property name="dataSource" ref="defaultDataSource1" />  
+	</bean>
+
+	<bean id="sqlMapClientTemplate1" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient1" />
+		</property>
+	</bean>
+	-->
+
+	<bean id="iBatisDaoImpl" class="com.websuites.dao.IBatisTemplate" parent="abstractIBatisTemplate">
+		<property name="defaultDataSource">
+			<value>dataSource</value>
+		</property>
+		<property name="sqlSessions">
+	        <map>
+	        	<entry key="defaultDataSource">
+	        	   <ref bean="sqlMapClientTemplate" />
+	        	</entry>
+				<!--<entry key="defaultDataSource1">
+	        	   <ref bean="sqlMapClientTemplate1" />
+	        	</entry>-->
+	        </map>
+        </property>
+	</bean>  
+	
+    <bean id="sqlExecutor" class="com.websuites.dao.page.LimitSqlExecutor">
+        <property name="dialect">
+            <bean class="com.websuites.dao.page.OracleDialect" />
+        </property>
+    </bean>
+	
+    <bean id="abstractIBatisTemplate" abstract="true" class="com.websuites.dao.page.AbstractIBatisTemplate" init-method="initialize">
+        <property name="dataSource">
+            <ref bean="defaultDataSource" />
+        </property>
+        <property name="sqlMapClient">
+            <ref bean="sqlMapClient" />
+        </property>
+        <property name="sqlExecutor">
+            <ref bean="sqlExecutor" />
+        </property>
+    </bean>
+</beans>

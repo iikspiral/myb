@@ -1,0 +1,124 @@
+<div class="account_register">
+	<table class="process-cells step-one">
+		<tr>			<#if riskflag?exists>				<#if riskflag == '1'>
+			<td  style="width: 33.3%">选择账户类型</td>
+			<td class="current" style="width: 33.3%">填写银行卡信息</td>
+			<td style="width: 33.3%">风险测评</td>		<#elseif riskflag == '0'>		<td  style="width: 50%">选择账户类型</td>			<td class="current" style="width: 50%">填写银行卡信息</td>		</#if>			</#if>
+		</tr>
+	</table>
+	<div class="user-type clearfix">
+	<input id="riskflag" name="riskflag"  value="${riskflag}" type="hidden">
+	<#if '${t}' == "psl">
+		<#if '${p}' == 'cg'>
+			<form class="personal-account" id="sfcg_openForm" method="post">
+				<#include 'basicinfo_person.html'>
+				<#include 'bind_cg_bankinfo.html'>
+			</form>
+		</#if>
+		<#if '${p}' == 'tp'>
+			<form class="personal-account" id="thirdpayopenForm" method="post">
+				<#include 'basicinfo_person.html'>
+				<#include 'bind_tp_bankinfo.html'>
+			</form>
+		</#if>
+		
+		<!-- 设置交易密码 -->
+		<form  id="settrdpwdForm" name="settrdpwdForm" class="personal-account" style="display:none">
+			  <h3>设置交易密码</h3>
+			  <ul>
+				<li>
+				<label for="idnum"></label>
+				<input id="tradePWD1" name="tradePWD1" type="password"   datatype="/^[0-9]{6,6}$/" nullmsg="请输入6位数字交易密码！" errormsg="交易密码只能是6位数字" placeholder="请输入6位数字" />
+				</li>
+				<li>
+					<label for="idnum"></label>
+					<input id="tradePWD2" name="tradePWD1" type="password"  datatype="*"  recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！" placeholder="请再次输入6位数字" />
+				</li>
+			  </ul>
+			  <div class="actionArea">
+			   <input id="J_settrdpwd_sfcg" class="btn btn-lg btn-lg btn-orange" value="下一步" type="button"  />	
+			  </div>
+		</form>	
+	</#if>
+	
+
+	<#if '${t}' == "org">
+		<#if '${p}' == 'cg'>
+			<form class="personal-account" id="sfcg_openForm" method="post">
+				<#include 'basicinfo_org.html'>
+				<#include 'bind_cg_bankinfo.html'>
+			</form>
+		</#if>
+		<#if '${p}' == 'tp'>
+			<form class="personal-account" id="thirdpayopenForm" method="post">
+				<#include 'basicinfo_org.html'>
+				<#include 'bind_tp_bankinfo_org.html'>
+			</form>
+		</#if>
+		
+		<form  id="settrdpwdForm" name="settrdpwdForm" class="personal-account" style="display:none">
+				  <h3>设置交易密码</h3>
+				  <ul>
+					<li>
+					<label for="idnum"></label>
+					<input id="tradePWD1" name="tradePWD1" type="password"   datatype="/^[0-9]{6,6}$/" nullmsg="请输入6位数字交易密码！" errormsg="交易密码只能是6位数字" />
+					</li>
+					<li>
+						<label for="idnum"></label>
+						<input id="tradePWD2" name="tradePWD1" type="password"  datatype="*"  recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！" />
+					</li>
+				  </ul>
+				  <div class="actionArea">
+				   <input id="J_settrdpwd_sfcg" class="btn btn-lg btn-lg btn-orange" value="下一步" type="button"  />	
+				  </div>
+			</form>	
+	</#if>	
+
+	</div>
+</div>
+
+<script>
+	
+
+//设置交易密码
+var $settrdpwdForm;
+$settrdpwdForm = $("#settrdpwdForm").kdValidform();
+$("#J_settrdpwd_sfcg").bind("click",function(){
+	$settrdpwdForm = $("#settrdpwdForm").kdValidform();
+	var _tradepwd_ =$("#tradePWD1").val();
+	var _tradepwd_ = $.des.getDes(_tradepwd_); 
+	var dataPWD = {npassword:_tradepwd_};
+	var options = {
+		type: "POST",
+		dataType:"json",
+		async:true,
+		data:dataPWD,
+		url: "${kasp_url}mall/newRegister!addtradePwd.do?ajax=yes",  
+		success: function(data){
+			 $.kd.closeLoading();
+			if(data.result == 1){
+				 if(riskflag == '1'){
+					zhejiang_alert("消息",'交易密码设置成功',function(){
+						window.location.href='account_asset.html';
+					})
+				}else{
+					window.location.href='account_asset.html';
+				}	
+			}else{
+				zhejiang_alert( '消息',"添加交易密码失败,请重试!");
+				$("input[type=button]").attr("disabled", false);
+			}
+		},
+		error: function(data) {
+			zhejiang_alert( '消息',"添加交易密码失败,请重试!");
+			$("input[type=button]").attr("disabled", false);
+		}
+	};
+	if($settrdpwdForm.check()){
+		$("#J_settrdpwd_sfcg").attr("disabled",true);
+		$.kd.showLoading($("#settrdpwd_sfcg"));
+		$("#settrdpwdForm").ajaxSubmit(options);
+	}
+});
+
+</script>

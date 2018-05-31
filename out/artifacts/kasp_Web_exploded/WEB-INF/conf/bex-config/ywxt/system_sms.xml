@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<websuites>
+
+
+<bex id="f_get_kifpadmin_project_basic_info_by_project_id" ibatis="get_kifpadmin_project_basic_info_by_project_id" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+
+
+<bex id="f_kifp_login_check" type="http-bex"  httpserver="kifp" target="kifpAdminLoginService" service="adminLogin" parameterType="java.util.HashMap">
+		<request>
+			<param name="custid" source="custid"	type="string"	 />	
+			<param name="password" source="password"	type="string"	 /> 
+			<param name="serverid" source="serverid"	type="string"	 /> 
+			<param name="exchangeid" source="exchangeid"	type="string"	 /> 
+		</request>
+</bex>
+
+	
+<bex id="f_get_kifpadmin_notice_mail_config_by_id" ibatis="get_kifpadmin_notice_mail_config_by_id" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_update_kifpadmin_notice_mail_config_by_id" ibatis="update_kifpadmin_notice_mail_config_by_id" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 发邮件服务 -->
+<bex id="f_kifp_sendMail"  type="http-bex"  httpserver="kifp" target="mailService" service="sendMail" parameterType="java.util.HashMap">
+	 <request >
+		  <param name ="text" source="text" type="string" />
+		  <param name ="tomailaddr" source="tomailaddr" type="string" />	  
+	 </request>
+</bex>
+ 
+ 
+ <!-- 查询所有短信接口地址,初始化 -->
+<bex id="f_get_kifpadmin_notice_sms_config" ibatis="get_kifpadmin_notice_sms_config" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 添加短信接口地址 -->
+<bex id="f_add_kifpadmin_notice_sms_config" ibatis="add_kifpadmin_notice_sms_config" operate="insert" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 通过ID更新短信接口地址 -->
+<bex id="f_get_kifpadmin_notice_sms_config_by_id" ibatis="get_kifpadmin_notice_sms_config_by_id" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 通过bex id 调用服务smsService -->
+<bex id="f_kifp_sendSms" type="http-bex"  httpserver="kifp" target="smsService" service="sendSms" parameterType="java.util.HashMap" lparam="false">
+	<request>
+		<param name="phones" source="phones"	type="string"	 />
+		<param name="content" source="content"	type="string"	 />
+	</request>
+</bex>
+</websuites>

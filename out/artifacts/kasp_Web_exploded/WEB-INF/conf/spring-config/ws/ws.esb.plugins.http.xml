@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="httpFactory" class="com.websuites.esb.plugins.http.ConnectionFactory">
+		<property name="defaultServer">
+			<value>kifp</value>
+		</property>	
+		<property name="httpServers">
+			<map>
+				<entry key="kifp">
+					<props>
+						<prop key="protocal">http</prop>
+						<!-- <prop key="server">192.168.1.10</prop> -->
+						<prop key="server">101.200.2.36</prop>
+						<prop key="port">801</prop>
+						<prop key="uri">kifp/WsKesbServlet.ks</prop>
+						<prop key="connecttimeout">10000</prop>
+						<prop key="readtimeout">30000</prop>
+						<prop key="reconnect">5</prop>
+						<prop key="sleeptime">5000</prop>
+					</props>	    	    		
+				</entry>
+				<entry key="kifpsvc">
+					<props>
+						<prop key="protocal">http</prop>
+						<prop key="server">101.200.2.36</prop>
+						<prop key="port">801</prop>
+						<prop key="uri">kifpsvc/WsKesbServlet.ks</prop>
+						<prop key="connecttimeout">10000</prop>
+						<prop key="readtimeout">30000</prop>
+						<prop key="reconnect">5</prop>
+						<prop key="sleeptime">5000</prop>
+					</props>	    	    		
+				</entry>
+				<entry key="bpm">
+					<props>
+						<prop key="protocal">http</prop>
+						<prop key="server">101.200.2.36</prop>
+						<prop key="port">801</prop>
+						<prop key="uri">bpm/WsKesbServlet.ks</prop>
+						<prop key="connecttimeout">10000</prop>
+						<prop key="readtimeout">30000</prop>
+						<prop key="reconnect">5</prop>
+						<prop key="sleeptime">5000</prop>
+					</props>	    	    		
+				</entry>
+				<entry key="otcpsvc">
+					<props>
+						<prop key="protocal">http</prop>
+						<prop key="server">101.200.2.36</prop>
+						<prop key="port">807</prop>
+						<prop key="uri">otcpsvc/WsKesbServlet.ks</prop>
+						<prop key="connecttimeout">10000</prop>
+						<prop key="readtimeout">30000</prop>
+						<prop key="reconnect">5</prop>
+						<prop key="sleeptime">5000</prop>
+					</props>	    	    		
+				</entry>
+				<entry key="paycenter">
+					<props>
+						<prop key="protocal">http</prop>
+						<prop key="server">101.200.2.36</prop>
+						<prop key="port">808</prop>
+						<prop key="uri">paycenter/WsKesbServlet.ks</prop>
+						<prop key="connecttimeout">10000</prop>
+						<prop key="readtimeout">30000</prop>
+						<prop key="reconnect">5</prop>
+						<prop key="sleeptime">5000</prop>
+					</props>	    	    		
+				</entry>
+				<entry key="excsvc">
+					<props>
+						<prop key="protocal">http</prop>
+						<prop key="server">127.0.0.1</prop>
+						<prop key="port">94</prop>
+						<prop key="uri">excsvc/WsKesbServlet.ks</prop>
+						<prop key="connecttimeout">10000</prop>
+						<prop key="readtimeout">30000</prop>
+						<prop key="reconnect">5</prop>
+						<prop key="sleeptime">5000</prop>
+					</props>	    	    		
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="httpBex" class="com.websuites.esb.plugins.http.HttpBex">
+		<property name="factory">
+			<ref bean="httpFactory"/>
+		</property>
+		<!--
+		<property name="loginInfo">
+			<value>httplogininfo</value>
+		</property>-->
+	</bean>
+</beans>

@@ -1,0 +1,105 @@
+
+
+    <div class="account-main">
+        <div class="order-page">
+	        <div class="simple-titlebar">
+	            <h2><i class="iconfont"></i> 领投人信息</h2>
+	        </div>
+            <div class="apply-form">
+				<form id="investapp">
+					<#if infoList ? exists>
+						<#list infoList as info>
+					 <div class="section multiple-choice">
+                        <h3>领投项目行业</h3>
+                        <ul class="checkboxes clearfix">
+							<#assign i = 0>
+							<#if industryList ? exists>
+								<#list industryList as ids>
+									<#assign i = i + 1>
+			                            <li>
+			                                <input id="${ids.dict_key!''}" type="checkbox" >
+			                                <label for="${ids.dict_key!''}">${ids.dict_value!''}</label>
+			                            </li>
+			                    </#list>
+							</#if>
+                        </ul>
+	                 </div>
+								
+								
+					
+                    <div class="section profile">
+                        <h3>个人简介</h3>
+                        <p class="intro">这里是个人简介的说明性文字。</p>
+                        <textarea placeholder="不多于500字" id="investordesc" value="${info.investordesc!''}" onkeyup="comlength()" datatype="*" nullmsg="请输入您的简介" errormsg="请输入您的简介" >${info.investordesc!''}</textarea>
+                        <div class="tips"><span id="s_tip">最多可以输入500字，还剩<em id="countNum">500</em>个字可以输入</span></div>
+                        <div class="submit">
+                            <input class="btn btn-sm btn-orange"  type="button" value="提交" onclick="addInvestApp()">
+                        </div>
+                    </div>
+						</#list>
+					</#if>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(".guideline-steps li:last-child").addClass("mrzero");
+
+		function addInvestApp() {
+			var s='';
+			$("input[type=checkbox]:checked").each(function(){s+=this.id+','});
+			if(s.length>0){
+				s = s.substring(0,s.length - 1); 
+			}else{
+				zhejiang_alert("提示","请先选择领投项目行业！");
+				return;
+			}
+			var desc=$('#investordesc').val();
+			var $form=$('#investapp').kdValidform();
+			if ($form.check()&& $("input.kdValidform_error").size()== 0){
+
+				$.post("mall/shxProjectInvestAction!addInvestApp.do?ajax=yes",{investindustry:s,investordesc:desc},
+					function(data){		
+						$("input[type=submit]").attr("disabled", false);
+						if(!data){
+							zhejiang_alert("消息","数据提交失败！");
+						} else {
+							if(data.kdjson.flag== 1 ) {
+								zhejiang_alert("提示信息","领投人信息修改成功",function(){
+									window.location.href="myCrowdfunding.html?type=invest";
+								});
+
+							} else {
+								zhejiang_alert("提示信息",data.kdjson.msg,function(){
+								window.location.href="index.html"
+								});													 
+							}
+						}
+				
+				},"json");
+			}
+		}
+		function comlength(){
+				var length=$('#investordesc').val().length;
+				var value=$('#investordesc').val();
+				var leftLength;
+				if (length>'500'){
+					$('#s_tip').html("您已经输入到最大字数了");
+					$('#investordesc').val(value.substring(0,500));
+					//zhejiang_alert("提示","您已经输入到最大字数了");
+				}else{
+					leftLength=500-length;	
+					$('#countNum').text(leftLength);
+				}
+		}
+		$(function(){
+				<#if indList ? exists>
+								<#list indList as ilist>
+								$('#'+'${ilist.indvalue!''}').prop("checked",true);
+								</#list>
+							</#if>
+							comlength();
+		});
+	</script>
+

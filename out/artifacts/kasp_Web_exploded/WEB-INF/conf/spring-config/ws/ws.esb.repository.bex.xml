@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="bexs" class="com.websuites.esb.repository.Bexs">
+    	<property name="configHandle">
+    		 <value>WEB-INF\conf\bex-config\bex-handle-config.xml</value>
+    	</property>
+    	<property name="configDefine">
+    		 <value>WEB-INF\conf\bex-config\bex-define-config.xml</value>
+    	</property>
+    </bean>
+	
+    <bean id="globalForward" class="com.websuites.esb.repository.GlobalForward">
+    	<property name="configDefine">
+    		 <value>WEB-INF\conf\bex-config\global-forward.xml</value>
+    	</property>
+    </bean>
+   
+</beans>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="GB2312"?>
+<ws>
+	<bex id="ws_find_printers" type="java-bex" bean="Printers" class="com.websuites.toolkit.printer.Printers" method="findPrinters" />	
+	<bex id="ws_refresh_printers" type="java-bex" bean="Printers" class="com.websuites.toolkit.printer.Printers" method="refreshPrinters" />
+</ws>

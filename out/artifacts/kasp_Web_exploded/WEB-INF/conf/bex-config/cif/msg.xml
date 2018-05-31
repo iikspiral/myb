@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+<!-- 通过custid select站内消息  -->
+<bex id="f_get_notice_msg_by_custid" ibatis="get_notice_msg_by_custid" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="custid" source="custid"	type="string"	 />	
+	</request>
+</bex>
+
+<!-- 发站内信信息服务 -->
+<bex id="f_kifp_sendNoticemsg"  type="http-bex"  httpserver="kifp" target="noticemsgService" service="sendNoticemsg" parameterType="java.util.HashMap">
+	 <request >
+		  <param name ="msgtitle" source="msgtitle" type="string" />
+		  <param name ="msgcotent" source="msgcotent" type="string" />	  
+		  <param name ="userid" source="userid" type="string" />	  
+		  <param name ="senderid" source="senderid" type="string" />	  
+		  <param name ="addtime" source="addtime" type="string" />	  
+	 </request>
+</bex>
+
+</websuites>

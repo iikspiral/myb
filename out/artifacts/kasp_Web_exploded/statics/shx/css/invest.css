@@ -1,0 +1,827 @@
+@charset "UTF-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.shadow-inset {
+  -webkit-box-shadow: 1px 1px 3px #ececec inset;
+  -moz-box-shadow: 1px 1px 3px #ececec inset;
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #e9e9e9;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+a[href],
+input[type=submit],
+input[type=button],
+textarea {
+  -webkit-transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -o-transition: opacity 3s ease-in-out;
+  transition: opacity 3s ease-in-out;
+}
+h1.logo-invest a {
+  background: url(../images/logo_invest.png) no-repeat 50% 50% !important;
+}
+.learnus {
+  float: left;
+  margin: 30px 30px 30px 0;
+}
+.learnus h2 {
+  font-size: 24px;
+  line-height: 78px;
+  color: #000;
+}
+.learnus ul {
+  width: 480px;
+}
+.learnus ul li {
+  float: left;
+  width: 240px;
+  height: 36px;
+  font-size: 14px;
+  color: #655641;
+}
+.learnus ul li i {
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.statis-invest {
+  float: right;
+  width: 320px;
+  height: 150px;
+  margin: 30px 30px 30px 0;
+  padding: 5px 15px;
+  border: 1px dashed #c0c0c0;
+  line-height: 50px;
+}
+.statis-invest li {
+  width: 100%;
+  font-size: 16px;
+  height: 50px;
+  color: #655641;
+}
+.statis-invest li i {
+  display: inline-block;
+  font-size: 22px;
+  color: #d56a1a;
+  margin-right: 10px;
+}
+.card-list-cyan h3 {
+  background: url(../images/titlebar_cyan.png) no-repeat 50% 50%;
+}
+.card-list-cyan h3 i {
+  color: #00b7bb;
+}
+.card-list-red h3 {
+  background: url(../images/titlebar_red.png) no-repeat 50% 50%;
+}
+.card-list-red h3 i {
+  color: #cc5262;
+}
+.section .sidebar-ad {
+  display: block !important;
+  height: 180px;
+}
+.section .sidebar-ad img {
+  width: 100%;
+}
+.invest-others {
+  margin: 30px auto 60px;
+}
+.invest-others .content {
+  float: left;
+  width: 68%;
+}
+.invest-others .content .product {
+  margin-bottom: 10px;
+}
+.invest-others .sidebar {
+  float: right;
+  width: 30%;
+}
+.debtducts .debtlist > li {
+  margin-bottom: 10px;
+  border: 1px solid #e9e9e9;
+  padding: 15px 20px 20px;
+}
+.debtducts .debtlist > li .title {
+  height: 60px;
+}
+.debtducts .debtlist > li .title h3 {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.debtducts .debtlist > li .title h3 em {
+  font-size: 20px;
+  line-height: 40px;
+  color: #00b7bb;
+  margin-left: -10px;
+}
+.debtducts .debtlist > li .title h3 a {
+  font-size: 22px;
+  line-height: 40px;
+  color: #655641;
+}
+.debtducts .debtlist > li .title h3 a:hover {
+  color: #080705;
+}
+.debtducts .debtlist > li .title span {
+  font-size: 12px;
+  color: #999;
+}
+.debtducts .debtlist > li .properties {
+  margin: 20px 0;
+}
+.debtducts .debtlist > li .properties li {
+  float: left;
+  width: 25%;
+  font-size: 14px;
+  line-height: 34px;
+  height: 34px;
+  color: #655641;
+  overflow: hidden;
+}
+.debtducts .debtlist > li .properties li span {
+  color: #333;
+}
+.debtducts .debtlist > li .properties li em {
+  font-size: 160%;
+  font-weight: bold;
+  color: #d56a1a;
+}
+.debtducts .debtlist > li .properties li.rate {
+  margin-top: -3px;
+}
+.debtducts .debtlist > li .properties li.inleader {
+  width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.debtducts .debtlist > li .actionArea {
+  height: 40px;
+  overflow: hidden;
+}
+.debtducts .debtlist > li .actionArea a {
+  float: left;
+  margin-right: 30px;
+}
+.debtducts .debtlist > li .actionArea ul {
+  float: left;
+}
+.debtducts .debtlist > li .actionArea ul li {
+  float: left;
+  margin-right: 20px;
+  font-size: 12px;
+  line-height: 40px;
+  color: #999;
+}
+.details-page {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+.invest-details .details-section {
+  border: 1px solid #e9e9e9;
+  margin-bottom: 30px;
+}
+.invest-details .details-section .titlebar {
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  background-color: #fafafa;
+  border-bottom: 1px solid #e9e9e9;
+}
+.invest-details .details-section .titlebar .tag {
+  float: left;
+  margin: 15px 10px 15px 15px;
+  width: 75px;
+  background: url(../images/tag.png) no-repeat 50% 50%;
+  font-size: 14px;
+  color: #fff;
+  line-height: 30px;
+  padding-left: 15px;
+}
+.invest-details .details-section .titlebar h2 {
+  float: left;
+  font-size: 24px;
+  line-height: 60px;
+  color: #655641;
+}
+.invest-details .details-section .properties {
+  padding: 40px 40px 30px;
+}
+.invest-details .details-section .properties .main {
+  height: 90px;
+  overflow: hidden;
+}
+.invest-details .details-section .properties .main dl {
+  float: left;
+  width: 25%;
+  height: 90px;
+}
+.invest-details .details-section .properties .main dl dt {
+  font-size: 24px;
+  line-height: 60px;
+  vertical-align: text-bottom;
+  color: #655641;
+}
+.invest-details .details-section .properties .main dl dt em {
+  font-size: 48px;
+  font-weight: bold;
+  color: #d56a1a;
+}
+.invest-details .details-section .properties .main dl dt b {
+  display: inline-block;
+  font-size: 36px;
+  margin-right: 5px;
+}
+.invest-details .details-section .properties .main dl dd {
+  font-size: 14px;
+  line-height: 20px;
+  color: #777;
+  margin-top: -10px;
+}
+.invest-details .details-section .properties .main dl.rate {
+  margin-top: -3px;
+}
+.invest-details .details-section .properties .extra {
+  font-size: 14px;
+  line-height: 30px;
+  color: #777;
+}
+.invest-details .details-section .properties .extra li {
+  float: left;
+  width: 50%;
+}
+.invest-details .details-section .actionArea {
+  padding: 0 40px 40px;
+  padding-top: 0;
+  /*
+			input[type=submit]{
+				margin-left: 40px;
+			}
+			*/
+}
+.invest-details .details-section .actionArea input[type=text] {
+  float: left;
+  width: 178px;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 18px;
+  line-height: 40px;
+}
+.invest-details .details-section .actionArea label {
+  float: left;
+  font-size: 18px;
+  line-height: 40px;
+  padding: 0 10px;
+  color: #666;
+}
+.invest-details .details-section .tags {
+  height: 40px;
+  background-color: #fafafa;
+  border-top: 1px solid #e9e9e9;
+}
+.invest-details .details-section .tags li {
+  float: left;
+  font-size: 12px;
+  line-height: 40px;
+  color: #999;
+  margin-left: 30px;
+}
+#details_tabs {
+  border: 1px solid #e9e9e9;
+}
+#details_tabs .nav {
+  height: 60px;
+  border-bottom: 1px solid #e9e9e9;
+}
+#details_tabs .nav li {
+  float: left;
+}
+#details_tabs .nav li a {
+  display: block;
+  width: 160px;
+  font-size: 18px;
+  line-height: 58px;
+  color: #655641;
+  text-align: center;
+  border-right: 1px solid #e9e9e9;
+  border-top: 2px solid transparent;
+  background-color: #fafafa;
+}
+#details_tabs .nav li a.current {
+  color: #333;
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  border-top: 2px solid #d56a1a;
+}
+#details_tabs .list-wrap {
+  padding: 30px;
+  height: auto !important;
+}
+#details_tabs .list-wrap .section {
+  margin-bottom: 40px;
+}
+#details_tabs .list-wrap .section h3 {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 5px 10px;
+  color: #655641;
+  background-color: #F5F5F5;
+  margin-bottom: 5px;
+}
+#details_tabs .list-wrap .section p {
+  font-size: 14px;
+  line-height: 30px;
+  color: #666;
+}
+#document li i {
+  font-size: 16px;
+  line-height: 30px;
+  color: #999;
+}
+#document li a {
+  font-size: 14px;
+  line-height: 30px;
+  color: #00b7bb;
+}
+#document li a:hover {
+  text-decoration: underline;
+}
+#yield span {
+  font-size: 14px;
+  line-height: 40px;
+  color: #999;
+}
+#yield table {
+  width: 100%;
+}
+#yield table th,
+#yield table td {
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #d6d6d6;
+}
+#yield table th {
+  color: #333;
+  background-color: #f2f2f2;
+}
+#yield table td {
+  color: #666;
+}
+/* 产品转让列表 */
+.debt-transfer {
+  font-size: 14px;
+  line-height: 60px;
+  width: 100%;
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+  color: #655641;
+}
+.debt-transfer tr {
+  border-left: 1px solid #e9e9e9;
+  border-right: 1px solid #e9e9e9;
+}
+.debt-transfer tr th {
+  background-color: #fafafa;
+  text-align: center;
+  padding: 0 10px;
+  line-height: 50px;
+  border: 1px solid rgba(192, 192, 192, 0.2);
+}
+.debt-transfer tr td {
+  text-align: center;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+}
+.changbg {
+  background-color: #ffffff;
+}
+/***** 订单页面 *****/
+.order-page {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+.order-page h2 {
+  font-size: 20px;
+  line-height: 50px;
+  color: #655641;
+  padding-left: 5px;
+}
+.order-page > div {
+  background-color: #fafafa;
+  -moz-border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  border-top: 2px solid #e9e9e9;
+  padding: 60px;
+}
+/***** 确认订单 *****/
+.order-confirm h3 {
+  font-size: 28px;
+  line-height: 60px;
+  color: #333;
+  margin-bottom: 20px;
+}
+.order-confirm dl {
+  font-size: 16px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  *zoom: 1;
+}
+.order-confirm dl:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.order-confirm dl dt {
+  float: left;
+  width: 128px;
+  line-height: 40px;
+  text-align: right;
+  color: #655641;
+}
+.order-confirm dl dd {
+  color: #655641;
+}
+.order-confirm dl dd em {
+  font-size: 18px;
+}
+.order-confirm form {
+  margin-top: 20px;
+  padding-top: 30px;
+  border-top: 1px dotted #c0c0c0;
+}
+.order-confirm form .invest-num a {
+  float: left;
+  width: 38px;
+  font-size: 24px;
+  color: #655641;
+  line-height: 38px;
+  text-align: center;
+  border: 1px solid #c0c0c0;
+}
+.order-confirm form .invest-num input {
+  float: left;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 7px;
+  border: 1px solid #cacaca;
+  cursor: text;
+}
+.order-confirm form .invest-num input:focus {
+  -webkit-box-shadow: 1px 1px 3px #ececec inset;
+  -moz-box-shadow: 1px 1px 3px #ececec inset;
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.order-confirm form .invest-num span {
+  float: left;
+  margin-left: 10px;
+}
+.order-confirm form .invest-num .reduce {
+  border-right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.order-confirm form .invest-num .add {
+  border-left: 0;
+  border-radius: 0 3px 3px 0;
+}
+.order-confirm form .btn-lg {
+  margin: 20px 0 0 128px;
+}
+/* 发布转让订单 */
+.order-transfer {
+  margin-bottom: 60px;
+  padding: 20px;
+}
+.order-transfer .bill {
+  border-bottom: 1px dashed #c0c0c0;
+  padding-bottom: 30px;
+  margin-bottom: 10px;
+}
+.order-transfer .bill h3 {
+  font-size: 22px;
+  line-height: 40px;
+  margin-bottom: 20px;
+  color: #655641;
+}
+.order-transfer .bill h3 em {
+  color: #00b7bb;
+  font-size: 90%;
+}
+.order-transfer .bill .properties {
+  padding: 0 10px;
+}
+.order-transfer .bill .properties dl {
+  float: left;
+  width: 50%;
+  font-size: 14px;
+  line-height: 40px;
+}
+.order-transfer .bill .properties dl dt {
+  float: left;
+  width: 30%;
+  min-width: 100px;
+  color: #655641;
+}
+.order-transfer .bill .properties dl dd {
+  float: left;
+  width: 70%;
+  color: #847055;
+}
+.order-transfer .awesomeform input[type=text],
+.order-transfer .awesomeform input[type=password] {
+  width: 200px !important;
+}
+.order-transfer .awesomeform .line {
+  margin-bottom: 0;
+}
+/***** 支付订单 *****/
+.order-pay .num_paid {
+  padding-bottom: 30px;
+  border-bottom: 1px dotted #c0c0c0;
+}
+.order-pay .num_paid li {
+  line-height: 30px;
+  font-size: 28px;
+  color: #333;
+}
+.order-pay .num_paid li em {
+  color: #d56a1a;
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 30px;
+}
+.order-pay .num_paid li span {
+  font-size: 12px;
+  line-height: 30px;
+  color: #a7a7a7;
+}
+.order-pay .bill {
+  padding: 30px 0;
+  border-bottom: 1px dotted #ccc;
+}
+.order-pay .bill dl {
+  *zoom: 1;
+  font-size: 14px;
+  line-height: 50px;
+  clear: both;
+}
+.order-pay .bill dl:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.order-pay .bill dl dt {
+  float: left;
+  width: 70px;
+  text-align: right;
+  margin-right: 30px;
+  color: #655641;
+}
+.order-pay .bill dl dd {
+  float: left;
+  color: #655641;
+}
+.order-pay .bill dl dd em {
+  font-size: 14px;
+  margin-right: 3px;
+}
+.order-pay .pay-method {
+  padding: 20px 0 30px;
+}
+.order-pay .pay-method h3 {
+  font-size: 20px;
+  line-height: 60px;
+  color: #655641;
+}
+.order-pay .pay-method h3 span {
+  font-size: 14px;
+  color: #a7a7a7;
+}
+#TPD,
+#OB {
+  background-color: #ffffff;
+  border: 1px solid #e9e9e9;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+#TPD .option,
+#OB .option {
+  padding: 0 0 20px 20px;
+}
+#TPD .option label,
+#OB .option label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+#TPD ul {
+  padding-left: 40px;
+}
+#TPD ul li {
+  line-height: 40px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  *zoom: 1;
+}
+#TPD ul li:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+#TPD ul li em {
+  color: #d56a1a;
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 16px;
+}
+#TPD ul li input {
+  width: 200px;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 7px;
+  border: 1px solid #d0d0d0;
+  background-color: #fafafa;
+  margin-right: 5px;
+  cursor: text;
+}
+#TPD ul li:focus {
+  border-color: #d56a1a;
+  background-color: #fff;
+}
+#TPD ul .account {
+  height: 20px;
+  padding: 10px 0;
+  line-height: 20px;
+}
+#TPD ul .account img {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+#TPD ul .account span {
+  float: left;
+}
+#OB .payment {
+  padding: 0 40px;
+}
+#OB .payment h4 {
+  font-size: 14px;
+  line-height: 30px;
+}
+#OB .payment .options {
+  margin-top: 5px;
+}
+#OB .payment .options a {
+  position: relative;
+  width: 126px;
+  height: 38px;
+  margin: 0 10px 15px 0;
+  border: 1px solid #ececec;
+  float: left;
+}
+#OB .payment .options a img {
+  width: 126px;
+  height: 38px;
+}
+#OB .payment .options a i {
+  display: none;
+  position: absolute;
+  bottom: -6px;
+  right: -5px;
+  font-size: 22px;
+  color: #d56a1a;
+}
+#OB .payment .options:hover {
+  border-color: #e9e9e9;
+}
+#OB .payment .options .selected {
+  border-color: rgba(192, 192, 192, 0.9);
+}
+#OB .payment .options .selected i {
+  display: block;
+}
+#OB .payment .options .mrzero {
+  margin-right: 0;
+}
+#OB .payment .options li label {
+  width: 128px;
+  height: 42px;
+}
+#OB .payment .options li label img {
+  width: 126px;
+  height: 40px;
+  border: 1px solid #ccc;
+}
+#OB .payment .options li input {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -6px;
+}
+#OB .payment .num {
+  margin-top: 20px;
+  height: 40px;
+  font-size: 14px;
+}
+#OB .payment .num label {
+  font-size: 14px;
+  line-height: 40px;
+}
+#OB .payment .num input {
+  width: 200px;
+  line-height: 24px;
+  padding: 7px;
+  border: 1px solid #cacaca;
+  background-color: #fafafa;
+  margin-right: 5px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+#OB .payment .num input:focus {
+  border-color: #d56a1a;
+  background-color: #ffffff;
+  -webkit-box-shadow: 1px 1px 3px #ececec inset;
+  -moz-box-shadow: 1px 1px 3px #ececec inset;
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+/* 回款账户 */
+.account-info {
+  margin: 20px 40px;
+  padding: 20px 0;
+  border-top: 1px solid #ececec;
+}
+.account-info h4 {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+.account-info h4 span {
+  font-size: 13px;
+  color: #747474;
+}
+.account-info li {
+  float: left;
+  width: 24.8%;
+  height: 30px;
+  border-left: 1px solid #fafafa;
+  overflow: hidden;
+  line-height: 30px;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: #ffffff;
+}
+.account-info li img {
+  margin-top: 5px;
+}
+.account-info li a {
+  color: #3498db;
+}
+.account-info li a:hover {
+  text-decoration: underline;
+}
+.order-pay .pay-method .action-btn {
+  margin-top: 20px;
+  padding-left: 40px;
+}
+.order-pay .pay-method .action-btn input {
+  margin-right: 20px;
+}
+.order-pay .pay-method .action-btn input[onclick] {
+  color: #655641;
+  background-color: transparent;
+}
+.order-pay .pay-method .action-btn input[type=button]:hover {
+  color: #080705;
+}
+/*# sourceMappingURL=invest.css.map */

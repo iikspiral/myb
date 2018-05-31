@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+<sqlMap namespace="com.szkingdom.tbip.cif.entity.AclMenuEntity">
+ 
+	<!--<select id="queryCustMenu" parameterClass="java.util.HashMap" resultClass="com.szkingdom.acl.entity.AclCustMenuEntity">
+		<![CDATA[
+		    select * from acl.acl_cust_menu where custno = #custNo# and  order by custno, menuid
+		]]>
+	</select>-->
+		
+	<insert id="insertCustinfo" parameterClass="java.util.HashMap">
+        <![CDATA[
+           INSERT INTO cif.cif_user
+            (id,
+             username,
+             companyname,
+             password,
+             address,
+             legalrepresentative,
+             linkman,
+             tel,
+             mobile,
+             email,
+             logofile,
+             licensefile,
+             defaultsiteid,
+             deleteflag,
+             usertype,
+             createtime)
+			VALUES (#id#,
+			#username#,
+			#11#,
+			#password#,
+			#11#,
+			#11#,
+			#11#,
+			#11#,
+			#mobile#,
+			#11#,
+			#11#,
+			#11#,
+			#11#,
+			#11#,
+			#usertype#,
+			#11#);
+        ]]>
+    </insert>
+
+</sqlMap>  

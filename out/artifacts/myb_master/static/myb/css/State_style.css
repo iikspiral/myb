@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	font-size:12px;
+}
+/*控制div水平、垂直居中*/
+.state_body {
+	width:600px;
+	height:185px;
+	margin-top: -200px;
+	margin-left: -350px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	text-align:center;
+}
+.state_top{
+	margin:0 auto;
+	height:75px;
+	width:520px;
+	margin-top:30px;
+}
+.state_top_ico{
+	float:left;
+	margin-left:50px;
+}
+.state_top_font{
+	float:left;
+	height:60px;
+	margin:15px 0 0 20px;
+
+}
+.state_top_explain{
+	line-height:30px;
+	color:#a7a7a7;
+	text-align:left;
+}
+.clear{
+	clear:both;
+}
+/*操作错误页面错误信息提示部分样式*/
+.error_bottom{
+	border-top:1px solid #b7b8b9;
+	height:40px;
+	line-height:40px;
+	color:#666666;
+}
+/*操作成功页面错误信息提示部分样式*/
+.success_bottom{
+	margin:0 auto;
+	height:40px;
+	line-height:40px;
+	border-top:1px solid #b7b8b9;
+	width:520px;
+}
+li{
+	list-style:none;
+}
+.state_bottom li a{
+	float:left;
+	list-style:none;
+	color:#5774ac;
+}

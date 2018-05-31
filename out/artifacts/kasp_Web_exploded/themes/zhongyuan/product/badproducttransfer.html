@@ -1,0 +1,191 @@
+<!-- 产品列表 -->
+<ul>
+	<#if badproducttransferlist?exists>
+		<#if (badproducttransferlist?size>0)>
+			<#list badproducttransferlist as badproducttransfer>
+			<#setting number_format="currency"/>
+			<li class="product clearfix">
+				<a href="bondsdetai_${badproducttransfer.id}.html" class="p-img"><img class="lazyload" src="${staticserver}/common/images/project_min.gif" imgsrc="${fileserver}${badproducttransfer.img!''}" imgval="${badproducttransfer.img!''}"></a>
+				<div class="product-info">
+					<h3><a href="bondsdetai_${badproducttransfer.id!''}.html">${badproducttransfer.name!''}</a></h3>
+					<dl>
+						<dt>发行规模</dt>
+						<dd>${badproducttransfer.borrowamount?number / 10000}万元</dd>
+						<dt>认购起点</dt>
+						<dd>${badproducttransfer.mintenderedsum}元</dd>
+					</dl>
+					<dl>
+						<dt>融资期限</dt>
+					    <dd>
+							${badproducttransfer.deadline!'0'}
+							<#if (badproducttransfer.deadlineunit)?exists && (badproducttransfer.deadlineunit) =='M'>
+								个月
+							<#elseif (badproducttransfer.deadlineunit)?exists && (badproducttransfer.deadlineunit) =='D'>
+								天
+							<#elseif (badproducttransfer.deadlineunit)?exists && (badproducttransfer.deadlineunit) =='Y'>
+								年
+							<#else>
+								个月
+							</#if>
+						</dd>
+						<dt>剩余可投</dt>
+						<dd>${badproducttransfer.leftamount?number / 10000}万元</dd>
+					</dl>
+					<dl>
+						<dt class="rate">预期年化收益率</dt>
+						<dd class="rate">${badproducttransfer.annualrate!''}%</dd>
+						<dt>产品等级</dt>
+						<dd class="level">${badproducttransfer.productlevel!''}</dd>
+					</dl>
+				</div>
+				<div class="actionArea">
+				<#if badproducttransfer.status = '3' || badproducttransfer.status = '5'>
+					<#if badproducttransfer.leftamount?number <= 0 && ( badproducttransfer.allowtime =='3'|| badproducttransfer.allowtime =='4')>
+						<input type="button" class="XL-Btn infoBtn" value="认购结束"/>
+					<#elseif badproducttransfer.allowtime =='1'>
+						<input type="button" class="XL-Btn infoBtn" value="敬请期待"/>
+						<span class="begintime">${badproducttransfer.year}年${badproducttransfer.month}月${badproducttransfer.day}日${badproducttransfer.hour}:00</span>
+					<#elseif badproducttransfer.allowtime =='2'>
+						<input type="button" class="XL-Btn infoBtn" value="即将开始"/>
+						<span class="endtime" surplusTime="${badproducttransfer.djs!""}"></span>
+					<#else>
+						<button class="actionBtn XL-Btn" onclick="window.location.href='bondorderdeal.html?id=${badproducttransfer.id!''}'">立即投资</button>
+					</#if>
+				</#if>
+				<#if badproducttransfer.status == '4'>
+					<input type="button" class="XL-Btn infoBtn" value="认购结束"/>
+				</#if>
+				</div>
+
+			</li>
+			</#list>
+		</#if>
+	</#if>
+</ul>
+
+<div id="page_area" class="pager-info"></div>
+
+<script type="text/javascript">
+
+function generalParam() {
+ 
+		var maxdeadline = $("a.selected", "li[type=deadline]").attr("maxdeadline");
+		var mindeadline = $("a.selected", "li[type=deadline]").attr("mindeadline");
+		var maxannualrate = $("a.selected", "li[type=annualrate]").attr("maxannualrate");
+		var minannualrate = $("a.selected", "li[type=annualrate]").attr("minannualrate");
+		var maxmintenderedsum = $("a.selected", "li[type=mintenderedsum]").attr("maxmintenderedsum");
+		var minmintenderedsum = $("a.selected", "li[type=mintenderedsum]").attr("minmintenderedsum");
+		var reg = /[\w\W]+/, param = "";
+	 
+		if(maxdeadline && reg.test(maxdeadline))param +=(reg.test(param)?"&" : "")+("maxdeadline="+maxdeadline);
+		if(mindeadline && reg.test(mindeadline))param +=(reg.test(param)?"&" : "")+("mindeadline="+mindeadline);
+		if(maxannualrate && reg.test(maxannualrate))param +=(reg.test(param)?"&" : "")+("maxannualrate="+maxannualrate);
+		if(minannualrate && reg.test(minannualrate))param +=(reg.test(param)?"&" : "")+("minannualrate="+minannualrate);
+		if(maxmintenderedsum && reg.test(maxmintenderedsum))param +=(reg.test(param)?"&" : "")+("maxmintenderedsum="+maxmintenderedsum);
+		if(minmintenderedsum && reg.test(minmintenderedsum))param +=(reg.test(param)?"&" : "")+("minmintenderedsum="+minmintenderedsum);
+		return param;
+}
+
+
+function generalUrl(page) {
+	var param = generalParam();
+	if(page) {
+		param += (param ? "&page=" : "?page=") + page;
+	}
+	window.location.href = "/badproducttransfer.html" + (param ? "?" + param : "");
+}
+
+//倒计时函数
+function updateEndTime(){
+	$(".endtime").each(function(i){
+		var surplusTime = this.getAttribute("surplusTime");
+		this.setAttribute("surplusTime",--surplusTime);
+		if(surplusTime > 0)
+		{
+			var second = Math.floor(surplusTime % 60);     
+			var minite = Math.floor((surplusTime / 60) % 60);
+			var hour = Math.floor((surplusTime / 3600) % 24);
+			var day = Math.floor((surplusTime / 3600) / 24);
+			$(this).html(hour+"小时"+minite+"分"+second+"秒");
+		}else if(surplusTime ==0){
+			location.reload();
+		}
+	});
+	setTimeout("updateEndTime()",1000);
+}
+
+
+$(function() {
+
+	
+
+	updateEndTime();
+	$("a").click(function() {
+		$(".selected", $(this).closest("li")).removeClass("selected");
+		$(this).addClass("selected");
+		generalUrl();
+	});
+	
+	 
+	var deadline = "${maxdeadline!''}";
+	if(deadline) {
+		$("a.selected", "li[type=deadline]").removeClass("selected");
+		$("li[type=deadline] a[maxdeadline='" + deadline + "']").addClass("selected");
+	}
+	var annualrate = "${maxannualrate!''}";
+	if(annualrate) {
+		$("a.selected", "li[type=annualrate]").removeClass("selected");
+		$("li[type=annualrate] a[maxannualrate='" + annualrate + "']").addClass("selected");
+	}
+	var mintenderedsum = "${minmintenderedsum!''}";
+	if(mintenderedsum) {
+		$("a.selected", "li[type=mintenderedsum]").removeClass("selected");
+		$("li[type=mintenderedsum] a[minmintenderedsum='" + mintenderedsum + "']").addClass("selected");
+	}
+	 
+	var urlparam = generalParam(); 
+	$pager = $.kd.kdPager.init({
+		currentPage: '${page!'1'}',
+		totalPage: '${totalPage!'0'}',
+		totalRecords: '${totalCount!'0'}',
+		prefix: '/badproducttransfer.html',
+		suffix: function(n) {
+			return  urlparam + '&page=' + n;
+		}
+	});
+});
+
+</script>
+
+
+<script>
+var kifpwebbadproducttransfer = kifpwebbadproducttransfer || {};
+
+kifpwebbadproducttransfer.badproducttransfer = {
+	init:function(){
+		var self = this;
+		self.reloadImg();
+	}
+	,reloadImg:function(){
+	$(".p-img img").each(function() {
+		var current = $(this);
+		var imgval = current.attr("imgval");
+		var imgsrc = current.attr("imgsrc");
+		if(imgval!=undefined && imgval!=null && imgval!=""){
+			current.attr("src",imgsrc);
+		}else{
+			current.attr("src","${staticserver}/common/images/project_min.gif");
+		}
+	});
+	
+	}
+
+
+}
+
+$(function(){
+	kifpwebbadproducttransfer.badproducttransfer.reloadImg();
+
+});
+
+</script>

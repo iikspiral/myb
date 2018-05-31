@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+	<bex id="f_pif_bond_add_borrow" ibatis="pif_bond_add_borrow"
+		operate="insert" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_bond_add_borrow_basic" ibatis="pif_bond_add_borrow_basic"
+		operate="insert" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_bond_update_borrow_basic" ibatis="pif_bond_update_borrow_basic"
+		operate="update" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_pif_bond_select_borrow_basic" ibatis="pif_bond_select_borrow_basic"
+		operate="select" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_bond_add_borrow_other" ibatis="pif_bond_add_borrow_other"
+		operate="update" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_bond_update_borrow_other" ibatis="pif_bond_update_borrow_other"
+		operate="update" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_bond_delete_borrow_other" ibatis="pif_bond_delete_borrow_other"
+		operate="delete" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_pif_bond_select_borrow_other" ibatis="pif_bond_select_borrow_other"
+		operate="select" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_ins_borrow_repayment" ibatis="ins_borrow_repayment"
+		operate="insert" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_update_custbaseinfo" ibatis="update_custbaseinfo"
+		operate="update" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	<bex id="f_select_custbaseinfo" ibatis="select_custbaseinfo"
+		operate="select" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_pif_select_attachment" ibatis="pif_select_attachment"
+		operate="select" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_pif_add_attachment" ibatis="pif_add_attachment"
+		operate="update" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_update_attachment" ibatis="pif_update_attachment"
+		operate="update" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_pif_delete_attachment" ibatis="pif_delete_attachment"
+		operate="delete" httpserver="kifp" type="http-bex"
+		target="sysMybatisServiceBean" service="doCommonIbatis" lparam="false"
+		parameterType="java.util.HashMap">
+	</bex>
+	
+</websuites>

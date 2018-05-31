@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+	<bex id="f_kifp_aus_login" type="http-bex" httpserver="kifpsvc"  transaction="false"  target="kifpAusAuthoneService" service="kifpAuthInvestorUser" parameterType="java.util.HashMap" lparam="false"> 
+      <request>
+     	 <!-- httpserver="UA"  transaction="false" -->
+		    <param name="custId" source="custId" type="string"/>
+		    <param name="password" source="password" type="string" />
+		    <param name="serverid" source="serverid" type="string"/>
+		    <param name="exchangeid" source="exchangeid" type="string" />
+		    <param name="oepnid" source="openid" type="string" />
+	   </request>
+	</bex>
+	
+	<bex id="f_kifp_aus_login_new" type="http-bex" httpserver="kifpsvc"  transaction="false"  target="kifpAusAuthoneService" service="newKifpAuthInvestorUser" parameterType="java.util.HashMap" lparam="false"> 
+      <request>
+     	 <!-- httpserver="UA"  transaction="false" -->
+		    <param name="custId" source="custId" type="string"/>
+		    <param name="password" source="password" type="string" />
+		    <param name="serverid" source="serverid" type="string"/>
+		    <param name="exchangeid" source="exchangeid" type="string" />
+		    <param name="oepnid" source="openid" type="string" />
+	   </request>
+	</bex>
+	
+	<bex id="f_kifp_aus_investor_list" type="http-bex" httpserver="kifpsvc" target="kifpAusAuthoneService" service="kifpInvestorList" parameterType="java.util.HashMap" lparam="false"> 
+      <request>
+		    <param name="pageNumber" source="pageNumber" type="string"/>
+		    <param name="pageSize" source="pageSize" type="string" />
+	   </request>
+	</bex>
+	
+		<bex id="f_kifp_aus_single_investor" type="http-bex" httpserver="kifpsvc" target="kifpAusAuthoneService" service="kifpInvestorList" parameterType="java.util.HashMap" lparam="false"> 
+      <request>
+		    <param name="pageNumber" source="pageNumber" type="string"/>
+		    <param name="pageSize" source="pageSize" type="string" /> 
+		     <param name="custid" source="custid" type="string" /> 
+	   </request>
+	</bex>
+
+	<bex id="f_kifp_aus_single_transfer" type="http-bex" httpserver="kifpsvc" target="kifpAusAuthoneService" service="kifpTransferList" parameterType="java.util.HashMap" lparam="false"> 
+      <request>
+		    <param name="pageNumber" source="pageNumber" type="string"/>
+		    <param name="pageSize" source="pageSize" type="string" />
+			<param name="borrowid" source="borrowid" type="string" />
+	   </request>
+	</bex>
+	
+
+	<!-- "f_cif_cancel_cust" 销户   -->
+	<bex id="f_web_cif_cancel_cust" type="http-bex" httpserver="kifpsvc"     target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+	<bex id="f_add_borrowpayment" type="http-bex" httpserver="kifp"     target="addPayment" service="AddBorrowPayment"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+	<bex id="f_add_borrowpayment_repaydate" type="http-bex" httpserver="kifp"  target="addRepaydateServiece" service="addPaymentDate" parameterType="java.util.HashMap" lparam="false" />
+		
+	<bex id="f_web_repayServ" type="http-bex" httpserver="kifp"     target="repayService" service="doCommonBexTest"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+   <bex id="f_web_advanceRepay" type="http-bex" httpserver="kifp"     target="repayMentService" service="advanceRepay"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+	<bex id="f_web_repay_status" type="http-bex" httpserver="kifp"     target="repayAlertRdsService" service="repayAlertStatus"
+		parameterType="java.util.HashMap" lparam="false" />
+    
+	<bex id="f_web_repayZd" type="http-bex" httpserver="kifp"     target="redemptionService" service="doRedemptionAction"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+	<bex id="f_web_repayHg" type="http-bex" httpserver="kifp"     target="redemptionService" service="buybackRepay"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+	<bex id="f_test_chaifen" type="http-bex" httpserver="kifp"     target="addTransfer" service="transferOrderPrice"
+		parameterType="java.util.HashMap" lparam="false" />	
+	
+	<bex id="f_web_debt_refund" type="http-bex" httpserver="kifp"     target="transfeRefund" service="doTransfeRefundAction" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_web_doBuyback" type="http-bex" httpserver="kifp"     target="buybackPaymentService" service="doBuyback" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_web_debt_bondtransferclear" type="http-bex" httpserver="kifp"     target="bondtransferClearService" service="doTransfeClearAction"	parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_web_donormal" type="http-bex" httpserver="kifp"     target="normalRepayCapital" service="normalRepay" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_web_duerepay" type="http-bex" httpserver="kifp"     target="repay" service="dueRepay" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="api_bex_cust_register" type="http-bex" httpserver="kifp" target="registerAction" service="userRegister" parameterType="java.util.HashMap" lparam="false" />
+	
+    <bex id="f_kifp_pif_borrow" type="http-bex" httpserver="kifp"     target="addBorrow" service="doSearchInfo" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_kifp_capital" type="http-bex" httpserver="kifp"     target="searchCapitalChg" service="doCapitalChg" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_searchbondlist" type="http-bex" httpserver="kifp"     target="searchBondList" service="doSearchBondList" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_addborrow" type="http-bex" httpserver="kifp"     target="addBorrow" service="addFile" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_addborrow_other" type="http-bex" httpserver="kifp"     target="addBorrow" service="addBorrowother" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_transferdeal" type="http-bex" httpserver="kifp"     target="addTransfer" service="doDealTransfer" parameterType="java.util.HashMap" lparam="false" />
+   
+   	<bex id="api_bex_cust_openaccount" type="http-bex" httpserver="kifp"     target="openAccountAction" service="openAccount" parameterType="java.util.HashMap" lparam="false" />
+   	<bex id="api_bex_get_custid" type="http-bex" httpserver="kifp"     target="commonQuery" service="getApplyCustID" parameterType="java.util.HashMap" lparam="false" />
+   	<bex id="api_bex_cust_openacct_24hours" type="http-bex" httpserver="kifp"     target="openAccountAction" service="openAcct24Hours" parameterType="java.util.HashMap" lparam="false" />
+   
+   	<bex id="api_bex_amount_trasnfer" type="http-bex" httpserver="kifp"     target="fundsTransferAction" service="fundsTransfer" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_transfer_new" type="http-bex" httpserver="kifp"     target="addTransfer" service="doTransferDeal" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_transferlist" type="http-bex" httpserver="kifp"     target="searchTransferList" service="doNewTransferList" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_partclear_new" type="http-bex" httpserver="kifp"     target="bondtransferClearService" service="doPartTransfeClearAction" parameterType="java.util.HashMap" lparam="false" />
+	<bex id="f_test_partrefund_new" type="http-bex" httpserver="kifp"     target="transfeRefund" service="transfeRefundAction" parameterType="java.util.HashMap" lparam="false" />
+   	
+   	  <!-- 检测注册用户名或手机号已被使用 -->	
+	<bex id="api_check_aus_exists" type="http-bex" httpserver="kifp"  target="validateUtil" service="authExists" parameterType="java.util.HashMap" lparam="false" />
+   	
+   	<!-- 风险测评 -->	
+	<bex id="api_maker_risk_estimate" type="http-bex" httpserver="kifp"  target="riskEstimate" service="getEstimateReuslt" parameterType="java.util.HashMap" lparam="false" />
+   	
+   	 <!-- 检测注册用户名或手机号已被使用 -->	
+	<bex id="f_aus_authone_exists" ibatis="aus_authone_exists" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+
+	</bex>
+	
+	<!--  撤下三方存管并重新开通三方存管    -->
+	<bex id="api_close_bank_acct" type="http-bex" httpserver="kifp"  target="closeAccount" service="closeAccount" parameterType="java.util.HashMap" lparam="false" >
+		<!-- <request>
+			<param name="customerno" type="string"/>
+			<param name="password" type="string"/>
+			<param name="bankpwd" type="string"/>
+			<param name="orgpwd" type="string"/>
+			<param name="channelcode" type="string"/>
+			<param name="bankaccount" type="string"/>
+		</request> -->
+	</bex>
+   	
+   <!--  设置密保问题    -->
+	<bex id="api_set_safe_qa" type="http-bex"  httpserver="kifp" target="updateCommon" service="updMySafeQA" parameterType="java.util.HashMap" lparam="false" >
+		<!-- <request>
+			<param name="customerno" type="string"/>
+			<param name="question1" type="string"/>
+			<param name="question2" type="string"/>
+			<param name="question3" type="string"/>
+			<param name="answer1" type="string"/>
+			<param name="answer2" type="string"/>
+			<param name="answer3" type="string"/>
+		</request> -->
+	</bex>
+	
+	 <!--  代理开户  对外  -->
+	<bex id="api_agt_open_acct_out" type="http-bex"  httpserver="kifp" target="agentOpenAccount" service="agentOpenAccount" parameterType="java.util.HashMap" lparam="false" >
+		<!-- <request>
+		</request> -->
+	</bex>
+	
+	<!--  代理开户  对内  -->
+	<bex id="api_agt_open_acct_in" type="http-bex"  httpserver="kifp" target="agentOpenAccount" service="agtOpenAcct" parameterType="java.util.HashMap" lparam="false" >
+		<!-- <request>
+		</request> -->
+	</bex>
+	
+	<bex id="f_test_dict" type="http-bex" httpserver="kifp"     target="dictService" service="getDict" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_cancel" type="http-bex" httpserver="kifp"     target="judgeAction" service="cancelTransfer" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!-- 查询客户银行签约信息  -->
+	<bex id="api_get_acct_deposit" ibatis="get_ua_acct_deposit" type="http-bex" httpserver="kifp" operate="select" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name ="customerno"  type="string" /> 
+			<param name ="capitalaccount"  type="string" />
+		</request>
+	</bex>
+	
+	<!-- 检查资金账户状态 -->
+	<bex id="f_get_capitalaccout_status" ibatis="get_capitalaccout_status" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<!-- 查询  游客绑定信息 -->
+	<bex id="f_get_cif_custbinding" ibatis="get_cif_custbinding" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name ="custid"  type="string" /> 
+		</request>
+	</bex>
+	
+	<!--  测试手机验证码  -->
+	<bex id="api_qry_phone_code" type="http-bex"  httpserver="kifp" target="getPhoneCode" service="getPhoneValidateCode" parameterType="java.util.HashMap" lparam="false" >
+		<!-- <request>
+		</request> -->
+	</bex>
+	<!--  测试竞拍发布  -->
+	<bex id="f_test_auction" type="http-bex" httpserver="kifp"     target="bondTransferService" service="doAuctionService" parameterType="java.util.HashMap" lparam="false" />
+	<!--  测试竞拍委托下单  -->
+	<bex id="f_test_auction_order" type="http-bex" httpserver="kifp"     target="bondTransferService" service="doAuctionCust" parameterType="java.util.HashMap" lparam="false" />
+	<!--  测试竞拍成交  -->
+	<bex id="f_test_auction_confirm" type="http-bex" httpserver="kifp"     target="bondTransferService" service="doAuctionClear" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试密码锁定解锁  -->
+	<bex id="f_test_password" type="http-bex" httpserver="kifp"     target="failDeblockingService" service="doDeblockingFailCount" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试转让订单  -->
+	<bex id="f_test_transferorder" type="http-bex" httpserver="kifp"     target="bondTransferOrder" service="doTransferDeal" parameterType="java.util.HashMap" lparam="false" />
+	<!--  测试转让份额  -->
+	<bex id="f_test_transferconfirm" type="http-bex" httpserver="kifp"     target="partTransferDealOrderService" service="dealRegistShare" parameterType="java.util.HashMap" lparam="false" />
+	<!--  测试订单取消  -->
+	<bex id="f_test_ordercancel" type="http-bex" httpserver="kifp"     target="partTransferDealOrderService" service="DealCancelOrder" parameterType="java.util.HashMap" lparam="false" />
+		<!--  测试订单取消  -->
+	<bex id="f_test_ordercancel1" type="http-bex" httpserver="kifp"     target="partTransferDealOrderService" service="DealCancelOrder1" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试订单清算  -->
+	<bex id="f_test_orderclear" type="http-bex" httpserver="kifp"     target="bondtransferClearService" service="transactionConfirm" parameterType="java.util.HashMap" lparam="false" />
+	<!--  测试订单 退款  -->
+	<bex id="f_test_orderefund" type="http-bex" httpserver="kifp"     target="transfeRefund" service="orderRefundAction" parameterType="java.util.HashMap" lparam="false" />
+	
+
+	
+	<!--  测试竞拍委托生成订单  -->
+	<bex id="f_test_auctionOrder" type="http-bex" httpserver="kifp"     target="bondTransferService" service="doAuctionCust" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试竞拍委托取消订单  -->
+	<bex id="f_test_cancel_auctionOrder" type="http-bex" httpserver="kifp"     target="bondTransferService" service="AuctionCancelOrder" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试竞拍付款成功后续操作  -->
+	<bex id="f_test_deal_auctionOrder" type="http-bex" httpserver="kifp"     target="bondTransferService" service="doAuctionDeal" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试竞拍 清算 -->
+	<bex id="f_test_clear_auctionOrder" type="http-bex" httpserver="kifp"     target="bondTransferService" service="doAuctionSingleClear" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试订单是否失效 -->
+	<bex id="f_test_order_lose" type="http-bex" httpserver="kifp"     target="bondTransferOrder" service="checkIsLoseEfficacy" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!--  测试项目其他信息单个插入 -->
+	<bex id="f_test_insert_bond" type="http-bex" httpserver="kifp"  target="addBorrow" service="addNewBorrowother" parameterType="java.util.HashMap" lparam="false" />
+	
+	
+		<!--  测试项目其他信息单个插入 -->
+	<bex id="f_test_query_accountinfo" type="http-bex" httpserver="kifp"   target="searchAccount" service="doAccountInfo" parameterType="java.util.HashMap" lparam="false" />
+	
+	
+	<bex id="f_test_invest_frozen" type="http-bex" httpserver="kifp"  target="newRepayService" service="PublisFrozenDo" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_payment" type="http-bex" httpserver="kifp"  target="newRepayService" service="payment" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_payment_buybackRepay" type="http-bex" httpserver="kifp"  target="newRepayService" service="buybackRepay" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_interest" type="http-bex" httpserver="kifp"  target="interestTools" service="interestToolsAction" parameterType="java.util.HashMap" lparam="false" />
+	
+    <bex id="f_add_borrowpayment_new" type="http-bex" httpserver="kifp"     target="addPaymentNew" service="AddBorrowPayment"	parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_advance_frozen" type="http-bex" httpserver="kifp"     target="newRepayService" service="advaFrozenDo"	parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_advance_hb" type="http-bex" httpserver="kifp"     target="newRepayService" service="advanceRepay"	parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_cancel_new" type="http-bex" httpserver="kifp"     target="bondTransferService" service="cancelTransfer" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_collection_insert" type="http-bex" httpserver="kifp"     target="bondCollectionService" service="bondCollectionDo" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_collection_counts" type="http-bex" httpserver="kifp"     target="bondCollectionService" service="collectionCountsDo" parameterType="java.util.HashMap" lparam="false" />
+	
+	<bex id="f_test_auto_invest" type="http-bex" httpserver="kifp"     target="autoInvestService" service="mainDealDo" parameterType="java.util.HashMap" lparam="false" />
+	
+<bex id="get_publishor_repayplan"  type="service-bex" httpserver="kifp" target="searchRepayService" service="pubRepayPlan" parameterType="java.util.HashMap" lparam="false" />
+	
+</websuites>
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.mobile.dao.FaceResultInfoDao">
+    
+	<sql id="faceResultInfoColumns">
+		a.id,
+		a.name,
+		a.phone_num,
+		a.idcard,
+		a.num,
+		a.result,
+		a.pic_string,
+		a.create_by AS "createBy.id",
+		a.create_date,
+		a.update_by AS "updateBy.id",
+		a.update_date,
+		a.del_flag
+	</sql>
+    
+	<select id="get" resultType="FaceResultInfo">
+		SELECT
+			<include refid="faceResultInfoColumns"/>
+		FROM faceresult_info a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="FaceResultInfo">
+		SELECT
+			<include refid="faceResultInfoColumns"/>
+		FROM faceresult_info a
+		WHERE a.del_flag =  #{DEL_FLAG_NORMAL}
+
+	</select>
+
+	<insert id="insert">
+		INSERT INTO faceresult_info(
+			id,
+			name,
+			phone_num,
+			idcard,
+			num,
+			result,
+			pic_string,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{name},
+			#{phoneNum},
+			#{idcard},
+			#{num},
+			#{result},
+			#{picString},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE faceresult_info SET
+			name = #{name},
+			phone_num = #{phoneNum},
+			idcard = #{idcard},
+			num = #{num},
+			result = #{result},
+			pic_string = #{picString},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+</mapper>

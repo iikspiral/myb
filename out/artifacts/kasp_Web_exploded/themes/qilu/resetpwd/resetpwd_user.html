@@ -1,0 +1,159 @@
+<div class="clearfix">
+	<p class="tips"><i class="iconfont">&#xe628;</i> 找回密码</p>
+	<form id="find_pwd1"">
+		<ul>
+			<li>
+				<label for="username">用户名</label>
+				<input  type="text" name="username" id="username" class="input"  datatype="s3zh2" nullmsg="请输入用户名！" errormsg="昵称至少3个英文字符或两个中文字符,最多18个字符！"/>
+				 <span class="kdValidform_checktip">昵称至少3个字符或两个中文字符,最多18个字符</span>
+			</li>	
+			<li>
+				<label for="phoneNum">手机号码</label>
+				<input type="text" 	 id="mobile"	 name="mobiletel"   datatype="m" errormsg="您输入的手机号码有误！"/>
+				<input type="button" id="btn_get_validatecode" class="btn btn-lg btn-grey"  value="获取验证码"  />
+			</li>
+			<li>
+				<label for="captcha">手机验证码</label>
+				<input  name="txt_validatecode" type="text" id="txt_validatecode" datatype="n6-6" errormsg="请输入6位数字的手机验证码"/>
+				<span class="kdValidform_checktip">请输入验证码！</span>
+			</li>
+			<li>
+				<input id="btn_next_step"  	type="button" name="button"	value="下一步"  class="btn btn-lg btn-orange"/>
+			</li>
+		</ul>
+	</form>
+</div> 
+
+<!--验证码-->
+ <div id="codeimgdiv" style="display:none">
+ <div style="">
+	<li  style="width: 380px;">
+	<label class="kd-form-style-label" style="width:60px">验证码</label>
+		<span class="kd-form-style-value">
+		<input name="validcode" style="width:60px;height:30px;float:left;vertical-align:middle;border: 1px solid #EFEFEF;" type="text" value='' id="validcode" datatype="*" class="input" errormsg="请输入右侧的验证码！"/>
+		<img id="codeimg" style="width: 100px;height: 30px;float:left;margin: 4px;vertical-align: middle;cursor: pointer;border: 1px solid #EFEFEF;" title="看不清楚？" src="${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime();" onclick="$(this).attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime())"></img>
+		<span class="kdValidform_checktip" style="vertical-align:middle;">请输入验证码！</span>
+		</span>
+	</li>
+	<input type="hidden" id='hiddencode' />
+ </div>
+ </div>
+
+ <script type="text/javascript">
+ var $find_pwd1;
+ 
+ 	$(function()
+ 	{
+ 		$("#find_pwd1").kdValidform();
+ 		$("#btn_get_validatecode").bind('click',function(){
+			var mobiletel = $("#mobile").val();
+			if(mobiletel.length != 11){ return};
+			checkcode(60,$("#btn_get_validatecode"),$.trim(mobiletel));
+		})	
+ 	});
+	
+	function checkcode(wait,$btn,mobiletel){
+    	$("#codeimg").attr('src','${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+			zhejiang_confirm("提示",$('#codeimgdiv').html(), function(){
+				$("#hiddencode").val($("#validcode",$("#confirmWindow")).val());
+				verfyUserAndPhone(wait,$btn,mobiletel);
+			}, '确定');
+    }
+	
+	function sendcode(wait,$btn,mobiletel){
+		var username = $("username").val();
+		var code = $("#hiddencode").val();
+		$.post('mall/newPhone!sendMsg.do', {username:username,mobiletel:mobiletel}, function(data) {
+			if(data.result==0){
+				$.kd.kdMsg(data.message);
+				return false;
+			}else{
+				$.kd.kdMsg('验证码已发送!');  
+				timeCounter(wait,$btn);
+			};
+		},"json");
+   	}
+   	$("#kd-ui-dialog-content-border #validcode").live('blur', function(event) {
+   		$('#hiddencode').val($(this).val());
+   	});
+
+ 	function verfyUserAndPhone(wait,$btn,mobiletel){
+		var code = $("#hiddencode").val();
+ 		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				data:{validcode:code},
+				url: "mall/shxfindpassword!verfyUserAndPhone.do?ajax=yes",
+				success: function(data){
+					if(data.result == 1){
+						sendcode(wait,$btn,mobiletel);
+					}else{
+						zhejiang_alert('消息',data.message,function(){
+							//window.location.href='resetpwd.html';
+						});
+						 return false;
+					}
+				},
+				error: function(data) {
+					return;
+				}
+			};
+ 		if(true){
+ 			$("#find_pwd1").ajaxSubmit(options);
+ 		}
+ 	}		
+ 	
+	function timeCounter(wait,$btn) {  
+        if (wait == 0) {  
+        	$btn.attr("disable", false).val("获取验证码");            
+            wait = 180;  
+        } else {  
+        	$btn.attr("disable", true).val("重新发送(" + wait + ")");  
+            wait--;  
+            setTimeout(function() {  
+                timeCounter(wait,$btn)  
+            },  
+            1000)  
+        }  
+	}
+	
+	//下一步
+	
+	$("#btn_next_step").bind("click",function(){
+		$find_pwd1 = $("#find_pwd1").kdValidform();
+		if($find_pwd1.check()){
+			$("#find_pwd1").ajaxSubmit({
+			dataType : "text",
+			url : "mall/newPhone!isValidatCodeMatch.do?ajax=yes",
+			success :function(data){
+			var redata = eval("("+data+")");
+				if(redata.result==1){
+   				 window.location.href='resetpwd.html?type=find_pwd_newpwd';
+   			}else{
+   				$.kd.kdAlert(redata.message);  
+   			};
+		  }
+		},"json")
+		}
+		
+	})
+	
+	function next($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+		var $next = $curstep.next();
+
+		if ($next.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").next()
+					.addClass("options-step-current");
+		}
+
+		$this.prev().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.next().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+ </script>
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<bean id="wsSessionConfig" class="com.websuites.session.WsSessionConfig" singleton="true">
+		<property name="cookieEnabled" value="true" />
+	    <property name="urlEncodeEnabled" value="true" />
+	    <property name="stores">
+	        <map>
+	        	<entry key="NOSQL">
+	        	   <ref bean="redisStore" />
+	        	</entry>
+	        	<entry key="memory">
+	        	   <ref bean="memoryStore" />
+	        	</entry>
+	        </map>
+        </property>
+		<property name="storeMatchPattern">
+			<props>
+        		<prop key="*">NOSQL</prop>
+        		<prop key="wsuser">NOSQL</prop>
+        		<prop key="userNo.*">NOSQL</prop>
+        		<prop key="pet">NOSQL</prop>
+			</props>
+		</property>
+ 	</bean>
+ 	
+ 	<bean id="abstractSessionStore" class="com.websuites.session.store.WsSessionStore" lazy-init="false" abstract="true" >
+ 		<property name="expireSeconds" value="30000" />
+ 	</bean>
+ 	
+ 	<bean id="memoryStore" class="com.websuites.session.store.MemorySessionStore" parent="abstractSessionStore" />
+ 	
+ 	<bean id="redisStore" class="com.websuites.session.store.RedisSessionStore" parent="abstractSessionStore" >
+ 		<property name="redis" ref="redis" />
+ 		<property name="serializer" ref="javaSerializer" />
+ 	</bean>
+	<bean id="exceptionUtil" class="com.websuites.utils.ExceptionUtil">		
+	    	<property name="redUtil" ref="redis" />		
+	</bean>
+ 	<bean id="javaSerializer" class="com.websuites.session.serializer.JavaSerializer" />
+ 	
+ 	<bean id="redis" class="com.websuites.utils.RedisUtil" >
+ 		<property name="pool" ref="shardedJedisPool" /> 
+ 	</bean>
+ 	
+ 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+	    <property name="maxActive"    value="${redis.pool.maxActive}" />
+	    <property name="maxIdle"      value="${redis.pool.maxIdle}" />
+	    <property name="maxWait"      value="${redis.pool.maxWait}" />
+	    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+	</bean>
+	
+	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+	    <constructor-arg index="0" ref="jedisPoolConfig" />
+	    <constructor-arg index="1">
+	        <list>
+	            <bean class="redis.clients.jedis.JedisShardInfo">
+	                <constructor-arg index="0" value="${redis1.ip}" />
+	                <constructor-arg index="1" value="${redis1.port}" type="int" />
+	            </bean>
+	            <!--
+	            <bean class="redis.clients.jedis.JedisShardInfo">
+	                <constructor-arg index="0" value="${redis2.ip}" />
+	                <constructor-arg index="1" value="${redis2.port}" type="int" />
+	            </bean>
+	        	-->
+	        </list>
+	    </constructor-arg>
+	</bean>
+	
+	<!--
+	 <bean id="abstractEncrypter" class="com.websuites.session.encrypter.AbstractEncrypter" lazy-init="false" abstract="true">
+ 		<property name="poolSize" value="128"/>
+ 	</bean>
+ 	
+ 	<bean id="AES" class="com.websuites.session.encrypter.AESEncrypter" parent="abstractEncrypter" >
+ 		<property name="key" value="WS_SeSsIon_Aes_1458"/>
+ 	</bean>
+ 	
+ 	<bean id="DES" class="com.websuites.session.encrypter.DESEncrypter" parent="abstractEncrypter" >
+ 		<property name="key" value="ws_SesSion_dES_0921"/>
+ 	</bean>
+ 	
+ 	<bean id="DESede" class="com.websuites.session.encrypter.DESedeEncrypter" parent="abstractEncrypter" >
+ 		<property name="key" value="ws_SeSSion_dEsEde_1209"/>
+ 	</bean>
+	-->
+	
+</beans>

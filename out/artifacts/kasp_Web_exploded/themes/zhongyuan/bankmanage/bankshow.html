@@ -1,0 +1,152 @@
+ <div class="container">
+        <div class="page-wrap">
+            <ul class="breadcrumb">
+                <li><span>当前位置：</span></li>
+                <li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}index.html">首页</a></li>
+                <li><i class="iconfont">&#xe602;</i></li>
+                <li><a href="account_asset_investor.html">投资者账户</a></li>
+                <li><i class="iconfont">&#xe602;</i></li>
+                <li><span><a href="bankmanage.html">银行卡管理</a></span></li>
+            </ul>
+            <div class="account-page clearfix">
+             <div class="left-sidebar investor-sidebar">
+                    <#include 'account_head_icons.html' />
+                    <ul class="account-sidemenu">
+                
+                        <li class="active"><a href="account_asset_investor.html">账户总览</a><i class="iconfont">&#xe609;</i></li>
+                        <li><a href="security.html">安全中心</a><i class="iconfont">&#xe609;</i></li>
+                      
+                    </ul>
+                </div>
+            	<div class="account-body">
+                    <div class="account-investor">
+                        <div class="panel-border">
+                            <div class="titlebar border-titlebar">
+                                <h2 class="title">银行卡管理</h2>
+                            </div>
+                            <div class="panel-form">
+                            <#if opentype == 'AL' || opentype == 'TP'>	
+                                <div class="section">
+                                    <div class="titlebar-sub">
+                                        <h3 class="title">三方支付</h3>
+                                        <ul class="bankcards-list">
+                                        <#if sfzfbanklist?exists>
+											<#list sfzfbanklist as signBank>
+                                            <li>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <img class="bank-logo" src="${kasp_url}${signBank.banklogo!''}">
+                                                        <a class="action" href="bank_drop_bind.html?p=tp&code=${signBank.bankcode!''}&bkcct=${signBank.bankaccount!''}">解绑</a>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <span class="card-no">
+                                                          <#assign leng=signBank.bankaccount?length>
+															<#if signBank.bankaccount?length gte 10>
+															${signBank.bankaccount?substring(0,3)}**********${signBank.bankaccount?substring(leng-4)}
+															<#else>
+																${signBank.bankaccount}
+															</#if>
+                                                        </span>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <img class="inc-logo" src="${kasp_url}${signBank.minilogo!''}" title="通联支付">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                           </#list>
+                                           
+                                            <li>
+                                                <div class="card add-new">
+                                                    <div class="card-header">
+                                                    </div>
+                                                    <div class="card-body">
+                                                       <a href="bankmanage.html?s=select&p=tp"> <span class="add">+</span> </a>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                           
+                                            <#else>
+                                           
+                                            <li>
+                                                <div class="card add-new">
+                                                    <div class="card-header">
+                                                    </div>
+                                                    <div class="card-body">
+                                                         <a href="bankmanage.html?s=select&p=tp"><span class="add">+</span></a>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            
+                                            </#if>	
+                                        </ul>
+                                    </div>
+                                </div>
+                            </#if>  
+                            <#if opentype == 'AL' || opentype == 'CG'>  
+                                <div class="section">
+                                    <div class="titlebar-sub">
+                                        <h3 class="title">三方存管</h3>
+                                        <ul class="bankcards-list">
+                                        <#if sfcgbanklist?exists>
+										<#list sfcgbanklist as signBank>
+                                            <li>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <img class="bank-logo" src="${kasp_url}${signBank.banklogo!''}" title="${signBank.bankname!''}">
+                                                        <a class="action"  href="bank_drop_bind.html?p=cg&code=${signBank.bankcode!''}&bkcct=${signBank.bankaccount!''}">换绑</a>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <span class="card-no">
+                                                          <#assign leng=signBank.bankaccount?length>
+															<#if signBank.bankaccount?length gte 10>
+															${signBank.bankaccount?substring(0,3)}**********${signBank.bankaccount?substring(leng-4)}
+															<#else>
+																${signBank.bankaccount}
+															</#if>
+                                                        </span>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                           </#list>
+                                           <#else>
+                                            <li>
+                                                <div class="card add-new">
+                                                    <div class="card-header">
+                                                    </div>
+                                                    <div class="card-body">
+                                                         <a href="bankmanage.html?s=select&p=cg"><span class="add">+</span></a>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            </#if> 
+                                        </ul>
+                                    </div>
+                                </div>
+                            </#if>		  
+                                <div class="tips-downthere">
+                              		<#if opertype?exists>
+                              		<#else>
+                                    <h3 class="title">如果已经在交易柜台开户则在绑定银行卡页面选择<a href="bankmanage.html?s=acct">绑定资金账户</a></h3>
+                            		</#if>
+                            		<h3 class="title"><i class="iconfont">&#xe60d;</i>温馨提示</h3>
+                                    <ul>
+                                        <li>1. 请填写真实有效的邮箱地址。</li>
+                                        <li>2. 本平台会对用户的所有资料进行严格保密。</li>
+                                        <li>3. 使用过程遇到问题，请联系客服。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,11 @@
+<div id="buyagreement" style="display: none">
+	<div style="padding: 0 5px;height: 300px;overflow-x: hidden;overflow-y: scroll;font-size: 14px">
+ 			<#if project_info?exists>
+			<#list project_info as pinfo>
+		<p>${pinfo.project_name}认购协议</p>
+			${pinfo.buyagreement!''}
+	
+	</#list>
+	</#if>
+	</div>
+</div>

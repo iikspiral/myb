@@ -1,0 +1,93 @@
+<script type="text/javascript"	src="${staticserver}/zhongyuan/js/libs/kjax.des.js"></script>
+<div class="account-register">
+	<div class="user-type clearfix">
+		<div class="account-board">
+            <div class="titlebar">
+                <h2 class="title">绑定资金账户</h2>
+            </div>	
+            <div class="user-type">
+				<form class="personal-account awesomeform" id="J_bindacct_form" method="post">
+					<div class="floor full" style="margin-top: 1.5em;">
+						<label class="property" for="accountnum">资金账号</label>
+						<div class="value">
+							<input class="xs" name="capitalaccount" type="text" datatype="*" nullmsg="请输入真实的资金账号！" errormsg="资金账号输入有误！" />
+	                 	</div>
+	            	</div>
+	            	<div class="floor full">
+                        <label class="property" for="idnum">证件号</label>
+                        <div class="value">
+                            <input class="xs" name="certificateNo" type="text" datatype="*" nullmsg="请输入真实的证件号！" errormsg="证件号输入有误！" />
+						</div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property">交易密码</label>
+                        <div class="value">
+                            <input class="xs" id="J_psd" name="opassword"  type="password" datatype="*" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" />
+						</div>
+                    </div>
+                    <div class="actionArea clearfix">
+                    	<input id="back" class="continue btn-md btn-red btn-adjust" type="button" value="上一步" />
+                    	<input id="J_settrdpwd_sfcg" class="continue btn-md btn-red btn-adjust" type="button" value="完成绑定"  onclick="bindAcct()" />
+                    </div>
+              
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+var $bindacctForm;
+$bindacctForm = $("#J_bindacct_form").kdValidform();
+
+
+	$("#back").on("click",function(){
+		window.location.href='bankmanage.html';
+	})
+	
+
+	function bindAcct(){
+	var $psd = $("#J_psd").val();
+	var _psd = $.des.getDes($psd,'kingdom');	
+	$("#J_psd").val(_psd);
+	
+		var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			url: "${kasp_url}mall/zhongyuan_register!bindAccount.do?ajax=yes",  
+			success: function(data){
+				 $.kd.closeLoading();
+				 if(data.result == 0){
+					zhejiang_alert( '消息',data.message+",绑定资金账户失败,请重试!");
+					$("input[type=button]").attr("disabled", false);
+					return true;
+				}
+				if(data.data.flag == 1){
+						zhejiang_alert('消息',data.data.msg,function(){
+							window.location.href='account_asset.html';
+						})
+				}else{
+					zhejiang_alert( '消息',"绑定资金账户失败,请重试!");
+					$("input[type=button]").attr("disabled", false);
+					return true;
+				
+				} 
+			},
+			error: function(data) {
+				zhejiang_alert( '消息',data.msg+"绑定资金账户失败,请重试!");
+				$("input[type=button]").attr("disabled", false);
+			}
+			
+			}
+			
+			if($bindacctForm.check()){
+				$("#back").css("dsiplay","none")
+				$("#J_settrdpwd_sfcg").attr("disabled",true);
+				$.kd.showLoading($("#J_settrdpwd_sfcg"));
+				$("#J_bindacct_form").ajaxSubmit(options);
+		}
+	
+}
+
+</script>

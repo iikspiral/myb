@@ -1,0 +1,218 @@
+<!-- 优选产品 -->
+<div class="titlebar clearfix">
+	<h2><i class="iconfont">&#xe60a;</i> 优选产品</h2>
+	<i class="iconfont">&#xe60d;</i>
+</div>
+<div id="priorityproduct">
+	<#if priorityproductlist?exists>
+		<#if (priorityproductlist?size>0)>
+			<#assign i = 0>
+			<#list priorityproductlist as priorityproduct>
+			<#if i lt 3>
+			<#assign i = i + 1>
+			<#setting number_format="currency"/>
+			<div class="product priority-product clearfix">
+				<a href="bondsdetai_${priorityproduct.id!''}.html" class="p-img"><img class="lazyload" src="${staticserver}/common/images/project_min.gif" imgsrc="${fileserver}${priorityproduct.img!''}" imgval="${priorityproduct.img!''}"/></a>
+				<div class="product-info">
+					<h3><a href="bondsdetai_${priorityproduct.id!''}.html" target="_blank">${priorityproduct.name!''}</a></h3>
+					<dl>
+						<dt>发行规模</dt>
+						<dd>
+						<#if priorityproduct.borrowamount?exists>
+							${priorityproduct.borrowamount?number / 10000}
+						<#else>
+							0
+						</#if>
+						万元</dd>
+						<dt>认购起点</dt>
+						<dd>${priorityproduct.mintenderedsum!'0'}元</dd>
+					</dl>
+					<dl>
+						<dt>融资期限</dt>
+						<dd>${priorityproduct.deadline!'0'}
+							<#if (priorityproduct.deadlineunit)?exists && (priorityproduct.deadlineunit) =='M'>
+								个月
+							<#elseif (priorityproduct.deadlineunit)?exists && (priorityproduct.deadlineunit) =='D'>
+								天
+							<#elseif (priorityproduct.deadlineunit)?exists && (priorityproduct.deadlineunit) =='Y'>
+								年
+							<#else>
+								个月
+							</#if>
+						
+						</dd>
+						<dt>剩余可投</dt>
+						<dd>
+						<#if priorityproduct.leftamount?exists>
+							${priorityproduct.leftamount?number / 10000}
+						<#else>
+							0
+						</#if>
+						万元</dd>
+					</dl>
+					<dl>
+						<dt class="rate">预期年化收益率</dt>
+						<dd class="rate">${priorityproduct.annualrate!''}%</dd>
+						<dt>产品等级</dt>
+						<dd class="level">${priorityproduct.productlevel!''}</dd>
+					</dl>
+				</div>
+				<div class="actionArea">
+				<#if priorityproduct.status == '3' || priorityproduct.status == '5'>
+					<#if priorityproduct.leftamount?number <= 0 && ( priorityproduct.allowtime =='3'|| priorityproduct.allowtime =='4')>
+						<input type="button" class="XL-Btn infoBtn" value="认购结束"/>
+					<#elseif priorityproduct.allowtime =='1'>
+						<input type="button" class="XL-Btn infoBtn" value="敬请期待"/>
+						<span class="begintime">${priorityproduct.year!''}年${priorityproduct.month!''}月${priorityproduct.day!''}日${priorityproduct.hour!''}:00</span>
+					<#elseif priorityproduct.allowtime =='2'>
+						<input type="button" class="XL-Btn infoBtn" value="即将开始"/>
+						<span class="endtime" surplusTime="${priorityproduct.djs!""}"></span>
+					<#else>
+						<button class="actionBtn XL-Btn" onclick="window.location.href='bondorderdeal.html?id=${priorityproduct.id!''}'">立即投资</button>
+					</#if>
+				</#if>
+				<#if priorityproduct.status == '4'>
+					<input type="button" class="XL-Btn infoBtn" value="认购结束"/>
+				</#if>
+				</div>
+			</div>
+			</#if>
+			</#list>
+		</#if>
+	</#if>
+</div>
+
+ 
+<script>
+var kifpwebindex = kifpwebindex || {};
+kifpwebindex.priorityproductlist = {
+
+ 
+		init:function(){
+			var self = this;
+			
+			Handlebars.registerHelper("priorityproduct_info_format",function(product){
+			   var t = "";
+				if(product.status=="3" || product.status=="5"){
+					if(parseFloat(product.leftamount)<=0){
+						if(product.allowtime == "3" || product.allowtime == "4"){
+							t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"认购结束\"/>";
+						}
+					
+					}else if(product.allowtime == "1"){
+						t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"敬请期待\"/>";
+						t += "<span class=\"begintime\">"+product.year+"年"+product.month+"月"+product.day+"日"+product.hour+":00</span>";
+					}else if(product.allowtime == "2"){
+						t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"即将开始\"/>";
+						t += "<span class=\"endtime\" surplusTime=\""+product.djs+"\">"+"</span>";
+					}else{
+						t = "<a class=\"XL-Btn actionBtn\" href=\"bondorderdeal.html?id="+product.id+"\">立即投资</a>";
+					}
+				}
+				if(product.status=="4"){
+					t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"认购结束\"/>";
+				}
+			   return new Handlebars.SafeString(t);
+			});
+			
+			
+			Handlebars.registerHelper("amountformat",function(number){
+				return (parseFloat(number)/10000).toFixed(2);;
+			});
+			
+			Handlebars.registerHelper("dateformat",function(date){
+				if(date=="M"){
+					return "个月";
+				}else if(date=="D"){
+					return "天";
+				}else if(date=="Y"){
+					return "年";
+				}else{
+					return "个月";
+				}
+				
+			});
+			
+			self.getPriorityProductList();	
+		}
+		,getPriorityProductList:function(){
+			$.post(
+					"/mall/bondshow!getIndexPriorityPoductList.do?ajax=yes",
+					{},
+					function(retData){
+							Handlebars.registerHelper("transformat",function(value){
+								return value-1000000;
+						});
+						if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+							var items = retData.kdjson.items; 
+							kifpwebindex.priorityproductlist.template = Handlebars.compile( $("#index_priorityproductlist_tpl").html() );	
+							var renderHtml = kifpwebindex.priorityproductlist.template(items);							
+							$("#priorityproduct").html(renderHtml);
+							kifpwebindex.priorityproductlist.reloadImg();
+							//kifpwebindex.priorityproductlist.updateEndTime();
+						//	$.kd.kdMsg("change to js template data");
+						
+							kifpwebindex.privatelendinglist.init();
+						}else{
+							kifpwebindex.privatelendinglist.init();
+						}
+						
+
+					},"json");
+							
+			
+		}
+		,reloadImg:function(){
+			$(".p-img img").each(function() {
+				var current = $(this);
+				var imgval = current.attr("imgval");
+				var imgsrc = current.attr("imgsrc");
+				if(imgval!=undefined && imgval!=null && imgval!=""){
+					current.attr("src",imgsrc);
+				}
+				/*else{
+					current.attr("src","${staticserver}/common/images/project_min.gif");
+				}*/
+				//new $.kd.kdLoadImage(current, current.attr("imgsrc"), "${staticserver}/common/images/project_min.gif").load();
+			});
+			
+		}
+		
+		
+};
+
+</script>
+<script id="index_priorityproductlist_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<div class="product priority-product clearfix">
+			<a href="bondsdetai_{{id}}.html" class="p-img"><img class="lazyload" imgsrc="${fileserver}{{img}}"  src="${staticserver}/common/images/project_min.gif"  imgval="{{img}}"/></a>
+			<div class="product-info">
+				<h3><a style="width: 100%" href="bondsdetai_{{id}}.html" title="{{name}}">{{name}}</a></h3>
+				<dl>
+					<dt>发行规模</dt>
+					<dd>{{amountformat borrowamount}}万元</dd>
+					<dt>认购起点</dt>
+					<dd>{{mintenderedsum}}元</dd>
+				</dl>
+				<dl>
+					<dt>融资期限</dt>
+					<dd>{{deadline}}
+						{{dateformat deadlineunit}}
+					</dd>
+					<dt>剩余可投</dt>
+					<dd>{{amountformat leftamount}}万元</dd>
+				</dl>
+				<dl>
+					<dt class="rate">预期年化收益率</dt>
+					<dd class="rate">{{annualrate}}%</dd>
+					<dt>产品等级</dt>
+					<dd class="level">{{productlevel}}</dd>
+				</dl>
+			</div>
+			<div class="actionArea">
+			 {{priorityproduct_info_format  this}}
+			</div>
+		</div> 
+{{/each}}	
+</script>

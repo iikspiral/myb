@@ -1,0 +1,362 @@
+<link rel="stylesheet" href="${staticserver}/bbw/css/register.css">
+<link rel="stylesheet" href="${staticserver}/bbw/css/usermain.css">
+<link rel="stylesheet" href="${staticserver}/bbw/css/charge-withdraw.css">
+<link rel="stylesheet" href="${staticserver}/bbw/css/user-account-center.css">
+
+<script type="text/javascript" src="${staticserver}/bbw/common/js/libs/kjax.des.js"></script>
+
+<div class="contentAndSideBar clearfix" style="min-height:400px;">
+	<div class="pageNav">
+		<div style="width:1000px;margin:0 auto;">
+			当前位置：<a href="account_asset.html">账户中心</a>&gt;<span class="current">充值</span>
+		</div>
+	</div>
+	<div style="border:0px solid #d0d0d0;width:1000px;margin: 10px auto;border: 1px solid #DDD;box-shadow: 0px 0px 3px #DDD;">
+		<div class="user-con user-pay">
+			<div class="user-box-1" style="padding: 20px;">
+				<span class="user-h"><a href="javascript:void(0);" style="font-size:20px;">充值</a></span>
+			 
+				<div class="user-content-head">
+			      	<div class="user-content-head-di"></div>
+			    </div>
+				<div class="user-box-con-1" id="sfzfpage" style="display:block">
+				<#if '${customerno}' != "-1">
+				<form id="J_chargeform" name="chargeform"  method="post">
+				<#if opentype == 'AL'  || opentype == 'TP'>
+				<#if sfzfinfo?exists>
+				<ul class="clearfix">
+					<li id="sfzf"  class="ispayment" >
+					   <label><img src="${staticserver}/bbw/images/unionpay.jpg" width="143" height="38"><span class="icon-duigou1"></span></label>
+					</li>
+				</ul>
+			        <dl id="selectBank_sfzf" class="user-pay-list clearfix">
+						<div class="bank-list showLess" style="overflow:hidden;">
+						<ul>
+							<#if zjbanklist?exists>
+								<#list zjbanklist as item> 
+								<li class='isBank1 <#if item.selected="1">selected</#if>' title="${item.bankname!''}" value="tp" data_val="tp">
+									<label>
+										<img name="chargeinlogo" src="${kasp_url}${item.banklogo!''}" _bankid="${item.bankcode!''}" _channelno="${sfzfinfo.channelno!''}" _capitalaccount="${sfzfinfo.capitalaccount!''}"/>
+										<span class="checked"></span>
+									</label>
+								</li>
+								</#list> 
+							</#if> 
+						</ul>
+						</div>
+						<span id="J_morebanks" class="more" value="<<收起" >全部银行>></span>
+			        </dl>
+					
+					 <div class="kd-form-style clearfix" style="padding-top:0px;">
+			         <ul  class="kd-form-style"  >
+							<#if sfzfinfo?exists>
+			                <li id="J_sfzfbalance"  class="kd-form-style-item">
+			                    <label class="kd-form-style-label">账户余额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<i><strong class="user-pay-balance">${sfzfinfo.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</strong>元</span></i>
+			                    </span>
+			                </li>
+							</#if>	           
+			         </ul>
+			        </div>   
+				</#if>	
+				</#if>	
+				<#if opentype == 'AL'  || opentype == 'CG'>	
+				<ul class="clearfix">
+					<li id="sfzf"  class="ispayment" >
+					   <label><img src="${staticserver}/bbw/images/sanfang.jpg" width="143" height="38"><span class="icon-duigou1"></span></label>
+					</li>
+				</ul>
+				<dl id="selectBank_sfcg" class="user-pay-list clearfix">
+					<div class="bank-list" style="height:60px;overflow:hidden">
+						<ul>
+							<#if sfcginfo?exists  >
+							<li id="J_cg" name="bankselect" class="isBank1 " title="${sfcginfo.bankname!''}"  value="cg" data_val="cg">
+								<label >
+									<image id="sfcglogo" name="chargeinlogo"  src="${kasp_url}${sfcginfo.banklogo!''}" _bankaccount="${sfcginfo.bankaccount!''}" _bankid="${sfcginfo.bankcode!''}" _channelno="${sfcginfo.channelno!''}" _capitalaccount="${sfcginfo.capitalaccount!''}"/>
+									<span class="checked"></span>
+								</label>
+							</li>	
+						</#if>
+						</ul>
+					</div>
+				</dl>
+				
+				<div class="kd-form-style clearfix" style="padding-top:0px;">
+				 <ul  class="kd-form-style"  >
+						<#if sfcginfo?exists>
+						<li id="J_sfcgbalance"  class="kd-form-style-item">
+							<label class="kd-form-style-label">账户余额</label>
+							<span class="kd-form-style-value" style="width:350px;">
+								<i><strong class="user-pay-balance">${sfcginfo.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</strong>元</span></i>
+							</span>
+						</li>
+						</#if>			           
+				 </ul>
+				</div> 
+				</#if>
+					
+			        <div class="kd-form-style clearfix" style="padding-top:0px;">
+			         <ul  class="kd-form-style"  >        
+			                <li class="kd-form-style-item" style="display:none">
+			                    <label class="kd-form-style-label"> </label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="businesscode"  name="businesscode" type="input" value="charge_in" class="input" readonly style="display:none">
+			                    </span>
+			                </li>
+			                 <li class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">充值金额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+				                    <input id="money" name="money" value="" type="text" class="input" datatype="/^[0-9]\d*(\.\d{1,2})?$/" nullmsg="金额不能为空" errormsg="金额必须为数字且大于0,最大2位小数">
+				                    <span>元</span>
+			                    </span>
+			                </li>
+			                <li class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="important" type="checkbox" name="importantInfo" datatype="*" nullmsg="请先阅读下方重要提示"  >&nbsp;&nbsp;
+			                    	<label for="important">我已阅读并确认下方重要提示信息</label>
+		                    	</span>
+			                </li>
+			               
+			                <li class="kd-form-style-item">
+							<label class="kd-form-style-label">&nbsp;</label>
+							<span class="kd-form-style-value" style="width:350px;">
+								<!-- 
+								<input id="J_chargein"     type="button" class="linkButton" onclick="chargeInCg()"   value="确认充值" style="display:none">
+								-->
+								<input id="J_chargein"  type="button" class="linkButton" btn_val="" value="确认充值" >
+			                </span>
+			               </li>
+			            </ul>
+			        </div>
+					
+					<input id="J_bankaccount" 		name="bankaccount" 		value="" 			type="hidden" />
+					<input id="J_bankid"			name="bankid" 			value=""  			type="hidden" />
+					<input id="J_channelno" 		name="channelno" 		value=""  			type="hidden" />
+					<input id="J_capitalaccount"  	name="capitalaccount" 	value="" 	 		type="hidden" />
+					<input id="J_transfertype"  	name="transfertype" 	value="charge_in"   type="hidden" />
+					</form>
+			<#else>
+				您尚未绑定银行卡,<a href="bankmanage.html">立即绑定！</a>
+			</#if>		
+			 </div>
+
+			        <div class="form-warm-prompt-1 clearfix">
+			            <span class="form-warm-prompt-title">温馨提示：</span>
+			            <span class="form-warm-prompt-con"> 
+			            1.您的账户资金将由第三方平台托管。
+			            <br>2.为了您的资金安全，请您在充值前完成手机绑定，身份认证及交易密码设置。
+			            <br>3.严禁信用卡充值、套现等行为，一经发现将予以处罚，包括但不限于：限制收款、冻结账户、永久停止服务，并会影响银行征信记录。
+			            <br>4.充值过程遇到问题，请联系客服，0771-5716611
+
+			            </span>
+			        </div>
+			        
+			    </div>
+			
+		</div>
+ 
+		
+	</div>
+</div>
+
+<div id="zhifubond"  style="display:none">
+		<form>
+		<div class="zhifu" >
+		<div class="zhifutips">请您在新打开的页面进行支付，支付完成前请不要关闭该窗口。</div>
+		<div class="buttondiv" >
+			<a  class="kdmall-btn" style="width:60px;" href="charge.html" id="zhifu">支付成功 </a> 
+			<a  class="kdmall-btn" href="javascript:void(0);" onclick="help()">支付遇到问题 </a> 
+		</div>
+		<input type="hidden"  value="" id="orderno"/>
+		</div>
+		</form>
+</div>
+
+
+<script>
+
+$(function(){
+	//$("img[name=chargeinlogo]").click();
+})
+
+var $form = $("#J_chargeform").kdValidform();
+
+$("#J_chargein").on("click",function(){
+	var va = $(this).attr("btn_val");
+	if(va == '' || va == 'undefined'){
+		zhejiang_alert('消息','请选择银行',null);	
+		return true;
+	}
+
+})
+
+function chargeInCg(){
+	var money = $("#money").val();
+	var imoney = parseFloat(money);
+	if(imoney<0 || imoney == 0){
+		zhejiang_alert('消息','充值金额必须大于0',function(){
+			$("#money").val("");
+			$("#J_chargein").attr("disabled",false);
+		});	
+		return true;
+	}
+	var options = {
+		type: "POST",
+		dataType:"json",
+		async:true,
+		url: "mall/bbw_charge!chargeInOut.do?ajax=yes",
+		success: function(data){
+			$.kd.closeLoading();
+			  if(data.result == 1){
+				 $("#rechargePwd").val("");
+				  zhejiang_alert('消息','充值成功', function() {
+						window.location.href="account_asset.html";
+					  }, function() {
+						window.location.href="account_asset.html";
+				  });
+				  
+			  }else{
+				 $("input[name=money]").val("")
+				 zhejiang_alert(data.message+"充值失败,请重试!");
+			  }
+			  $("input[type=button]").attr("disabled", false);
+		},
+		error: function(data) {
+				zhejiang_alert('消息','网络异常,请刷新页面!', function(){
+				window.location.href = "charge.html";
+			  });	
+			}
+		};
+		if($form.check()){
+			$.kd.showLoading($("#J_chargein"));
+			$("#J_chargein").attr("disabled",true);
+			$("#J_chargeform").ajaxSubmit(options);
+			
+		}
+}
+
+
+function chargeInTp(){
+	var money = $("#money").val();
+	var imoney = parseFloat(money);
+	if(imoney<0 || imoney == 0){
+		zhejiang_alert('消息','充值金额必须大于0',function(){
+			$("#money").val("");
+			$("#J_chargein").attr("disabled",false);
+		});	
+		return true;
+	}
+		var param ={};
+			param.transfertype ='charge_in';
+			param.capitalaccount=$("#J_capitalaccount").val();
+			param.channelno=$("#J_channelno").val();
+			param.channelname=$("#J_channelname").val();
+			param.custname=$("#J_custname").val();
+			param.bankaccount=$("#J_bankaccount").val();
+			param.bankid=$("#J_bankid").val();
+			param.businesscode='12001';
+			param.money= $("input[name=money]").val();
+	
+	if($form.check()){
+		$.kutil.newTabPage("mall/bbw_charge!chargeInOut2.do",param);
+		$("#J_chargein").attr("disabled",true);		
+		$.kd.kdZhifu($('#zhifubond').html(),function(){},"充值提示");
+	}
+	
+}
+
+$("img[name=chargeinlogo]").on("click",function(){
+	var self = $(this);
+	$("img[name=chargeinlogo]").parent().parent().removeClass("selected");	
+	self.parent().parent().addClass("selected")
+	var type = self.parent().parent("li").attr("data_val");
+	var bankaccount 	 = 	self.attr("_bankaccount");
+	var bankid		 	 = 	self.attr("_bankid");
+	var	capitalaccount	 =	self.attr("_capitalaccount");
+	var	channelno		 =	self.attr("_channelno");
+	$("#J_bankaccount").val(bankaccount);
+	$("#J_bankid").val(bankid);
+	$("#J_capitalaccount").val(capitalaccount);
+	$("#J_channelno").val(channelno);
+	
+	if(type == 'tp'){
+		$("#J_sfzfbalance").show();
+		$("#J_sfcgbalance").hide();
+
+		$("#J_chargein").attr("onclick","chargeInTp()");
+		$("#J_chargein").removeAttr("btn_val");
+		$("#J_chargein").attr("btn_val","tp");
+	}else if(type == 'cg'){
+		$("#J_sfzfbalance").hide();
+		$("#J_sfcgbalance").show();
+	
+		$("#J_chargein").attr("onclick","chargeInCg()");
+		$("#J_chargein").removeAttr("btn_val");
+		$("#J_chargein").attr("btn_val","cg");
+	}
+})
+
+$("#J_morebanks").on("click",function(){
+	$(".bank-list").toggleClass("showLess");
+	var text = $(this).text();
+	var newText = $("#J_morebanks").attr("value");
+	$("#J_morebanks").text(newText);
+	$("#J_morebanks").val(text);
+	
+})
+
+function help(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=help_shx_kfsp");
+}
+
+
+
+</script>
+
+<style>
+ .zhifu{
+	width:399px;
+	height:80px;
+	margin:0 auto;
+	margin-top:10px;
+	text-align:center;
+	
+	
+}
+
+.zhifutips{
+	width: 209px;
+    height: 43px;
+    color: #999;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 9px 35px 12px 105px;
+}
+.buttondiv{
+	height: 6px;
+    width: 205px;
+    margin: 0 auto;
+}
+
+.selected{
+	border:1px solid #fb6e02;
+}
+
+.showLess{
+	height:60px;
+}
+
+.more{
+	color:blue;
+}
+.more:hover{
+	cursor:pointer;
+}
+.ispayment{
+margin-left:-40px;
+margin-top:20px;
+
+}
+ </style>

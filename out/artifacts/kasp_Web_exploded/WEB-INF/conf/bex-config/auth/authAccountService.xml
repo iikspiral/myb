@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<kjax>
+	<!--发起网上开户申请-->
+	<bex id="f_web_account_webapply" type="http-bex" httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" />
+	
+	<!-- 开通账户 -->
+	<bex id="f_web_account_addinvestor" type="http-bex" httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" />
+
+	<!-- 三方存管  -->
+	<bex id="f_web_account_bindbank" type="http-bex" httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" />
+
+</kjax>

@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="myb_master">
+    <output-path>$PROJECT_DIR$/out/artifacts/myb_master</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="myb" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="activation-1.1.1 (2)" />
+          <element id="library" level="project" name="jsp-api" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="myb/web/Web" />
+      <element id="javaee-facet-resources" facet="myb/web/Web" />
+    </root>
+  </artifact>
+</component>

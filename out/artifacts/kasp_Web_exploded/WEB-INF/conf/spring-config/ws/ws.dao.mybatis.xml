@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>	
+	 <bean id="defaultSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+		<property name="configLocation" value="WEB-INF/conf/mybatis-config/mybatis-config.xml"></property>  
+		<property name="dataSource" ref="defaultDataSource" />  
+	 	<property name="transactionFactory">
+			<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="defaultSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">  
+		<constructor-arg index="0" ref="defaultSqlSessionFactory" />  
+	</bean>
+
+	<bean id="myBatisDaoImpl" class="com.websuites.dao.MybatisTemplate">
+		<property name="defaultDataSource">
+			<value>dataSource</value>
+		</property>
+		<property name="sqlSessions">
+	        <map>
+	        	<entry key="defaultDataSource">
+	        	   <ref bean="defaultSqlSessionTemplate" />
+	        	</entry>
+	        </map>
+        </property>
+	</bean> 
+</beans>

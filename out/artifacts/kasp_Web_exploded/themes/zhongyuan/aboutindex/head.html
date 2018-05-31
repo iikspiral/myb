@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="renderer" content="webkit">
+		<title>中原股权交易中心</title>
+		<link rel="shortcut icon" href="${staticserver}/zhongyuan/ico/favicon.ico"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/normalize.css"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/common.css"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/account.css"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/jquery.bxslider.css"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/jquery.myslider.css"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/lightbox.css"/>
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/main.css"/>
+	    <link rel="stylesheet" href="${staticserver}/zhongyuan/css/products.css">
+	    <link rel="stylesheet" href="${staticserver}/zhongyuan/css/home.css">
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/bootstrap/css/bootstrap_modal.css">		
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/awesomeform.css">
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/register.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/zhongyuan/common/css/kd.ui.plugin.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/zhongyuan/css/platform/kd.tools.validate.css">
+		<link rel="stylesheet" href="${staticserver}/zhongyuan/css/iconfont/iconfont.css">
+		
+		<script src="${staticserver}/zhongyuan/js/jquery-1.11.1.min.js"></script>
+		<script src="${staticserver}/zhongyuan/js/jquery-migrate-1.2.1.js"></script>
+		<script src="${staticserver}/zhongyuan/js/libs/jquery-form.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/standard/js/jquery.autoscroll.js"></script>		
+		<script type="text/javascript" src="${staticserver}/zhongyuan/common/js/kd.tools.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/common/js/kd.tools.validate.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/js/pop-up box.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/js/json2.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/js/jquery.bex.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/js/jquery.kutil.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/js/organictabs.jquery.js"></script>
+		<script type="text/javascript" src="${staticserver}/zhongyuan/common/js/kd.ui.plugin.js"></script> 
+		<script src="${staticserver}/zhongyuan/js/jquery.bxslider.min.js"></script>
+		<script src="${staticserver}/zhongyuan/js/jquery.myslider.js"></script>
+		<script src="${staticserver}/zhongyuan/bootstrap/js/bootstrap_modal.js"></script>
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "//hm.baidu.com/hm.js?a615473cb4ee6c20b21ee99f7f35431f";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="head container clearfix">
+				<form class="search-field">
+					<input class="input-field" type="text">
+					<input class="action btn-sm btn-red-glow" type="button" value="搜索">
+				</form>
+				<!-- 登录前 -->
+				
+				<ul class="horizontal-list<#if isLogin> hide<#else></#if>">
+					<li><a class="login" href="login.html">登录</a></li>
+					<li class="last"><a class="register" href="register.html">注册</a></li>
+				</ul>
+				<!-- 登录后 -->
+				<ul class="horizontal-list<#if isLogin><#else> hide</#if>">
+					<li><a class="exit" id="custlogout" href="javascript: void(0);">退出</a></li>
+					<li><a class="account" href="ssologin.html?deal_action=accout_center&pageto=account_asset.html">我的账户</a></li>
+					<li><span>你好，${username!''}</span></li>
+				</ul>
+				<h1 class="logo">中原股权交易中心</h1>
+			</div>
+			<div class="container-full">
+				<ul class="navigation container clearfix">
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}index.html" name="index">首页</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}equity_financing.html" name="equity_financing">股权融资</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}stock_pledge_financing.html" name="stock_pledge_financing">股权质押融资</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}private_bonds_financing.html" name="private_bonds_financing">私募债融资</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}enterprise_service.html" name="enterprise_service">企业服务</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}member_service_guide.html" name="member_service_guide">会员服务</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}info_disclosure_listing.html" name="info_disclosure_listing">信息披露</a></li>
+					<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}aboutus.html" name="aboutus">中心服务</a></li>
+				</ul>
+			</div>
+		</div>
+<script type="text/javascript">
+	$(function() {
+		$("#custlogout").bind("click", function() {
+			zhejiang_confirm("提示","确定要退出吗？", function() {
+				$.post("mall/zhongyuan_login!newlogout.do",
+		    			{username:"${username!''}"},
+		    			function(data) {
+		    			/*
+		    				var result = $.parseJSON(data); 
+		    				if ( result.result == 1) {
+		    					window.location.href = "login.html?_="+new Date().getTime();
+		    				
+		    				} else {
+		    					rdmAlert(result.message);
+		    				}   */	
+		    					window.location.href = "login.html?_="+new Date().getTime();				
+		    			}
+		    		);
+			});    	
+	    });
+	    window.umesession = document.cookie.replace("undefined; ", "").replace(" undefined;", "");
+	});
+	// 获取URL参数
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
+// 初始化顶部导航选中效果
+	var htmlHref = window.location.href;
+	//htmlHref = htmlHref.replace("detail.html",".html");
+	$(".container-full > ul > li > a").each(function(n,item){
+		var temp = $(item).attr("name");
+		var temp1 = "/" + temp;
+		if( htmlHref.indexOf(temp1) >= 0 ){
+				$(".container-full > ul > li >a").removeClass("active");
+				$(item).addClass("active");
+		}
+	})
+	//发起项目资质判断
+	function check(customerno){
+		 <#if isLogin>
+			if('-1'== customerno){
+			    zhejiang_confirm("提示","您还未绑定银行卡，请先绑定银行卡!",function(){
+				      window.location.href="ssologin.html?deal_action=accout_center&pageto=${kasp_url}bankmanage.html";  
+				})
+			}else{
+			    $.post("zhongyuan/loginAction!checkQualification.do?ajax=yes",
+		    			{customerno:"${customerno!''}"},
+		    			function(data){
+						    var msg=eval("("+data+")");
+						    if("1"==msg[0].result){
+		    					window.location.href="project_publish.html?type=basic"; 
+		    				}else{
+								zhejiang_alert("提示信息","您还没有身份资质，请进行身份资质申请！", function(){
+									window.location.href="ssologin.html?deal_action=accout_center&pageto=${kasp_url}apply_usertype.html"; 
+								})											
+		    				}  
+		    		});
+			}
+		<#else>
+			zhejiang_confirm("提示","您还未登录,请先登录!",function(){
+			window.location.href="ssologin.html";			
+			})
+	    </#if>
+    }
+</script>

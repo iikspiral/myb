@@ -1,0 +1,36 @@
+<style>
+#capitalaccount{
+	 font-size:12px;
+
+}
+</style>
+ <div class="account-main">
+特殊资产
+</div>
+<script>
+$(function(){
+
+
+	//关注的项目
+	$.kd.kdPager.init({
+		pager : 'page_focus',
+		currentPage: '${page_focus!'1'}',
+		totalPage: '${totalPage_focus!'1'}',
+		totalRecords: '${totalCount_focus!'0'}',
+		prefix: '/account_base_info.html',
+		suffix: function(n) {
+			return "page_focus=" + n;
+		},
+		tagurl:'/account_base_info.html?page_focus='
+	});
+
+	var urlstr = window.location.href;
+
+	if( urlstr.indexOf("?refresh=true") > -1 ){ 
+		 //var parts = urlstr.split("?");
+		window.location.href= "/account_base_info.html?_"+new Date().getTime();	
+
+	}
+
+})
+</script>

@@ -1,0 +1,70 @@
+
+	<!--  start 此层分为三方支付----------------------------------------------------------------------------------------------------------->
+	
+	<div class="banks">
+		<h3>选择银行</h3>
+		<ul>
+		<li class="tieonBanks clearfix">
+		<#if thirdpaybanklist?exists>
+			<#list thirdpaybanklist as item>
+			<#if item.bankcode?exists && item.bankcode == "701">
+				<#else>
+					<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+						<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+						<i class="iconfont">&#xe620;</i>
+						
+					</a>
+				</#if>
+			</#list>
+		</#if>	
+				<input name="tchannelcode" id="tchannelcode" type="hidden"  value="" readonly="readonly"/>
+				<input name="tbankcode" type="hidden" id="tbankcode"  value="" readonly="readonly" />
+				<input name="channelcode" type="hidden"  id="channelcode" readonly="readonly" style="display:none"/>
+		  </li>
+		  <li>
+			<label for="cardNum">银行卡号</label>
+			<input id="bancodeinput" name="tbankaccount" type="text"  datatype="n" nullmsg="请输入9-30位数字的银行卡号" errormsg="请输入9-30位数字的银行卡号" placeholder="请输入银行卡号！"/>
+		  </li>
+						
+			 <li>
+				<label for="cardNum">开户行省份</label>
+				<input id="J_prove"  name="province" value=""  type="hidden"  /> 
+				<select id="J_province" name="province" style="height: auto;" datatype="n" nullmsg="请输入开户行省份！" errormsg="省份输入有误！">
+					<option value="-1">--选择省份--</option>
+					<#if procinceList?exists>
+					<#list procinceList as province >
+						<option value="${province.cityid!''}" >${province.cityname}</option>
+					</#list>
+					</#if>
+				</select>
+			</li>
+			<li>
+				<label for="cardNum">开户行城市</label>
+					<!-- <input  name="city" type="text" datatype="zh2-24"  nullmsg="请输入开户行城市！" errormsg="城市输入有误！"  /> -->
+				<select id="J_city" name="city" style="height: auto;" datatype="zh2-24" nullmsg="请输入开户行城市！" errormsg="城市输入有误！">
+				</select>
+			</li> 		
+			<!-- -->
+			<li style="display:none;">
+				<label for="cardNum">开户行地址</label>
+					<input  name="openbankaddr" type="text" datatype="zh2-24"  nullmsg="请输入开户行地址！" errormsg="请输入2到24位中文！" value="分支行" />
+			</li>
+			
+			<li>
+				<label for="realname">设置交易密码</label>
+					<input id="tradepwd" name="tradepwd_"  type="password" datatype="n6-6" nullmsg="请输入6位数字的交易密码！" errormsg="6位数字，不能使用空格、字母、符号" placeholder="请输入6位数字的交易密码！" />
+					<input id="tradepassword" name="tradepassword" type="hidden" value="123"/>
+			</li>
+			<li>
+				<label for="realname">确定交易密码</label>
+					<input id="tradepwd2"  type="password" datatype="*" recheck="tradepwd_" nullmsg="请再次输入密码！" errormsg="您两次输入的交易密码不一致！" placeholder="请再次输入密码！" />				 
+			</li>
+	</ul>	
+    </div>	  
+	<div class="actionArea clearfix">
+            <input id="openthirdpayAccountBtn" class="btn btn-lg btn-lg btn-orange" type="button" value="下一步" />
+	</div>	
+
+<!--  end -------------------------------------------------------------------------------------------------------------->
+
+</script><script type="text/javascript">$(function(){      $('#tt').keyup(function(){        var value=$(this).val().replace(/\s/g,'').replace(/(\d{4})(?=\d)/g,"$1 ");          $(this).val(value)      })     });</script>

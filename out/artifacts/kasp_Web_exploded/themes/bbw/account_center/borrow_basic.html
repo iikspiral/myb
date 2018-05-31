@@ -1,0 +1,558 @@
+<script type="text/javascript" src="${staticserver}/common/js/libs/jquery.unslider.min.js"></script>
+<div class="right-title">
+    <h2>基本信息</h2>
+</div>
+<ul class="kd-form-style clearfix" style="margin-top: 30px;">
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">项目名称<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="project_title" name="paramBorrow.borrowtitle" class="input" type="text" datatype="*" nullmsg="请填写项目名称！" value="${borrow.borrowtitle!''}"/>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">发行机构<em>*</em></label>
+		<span class="kd-form-style-value">					
+			<select name="paramAux.brokerid" id="project_org" class="select" data-value="${pmAux.brokerid!'-1'}" datatype="*" nullmsg="请选择发行机构！">
+			<option value="">
+				--请选择机构--
+			</option>
+			<#if orgmap?exists>
+				<#list orgmap as i>
+				<option value="${i.orgid!''}">
+					${i.orgname!''}
+				</option>
+				</#list>
+			</#if>
+		</select>
+		<input id="project_orgname" name="paramAux.broker_name" class="input" type="hidden" value="" />
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need" style="clear:left;">
+		<label class="kd-form-style-label">资金募集总额(元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="withdrawAmount" name="paramBorrow.borrowamount" type="text" class="input" 
+			<#assign borrowamount=borrow.borrowamount!"0">
+			<#assign borrowamount1=borrowamount?number>
+			value="${borrowamount1*10000}"
+			
+			datatype="n" nullmsg="请填写资金募集总额！" errormsg="请正确填写资金募集总额！" />
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">项目类别<em>*</em></label>
+		<span class="kd-form-style-value">					
+			<select name="paramAux.prod_cat_id" id="project_cat" class="select" data-value="${pmAux.prod_cat_id!'-1'}"  datatype="*" nullmsg="请选择项目类别！">
+			<option value="">
+				--请选择项目类别--
+			</option>
+			
+		</select>
+		<input id="project_orgname" name="paramAux.broker_name" class="input" type="hidden" value="" />
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need " style="clear:left;">
+		<label class="kd-form-style-label">是否有募集期限<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="c_1" type="radio" name="paramBorrow.isRaise" value="1" datatype="checkbackversion22"/><label for="c_1">是</label>
+			<input id="c_2" type="radio" name="paramBorrow.isRaise" value="0" datatype="checkbackversion22" checked/><label for="c_2">否</label>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need " id="isbuyback">
+		<label class="kd-form-style-label">是否回购<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="b_1" type="radio" name="paramBorrow.isbuyback" value="1" 
+			datatype="checkbackversion3"/><label for="b_1">是</label>
+			<input id="b_2" type="radio" name="paramBorrow.isbuyback" 
+			value="0" datatype="checkbackversion3" checked/><label for="b_2">否</label>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline" style="display:none">
+		<label class="kd-form-style-label">是否isTransfer<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="isTransfer" type="input" name="isTransfer" value="${isTransfer}"  /> 
+		</span>
+	</li>
+	
+	
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label ">募集周期(天)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="raiseterm" name="paramBorrow.raiseterm" class="input" type="text" value="${borrow.raiseterm!''}" datatype="n,raiseterm" nullmsg="请填写募集周期！" errormsg="募集周期为正整数且不能大于90天" />
+			<span class="kdValidform_checktip"></span>
+		</span>				
+	</li>
+	<li class="kd-form-style-item oneline need" style="display: none;">
+		<label class="kd-form-style-label">回购周期(天)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="buyback" name="paramBorrow.buyback" class="input" type="text" 
+			value="${borrow.buyback!''}" datatype="n"  nullmsg="请填写回购周期！" errormsg="请填写正整数！" />
+			<span class="kdValidform_checktip"></span>
+		</span>				
+	</li>
+	
+	<!-- 非回购专用 -->
+	<li id="nobuybackselect" class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">还款方式<em>*</em></label>
+		<span class="kd-form-style-value">
+			<select id="paymentmode" name="paramBorrow.paymentmode" onchange="sltChange();" class="select" onchange="$('#deadline').val('');" datatype="*" nullmsg="请选择还款方式！">
+				<option value="">--请选择--</option>
+				<#if paymentmode?exists>
+				<#list paymentmode as i>
+				
+				<!-- 获取按日计息还款方式字典 -->
+				<#if i.dict_key == "7" || i.dict_key == "8" || i.dict_key == "9" || i.dict_key == "10" || i.dict_key == "11" || i.dict_key == "12"|| i.dict_key == "13">
+				<option value="${i.dict_key!''}" <#if borrow.paymentmode?exists && i.dict_key == borrow.paymentmode>selected="true"</#if>>${i.dict_value!''}</option>
+				</#if>
+				
+				<!-- 获取所有还款方式字典 -->
+				<!--<option value="${i.dict_key!''}" <#if borrow.paymentmode?exists && i.dict_key == borrow.paymentmode>selected="true"</#if>>
+					${i.dict_value!''}
+				</option>-->
+				
+				</#list>
+				</#if>
+				<!--							
+				1 (按月计息)按月等额本息还款 2 (按月计息)一次性还本按月付息	3 (按月计息)一次性还本付息	4 (按月计息)一次性还本按季付息
+				5 (按月计息)一次性还本按半年付息	6  （按日计息）回购 一次性还本付息	7  按日计息，按月付息，到期还本 8 (按日计息)按季付息,到期还本
+				9 (按日计息)按半年付息,到期还本	10 	（按日计息）一次性还本付息
+				-->
+			</select>
+		</span>
+	</li>
+	
+	<!-- 回购专用 -->
+	<li id="buybackselect" class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">还款方式<em>*</em></label>
+		<span class="kd-form-style-value">
+			<select id="paymentmode" name="paramBorrow.paymentmode1" class="select" onchange="$('#deadline').val('');" datatype="*" nullmsg="请选择还款方式！">
+				<#if paymentmode?exists>
+				<#list paymentmode as i>
+				<#if i.dict_key == "6">
+				<option value="${i.dict_key!''}" <#if borrow.paymentmode?exists && i.dict_key == borrow.paymentmode>selected="true"</#if>>${i.dict_value!''}</option>
+				</#if>
+				</#list>
+				</#if>
+			</select>
+		</span>
+	</li>
+	
+	
+	<li class="kd-form-style-item oneline clear-left">
+		<label class="kd-form-style-label">投资者人数<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="investor_num" type="text" class="input" name="paramBorrow.investorable" 
+			value="${borrow.investorable!''}" datatype="n" nullmsg="请填写投资者人数！"/>
+		</span>
+	</li>
+	
+
+	<li class="kd-form-style-item oneline need ">
+		<label class="kd-form-style-label">预期年化收益率(%)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="annualrate" name="paramBorrow.annualrate" type="text" class="input" value="${borrow.annualrate!''}" datatype="db" nullmsg="请填写预期年化收益率！" errormsg="请正确填写预期年化收益率！" />
+		</span>
+	</li>
+	
+	
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">融资期限<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="deadline" name="paramBorrow.deadline" type="text" class="input" value="${borrow.deadline!''}" datatype="n,deadline" nullmsg="请填写融资期限！" errormsg="请填写正整数！"/>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline need "  style="clear: left">
+		<label class="kd-form-style-label">期限单位<em>*</em></label>
+		<span class="kd-form-style-value">
+			<select id="deadlineunit" onchange="sltChange();" name="paramBorrow.deadlineunit" class="select" datatype="*" nullmsg="请选择期限单位！">
+				<option value="M" <#if borrow.deadlineunit?exists && borrow.deadlineunit == "M">selected="true"</#if>>月</option>
+				<option value="D" <#if borrow.deadlineunit?exists && borrow.deadlineunit == "D">selected="true"</#if>>日</option>					
+			</select>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">增信状态<em>*</em></label>
+		<span class="kd-form-style-value">
+			<select id="creditstatus" name="paramBorrow.creditstatus" class="select" datatype="*" nullmsg="请选择增信状态！">
+				<option value="">--请选择--</option>
+				<option value="1" <#if borrow.creditstatus?exists && borrow.creditstatus == "1">selected="true"</#if>>有</option>
+				<option value="0" <#if borrow.creditstatus?exists && borrow.creditstatus == "0">selected="true"</#if>>无</option>						
+			</select>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">是否本息担保<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="r_1" type="radio" name="paramBorrow.counteragent" value="1" checked/><label for="r_1">是</label>
+			<input id="r_2" type="radio" name="paramBorrow.counteragent" value="2" 
+			<#if borrow.counteragent?exists && borrow.counteragent == '2'>checked</#if>
+			 datatype="*" nullmsg="请选择是否本息担保！"/><label for="r_2">否</label>
+		</span>
+	</li>
+
+	<li id="r3r4" class="kd-form-style-item oneline need ">
+		<label class="kd-form-style-label">是否可以转让<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="r_3" type="radio" name="paramBorrow.isdebt" value="-1" checked />
+			<label for="r_3">是</label>
+			<input id="r_4" type="radio" name="paramBorrow.isdebt" value="1" 
+			<#if borrow.isdebt?exists && borrow.isdebt == '1'>checked</#if> 
+			datatype="*" nullmsg="请选择是否可以转让！"/> <label for="r_4">否</label>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label ">锁定期限(天)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="lockTime" name="paramBorrow.lockTime" class="input" type="text" value="${borrow.locktime!''}" 
+			 nullmsg="请填写锁定期限！" errormsg="请填写正整数！" />
+			<span class="kdValidform_checktip"></span>
+		</span>				
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">资金认购起点(元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="lest_amount" name="paramBorrow.mintenderedsum" 
+			class="input" type="text" 
+			<#assign mintenderedsum=borrow.mintenderedsum!"0">
+			<#assign mintenderedsum1=mintenderedsum?number>
+			value="${mintenderedsum1*10000}"		
+			datatype="n" nullmsg="请填写资金认购起点！"/>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">最小认购单位(元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="min_per_amount" name="paramBorrow.smallestflowunit" class="input" type="text" 
+			<#assign smallestflowunit=borrow.smallestflowunit!"0">
+			<#assign smallestflowunit1=smallestflowunit?number>
+			value="${smallestflowunit1*10000}"
+			datatype="n" nullmsg="请填写最小认购单位！"/>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">投资者认购上限(元)<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="invest_upper_limit" name="paramAux.invest_upper_limit" class="input" type="text" value="${pmAux.invest_upper_limit!''}" datatype="n" nullmsg="请填写投资者投资上限！"/>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label" style="width: 404px;">项目公司基本情况<em>（最大输入长度4000[2000个汉字]）*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="project_com_info" name="paramBorrow.businessdetail" >${borrow.businessdetail!''}</textarea>
+		</span>
+	</li>
+	
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label" style="width: 404px;">项目简介<em>（最大输入长度4000[2000个汉字]）*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="project_info" onkeyup="changeTwo()" name="paramBorrow.detail" >${borrow.detail!''}</textarea>
+		</span>
+	</li>
+	<li class="kd-form-style-item oneline need long">
+		<label class="kd-form-style-label">认购协议<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="project_com_inf" name="paramBorrow.buyagreement">${borrow.buyagreement!''}</textarea>
+		</span>
+	</li>
+</ul>
+<div class="right-title">
+    <h2>封面图片</h2>
+</div>
+<div class="info bline clearfix" style="padding: 0px; width: 675px;">
+	<div style="text-align: left;margin-top: 10px;padding-left: 10px;font-size: 16px;">
+		封面图片作为项目介绍中非常重要的展示部分
+	</div>
+	<#include 'imageinfo.html' />
+	<input id="coverimagehidden" name="paramBorrow.imgpath" type="hidden" value="${borrow.imgpath!''}">
+</div>
+
+<ul class="kd-form-style clearfix">
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">&nbsp;</label>
+		<span class="kd-form-style-value">
+			<input type="button" class="kdmall-btn" value="保存" onclick="save();" style="width: 80px;float: left;">
+			<input type="button" class="kdmall-btn" value="重置" onclick="preset();" style="width:80px;float:left;">
+		</span>
+	</li>
+</ul>
+<script type="text/javascript" src="js/productCat.js"></script>
+<script>
+
+	$(function() {
+	  var $raiseterm = "${borrow.raiseterm!''}";	
+	  var $buyback = "${borrow.buyback!''}";
+	  var $isRaise ="${borrow.israise!''}";
+	  var $isdebt ="${borrow.isdebt!''}";
+	  
+	  isBuyBackTrue();
+	   if($isRaise==1){
+		   $("#c_1").attr("checked", true);
+		   $("#b_2").attr("checked", true);
+		   $("#b_2").closest("li").hide();
+		  
+		   $buyback =false;
+		   
+		   if($isdebt==(-1)){
+			   $("#r_3").attr("checked", true);
+		   }
+		   if($isdebt==1 ){
+			   $("#lockTime").removeAttr("datatype").closest("li").hide();
+		   }
+	   }
+		if($raiseterm){
+   	  		$("#c_1").attr("checked", true);
+   	  		$("#raiseterm").attr("datatype", "n,raiseterm").closest("li").show();
+   	  		$("#lockTime").attr("datatype", "n").closest("li").show();
+			$("#buyback").removeAttr("datatype").closest("li").hide();   	  		
+			$("#buybackselect").hide();
+   			$("#nobuybackselect").show();
+   			$("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode1");
+			$("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode");
+   			$buyback =false;
+		   }else {
+		    $("#c_2").attr("checked",true);
+		    $("#raiseterm").removeAttr("datatype").closest("li").hide();
+		    $("#lockTime").removeAttr("datatype").closest("li").hide();
+		  	 }
+		if($buyback) {
+			$("#b_1").attr("checked", true);
+			$("#raiseterm").removeAttr("datatype").closest("li").hide();
+			$("#buyback").attr("datatype", "n").closest("li").show();
+			$("#nobuybackselect").hide();
+			$("#buybackselect").show();
+			$("select", "#buybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode1");
+			$("select", "#nobuybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode");
+		} else {
+			$("#nobuybackselect").show();
+			$("#buybackselect").hide();
+			$("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+			$("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+			$("#buyback").removeAttr("datatype").closest("li").hide();
+		}
+		
+		$("#b_1").bind('click',isBuyBackFalse);
+		$("#b_2").bind('click', isBuyBackTrue );
+		$("#c_1").bind('click',isRaisetermTrue);
+		$("#c_2").bind('click',isRaisetermFalse);
+		$("#r_4").bind('click',isTrasFalse);
+		$("#r_3").bind('click',isTrasTrue);
+		 if($isRaise==1){
+			 if($isdebt==1 ){
+				   $("#lockTime").removeAttr("datatype").closest("li").hide();
+			   }
+		 }
+	});
+	function isTrasFalse(){
+	if($("#c_1").attr("checked")=="checked"){
+			$("#lockTime").removeAttr("datatype").closest("li").hide();
+			}
+	}
+    function isTrasTrue(){
+    if($("#c_1").attr("checked")=="checked"){
+			$("#lockTime").attr("datatype", "n").closest("li").show();
+		}		
+    }
+	
+	function isBuyBackFalse(){
+			$("#r3r4").hide();
+			$("#r_4").attr("checked", true);
+		}
+	function isBuyBackTrue(){
+			$("#r3r4").show();
+			return ;
+	 
+	}
+
+  	function isRaisetermTrue(){
+     $("#isbuyback").hide();
+	 $("#buyback").val('');
+     $("#buyback").removeAttr("datatype").closest("li").hide();
+     $("#raiseterm").attr("datatype","n,raiseterm").closest("li").show();
+     $("#lockTime").attr("datatype","n").closest("li").show();
+	 $("#buybackselect").hide();
+   	 $("#nobuybackselect").show();
+   	 $("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode1");
+	 $("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode");
+    }
+ 	function isRaisetermFalse(){
+     $("#isbuyback").show();
+     $("#raiseterm").removeAttr("datatype").closest("li").hide();
+     $("#lockTime").removeAttr("datatype").closest("li").hide();
+     $("#buyback").attr("datatype","*").closest("li").show();
+    }
+
+	function isBuyBackFalseConfig(){
+		var isTransfer = $("#isTransfer").val();
+		if(isTransfer == 0){
+			$("#r3r4").hide();
+			$("#r_4").attr("checked", true);
+			//paramBorrow.isdebt
+		}else{
+			return ;
+		}
+		}
+	function isBuyBackTrueConfig(){
+		var isTransfer = $("#isTransfer").val();
+		if(isTransfer == 0){
+			$("#r3r4").show();
+		}else{
+			return ;
+		}
+	}
+	
+	
+	 function sltChange(){   		
+		var type = $("#paymentmode").val();
+		var unit = $("#deadlineunit").val();
+	
+		if((type != "10") && 'D' == unit) {
+			$.kd.kdMsg(" 借款期限为天时，只能选择按日计息，到期还本付息的方式!");
+			$("#deadlineunit").val("M");
+			return false;
+		}
+		if((type == "10") && 'D'!=unit){
+		    $.kd.kdMsg(" 选择按日计息，到期还本付息的方式时,借款期限才为天!");
+			$("#deadlineunit").val("D");
+			return false;
+		}
+		return true;	
+   	}
+	function preset(){
+	    $('input[type=text],#project_cat,#project_org,#paymentmode,#paymentmode1,#project_com_inf').val('');
+		window.editor_project_com_info.html('');
+		window.editor_project_info.html('');
+		window.editor_project_com_inf.html('');
+	}
+</script>
+
+
+
+
+<!--<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/umeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/lang/zh-cn/zh-cn.js"></script>
+<link href="${staticserver}/common/js/libs/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">-->
+
+
+<style type="text/css">
+.edui-container .edui-editor-body {
+    height: 300px;
+    background-color: #FFF;
+    height: auto !important;
+}
+.slider {
+    position: relative;
+    text-align:left;
+}
+.slider ul {
+}
+.slider ul li {
+    display: inline-block;
+    float: left;
+    height: 370px;
+    width: 25%;
+}
+.slider li.sliderList0 {
+    background: url("../images/banner0.jpg") no-repeat scroll center top #2694D1;
+} 
+.slider li.sliderList1 {
+    background: url("../images/banner1.jpg") no-repeat scroll center top;
+}
+.slider li.sliderList2 {
+    background: url("../images/banner2.gif") no-repeat scroll center top #E7E8E9;
+}
+.slider li.sliderList3 {
+    background: url("../images/banner3.jpg") no-repeat scroll center top #2694D1;
+}
+.sliderListCont{width:1045px;margin:0 auto;}
+
+.slider ol.dots {
+    bottom: 20px;
+    left: 50%;
+    margin: 0 0 0 -40px;
+    padding: 0;
+    position: absolute;
+}
+.slider ol.dots li.dot {
+    background-color: #FFFFFF;
+    border: medium none;
+    border-radius: 50% 50% 50% 50%;
+    display: inline-block;
+    float: left;
+    height: 15px;
+    margin: 0 4px;
+    padding: 0;
+    text-indent: -10000px;
+    width: 15px;
+}
+.slider ol.dots li.active {
+    background-color: #E94F54;
+    margin-top:-2px;
+    padding:2px; 
+}
+
+.sliderAct{padding-top:60px;} 
+.sliderAct dl{margin:10px 0;padding:25px 25px 25px 140px;box-shadow:0 5px 5px 5px #eee;border:1px solid #c0c0c0;} 
+.sliderAct dl dt{font-size:26px;margin-bottom:8px;color:#0aa;}
+.sliderAct dl dd{font-size:14px;}
+.sliderAct dl dd a{color:#f50;margin-left:8px;}
+.sliderAct dl dd a:hover{text-decoration:underline;}
+.arrow{display:inline-block;width:0;height:0;margin-left:8px;border:10px solid transparent;border-left:10px solid #0aa;vertical-align:middle;}
+.sliderAct .create dl{background: url("../images/bg2.png") no-repeat -3px -93px;text-align: left;}
+.sliderAct .apply dl{background: url("../images/bg2.png") no-repeat -370px -93px;text-align: left;}
+
+.hotCont{width:685px;margin-top:20px;}
+.hotCont .hotHead h3{display:inline-block;background:#000 url("../images/head-bg.gif") no-repeat right top;font-size:30px;color:#fff;padding:6px 25px 12px 20px;}
+.hotCont .hotHead a{font-size:16px;}
+
+.hotCont .hotBody{background: url("../images/banner0.jpg") no-repeat;}
+.hotCont .hotMain{width:280px;padding:25px 20px 0;height:312px;background-color:#333;}
+.hotCont .hotMain .hotPjImg{display:block;margin-top:4px;}
+.hotCont .hotMain .hotPjImg img{width:80px;}
+.hotMain dl{width:175px;margin-left:15px;color:#fff;}
+.hotMain dl dt{font-size:24px;font-weight:bolder;}
+.hotMain dl dd{margin-top:10px;}
+.hotMain dl a{color:#fff;} 
+.hotMain dl a:hover{color:#f00;}
+.hotCont .prInfo{clear:both;}
+.hotCont .prInfo .moneyWrap{width:260px;margin:30px 10px 0 0;}
+</style>
+
+
+
+<script type="text/javascript">
+  $(function(){
+  var options = {
+       // cssPath : '/css/index.css',
+       width: '700px',
+       height: '400px',
+        minWidth: 250,
+       minHeight: 50,
+       uploadJson : fileaction,
+       filePostName:"upfile",
+       extraParams:{ a: 'a'} ,
+ 
+       formatUploadUrl:function( url) {
+         return fileserver+url;
+       }
+ 
+        };
+
+	KindEditor.ready(function(K) {
+			window.editor_project_com_info = K.create('textarea[id="project_com_info"]', options);
+			window.editor_project_info = K.create('textarea[id="project_info"]', options);
+			window.editor_project_com_inf = K.create('textarea[id="project_com_inf"]', options);
+		});
+  
+  
+  })
+</script>
+
+
+
+
+
+

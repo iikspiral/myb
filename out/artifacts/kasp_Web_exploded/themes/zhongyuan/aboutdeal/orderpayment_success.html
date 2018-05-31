@@ -1,0 +1,140 @@
+<div class="contentAndSideBar clearfix">
+	<div class="pageNav">当前位置：<a href="bonds_list.html">我要认购</a>&gt;<span class="current">订单支付</span></div>
+	<div class="clearfix" >
+  		<div class="orderwrap">
+  			<div class="ordercontentwrap">
+			<form id="orderForm" action="thirdpay.do" method="post">
+				<div class="ordercontent">
+					<#if status=='20'>
+						<span>已完成网银支付！</span>
+					</#if>	
+  				</div>
+  				</div>
+  				<div class="onlinepay">
+				<div class="payway">
+				<input id="onlinepay" name="checkway" type="checkbox" />
+  				<span class="form-item-title">网银支付</span>
+				</div>
+		            
+		            <span class="form-item-title" style="float:right;padding-right:20px"> <a href="javascript:void(0)" onclick="showMorBank(this)" >更多&gt;</a></span>
+		           
+					<div class="bankinfo">
+		            <div class="bank-list" style="height:60px;min-height:30px;overflow:hidden">
+		            	<ul>
+		            		
+								
+								<li class="isBank " title="">
+		                        <label >
+								
+		                            <img src=".../theme/hebei/images/nongye.jpg" width="143" height="38"><span class="checked"></span>
+
+		                        </label>
+		                    	</li>	
+		                    	<div style="display:none" >
+								
+								</div>
+								
+		            	</ul>
+						
+			        </div>
+					<div class="backaccountinfo">
+					<span>投资者回款账户信息：</span>
+					</div>
+					<div class="bindbankinfo">
+						<ul >
+							<li>真实姓名：<b>米奇</b></li>
+							<li>银行卡号：<b>622909337467661518</b></li>
+							<li style="display:none">银行卡密码：</li>
+							<li>您尚未绑定银行卡！<a href="/account_info_thirdpay.html" target="_blank" style="text-decoration:underline;">去绑定吧！</a></li>
+						</ul>
+						<ul ></ul>
+					</div>
+					</div>
+  				</div>
+					<div class="orderSubmit">
+					<ul>
+						<li class="kd-form-style-item">
+		                    <label class="kd-form-style-label"></label>
+		                    <span class="kd-form-style-value">
+		                    	<input  class="kdmall-btn cancel" value="确认支付" type="button" onclick="formSubmit()" />
+								<input  class="kdmall-btn cancel" value="返回修改订单" type="button"  onclick="backorder()" />
+		                    </span>
+		                </li>
+					</ul>
+					</div>
+				</div>
+				</form>
+  			</div>
+  		
+  		</div>
+  	</div>
+</div>
+<script type="text/javascript">
+
+	/*
+	 返回修改订单
+	*/
+	function backorder(){
+		window.location.href = "/bonddeal.html?id=b201411111831422880";
+	}
+	
+	/*
+	 三方存管支付，发请求
+	*/
+	function wayOfthirdpay(){
+		$.ajax({
+		type: "POST",
+		dataType:"json",
+		async:true,
+		url: "mall/v2getCharge!getCharge.do?ajax=yes",
+		data: datass,
+		success: function(data){
+			genResult(data);
+		},
+		error: function(data) {
+			genResult(data);
+		}
+	});
+	}
+	
+	/*
+	 网银支付，跳转支付页面
+	*/
+	function wayOfonlinepay(){
+		$("#orderForm").submit();
+		
+	}
+	
+	/*提交表单*/
+	function formSubmit(){
+		if($('#thirdpay').is(':checked')){//选择三方存管支付
+			
+			wayOfthirdpay();
+		}
+		else if($('#onlinepay').is(':checked')){//选择网银支付
+			wayOfonlinepay();
+		}
+		else if ($('#onlinepay').is(':checked') && $('#thirdpay').is(':checked')){//两种都选
+			wayOfthirdpay();
+			wayOfonlinepay();
+		}else{
+			$.kd.kdMsg("请选择支付方式！");
+		}
+		}
+		
+	//$("#thirdpay").click(function(){
+		
+	//})
+	
+	$(function(){
+		$("#thirdpay").bind("click",function(){
+			if(!$('#thirdpay').is(':checked')){
+				$("#tradePass").css("display","none");
+			}else{
+				$("#tradePass").css("display","block");
+			}
+		})
+		
+	});
+ 
+</script>  

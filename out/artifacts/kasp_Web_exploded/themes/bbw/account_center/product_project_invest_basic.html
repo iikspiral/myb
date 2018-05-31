@@ -1,0 +1,67 @@
+<script type="text/javascript" src="js/myproject.flow.js"></script>
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/account-new.css">
+
+<style type="text/css">
+.btn_beginwarmup  {}
+.btn_beginfinancing {}
+.btn_endfinancing {}
+.btn_beginflow {}
+.btn_modifyinfo {}
+</style>
+
+<div class="rightcontent formdiv ">
+		<!-- 股权管理   -->
+		<div class="tab-content-wrap-account">
+	        <div class="head-content">
+				<h1 class="content-title">股权项目</h1>				
+			</div>
+			<table class="list-table">
+				<thead>
+				<tr>
+					<th style="border-right:#e0e0e0 1px solid;min-width:200px;">项目名称</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width:100px;">投资详情</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width:100px;">项目动态</th>
+				</tr>
+				</thead>
+				<tbody>
+				<#if stocklist?exists>
+				<#list stocklist as sl>
+				<tr style="border-top:#e0e0e0 1px solid;">
+					<td style="border-right:#e0e0e0 1px solid;">${sl.project_name!''}</td>
+					<td style="border-right:#e0e0e0 1px solid;"><a href=product_project_invest_management.html?type=investdetail&productid=${sl.project_id!''}" class="linkButton btn_beginwarmup">投资人列表</a></td>
+					<td style="border-right:#e0e0e0 1px solid;"><a class="linkButton btn_beginwarmup" href = "product_project_invest_management.html?type=trendlist&productid=${sl.project_id!''}&producttype=project">项目动态管理</a></td>
+				</tr>
+				</#list>
+				</#if>
+				</tbody>
+			</table>
+		</div>
+		<!-- 债权管理  -->
+		<div class="tab-content-wrap-account">
+	        <div class="head-content">
+				<h1 class="content-title">债权项目</h1>				
+			</div>
+			<table class="list-table">
+				<thead>
+				<tr>
+					
+					<th style="border-right:#e0e0e0 1px solid;min-width:200px;">项目名称</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width:100px;">投资详情</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width:100px;">项目动态</th>
+				</tr>
+				</thead>
+				<tbody>
+		<#if bondlist?exists>
+		<#list bondlist  as bl>
+				<tr style="border-top:#e0e0e0 1px solid;">
+					<td style="border-right:#e0e0e0 1px solid;">${bl.borrowtitle!''}</td>
+					<td style="border-right:#e0e0e0 1px solid;"><a class="linkButton btn_beginwarmup">投资人列表</a></td>
+					<td style="border-right:#e0e0e0 1px solid;"><a class="linkButton btn_beginwarmup" href = "myproject.html?type=trendlist&productid=${bl.project_id!''}&producttype=bond">项目动态管理</a></td>
+				</tr>
+		</#list>
+		</#if>		
+				</tbody>
+			</table>
+		</div>
+</div>
+

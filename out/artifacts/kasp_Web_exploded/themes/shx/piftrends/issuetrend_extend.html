@@ -1,0 +1,233 @@
+<script type="text/javascript" src="${staticserver}/common/js/libs/jquery.json-2.4.js"></script>
+<style>
+	.ext-add {
+		padding: 10px;
+		font-size: 14px;
+		margin-top: 10px;
+		text-align: center;
+		background: #F9F9F9;
+		border: 1px solid #CCC;
+	}
+	
+	.ext-add a {
+		width: 130px;
+		height: 30px;
+		display: block;
+		margin: 0 auto;
+		line-height: 30px;
+		background: url("${staticserver}/common/images/icons.png") no-repeat -21px -1449px;
+	}
+	.ext-add a:hover {
+		background-position: -13px -1932px;
+	}
+	
+	.operate-bar {
+		width: 36px;
+	    float: right;
+		cursor: pointer;
+		margin-top: 15px;
+		margin-left: -36px;
+	}
+	.operate-bar a {
+	    width: 30px;
+	    height: 32px;
+	    display: block;
+	    border: 1px solid #CCCCCC;
+		background: url("${staticserver}/common/images/icons.png") no-repeat;
+	}
+	.operate-bar a.del {
+	    background-position: -20px -1555px;
+	}
+	.operate-bar a.del:hover {
+	    background-position: -45px -1555px;
+	}
+	.operate-bar a.up {
+	    background-position: -21px -1487px;
+	}
+	.operate-bar a.up:hover {
+	    background-position: -46px -1487px;
+	}
+	.operate-bar a.down {
+	    border-top: 0 none;
+	    border-bottom: 0 none;
+	    background-position: -21px -1521px;
+	}
+	.operate-bar a.down:hover {
+	    background-position: -46px -1521px;
+	}
+</style>
+<script type="text/javascript" src="../js/libs/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="../js/libs/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/libs/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<style>
+	 .attach {padding-left: 5px;}
+	 .attach div {float: left;width: 50px;height: 30px;line-height: 30px;text-align: right;font-size: 14px;}
+	 .attackform {margin-top: 20px;}
+	 .operateReference-item { font-size: 14px;padding-left: 5px;overflow: visible;margin-bottom: 5px;margin-bottom: 0\9;}
+	 .operateReference-item div { height: 24px!important; line-height: 24px!important;}
+	 .operateReference-button { margin: -5px 0 5px 10px;}
+	 .operateReference-list { padding-bottom: 5px;}
+	 .operateReference-img { margin-bottom: -2px;margin-right: 5px; }
+	 .operateReference-disabled-img { padding-left: 10px;cursor: pointer;margin-bottom: 2px;vertical-align: middle; }
+	 .operateReference-span { line-height: 15px; }
+	 .operateReference-span a { color : #369; }
+	 .operateReference-size-span { color: gray;margin-left: 2px; }
+</style>
+<div class="right-title">
+    <h2>项目资料</h2>
+</div>
+<div id="project_attachment" style="padding-top: 10px;">
+	<div class="operateReference-list">
+		<#if filelist?exists>
+		<#list filelist as f>
+		<div class="operateReference-item" fid="${f.id}" fname="${f.name}" fextend="${f.ext}" fpath="${f.addr}" fsize="${f.fsize}" ftype="${f.type}">
+			<div style="float: left; width: 50px; height: 30px; line-height: 30px; text-align: right;"></div>
+			<img src="${staticserver}/common/images/attachment.gif" class="operateReference-img">
+			<a <#if f.ext == "jpg" || f.ext == "jpeg" || f.ext == "gif" || f.ext == "png" || f.ext == "bmp">rel="img_group"</#if> href="${fileserver}${f.addr}" title="${f.name}">${f.name}</a>
+			<span class="operateReference-size-span" fsize="${f.fsize}"></span>
+			<img class="operateReference-disabled-img" onclick="delAttachment($(this).closest('div'));" title="删除" src="${staticserver}/common/images/delete.gif">
+		</div>
+		</#list>
+		</#if>
+	</div>
+	<form class="attackform">
+		<input name="pifid" type="hidden" value="${pifid!''}" id="pifid"/>
+		<input name="projectid" type="hidden" value="${productid!''}"  id="productid"/>
+		<div class="attach clearfix">
+			<div></div>
+			<input name="upfile" type="file" class="input" style="float: left;width: 400px;height: 26px;">
+			<input name="#" type="button" value="上传" class="kdmall-btn upload" onclick="upload($(this));" style="float: left;vertical-align: top;padding: 2px 12px 2px 12px;margin-top: 1px;">
+		</div>
+	</form>
+</div>
+<script>
+	var isdoing = false;
+	$(function() {
+		resetsn('project_attachment');
+		resetsn('mortgage_project');
+		$(".operateReference-size-span").each(function() {
+			$(this).text(convertSize($(this).attr("fsize")));
+		});
+	});
+	function delAttachment($obj) {
+		$.kd.kdConfirm("确定要删除该文件吗？", function() {
+			$obj.attr("isvalid", "N").hide();
+			savefile($obj, function() {
+				resetsn($obj.closest(".operateReference-list").parent().attr("id"));
+			});
+		});
+	}
+	
+	function resetsn(pid) {
+		$(".operateReference-item:visible", "#" + pid).each(function(i) {
+			$("div", this).text((i + 1) + "、");
+		});
+		
+		$("a:visible[rel=img_group]").fancybox({
+			'titlePosition': 'over',
+			'titleFormat': function(title, currentArray, currentIndex, currentOpts) {
+				return '<span id="fancybox-title-over">' + (title.length ? ' &nbsp; ' + title : '') + '&nbsp;<span style="font-weight: bold;">（' + (currentIndex + 1) + ' / ' + currentArray.length + '）</span></span>';
+			}
+		});
+	}
+	
+	function upload($obj) {
+		var $form = $obj.closest("form");
+		if(isdoing) {
+			$.kd.kdAlert("程序正在处理，请稍后！");
+			return false;
+		}
+		if(!$("input[type=file]", $form).val()) {
+			$.kd.kdAlert("请选择要上传的文件！");
+			return false;
+		}
+		$.kd.showLoading($(".upload", $form), "正在上传文件");
+		isdoing = true;
+		$form.ajaxSubmit({
+			type : "POST",
+			url : fileaction,
+			dataType : "json",
+			success : function(data) {
+				document.cookie = window.umesession;
+				try {
+					var json = eval('(' + data + ')');
+					if(json.result == 0) {
+						$.kd.kdAlert("上传资料失败！");
+					} else {
+						$.kd.kdAlert("上传资料成功");
+						var extend = json.name.substr(json.name.lastIndexOf(".") + 1);
+						var $file = $(
+							'<div class="operateReference-item" fname="' + json.name + '" fextend="' + extend + '" fpath="' + json.message + '" fsize="' + json.size + '" ftype="' + $form.parent().attr("id") + '" isvalid="Y">'+
+						    	'<div style="float: left;width: 50px;height: 30px;line-height: 30px;text-align: right;">' + ($(".operateReference-item:visible", $form.parent()).size() + 1) + '、</div>'+
+						    	'<img src="${staticserver}/common/images/attachment.gif" class="operateReference-img"/>'+
+						    	'<a rel="img_group" href="${fileserver}' + json.message + '" title="' + json.name + '">' + json.name + '</a>'+
+						    	'<span class="operateReference-size-span" fsize="' + json.size + '">' + convertSize(json.size) + '</span>'+
+					    		'<img class="operateReference-disabled-img" onclick="delAttachment($(this).closest(\'div\'));" title="删除" src="${staticserver}/common/images/delete.gif">'+
+						    '</div>'
+						);
+						$(".operateReference-list", $form.parent()).append($file);
+						
+						savefile($file, function() {
+							resetsn($form.parent().attr("id"));
+						});
+						
+						$("input[type=file]", $form).val("");
+						isdoing = false;
+					}
+				} catch(d) {
+					isdoing = false;
+				}
+				$.kd.closeLoading();
+			},
+			error : function(e) {
+				document.cookie = window.umesession;
+			}
+		});
+		return false;
+	}
+	
+	function savefile($obj, func) {
+		var info, result = [], fid;
+		$obj.each(function(i) {
+			fid = $(this).attr("fid");
+			info = {};
+			info.sn = i;
+			info.id = fid ? fid : "";
+			info.bid = $("#pifid").val();
+			info.productid = $("#productid").val();
+			info.fname = $(this).attr("fname");
+			info.fextend = $(this).attr("fextend");
+			info.fsize = $(this).attr("fsize");
+			info.fpath = $(this).attr("fpath");
+			info.ftype = $(this).attr("ftype") == "project_attachment" ? 0 : 1;
+			info.isvalid = $(this).attr("isvalid");
+			
+			if(info.id || info.isvalid == "Y") result.push(info);
+		});
+		
+		if(result.length > 0) $.post("mall/issuetrend!addExtFile.do?ajax=yes", {fileinfo: $.toJSON(result)}, function(data) {
+			try {$obj.attr("id", eval("[" + data + "]")[0].message);} catch(e){};
+			func();
+		});
+	}
+	
+	function convertSize(size) {
+        var unit = "B";
+        
+        size = parseInt(size.split(",").join(""));
+        
+        if (size <= 0) {     
+        } else if(size < 1024) {
+            unit = "B";
+            decimalNum = 0;
+        } else if(size < 1000 *1024) {
+            unit = "KB";
+            decimalNum = 0;
+            size = size / 1024;
+        } else {
+            unit = "MB";
+            size = size / (1000 * 1024);
+        }
+        return Math.round(size * 100) / 100 + unit;
+	}
+</script>

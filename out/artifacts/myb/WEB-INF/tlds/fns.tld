@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+    
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions sys</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>fns</short-name>
+  <uri>http://java.sun.com/jsp/jstl/functionss</uri>
+
+  <function>
+    <description>获取管理路径</description>
+    <name>getAdminPath</name>
+    <function-class>com.sxca.myb.common.config.Global</function-class>
+    <function-signature>java.lang.String getAdminPath()</function-signature>
+    <example>${fns:getAdminPath()}</example>
+  </function>
+  <function>
+    <description>获取网站路径</description>
+    <name>getFrontPath</name>
+    <function-class>com.sxca.myb.common.config.Global</function-class>
+    <function-signature>java.lang.String getFrontPath()</function-signature>
+    <example>${fns:getFrontPath()}</example>
+  </function>
+  <function>
+    <description>获取网站URL后缀</description>
+    <name>getUrlSuffix</name>
+    <function-class>com.sxca.myb.common.config.Global</function-class>
+    <function-signature>java.lang.String getUrlSuffix()</function-signature>
+    <example>${fns:getUrlSuffix()}</example>
+  </function>
+  <function>
+    <description>获取配置</description>
+    <name>getConfig</name>
+    <function-class>com.sxca.myb.common.config.Global</function-class>
+    <function-signature>java.lang.String getConfig(java.lang.String)</function-signature>
+    <example>${fns:getConfig(key)}</example>
+  </function>
+  <function>
+    <description>获取常量</description>
+    <name>getConst</name>
+    <function-class>com.sxca.myb.common.config.Global</function-class>
+    <function-signature>java.lang.Object getConst(java.lang.String)</function-signature>
+    <example>${fns:getConst(key)}</example>
+  </function>
+  
+  <!-- UserUtils -->
+  <function>
+    <description>获取当前用户对象</description>
+    <name>getUser</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>com.sxca.myb.modules.sys.entity.User getUser()</function-signature>
+    <example>${fns:getUser()}</example>  
+  </function>
+  
+  <function>
+    <description>根据编码获取用户对象</description>
+    <name>getUserById</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>com.sxca.myb.modules.sys.entity.User get(java.lang.String)</function-signature>
+    <example>${fns:getUserById(id)}</example>  
+  </function>
+  
+  <function>
+    <description>获取授权用户信息</description>
+    <name>getPrincipal</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>com.sxca.myb.modules.sys.security.SystemAuthorizingRealm.Principal getPrincipal()</function-signature>
+    <example>${fns:getPrincipal()}</example>  
+  </function>
+  
+  <function>
+    <description>获取当前用户的菜单对象列表</description>
+    <name>getMenuList</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>java.util.List getMenuList()</function-signature>
+    <example>${fns:getMenuList()}</example>  
+  </function>
+  
+  <function>
+    <description>获取当前用户的区域对象列表</description>
+    <name>getAreaList</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>java.util.List getAreaList()</function-signature>
+    <example>${fns:getAreaList()}</example>  
+  </function>
+  
+  <function>
+    <description>获取当前用户的部门对象列表</description>
+    <name>getOfficeList</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>java.util.List getOfficeList()</function-signature>
+    <example>${fns:getOfficeList()}</example>  
+  </function>
+  
+  <function>
+    <description>获取当前用户缓存</description>
+    <name>getCache</name>
+    <function-class>com.sxca.myb.modules.sys.utils.UserUtils</function-class>
+    <function-signature>java.lang.Object getCache(java.lang.String, java.lang.Object)</function-signature>
+    <example>${fns:getCache(cacheName, defaultValue)}</example>  
+  </function>
+	
+  <!-- DictUtils -->
+  <function>
+    <description>获取字典标签</description>
+    <name>getDictLabel</name>
+    <function-class>com.sxca.myb.modules.sys.utils.DictUtils</function-class>
+    <function-signature>java.lang.String getDictLabel(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+    <example>${fns:getDictLabel(value, type, defaultValue)}</example>  
+  </function>
+  
+  <function>
+    <description>获取字典标签(多个)</description>
+    <name>getDictLabels</name>
+    <function-class>com.sxca.myb.modules.sys.utils.DictUtils</function-class>
+    <function-signature>java.lang.String getDictLabels(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+    <example>${fns:getDictLabels(values, type, defaultValue)}</example>  
+  </function>
+
+  <function>
+    <description>获取字典值</description>
+    <name>getDictValue</name>
+    <function-class>com.sxca.myb.modules.sys.utils.DictUtils</function-class>
+    <function-signature>java.lang.String getDictValue(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+    <example>${fns:getDictValue(label, type, defaultValue)}</example>  
+  </function>
+  
+  <function>
+    <description>获取字典对象列表</description>
+    <name>getDictList</name>
+    <function-class>com.sxca.myb.modules.sys.utils.DictUtils</function-class>
+    <function-signature>java.util.List getDictList(java.lang.String)</function-signature>
+    <example>${fns:getDictList(type)}</example>  
+  </function>
+  
+  <function>
+    <description>获取字典对象列表</description>
+    <name>getDictListJson</name>
+    <function-class>com.sxca.myb.modules.sys.utils.DictUtils</function-class>
+    <function-signature>java.lang.String getDictListJson(java.lang.String)</function-signature>
+    <example>${fns:getDictListJson(type)}</example>  
+  </function>
+  
+  <!-- Encodes -->
+  <function>
+    <description>URL编码</description>
+    <name>urlEncode</name>
+    <function-class>com.sxca.myb.common.utils.Encodes</function-class>
+    <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
+    <example>${fns:urlEncode(part)}</example>  
+  </function>
+  <function>
+    <description>URL解码</description>
+    <name>urlDecode</name>
+    <function-class>com.sxca.myb.common.utils.Encodes</function-class>
+    <function-signature>java.lang.String urlDecode(java.lang.String)</function-signature>
+    <example>${fns:urlDecode(part)}</example>  
+  </function>
+  <function>
+    <description>HTML编码</description>
+    <name>escapeHtml</name>
+    <function-class>com.sxca.myb.common.utils.Encodes</function-class>
+    <function-signature>java.lang.String escapeHtml(java.lang.String)</function-signature>
+    <example>${fns:escapeHtml(html)}</example>  
+  </function>
+  <function>
+    <description>HTML解码</description>
+    <name>unescapeHtml</name>
+    <function-class>com.sxca.myb.common.utils.Encodes</function-class>
+    <function-signature>java.lang.String unescapeHtml(java.lang.String)</function-signature>
+    <example>${fns:unescapeHtml(html)}</example>  
+  </function>
+  
+  <!-- StringUtils -->
+  <function>
+    <description>从后边开始截取字符串</description>
+    <name>substringAfterLast</name>
+    <function-class>org.apache.commons.lang3.StringUtils</function-class>
+    <function-signature>java.lang.String substringAfterLast(java.lang.String, java.lang.String)</function-signature>
+    <example>${fns:substringAfterLast(str,separator)}</example>  
+  </function>
+  <function>
+    <description>判断字符串是否以某某开头</description>
+    <name>startsWith</name>
+    <function-class>org.apache.commons.lang3.StringUtils</function-class>
+    <function-signature>boolean startsWith(java.lang.CharSequence, java.lang.CharSequence)</function-signature>
+    <example>${fns:startsWith(str,prefix)}</example> 
+  </function>
+  <function>
+    <description>判断字符串是否以某某结尾</description>
+    <name>endsWith</name>
+    <function-class>org.apache.commons.lang3.StringUtils</function-class>
+    <function-signature>boolean endsWith(java.lang.CharSequence, java.lang.CharSequence)</function-signature>
+    <example>${fns:endsWith(str,suffix)}</example> 
+  </function>
+  <function>
+    <description>缩写字符串，超过最大宽度用“...”表示</description>
+    <name>abbr</name>
+    <function-class>com.sxca.myb.common.utils.StringUtils</function-class>
+    <function-signature>java.lang.String abbr(java.lang.String, int)</function-signature>
+    <example>${fns:abbr(str,length)}</example>  
+  </function>
+  <function>
+    <description>替换掉HTML标签</description>
+    <name>replaceHtml</name>
+    <function-class>com.sxca.myb.common.utils.StringUtils</function-class>
+    <function-signature>java.lang.String replaceHtml(java.lang.String)</function-signature>
+    <example>${fns:replaceHtml(html)}</example>  
+  </function>
+  <function>
+    <description>转换为JS获取对象值，生成三目运算返回结果。</description>
+    <name>jsGetVal</name>
+    <function-class>com.sxca.myb.common.utils.StringUtils</function-class>
+    <function-signature>java.lang.String jsGetVal(java.lang.String)</function-signature>
+    <example>${fns:jsGetVal('row.user.id')}  返回：!row?'':!row.user?'':!row.user.id?'':row.user.id</example>  
+  </function>
+  
+  <!-- DateUtils -->
+  <function>
+    <description>获取当前日期</description>
+    <name>getDate</name>
+    <function-class>com.sxca.myb.common.utils.DateUtils</function-class>
+    <function-signature>java.lang.String getDate(java.lang.String)</function-signature>
+    <example>${fns:getDate(pattern)}</example>  
+  </function>
+  <function>
+    <description>获取过去的天数</description>
+    <name>pastDays</name>
+    <function-class>com.sxca.myb.common.utils.DateUtils</function-class>
+    <function-signature>long pastDays(java.util.Date)</function-signature>
+    <example>${fns:pastDays(date)}</example>  
+  </function>
+  
+  <!-- JsonMapper -->
+  <function>
+    <description>对象转换JSON字符串</description>
+    <name>toJson</name>
+    <function-class>com.sxca.myb.common.mapper.JsonMapper</function-class>
+    <function-signature>java.lang.String toJsonString(java.lang.Object)</function-signature>
+    <example>${fns:toJson(object)}</example>  
+  </function>
+  
+   <function>
+    <description>查找项目列表</description>
+    <name>getProjectInfoList</name>
+    <function-class>com.sxca.myb.modules.pro.util.ProjectInfoUtil</function-class>
+    <function-signature>java.util.List getProjectInfoList()</function-signature>
+    <example>${fns:getProjectInfoList()}</example>  
+  </function>   
+
+   <function>
+    <description>获取项目名称</description>
+    <name>getProjectName</name>
+    <function-class>com.sxca.myb.modules.pro.util.ProjectInfoUtil</function-class>
+    <function-signature>java.util.List getProjectName(java.lang.String)</function-signature>
+    <example>${fns:getProjectName(String)}</example>  
+  </function>
+  
+   <function>
+    <description>获取企业名称</description>
+    <name>getCorporName</name>
+    <function-class>com.sxca.myb.modules.idinfo.utils.CorporationUtil</function-class>
+    <function-signature>java.util.List getCorporName(java.lang.String)</function-signature>
+    <example>${fns:getCorporName(String)}</example>  
+  </function>
+  
+   <function>
+    <description>获取企业用户列表</description>
+    <name>getCorporList</name>
+    <function-class>com.sxca.myb.modules.idinfo.utils.CorporationUtil</function-class>
+    <function-signature>java.util.List getCorporList()</function-signature>
+    <example>${fns:getCorporList()}</example>  
+  </function>
+  
+  <function>
+    <description>获取用户名称</description>
+    <name>getUserInfoList</name>
+    <function-class>com.sxca.myb.modules.idinfo.utils.UserInfoUtil</function-class>
+    <function-signature>java.util.List getUserInfoList()</function-signature>
+    <example>${fns:getUserInfoList()}</example>  
+  </function>
+  
+  <function>
+    <description>获取证书列表</description>
+    <name>getCertInfoList</name>
+    <function-class>com.sxca.myb.modules.cert.util.CertInfoUtil</function-class>
+    <function-signature>java.util.List getCertInfoList(java.lang.String)</function-signature>
+    <example>${fns:getCertInfoList(String)}</example>  
+  </function>
+  
+  <function>
+    <description>获取证书模板列表</description>
+    <name>getCertctmlList</name>
+    <function-class>com.sxca.myb.modules.certCtml.utils.CertCtmlUtil</function-class>
+    <function-signature>java.util.List getCertctmlList()</function-signature>
+    <example>${fns:getCertctmlList()}</example>  
+  </function>    
+  
+  <function>
+    <description>获取模板名称</description>
+    <name>getCertname</name>
+    <function-class>com.sxca.myb.modules.certCtml.utils.CertCtmlUtil</function-class>
+    <function-signature>java.util.List getCertname(java.lang.String)</function-signature>
+    <example>${fns:getCertname(String)}</example>  
+  </function>
+  
+  <function>
+    <description>获取企业用户名称</description>
+    <name>getCorpUsername</name>
+    <function-class>com.sxca.myb.modules.idinfo.utils.CorporationUtil</function-class>
+    <function-signature>java.util.List getCorpUsername(java.lang.String)</function-signature>
+    <example>${fns:getCorpUsername(String)}</example>  
+  </function>
+  
+  <function>
+    <description>获取企业与企业用户列表</description>
+    <name>getCorporUserHelist</name>
+    <function-class>com.sxca.myb.modules.idinfo.utils.CorporationUtil</function-class>
+    <function-signature>java.util.List getCorporUserHelist()</function-signature>
+    <example>${fns:getCorporUserHelist()}</example>  
+  </function> 
+  
+  
+    <function>
+    <description>获取证书主题</description>
+    <name>getCertSubject</name>
+    <function-class>com.sxca.myb.modules.cert.util.CertInfoUtil</function-class>
+    <function-signature>java.util.List getCertSubject(java.lang.String)</function-signature>
+    <example>${fns:getCertSubject(String)}</example>  
+  </function> 
+  
+    <function>
+    <description>获取手机相关信息</description>
+    <name>getMobileApplyInfoList</name>
+    <function-class>com.sxca.myb.modules.mobile.util.MobileApplyInfoUtil</function-class>
+    <function-signature>java.util.List getMobileApplyInfoList()</function-signature>
+    <example>${fns:getMobileApplyInfoList()}</example>  
+  </function> 
+  
+  <function>
+    <description>获取系统名称</description>
+    <name>getSystemName</name>
+    <function-class>com.sxca.myb.modules.config.sysconfig.util.SysConfigUtil</function-class>
+    <function-signature>java.lang.String getSystemName()</function-signature>
+    <example>${fns:getSystemName()}</example>
+  </function>
+  
+  <function>
+    <description>获取系统版本信息</description>
+    <name>getCopyRight</name>
+    <function-class>com.sxca.myb.modules.config.sysconfig.util.SysConfigUtil</function-class>
+    <function-signature>java.lang.String getCopyRight()</function-signature>
+    <example>${fns:getCopyRight()}</example>
+  </function>
+  
+   <function>
+    <description>获取企业证书使用人列表</description>
+    <name>getCorporUserList</name>
+    <function-class>com.sxca.myb.modules.idinfo.utils.CorporationUtil</function-class>
+    <function-signature>java.util.List getCorporUserList()</function-signature>
+    <example>${fns:getCorporUserList()}</example>  
+  </function>
+  
+   <function>
+    <description>获取地区名称</description>
+    <name>getAreaname</name>
+    <function-class>com.sxca.myb.modules.config.basearea.util.AreaUtil</function-class>
+    <function-signature>java.lang.String getAreaname(java.lang.String)</function-signature>
+    <example>${fns:getAreaname(String)}</example>
+  </function>
+  
+</taglib>

@@ -1,0 +1,161 @@
+<style>
+.linkButtonOk {
+width: 60px;
+height: 26px;
+line-height: 26px;
+text-align: center;
+border-radius: 3px;
+color: #FFF!important;
+text-decoration: none!important;
+padding: 0 5px;
+cursor: pointer;
+background: #9EABC2;
+display: block;
+}
+</style>
+<div class="account-main my-financing clearfix">
+<div class="tabs" id="accountTabs">
+    <ul class="nav">
+        <li class="nav-one"><a class="current" href="#holden">还款明细</a></li>                           
+    </ul>
+    <div class="list-wrap">
+        <table id="holden" class="records-table">
+            <thead>
+                <tr>
+					<th >序号</th>
+					<th >项目名称</th>
+					<th >还款期数</th>
+					<th >年利率</th>
+					<th >应还款日期</th>
+					<th >应付金额(元)</th>
+					<th>资金状态</th>
+					<th >还款状态</th>
+					<th style="width: 10%;">操作</th>
+                </tr>
+            </thead>
+	            <tbody id="msg-list-content"> 				
+				<#if repayplandetail?exists>
+				<#assign i = 0>
+    			<#list repayplandetail as item>
+    			<#assign i = i + 1>
+				<tr >							
+					<td >${i}</td>							
+					<td ><span title="${item.borrowtitle!}">${item.borrowtitle!""}</span>
+					</td>
+					<td  >
+					<span >${item.repayperiod!""}</span>
+					</td>
+					<td >
+					<span >${item.annualrate!''}%</span>
+					</td>
+
+					<td >
+					<span class="msg-title">${item.repaydate!''}</span>
+					</td>
+					<td class="center">
+					<span class="msg-title">${item.repayamount?default("0.00")?number?string("###,###,###,##0.00")}</span>
+					</td>
+					<td>
+					<#if item.hasfrozenstatus?exists && item.hasfrozenstatus=="2">
+					<#if item.repaystatus?exists && item.repaystatus == "2">
+						<span style="color: blue">资金已打给投资者</span>
+					<#else>
+						<span style="color: #C70808">资金冻结</span>
+					</#if>
+					<#else>
+					<span style="color: #C70808">资金未冻结</span>
+					</#if>
+					</td>
+					<td style="text-align: center;">
+						<#if item.repaystatus?exists>
+						       <#switch "${item.repaystatus!''}">       
+						        <#case "1">
+						       <span style="color: #C70808">未还款</span>  
+							      <#break>
+							      <#case "2">  
+						         <span style="color: #DDD"> 已还款</span>      
+							      <#break> 
+						      </#switch>
+						</#if>
+					</td> 	      
+					<td style="text-align: center;">
+					<#if item.repaystatus?exists && item.repaystatus == "2">
+						<a class="btn-xs btn-grey" disabled="disabled">已还款</a>
+					<#else>
+					<#if item.hasfrozenstatus?exists && item.hasfrozenstatus=="2">
+						<a class="btn-xs btn-grey" disabled="disabled">资金冻结</a>
+					<#elseif item.hasfrozenstatus?exists && item.hasfrozenstatus=="1">
+						<a class="btn-xs btn-grey" disabled="disabled">资金未冻结</a>
+					<#else>
+						<#if item.repaystatusflag?exists>
+							<a class="kdmall-btn cancel" repay="repay" frozenmoney="${item.repayamount!''}" borrowid="${proid!''}" repaydate="${item.repaydate!''}">还款</a>
+						<#else>
+							<a class="btn-xs btn-grey" disabled="disabled">待还款</a>
+						</#if>
+					</#if>
+					</#if>
+					</td>		
+				</tr>				
+				</#list>
+				</#if>								
+				</tbody>
+        </table>  
+        <div id="page_area" class="pager-info"></div>                          
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$.kd.kdPager.init({
+			currentPage: '${page_repayplan_detail}',
+			totalPage: '${totalPage_repayplan_detail}',
+			totalRecords: '${totalCount_repayplan_detail}',
+			prefix: '/product_repay_plan.html',
+			suffix: function(n) {
+				return generalParam() + "&page=" + n;
+			}
+		});
+	});
+	
+	$("a[repay]").on("click",function(){
+		var current = $(this);
+		var flag = current.attr("disabled");
+		if(flag=="disabled"){
+			return;
+		}
+		var frozenmoney = current.attr("frozenmoney");
+		var borrowid = current.attr("borrowid");
+		var repaydate = current.attr("repaydate");
+		
+		zhejiang_confirm("提示","确认还款?" ,function() { 
+			current.attr("disabled","disabled");
+			$.post("mall/bbw_productrepay!publisherfrozenmoney.do?ajax=yes",{
+					frozenmoney:frozenmoney,
+					borrowid:borrowid,
+					repaydate:repaydate
+					},
+					function(data) {	
+					    var data=eval('(' + data + ')');	
+						 if ( data.result == 1) {
+							  zhejiang_confirm("消息",data.message,function(){
+								window.location.href = "product_repay_plan.html?"+generalParam()+"&_="+new Date().getTime(); 
+							  });
+						  
+						 } else {
+						 
+								zhejiang_confirm("消息",data.message,function(){
+								
+							  });
+						};
+				}); 
+	 });
+	
+	});
+	
+	function generalParam() {
+		var param = "type=repayplandetail";
+		return param + "&proid=${proid!''}&startdate1=${startdate1!''}&enddate1=${enddate1!''}" ;
+	}
+	
+
+</script>

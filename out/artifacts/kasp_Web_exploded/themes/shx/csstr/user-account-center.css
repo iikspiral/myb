@@ -1,0 +1,654 @@
+@CHARSET "UTF-8";
+
+.user-box-1 {
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	text-align: left
+}
+
+.user-box-con {
+	background-color: #fff;
+}
+
+.user-box-con-1 {
+	width: 726px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.user-box-title-1 {
+	width: 726px;
+	height: 50px;
+	_overflow: hidden;
+	line-height: 60px;
+	border-bottom: 2px solid #e0e0e0;
+	position: relative;
+	z-index: 0;
+	background-color: #fff;
+	margin: 0 auto;
+}
+
+.user-box-title-1 h2 {
+	font-size: 18px;
+	font-weight: bold;
+	position: absolute;
+	height: 50px;
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	color: #333;
+	border-bottom: 2px solid #808080;
+	z-index: 1;
+}
+
+.icon-duigou1 {
+	float: left;
+	width: 14px;
+	height: 13px;
+	background: url(../images/icon_duigou.png) no-repeat;
+}
+
+.icon-check {
+	float: left;
+	width: 16px;
+	height: 16px;
+	background: #eee;
+	background: url(../images/icon_check.png) no-repeat;
+}
+
+.icon-tanhao {
+	float: left;
+	width: 16px;
+	height: 16px;
+	background: #eee;
+	background: url(../images/tanhao.png) no-repeat;
+}
+
+/*安全设置begi*/
+.user-safety-options {
+	font-size: 14px;
+}
+
+.user-safety-options .user-box-1 {
+	margin-top: 0px;
+}
+
+.user-safety-options .user-box-con-1 {
+	padding-top: 0px;
+}
+
+.user-safety-options-item {
+	_float: left;
+	width: 724px;
+	line-height: 50px;
+	border-bottom: 1px solid #e0e0e0;
+	overflow: hidden;
+}
+
+.user-safety-options-show {
+	width: 726px;
+	height: 50px;
+	overflow: hidden;
+}
+
+.user-safety-options-show .icon-check,.user-safety-options-show .icon-tanhao
+	{
+	margin-top: 18px;
+	margin-right: 10px;
+}
+
+.user-safety-options-name {
+	float: left;
+	width: 124px;
+}
+
+.user-safety-options-name strong {
+	float: right;
+	font-weight: normal;
+	width: 98px;
+	text-align: left;
+}
+
+.user-safety-options-value {
+	float: left;
+	width: 540px;
+	_width: 530px;
+	text-align: left;
+}
+
+.user-safety-options-state {
+	float: left;
+	width: 60px;
+	_height: 60px;
+	_overflow: hidden;
+	color: #C70808;
+	cursor: pointer;
+	text-align: right;
+}
+
+.user-safety-options-state-false {
+	color: #999;
+	cursor: default
+}
+
+.user-safety-options-edit {
+	position: relative;
+	border: 1px solid #e0e0e0;
+	background: #f5f5f5;
+}
+
+.user-safety-options-edit .form-warm-prompt-1 {
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	text-align: left
+}
+
+.user-safety-options-email-edit .options-step-con {
+	width: 100%;
+}
+
+.user-safety-options-email-edit .options-step-con span {
+	width: 25%;
+}
+
+.user-safety-options-value-false {
+	color: #d53838;
+	font-weight: bold;
+}
+
+.user-safety-options-value-true {
+	color: #2ECA47;
+	font-weight: bold;
+}
+/*安全设置end*/
+
+/*表单通用样式begi*/
+.form-style {
+	padding: 15px 0 30px 0;
+}
+
+.form-style-item {
+	float: left;
+	width: 100%;
+	line-height: 22px;
+	margin-top: 15px;
+}
+
+.form-style-label {
+	float: left;
+	text-align: right;
+	width: 225px;
+	margin-right: 20px;
+	font-size: 14px;
+	line-height: 34px;
+}
+
+.form-style-value,.form-style-value-1,.form-style-2-value {
+	float: left;
+	width: 182px;
+	margin-right: 20px;
+	line-height: 37px;
+	text-align: left;
+}
+
+.form-style-value-1 {
+	width: 270px;
+}
+
+.form-style-other {
+	float: left;
+	width: 100px;
+}
+
+.form-style-error {
+	float: left;
+	color: #d63838;
+}
+
+.form-style-submit {
+	height: 33px;
+	padding-left: 245px;
+	width: 479px;
+}
+
+.form-style .input-text-style-1 {
+	width: 160px;
+}
+
+.form-style .btn-style-1 {
+	height: 28px;
+}
+
+.form-warm-prompt {
+	background: #fffadc;
+	border-top: 1px solid #e0e0e0;
+	padding: 10px 20px;
+	width: 684px;
+	line-height: 24px;
+	color: #666;
+}
+
+.form-warm-prompt-title {
+	float: left;
+	width: 100%;
+}
+
+.form-warm-prompt-con {
+	float: left;
+	width: 605px;
+}
+
+.form-warm-prompt-1 {
+	background: #fffadc;
+	border: 1px solid #e3b367;
+	padding: 10px 20px;
+	width: 682px;
+	line-height: 24px;
+	color: #666;
+	font-size: 12px;
+}
+
+.form-warm-prompt-1 .form-warm-prompt-title {
+	color: #b73736;
+	font-weight: bold;
+}
+
+.form-warm-prompt-1 .form-warm-prompt-con {
+	float: left;
+	width: 680px;
+}
+
+.ps1-con-hint {
+	width: 100%;
+	text-indent: 12px;
+	line-height: 30px;
+	background: #fffadc;
+	margin-bottom: 5px;
+	color: #999;
+}
+
+.ps1-con-hint strong {
+	color: #fe6e00;
+}
+
+.error-style-1 {
+	clear: left;
+	color: #D63838;
+	float: left;
+	padding: 14px 0 0;
+	text-align: center;
+	width: 300px
+}
+
+form label {
+	font-size: 12px;
+	line-height: 29px;
+	margin-left: 0;
+	margin-right: 0;
+}
+/*表单通用样式end*/
+
+/*进度条通用样式begi*/
+.options-step {
+	height: 48px;
+	position: relative;
+	border-bottom: 5px solid #dadada;
+	font-size: 12px;
+	line-height: 40px;
+	margin-bottom: 20px;
+}
+
+.options-step-con {
+	width: 535px;
+	margin: 0 auto;
+	height: 48px;
+	_position: absolute;
+	_width: 100%;
+}
+
+.options-step-con span,.options-step-con4 span {
+	float: left;
+	_position: relative;
+	width: 23%;
+	text-align: center;
+	height: 48px;
+}
+
+.options-step-con.four span {
+	width: 25%
+}
+
+.options-step-con strong,.options-step-con4 strong {
+	display: block;
+	width: 20px;
+	height: 20px;
+	margin: 0 auto;
+	line-height: 20px;
+	color: #fff;
+	font-size: 12px;
+	border-radius: 10px;
+	background: #dadada;
+	_position: absolute;
+	_left: 46%;
+	_bottom: -12px;
+}
+
+.options-step-current {
+	border-bottom: 5px solid #6795f7;
+	color: #6795f7;
+}
+
+.options-step-current strong {
+	background: #6795f7;
+}
+/*进度条通用样式end*/
+
+/* 风险测评开始 */
+.regist-questionnaire h3 {
+	color: #d53838;
+	line-height: 25px;
+	padding: 0 15px;
+	font-family: 'Microsoft Yahei';
+	font-size: 14px;
+	text-indent: 20px;
+}
+
+.regist-questionnaire_con {
+	margin-left: 13px;
+	padding: 10px 20px;
+	width: 445px;;
+	border: 1px solid #eeeeee;
+	color: #333;
+	overflow-x: hidden;
+}
+
+.regist-questionnaire_con dl {
+	width: 560px;
+	float: left;
+	margin-top: 8px;
+}
+
+.regist-questionnaire_con dt {
+	color: #3f312e;
+	line-height: 20px;
+}
+
+.regist-questionnaire_con dt b {
+	color: #C8050E;
+	margin-left: 10px;
+	font-weight: normal;
+}
+
+.regist-questionnaire_con dd {
+	margin-top: 2px;
+}
+
+.regist-questionnaire_con li {
+	float: left;
+	line-height: 22px;
+	width: 100%;
+}
+
+.regist-questionnaire_con .input-radio-style {
+	margin-top: 4px;
+}
+
+.regist-questionnaire_con .iqc_li li {
+	width: 220px;
+}
+
+/* 风险测评结束 */
+
+/*绑定银行卡begin*/
+.form-box {
+	width: 705px;
+	box-shadow: 0 0 10px #C7C5C5;
+	background: #FFF;
+	border: 1px solid #E7E7E7;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	text-align: left !important;
+}
+
+.form-box-content {
+	padding-bottom: 20px;
+}
+
+.form-box-content .stepcontent {
+	display: none;
+}
+
+.form-box .form-box-content .form-box-left1 {
+	float: left;
+	width: 520px;
+	height: 100%;
+	border-right: 2px solid #efefef;
+}
+
+.form-box .form-box-content .form-box-left1 .form-item-title {
+	padding-left: 20px;
+}
+
+.form-box .form-box-content .form-box-right1 {
+	float: left;
+	width: 130px;
+	height: 100%;
+	padding-left: 20px;
+	font-size: 14px;
+	line-height: 25px;
+}
+
+.form-box .form-box-content .form-box-right1 a {
+	text-decoration: underline;
+}
+
+.form-box .form-box-content .form-box-left2 {
+	float: left;
+	width: 350px;
+	height: 100%;
+	border-right: 1px solid #efefef;
+}
+.form-box .form-box-content .form-box-left3 {
+	float: left;
+	width: 100%;
+	height: 100%;
+	border-right: 1px solid #efefef;
+}
+.form-box .form-box-content .dropbankcard{
+	width: 80px;
+	margin-top: -20px;
+	margin-left: 150px;
+	height: 60px;
+}
+.form-box .form-box-content .addbankcard{
+	background: url("../images/tianjia.png") no-repeat scroll center;
+	height:104px;
+}
+.form-box .form-box-content .form-box-right2 {
+	float: left;
+	width: 350px;
+	height: 100%;
+}
+
+.form-box .form-box-content .form-box-left2 span {
+	display: block;
+	text-align: left;
+	margin-left: 80px;
+	margin-top: 10px;
+	width: 260px;
+	line-height: 20px;
+}
+
+.form-box .form-box-content .form-box-right2 span {
+	display: block;
+	text-align: left;
+	margin-left: 80px;
+	margin-top: 10px;
+	width: 260px;
+	line-height: 20px;
+}
+
+.bankwrap{
+	float: left;
+	margin-bottom: 10px;
+	width: 228px;
+	height: 127px;
+	margin-right: 10px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	position: relative;
+	cursor: pointer;
+}
+
+.link-trigger {
+	height: 28px;
+	border-top: 1px solid #F0F0F0;
+	border-bottom: 1px solid #F0F0F0;
+	background: #F7F7F7;
+	line-height: 28px;
+	padding-left: 10px;
+	cursor: pointer;
+	text-align: left;
+	margin-bottom: -20px;
+}
+
+.link-trigger a {
+	color: #8F8F8F;
+}
+
+.link-trigger span {
+	padding-right: 15px;
+	background: url("../images/select.png") no-repeat 5px;
+}
+
+.list-info {
+	display: none;
+	color: #4C4C4C;
+	background: #F9F9F9;
+	padding: 10px 20px;
+	text-align: left;
+	margin-bottom: -20px;
+	margin-top: 20px
+}
+
+.list-rule {
+	line-height: 22px;
+}
+
+.list-info .title {
+	color: #4D4D4D;
+	font-size: 100%;
+}
+
+.list-info .explain {
+	font-size: 12px;
+	font-weight: 100;
+	color: #959595;
+}
+
+.list-info a {
+	color: #0289C9;
+}
+
+.bank-list {
+	margin: 5px 0 5px 65px;
+	height: 60px;
+}
+
+.bank-list ul li {
+	float: left;
+	width: 140px;
+	color: #3181d8;
+	line-height: 40px;
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.bank-list ul li label {
+	position: relative;
+	float: left;
+	width: 125px;
+	height: 40px;
+}
+
+.bank-list ul li label span {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	_bottom: -3px;
+	display: none;
+}
+
+.bank-list ul li.selected img {
+	border: 1px solid #ff6e03;
+	cursor: pointer;
+}
+
+.bank-list ul li.selected .checked {
+	float: left;
+	width: 14px;
+	height: 13px;
+	background: url(../images/icon_duigou.png) no-repeat;
+}
+
+.bank-list ul li.selected label span {
+	display: block;
+}
+
+.bank-list ul li.hover img {
+	border: 1px solid #ff6e03;
+	cursor: pointer;
+}
+
+.bank-list img {
+	width: 123px;
+	height: 38px;
+	border: 1px solid #e0e0e0;
+}
+
+.bank-list img:hover {
+	box-shadow: 0 0 20px #FC9C27;
+}
+
+.bank-list-remark {
+	background: #FFFADC;
+	border: 1px solid #E3B367;
+	padding: 10px;
+	width: 420px;
+	line-height: 24px;
+	color: #666;
+	font-size: 12px;
+	margin: 0 0 10px 65px;
+}
+
+.bank-list-remark .bank-list-remark-title {
+	color: #b73736;
+	font-weight: bold;
+}
+
+.selectbtn {
+	display: inline-block;
+	height: 45px;
+	width: 180px;
+	text-align: center;
+	line-height: 45px;
+	background: #FFF;
+	font-size: 22px;
+	color: #666;
+	border-radius: 8px;
+	border: 4px solid #C7C5C5;
+	box-shadow: 0 0 20px #C7C5C5;
+	margin-top: 70px;
+}
+
+.selectbtn:hover {
+	color: #FFFFFF;
+	background: #D7D5D5;
+	text-decoration: none;
+}
+
+/*绑定银行卡end*/

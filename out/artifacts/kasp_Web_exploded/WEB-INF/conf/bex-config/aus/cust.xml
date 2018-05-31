@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+
+	<bex id="f_kifp_insert_cust_binding" ibatis="kifp_insert_cust_binding"
+		operate="insert" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<bex id="f_kifp_insert_cust_cust_base_info" ibatis="kifp_insert_cust_cust_base_info"
+		operate="insert" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+
+	<bex id="f_kifp_get_cust_info_by_name" ibatis="kifp_get_cust_info_by_name"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<bex id="f_web_sel_user_info_by_id" ibatis="sel_user_info_by_id"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_web_qry_questionnaire" ibatis="qry_kifp_question_naire_by_category"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<bex id="kifp_web_get_custmerno_by_idcard_capitalaccount" ibatis="kifp_get_custmerno_by_idcard_capitalaccount"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="kifp_web_get_risk_estimate_by_custmerno" ibatis="kifp_get_risk_estimate_by_custmerno"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="kifp_web_kifp_delete_cust_binding" ibatis="kifp_delete_cust_binding"
+		operate="delete" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	  <!--  update 状态  -->
+	<bex id="kifp_web_kifp_update_cust_binding" ibatis="kifp_update_cust_binding"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	 <!--  update 客户内码 -->
+	<bex id="kifp_wr_update_kifp_cust_binding" ibatis="kifp_update_kifp_cust_binding"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	 <!--    查询用户的安全问题及其答案  -->
+	<bex id="kifp_web_kifp_get_qanda_by_no" ibatis="kifp_get_qanda_by_no"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="kifp_web_get_template_by_id" ibatis="kifp_get_template_by_id"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!--    删除用户的安全问题及其答案  -->
+	<bex id="kifp_web_kifp_delete_qanda" ibatis="kifp_delete_qanda"
+		operate="delete" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<!--    增加用户的安全问题及其答案  -->
+ 	<bex id="kifp_web_kifp_insert_qanda" ibatis="kifp_insert_qanda"
+		operate="insert" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<bex id="f_kifp_get_cust_qq" ibatis="kifp_get_login_qq"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<!-- 查询用户注册的重名与否   -->
+	<bex id="f_web_kifp_get_loginname" ibatis="kifp_get_loginname"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 查询用户注册的手机号 -->
+	<bex id="f_web_kifp_get_ausauthone" ibatis="kifp_get_ausauthone"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+
+	<!-- 用户名与手机是否匹配 -->
+	<bex id="f_get_aus_info_forget_pwd" ibatis="get_aus_info_forget_pwd"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 查询 资金账户绑定过与否 -->
+	<bex id="f_web_get_capitalaccount" ibatis="kifp_get_capitalaccount"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!--  记录发送邮件验证的内容  -->
+ 	<bex id="add_kifp_email_validate_record" ibatis="add_kifp_email_validate_record"
+		operate="insert" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<!-- update_email_info4activate   -->
+	<bex id="update_email_info4activate" ibatis="update_email_info4activate"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+
+	<!-- 查询客户关注的内容（投资人或者项目）  -->
+	<bex id="f_web_kifp_focus_select" ibatis="kifp_focus_select"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 增加客户关注的内容（投资人或者项目）  -->
+	<bex id="f_web_kifp_focus_insert" ibatis="kifp_focus_insert"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+
+	<!-- 删除客户关注的内容（投资人或者项目）  -->
+	<bex id="f_web_kifp_focus_delete" ibatis="kifp_focus_delete"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 查询客户关注的投资人  -->
+	<bex id="f_web_kifp_focus_cust_select" ibatis="kifp_focus_cust_select"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 更新手机号码用  -->
+	<bex id="f_web_updateAuthOne" ibatis="updateAuthOne"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 查询安全级别下面的认证状态  -->
+	<bex id="f_web_get_status_fors" ibatis="get_status_fors"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 增加评论的内容  -->
+	<bex id="f_web_kifp_comment_insert" ibatis="kifp_comment_insert"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 删除评论的内容  -->
+	<bex id="f_web_kifp_comment_delete" ibatis="kifp_comment_delete"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+
+	<!-- 查询评论的内容  -->
+	<bex id="f_web_kifp_comment_select" ibatis="kifp_comment_select"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 更改用户头像  -->
+	<bex id="f_web_kifp_update_cust_headicon" ibatis="kifp_update_cust_headicon"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	   
+	  <!--   查询是否是撤销过三方存管的用户  -->
+	<bex id="qry_drop_deposit_info_by_id" ibatis="qry_drop_deposit_info_by_cust_id"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<!--  写操作流水 kifp_write_log -->
+	<bex id="web_kifp_write_log" ibatis="kifp_write_log"
+		operate="insert" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	  <!-- 查询 根据这个语句查询网点	   -->
+	<bex id="qry_kifp_yywd_select" ibatis="kifp_yywd_select"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 添加客户上传资料 -->
+	<bex id="kifp_web_materials_insert" ibatis="kifp_materials_insert"
+		operate="insert" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!-- 删除客户上传资料 -->
+	<bex id="delete_kifp_material_delete" ibatis="kifp_material_delete"
+		operate="delete" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	  <!-- 查询  ..是否转让	...    -->
+	<bex id="kifp_is_transfer" ibatis="kifp_is_transfer"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	  <!-- 查询  ..客户上传资料    -->
+	<bex id="qry_kifp_cust_materials" ibatis="kifp_cust_materials"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	  <!-- 查询  .. 客户开户营业部信息  -->
+	<bex id="kifp_cust_investor" ibatis="kifp_cust_investor"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	<!-- 查询 我的推广记录  -->
+	
+	<bex id="f_get_my_promoternote" ibatis="get_my_promoternote"
+		operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	 <!-- 检测推荐渠道是否存在 -->
+	<bex id="f_qry_invitor_exists" ibatis="qry_invitor_exists" operate="select" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	 </bex>	
+	 
+	 <!-- 更新错误登录次数和游客状态 -->
+	 <bex id="f_upd_user_status_failcount" ibatis="upd_user_status_failcount"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+
+	 <!-- 自动解锁(手动解锁) -->
+	 <bex id="f_upd_user_status_failcount_nolock" ibatis="upd_user_status_failcount_nolock"
+		operate="update" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+</websuites>
+

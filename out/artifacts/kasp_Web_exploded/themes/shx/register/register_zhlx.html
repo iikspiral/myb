@@ -1,0 +1,24 @@
+<!-- <div class="account_register"> -->
+	<!-- <table class="process-cells step-one">
+		<tr>			<#if riskflag?exists>				<#if riskflag == '1'>
+			<td class="current" style="width: 33.3%">选择账户类型</td>
+			<td style="width: 33.3%">填写银行卡信息</td>
+			<td style="width: 33.3%">风险测评</td>			<#elseif riskflag == '0'>			<td class="current" style="width: 50%">选择账户类型</td>			<td style="width: 50%">填写银行卡信息</td>			</#if>						</#if>		</tr>			
+		</tr>
+	</table> -->
+	<div class="user-type clearfix">
+		<#if safeStatus?exists>
+			<#if safeStatus.individualorinstitution == "1">
+				<a class="organized" href="registerorg.html?type=sfcg" style="margin-right:400px;">机构账户</a>
+			<#elseif safeStatus.individualorinstitution == "0">
+				<a class="personal" href="register.html?type=sfcg" style="margin-left:400px;">个人账户</a>
+			<#else>
+				<a class="personal" href="register.html?type=sfcg">个人账户</a>
+				<a class="organized" href="registerorg.html?type=sfcg" >机构账户</a>
+			</#if>
+		<#else>
+			<a class="personal" href="register.html?type=sfcg">个人账户</a>
+			<a class="organized" href="registerorg.html?type=sfcg">机构账户</a>
+		</#if>
+	</div>
+<!-- </div> -->

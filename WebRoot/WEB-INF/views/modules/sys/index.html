@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>密钥管家登录</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/jquery-1.8.3.js"></script>
+</head>
+<body>
+    <div class="container" style=" background: url(image/bg.png) top left no-repeat;">
+        <div class="Con_left">
+            <p>Copyright @ 2012-2016 密钥管家服务平台 - Powered By 山西CA V1.0</p>
+        </div>
+        <div class="Con_right">
+            <div id="icon_change"></div>
+            <div class="loading">
+                <div class="Pass_word Position">
+                    <div class="Titie_head">账号登录</div>
+                    <div class="user">
+                        <div class="icon_image icon_image_user"></div>
+                        <input class="Pass_test username" type="text" value="请输入账号" onfocus="this.value=''" onblur="if(this.value==''){this.value='请输入账号'}">
+                    </div>
+                    <div class="pwd">
+                        <div class="icon_image icon_image_pass"></div>
+                        <input class="Pass_test password" type="text" value="请输入密码" onfocus="this.value=''" onblur="if(this.value==''){this.value='请输入密码'}">
+                    </div>
+                    <input class="BTN" type="button" value="立即登录">
+                </div>
+
+                <div class="Pass_key Position Display">
+                    <div class="Titie_head">证书登录</div>
+                    <div class="loading_done loading_box" >
+                        <div class="loading_Pic">
+                            <img src="image/Key/done_loading.png" alt="">
+                        </div>
+                        <p class="loading_test">检测到数字证书，请点击按钮登录</p>
+                        <input class="BTN" type="button" value="立即登录">
+                    </div>
+                    <div class="loading_undone loading_box" style="display: none">
+                        <div class="loading_Pic">
+                            <img src="image/Key/undone_loading.png" alt="">
+                        </div>
+                        <p class="loading_test loading_untest">未检测到数字证书，请插入KEY</p>
+                        <input class="BTN BTN_undone" type="button" value="立即登录">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+       $(function () {
+           $('#icon_change').click(function () {
+                //判断display属性
+               if($('.Pass_key').hasClass('Display')){
+                   $('.Pass_key').fadeIn(200,function () {
+                       $('.Pass_word').fadeOut(200);
+                       $(this).removeClass('Display')
+                   });
+                   $(this).css({background:"url(image/Key/icon_Pass_key.png)"})
+               }else{
+                   $('.Pass_word').fadeIn(200,function () {
+                       $('.Pass_key').fadeOut(200);
+                   });
+                   $('.Pass_key').addClass('Display');
+                   $(this).css({background:"url(image/Word/icon_Pass_word.png)"})
+               }
+           })
+           $('.BTN').click(function () {
+               $('.loading_undone').show();
+               $('.loading_done').hide();
+           })
+           //文本框
+
+       })
+</script>
+</body>
+</html>

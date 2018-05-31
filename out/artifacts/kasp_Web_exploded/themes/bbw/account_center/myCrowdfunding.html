@@ -1,0 +1,61 @@
+
+	 <div class="account-main">
+                <!-- <div class="messager">
+                    <i class="iconfont">&#xe61c;</i>
+                    <a class="link" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}aboutus.html?type=news_shx_crowdfunding">此处显示最及时的新闻以便投资者了解众筹相关的信息</a>
+                    <i class="close iconfont">&#xe624;</i>
+                </div> -->
+                <div class="simple-titlebar">
+                    <h3 class="title">我的众筹</h3>
+                </div>
+                <div class="actionbar clearfix">
+                    <a class="btn-start btn-sm btn-orange" href="javascript:void(0);"  onclick="check();">发起众筹</a>
+                </div>
+                <div class="tabs-filter">
+                    <ul class="nav clearfix">
+                        <!-- <li><a  href="myCrowdfunding.html?type=support" <#if type = "support"> class="current"</#if>>我支持的</a></li>
+                        <li><span>|</span></li> -->
+						<li><a href="myCrowdfunding.html?type=start" <#if type = "start"> class="current"</#if>>我发起的</a></li>
+                        <li><span>|</span></li>
+                        <li><a href="myCrowdfunding.html?type=invest" <#if type = "invest"> class="current"</#if>>我投资的</a></li>
+                        <li><span>|</span></li>
+                        <li><a href="myCrowdfunding.html?type=focus" <#if type = "focus"> class="current"</#if>>我关注的</a></li>
+                    </ul>
+					<input id="currenttype" value="${type!''}" type="hidden"/>
+                    <div class="container-full">
+							<#if type="support">
+							    <#include 'crowdfunding_project_support.html'>
+							</#if>	
+							<#if type="focus">
+								<#include 'crowdfunding_project_focus.html'>
+							</#if>
+							<#if type="invest">
+								<#include 'crowdfunding_stock_hold.html'>
+							</#if>
+							<#if type="start">
+								<#include 'crowdfunding_start_hold.html'>
+							</#if>
+						
+                    </div>
+                </div>
+            </div>
+<script type="text/javascript">		
+	function check(){
+			    $.post("mall/bbw_startcrowdfunding!startCrowdfunding.do?ajax=yes",
+		    			function(data){
+						    var msg=eval("("+data+")");
+						    if("0"==msg[0].result){
+		    					zhejiang_alert("提示信息","您还未绑定银行卡，请先绑定银行卡!", function(){
+								window.location.href="bankmanage.html"; 
+								});
+		    				}else if("1"==msg[0].result){
+								zhejiang_alert("提示信息","您还没有身份资质，请进行身份资质申请！", function(){
+								window.location.href="apply_usertype.html"; 
+								});											
+		    				}else{
+								window.location.href="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}project_publish.html?type=basic"); 
+							}
+		    		});
+    }
+</script>
+

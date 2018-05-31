@@ -1,0 +1,56 @@
+	.p-font-sytle{
+		color:#666666;
+		font-size:16px;
+		font-family:"Microsoft YaHei";
+	}
+	p span{
+	   color:#ff8f08;
+		font-size:24px;
+	}
+	.div-promoter-explain	{
+		text-align:left;
+		margin:20px 10px 5px 10px;
+		border:1px solid #e0e0e0;
+		padding: 10px 10px 10px 10px;
+		border-radius: 3px;
+	}
+	.div-promoter-note{
+		text-align:left;
+		margin:20px 10px 5px 10px;
+	}
+	.span-title-promote{
+		color:#666666;
+		font-size:24px;
+		font-family:"Microsoft YaHei";
+	}
+	.span-content-promote{
+		color:red;
+		font-size:12px;
+		font-family:"Microsoft YaHei";
+	}
+	ul{
+		margin:10px 0 10px 0;
+	}
+	ul li{
+		margin:10px 0 10px 0;
+	}
+   .li-style-center{
+		text-align:center;
+   }
+   .li-style-left{
+		padding-left: 74px;
+   }
+   .li-input-style{
+		width:380px;
+		line-height:20px;
+		height:26px;
+		vertical-align: middle;
+   }
+  
+  .div-none-ermissions-warring{
+  	text-align: center;
+  	color:#ff8f08;
+	font-size:24px;
+	font-family:"Microsoft YaHei";
+	margin:20px 0 10px 0;
+  }

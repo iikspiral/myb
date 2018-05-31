@@ -1,0 +1,182 @@
+<div class="account-main">	      
+	<div class="simple-titlebar clearfix">
+        <h2 class="title">我的消息</h2>
+    </div>
+    <div class="container-full">
+    	<div class="tabs-filter" id="accountTabs">
+	        <!--<ul class="nav clearfix">
+	            <li class="nav-one"><a class="current" href="#holden" >我的消息</a></li>
+	            <li><span>|</span></li>
+	            <li class="nav-two"><a href="#buying">系统消息</a></li>
+	        </ul>-->
+	        <div class="list-wrap">
+	        	<div id="holden">
+	        		<div class="thefilter">
+						<div class="nav-filter">
+							<div id="orderstatus">
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pyd_msg" data-status="1">标记已读</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pwd_msg" data-status="0">标记未读</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-grey" id="J_pdel_msg" data-status="3">删除</a>
+							</div>
+						</div>
+					</div>
+					<table class="records-table">
+						<thead>
+							<tr>
+								<th style="width:10%;">
+									<input  id="check_all" type="checkbox">
+								</th>
+								<th style="width:20%;">来自</th>
+								<th style="width:30%;">标题</th>
+								<th style="width:10%;" class="project-name">状态</th>
+								<th style="width:10%;" class="project-name">类型</th>
+								<th style="width:20%;">时间</th>
+							</tr>
+						</thead>
+						<tbody id="J-msg-list-content">
+							 <#if msglist?exists>
+	           					 <#list msglist as msg>
+	           					 <tr>
+									<td><input type="checkbox" id="checkboxs"  value="${msg.id!''}" data-status="1"></td>
+									<td><a class="link"  data_val="${msg.id!''}" data-status="1" href="javascript:void(0);">${msg.name!''}</a></td>
+									<td style="text-align: left;"><a class="link" data_val="${msg.id!''}" data-status="1"  href="javascript:void(0);" onmouseover="this.title=this.innerText">${msg.msgtitle!''}</a></td>
+									<td>
+										<#switch msg.is_read>
+									        <#case "0">
+									              <span style="color:black;">未读</span>
+									         <#break>
+									         <#case "1">
+									            已读                                               
+									         <#break>
+									         <#case "2">
+									             <span style="color:red;"> 重要</span>
+									         <#break>
+									     </#switch>
+									</td>
+									<td>${msg.msgexplain!''}</td>
+									<td>${msg.addtime!''}</td>
+								</tr>
+							    </#list>
+							</#if>
+						</tbody>
+					</table>
+					<div id="page_person" class="pager-info"></div>
+	        	</div>
+		    </div>
+	    </div>
+	</div>
+</div>
+
+ <script type="text/javascript">
+   $(function(){
+   	 $("#accountTabs").organicTabs({
+            "speed": 100
+        });
+        $(".records-table tbody tr:nth-child(even)").addClass("changebg");
+   });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+    	//分页
+    	//私有消息
+    	 $.kd.kdPager.init({
+				pager : 'page_person',
+				currentPage: '${page_person!'1'}',
+				totalPage: '${totalPage_person!'1'}',
+				totalRecords: '${totalCount_person!'0'}',
+				prefix: 'my_msg.html',
+				suffix: function(n) {
+					return "n=" + n+"&tab=0";
+				},
+			});
+
+       //全选
+        $("#check_all").click(function(){
+             if($("#check_all").attr("checked")){
+             $("#J-msg-list-content :checkbox").attr("checked",true);
+             }else{
+             $("#J-msg-list-content :checkbox").attr("checked",false);
+             }
+        });
+	      //单个点击事件
+	      $("#J-msg-list-content :checkbox").click(function(){
+	          if($("#check_all").attr("checked")){
+      	           $("#check_all").attr("checked",false);
+      	     }
+	      });
+		  
+		  
+		$("#J_pyd_msg").click(function(){//已读
+		   var isread = $(this).attr("data-status");
+	       var mglist = "";
+	       var relist = "";
+	       updStatus(isread,mglist,relist)
+	    });
+		
+		$("#J_pwd_msg").click(function(){//未读
+			var isread = $(this).attr("data-status");
+	        var mglist = "";
+	        var relist = "";
+	        updStatus(isread,mglist,relist)
+	    });
+		
+		$("#J_pdel_msg").click(function(){//删除
+			var isread = $(this).attr("data-status");
+	        var mglist = "";
+	        var relist = "";
+	        updStatus(isread,mglist,relist)
+	    }); 
+		  
+		function updStatus(isread,mglist,relist){
+		$("#J-msg-list-content :checkbox").each(function(){
+		if(this.checked){
+			var ms = $(this).val();
+			if(mglist.indexOf(ms)==-1){   mglist +=ms+"&";  }		   
+			}else{ relist +=ms+"&";  } 
+	   });
+		if(mglist != ""){
+				$.post(
+				"mall/message!updMsgStatus.do?ajax=yes",
+				{msglist: mglist,isread: isread	},
+				function(data) {
+					 if ( data.result == 1) {
+							window.location.href = "my_msg.html?type=msg&n=${page_person!'1'}&_="+new Date().getTime(); 
+					 } else {
+							window.location.href = "my_msg.html?type=msg&n=${page_person!'1'}&_="+new Date().getTime(); 
+					};
+			   },"json");   
+	   }
+	}		   
+		  
+	   
+	  $(".linkMore").click(function(){
+	         window.location.href="my_msg.html?type=send&_="+new Date().getTime();
+	  });
+	  $("#msg-title").click(function(){
+	       $(".msg-title").css("color","green");
+	  })
+	  
+	  
+	  $("#J-msg-list-content td a").click(function(){
+			var id 		= 	$(this).attr("data_val");
+			var isread	=	$(this).attr("data-status");
+			var datas	=	{	msglist:id,	isread:isread	};
+			
+			$.post(
+				"mall/message!updMsgStatus.do?ajax=yes",
+				{	msglist:id,	isread:isread	},
+				function(data) {
+							 if ( data.result == 1) {
+								//	window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+									window.location.href = "my_msg.html?type=detail&id="+id+"&flag=-1&_="+new Date().getTime(); 
+							 } else {
+									window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+							};
+			   },"json");  
+	  })
+})
+</script>
+
+
+

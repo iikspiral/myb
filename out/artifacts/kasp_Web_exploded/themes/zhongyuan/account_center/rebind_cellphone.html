@@ -1,0 +1,106 @@
+<div class="account-body">
+    <div class="account-investor">
+        <div class="panel-border">
+            <div class="titlebar border-titlebar">
+                <h2 class="title">手机验证</h2>
+            </div>
+            <div class="panel-form">
+                <form class="awesomeform" id="validphone">
+                    <div class="floor full">
+                        <label class="property" for="new_pwd">登录密码</label>
+                        <div class="value">
+							<input class="xs" type="password" name="loginpwd" id='loginpwd' datatype="checkPassword" nullmsg="请输入登录密码！" errormsg="登录密码输入有误！">
+							<b></b>
+                        </div>
+                    </div>
+					
+					<p class="csinput" style="display:none;">
+					
+					<#if safeStatus.individualorinstitution == "1">
+						<span>证件号码<i>*</i></span>
+						<input input id="phidcard" name="idcard" value="${certificateno!''}" class="input" type="text">
+					  <!-- b添加class不能通过的提示样式-->
+					  <b></b>
+					<#elseif safeStatus.individualorinstitution == "0">
+						<span>身份证号<i>*</i></span>
+						<input input id="phidcard" name="idcard" value="${certificateno!''}" class="input" type="text">
+					  <!-- b添加class不能通过的提示样式-->
+					  <b></b>
+					</#if>
+
+					</p>
+										
+                    <div class="floor full height-auto">
+                        <label class="property" for="captcha">请选择问题</label>
+                        <div class="value">
+							<select class="sm" id="question" name="question">
+							<#if usrQA?exists>
+							  <#list usrQA as uq>  
+								<option value="${uq.key}" >${uq.text!''}</option>  
+							  </#list>  
+							<#else>
+							   <#if questions?exists> 
+								<#list questions as que>
+								<option value="${que_index+1}">${que.dict_value!''}</option>
+							  </#list> 
+							  </#if>
+							</#if> 
+						  </select>
+						  <b></b>
+                        </div>
+                    </div>
+                    <div class="floor full height-auto">
+                        <label class="property" for="captcha">答案</label>
+                        <div class="value">
+							<input class="xs" id="phanswer" name="answer" class="input" type="text" datatype="*" nullmsg="请输入答案!" errormsg="答案不能为空">
+							 <b></b>
+                        </div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property" for="cell_num">新手机号码</label>
+                        <div class="value">
+							<input class="xs" id="newphone" name="newphone" type="text"  value="" datatype="m" nullmsg="请输入手机号码" errormsg="手机号码不合法" ajaxurl="${kasp_url}mall/zhongyuan_register!regPhone.do" >
+							 <b></b>
+                        </div>
+                    </div>
+                    <div class="floor full height-auto">
+                        <label class="property" for="captcha">验证码</label>
+                        <div class="value">
+                            <input class="xs" name="newphonecode" id='newphonecode' type="text" value=""   datatype="/^\d{6}$/" class="input" errormsg="请输入6位数字验证码！" nullmsg="请输入手机验证码！" />
+                            <input type="button" class="btn btn-md btn-grey" id="chgphonecode" value="获取手机验证码" />
+							 <input id="phcodetype" name='codetype' type="hidden" value="phpwd"/> 
+							  <b></b>
+                        </div>
+                    </div>
+                    <div class="actionArea" style="text-align: left;">
+                        <input style="margin: 0;" type="button" class="btn-md btn-red" onclick="validQuestion('validphone','valid3td')"  value="确认修改">
+                    </div>
+                </form>
+                <div class="tips-downthere">
+                    <h3 class="title"><i class="iconfont">&#xe60d;</i>温馨提示</h3>
+                    <ul>
+                        <li>1. 请填写真实有效的手机号，手机号将作为验证用户身份的重要手段。</li>
+                        <li>2. 本平台会对用户的所有资料进行严格保密。</li>
+                        <li>3. 使用过程遇到问题，请联系客服。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"	src="${staticserver}/zhongyuan/js/libs/kjax.des.js"></script>
+<script type="text/javascript" src="${staticserver}/zhongyuan/js/selfinfo/acctcenter.js"></script>
+<script>
+    $('.adsBG').bxSlider({
+      mode: 'fade',
+      captions: false,
+      responsive: true,
+      auto: true,
+      speed: 800,
+      autoHover: false,
+      controls: false,
+      adaptiveHeight: false,
+      pager: false
+    });
+</script>

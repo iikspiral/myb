@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.basearea.dao.BaseAreaDao">
+    
+    <sql id="entityColumns">
+    	a.*
+	</sql>
+	
+	<select id="getFirstArealist" resultType="BaseArea">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM base_area a
+		where a.parentid = '0' order by a.vieworder
+	</select>
+	
+	<select id="getAreaList" resultType="BaseArea">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM base_area a
+		where a.parentid = #{parentid}
+		order by a.vieworder
+	</select>
+	
+	<select id="getAreabyAreaid" resultType="BaseArea">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM base_area a
+		WHERE a.base_areaid = #{baseAreaid}
+	</select>
+	
+</mapper>

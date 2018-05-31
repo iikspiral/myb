@@ -1,0 +1,343 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: "Microsoft Yahei", "ËÎÌו", Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.border {
+    border: 1px solid #ff0000;
+}
+
+a {
+    color: #FFFFFF;
+}
+
+a:hover {
+    color: #fafafa;
+    cursor: pointer;
+}
+
+.agent-header {
+    background: #617095;
+    height: 90px;
+    line-height: 90px;
+    color: #FFFFFF;
+}
+
+.agent-banner {
+    height: 190px;
+    background: url("./img/banner-back.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.agent-center {
+    position: relative;
+    top: 0;
+    left: 50%;
+    margin-left: -520px;
+    width: 1040px;
+}
+
+.agent-search {
+    position: relative;
+    top: 40px;
+}
+
+.agent-search .banner-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.agent-search .search-box {
+    position: relative;
+    top: 30px;
+    width: 910px;
+    height: 50px;
+    padding: 10px;
+    margin: 0 auto;
+    background: url("./img/search-back.png") repeat;
+}
+
+.agent-search .search-box .search-container {
+    position: relative;
+    float: left;
+    width: 27%;
+    height: 50px;
+    line-height: 50px;
+    margin-right: 2%;
+    background-color: #FFFFFF;
+
+}
+
+.agent-search .search-box .search-container input {
+    border: none;
+    background-color: transparent;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    padding: 0 0 0 10px;
+}
+
+.agent-search .search-box .search-btn {
+    position: relative;
+    display: block;
+    float: right;
+    width: 68px;
+    height: 50px;
+    line-height: 50px;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding-left: 50px;
+    background: url("./img/search-ico.png") 20px center no-repeat #95e050;
+}
+
+.agent-table {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.agent-table thead {
+    background: #617095;
+    color: #FFFFFF;
+}
+
+.agent-table thead th {
+    border: 1px solid #FFFFFF;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.agent-table tbody {
+    background: #f9f9f9;
+    color: #333333;
+}
+
+.agent-table tbody td {
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    height: 24px;
+    line-height: 24px;
+}
+
+.agent-table tbody tr td:first-child {
+    text-align: left;
+}
+
+.agent-table tbody td a {
+    color: #617095;
+}
+
+.pagination a {
+    color: #617095;
+}
+
+.pagination ul > li > a:hover, .pagination ul > li > a:focus, .pagination ul > .active > a, .pagination ul > .active > span {
+    color: #FFFFFF;
+    background: #617095;
+}
+
+.pagination > span {
+    line-height: 34px;
+}
+
+.ca-info, .ca-guide, .ca-use {
+    position: relative;
+    float: left;
+    width: 32%;
+    height: 230px;
+    margin-right: 17px;
+    margin-top: 20px;
+}
+
+.ca-info {
+    border: 1px solid #ef7363;
+}
+
+.ca-guide {
+    border: 1px solid #4eb2f4;
+}
+
+.ca-use {
+    border: 1px solid #9acc4f;
+    margin-right: 0;
+}
+
+.ca-title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 50px;
+
+}
+
+.ca-info .ca-title {
+    color: #ef7363;
+    border-bottom: 1px solid #ef7363;
+    background: url("./img/ca-ico1.png") 16px center no-repeat;
+}
+
+.ca-guide .ca-title {
+    color: #4eb2f4;
+    border-bottom: 1px solid #4eb2f4;
+    background: url("./img/ca-ico2.png") 16px center no-repeat;
+}
+
+.ca-use .ca-title {
+    color: #9acc4f;
+    border-bottom: 1px solid #9acc4f;
+    background: url("./img/ca-ico3.png") 16px center no-repeat;
+}
+
+.ca-content {
+
+    color: #666666;
+}
+
+.ca-info .ca-content {
+    padding: 10px 20px;
+    text-indent: 2em;
+    color: #666666;
+    line-height: 28px;
+}
+
+.ca-info .ca-content a, .ca-info .ca-content a:hover {
+    color: #ef7363;
+}
+
+.ca-guide .ca-content {
+    padding-top: 30px;
+}
+
+.ca-guide .ca-content .row-fluid {
+    margin-bottom: 20px;
+}
+
+.ca-guide .ca-content a {
+    color: #666666;
+    border: 1px solid #666666;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+}
+
+.ca-guide .ca-content a:hover {
+    border: 1px solid #4eb2f4;
+    background: #4eb2f4;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.ca-use .ca-content {
+    padding: 30px 20px;
+}
+
+.ca-use .ca-content a {
+    color: #666666;
+    line-height: 28px;
+}
+
+.ca-use .ca-content a:hover {
+    color: #9acc4f;
+}
+
+.agent-footer {
+    text-align: center;
+    color: #FFFFFF;
+    padding: 20px 0;
+    margin-top: 20px;
+    background: #617095;
+}
+
+.agent-footer p {
+    margin: 0;
+    line-height: 24px;
+}
+
+.blackBg{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("./img/blackbg.png") repeat;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+}
+.disable-scroll{
+    overflow: hidden;
+}
+.login-box{
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    padding: 50px;
+    left: 50%;
+    top: 50%;
+    margin-top: -200px;
+    margin-left: -250px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    z-index: 999999;
+}
+.close-btn{
+    position: absolute;
+    width: 30px;
+    height:30px;
+    left: 50%;
+    top: 50%;
+    margin-left: 220px;
+    margin-top: -200px;
+    z-index: 1000000;
+}
+
+.title-place{
+    width: 60px;
+    height: 60px;
+    position: relative;
+    left: -50px;
+    top: -50px;
+    float: left;
+    display:block;
+}
+.key-login{
+    background: url("./img/key-login.png") no-repeat;
+}
+.num-login{
+    background: url("./img/num-login.png") no-repeat;
+}
+.login_oa{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: -80px;
+}
+.login_oa td{
+}
+.login_oa input.search_input2{
+    width: 100%;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid #617095;
+    text-indent:20px;
+    float:left;
+    font-size:16px;
+    padding: 0;
+}
+.login_oa input.login_btn{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    text-align: center;
+    background: #617095;
+    color: #FFFFFF;
+    font-size:16px;
+    border: 1px solid #617095;
+    border-radius: 5px;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="receiverAdapter" class="com.websuites.esb.cluster.ProxyReceiverAdapter">
+		<property name="enableLocalReceiver">
+    		 <value>off</value>
+    	</property>
+	</bean>	
+ 
+	<bean id="senderAdapter" class="com.websuites.esb.cluster.ProxySenderAdapter">
+        <property name="broadcastingListener">
+            <ref bean="broadcastingListener"/>
+        </property>
+	</bean>
+<!--	
+	<bean id="broadcastingListener" class="com.websuites.esb.cluster.BroadcastingListener"  init-method="start" destroy-method="destroy">
+-->	
+	<bean id="broadcastingListener" class="com.websuites.esb.cluster.BroadcastingListener" destroy-method="destroy">
+	    	<property name="clusterName">
+	    		 <value>cache-group</value>
+	    	</property>
+	        <property name="receiverAdapter">
+	            <ref bean="receiverAdapter"/>
+	        </property>
+	    	<property name="configuration">
+	    		 <value>WEB-INF\conf\spring-config\ws\jgroups.xml</value>
+	    	</property>
+	</bean>	
+</beans>

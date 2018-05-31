@@ -1,0 +1,138 @@
+
+    <script> 
+	   (function() {
+	     if (! 
+	     /*@cc_on!@*/
+	     0) return;
+	     var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
+	     var i= e.length;
+	     while (i--){
+	         document.createElement(e[i])
+	     } 
+	})() 
+	</script>
+
+
+
+    <div class="account-login">
+        <div class="account-board">
+            <h2 class="title">欢迎登录</h2>
+            <form class="login-form" id="loginform" method="post">
+				<div class="floor">
+					<label><i class="iconfont">&#xe60c;</i></label>
+					<input id="custid" name="username" type="text" placeholder="用户名" />
+					<span style="display:none" id="errortip_username" class="kdValidform_checktip kdValidform_wrong">用户名不能为空！</span>
+				</div>	
+				<div class="floor">
+					<label><i class="iconfont">&#xe60f;</i></label>
+					<input id="password" name="password" type="password" placeholder="密码" />
+					<span style="display:none" id="errortip_pwd" class="kdValidform_checktip kdValidform_wrong">密码不能为空！</span>
+				</div>		
+            	<div class="floor captcha">
+            		<input name="validcode" type="text" placeholder="验证码" onkeyup="if(event.keyCode == 13) login();">
+            		<img id="codeimg"  class="captchaImg" title="看不清楚？" src="${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime();" onclick="$(this).attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime())" alt="验证码" >
+            	</div>
+            	<div class="actionArea">
+            		<input id ="J_keydown" class="btn-red btn-md" type="button" onclick="login()" value="立即登录">
+            	</div>
+            	<div class="help clearfix">
+            		<span class="register">没有账号？<a href="register.html">立即注册</a></span>
+            		<span class="reset-pwd"><a href="resetpwd.html">忘记密码</a></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+
+	
+	<script type="text/javascript"  src="${staticserver}/zhongyuan/js/jquery.bxslider.min.js"></script>
+	<script type="text/javascript"	src="${staticserver}/zhongyuan/js/libs/kjax.des.js"></script>
+	
+<script type="text/javascript">
+
+	var url = '${url!''}';
+
+	$(function() {
+		//$("#errortip_username").hide();
+		//$("#errortip_pwd").hide();
+		$("#custid").focus();
+	});
+
+	function clickBtn(event) {
+		if (event.keyCode==13) {
+			login();
+		}
+	}
+	
+	function login() {
+		if (!$('#custid').val()) {
+			$('#custid').focus();
+			$("#errortip_username").show();
+			return false;
+		}
+		
+		if (!$('#password').val()) {
+			$('#password').focus();
+			$("#errortip_pwd").show();
+			return false;
+		}
+		$("#errortip_pwd").hide();
+		$("#errortip_username").hide();
+		//$("#J_keydown").val("登录中...");
+		//$.kd.showLoading($("#J_keydown"), "登录中");
+		$("#J_keydown").val("登录中...");
+		$("#J_keydown").attr("disabled", true);
+		var pswd = $('#password').val();
+		$('#password').val($.des.getDes(pswd));
+		$("#btnlogin, #btnreset").attr("disabled", "disabled");
+		$("#loginform input").addClass("readonly").attr("readonly", "readonly");
+		
+		$("#loginform").ajaxSubmit({
+			dataType : "text",
+			url : "mall/zhongyuan_login!newlogin.do?ajax=yes",
+			success : function(data) {
+				var redata = eval("("+data+")");
+					if ( redata.result == '1' ) {
+						$.kutil.pageReload("ssologin.html",{deal_action:"login_confirmed"});
+					} else {
+						$.kd.closeLoading();
+						if(redata.message == '验证码错误!'){
+							zhejiang_alert('消息',redata.message, function() {
+								$('#password').val("").focus();
+								$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+								$("#J_keydown").val("登录");
+							});
+						}else{
+							zhejiang_alert('消息',redata.message, function() {
+								$('#password').val("").focus();
+								$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+								$("#J_keydown").val("登录");
+							});
+						reset();
+						}	
+					}
+					$("#loginform input").removeClass("readonly").attr("readonly", false);
+					$("#btnlogin, #btnreset").attr("disabled", false);
+			},
+			error : function() {
+					zhejiang_alert('消息','系统繁忙,请稍后!', function() {
+						$('#password').val("").focus();
+						$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+					});
+					reset();
+			}
+		});
+	}
+	
+	function reset() {
+		$("#custid").focus();
+		$("#custid, #password").val("");
+		$("#J_keydown").attr("disabled", false);
+	}
+	
+	function changeImg() {
+		var obj = document.getElementById("image_span");
+		obj.innerHTML = '<img align="middle" src="invalidate.vc"/>';
+	}
+		
+		
+</script>

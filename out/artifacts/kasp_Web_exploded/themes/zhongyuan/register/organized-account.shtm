@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>注册 - 中原股权交易中心</title>
+    <base href="../">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/awesomeform.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/register.css">
+    <style type="text/css">
+        body{
+            background-color: #fafafa;
+        }
+        .process-cells tr td{
+            background-color: #fff;
+        }
+    </style>
+    <script src="js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+
+    <!--#include virtual="public/header.shtm"-->
+	
+    <div class="account_register">
+      <table class="process-cells step-two">
+            <tr>
+                <td style="width: 33.3%">注册</td>
+                <td class="current" style="width: 33.3%">绑定银行卡</td>
+                <td style="width: 33.3%">风险测评</td>
+            </tr>
+        </table>
+      <div class="user-type">
+        <form class="personal-account awesomeform" action="register/trade_pwd_setting.shtm">
+          <div class="identity">
+            <h3>机构信息</h3>
+            <div class="floor full">
+              <label class="property" for="realname">企业名称</label>
+              <div class="value">
+                <input class="xs" id="realname" name="realname" type="text" />
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property">证件类型</label>
+              <div class="value">
+                <select>
+                  <option>营业执照</option>
+                  <option>组织机构代码证</option>
+                  <option>行政机关</option>
+                  <option>社会团体</option>
+                  <option>军队</option>
+                  <option>武警</option>
+                  <option>下属机构（具有主管单位批文号）</option>
+                  <option>基金会</option>
+                </select>
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property" for="idnum">证件号码</label>
+              <div class="value">
+                <input class="sm" id="idnum" name="idnum" type="text" />
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property">营业部</label>
+              <div class="value">
+                <select>
+                  <option>河北股权交易中心总部大厅</option>
+                  <option>河北股权交易中心总部大厅邯郸分部</option>
+                  <option>河北股权交易中心总部大厅承德分部</option>
+                  <option>河北股权交易中心总部大厅秦皇岛分部</option>
+                  <option>河北股权交易中心总部大厅廊坊分部</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="banks">
+            <h3>选择银行</h3>
+            <ul>
+              <li class="tieonBanks clearfix">
+                <a href="#" class="selected">
+                  <img src="images/banks/abc.png" title="中国银行" />
+                  <i class="iconfont">&#xe60e;</i>
+                </a>
+                <a href="#">
+                  <img src="images/banks/abc.png" title="中国农业银行" />
+                  <i class="iconfont">&#xe60e;</i>
+                </a>
+                <a href="#">
+                  <img src="images/banks/postal.png" title="中国工商银行" />
+                  <i class="iconfont">&#xe60e;</i>
+                </a>
+                <a href="#">
+                  <img src="images/banks/bankMinsheng.png" title="中国建设银行" />
+                  <i class="iconfont">&#xe60e;</i>
+                </a>
+                <a href="#">
+                  <img src="images/banks/everbright.png" title="交通银行" />
+                  <i class="iconfont">&#xe60e;</i>
+                </a>
+              </li>
+            </ul>
+            <div class="container-full clearfix">
+              <div class="floor full">
+                <label class="property" for="cardNum">银行卡号</label>
+                <div class="value">
+                  <input class="sm" id="cardNum" name="cardNum" type="text" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actionArea clearfix">
+            <!--input class="back btn-md btn-grey" type="button" value="上一步" onclick="location.href='javascript:history.go(-1);'"-->
+            <input class="continue btn-md btn-red" type="button" value="下一步" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+	<!--#include virtual="public/footer.shtm"-->
+	
+	<script src="js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+    </script>
+</body>
+
+</html>

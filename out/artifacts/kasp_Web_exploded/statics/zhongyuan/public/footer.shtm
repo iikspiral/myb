@@ -1,0 +1,27 @@
+<div class="footer container-full">
+    <div class="container clearfix">
+        <div class="QRcode">
+            <img src="images/wechat.jpg">
+            <p>关注我们的微信</p>
+        </div>
+        <div class="contact">
+            <dl>
+                <dt>服务时间（工作日9:00-18:00）</dt>
+                <dd>400-600-888</dd>
+            </dl>
+            <i class="iconfont">&#xe600;</i>
+        </div>
+        <div class="info">
+            <ul class="sitemap clearfix">
+                <li><a href="">关于“中原股权交易中心”</a></li>
+                <li><a href="">规则指引</a></li>
+                <li><a href="">新手上路</a></li>
+                <li><a href="">常见问题</a></li>
+                <li><a href="">免责声明</a></li>
+                <li><a href="">联系我们</a></li>
+            </ul>
+            <p class="copyright">&copy;2014 北部湾投融资在线（e路投） 版权所有 桂ICP备 12005910号</p>
+            <p class="email">客服邮箱：<em>webmaster@szkingdom.com.cn</em></p>
+        </div>
+    </div>
+</div>

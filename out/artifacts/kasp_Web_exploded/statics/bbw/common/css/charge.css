@@ -1,0 +1,120 @@
+.user-box-1{ background:#fff; border:1px solid #e0e0e0; border-radius:3px;text-align: left}
+.user-box-con{ background-color:#fff; }
+.user-box-con-1{ width:726px; margin:0 auto; padding:30px 0 20px 0; }
+
+.user-box-title-1{ width:726px; height:50px; _overflow:hidden; line-height:60px; border-bottom:2px solid #e0e0e0; position:relative; z-index:0; background-color:#fff; margin:0 auto;  }
+.user-box-title-1 h2{ font-size:18px; font-weight:bold; position:absolute; height:50px; overflow:hidden; top:0px; left:0px; color:#333; border-bottom:2px solid #808080; z-index:1;}
+.icon-duigou1{ float:left; width:14px; height:13px;  background:url(../images/icon_duigou.png) no-repeat;}
+
+/*充值页面begi*/
+.bank-quota{ margin-top:20px;}
+.bank-quota .bank-data { display: none; }
+.bank-hint{ height:30px; line-height:30px; color:#666; width:100%; }
+.bank-hint-txt{ float:left;}
+.bank-phone{ float:right;}
+.bank-quota table{ width:100%; font-size:12px; border:1px solid #e0e0e0;}
+.bank-quota table td,.bank-quota table th{ color:#666; height:24px; line-height:24px; text-align:center; border:1px solid #e0e0e0; }
+.bank-quota table th{ text-align:center; color:#333; background:#f3f3f3}
+.user-pay .user-box-1{ margin-top:0;}
+.user-pay .form-style-1-label{ width:48px;}
+.user-pay .form-style-1-submit{ padding-left:68px;}
+.user-pay .user-pay-list{ margin-bottom:25px;}
+.user-pay .user-pay-list dt{ height:20px; line-height:20px; margin-bottom:20px; font-size:16px;}
+.user-pay .user-pay-list ul li{ float:left; width:177px; color:#3181d8; line-height:40px; height:40px;  margin-bottom:10px; }
+.user-pay .user-pay-list ul li label{ position:relative; float:left; width:145px; height:40px; }
+.user-pay .user-pay-list ul li label span{ position:absolute; right:0; bottom:0; _bottom:-3px; display:none;}
+.user-pay .user-pay-list ul li.selected img{ border:1px solid #ff6e03; cursor:pointer;}
+.user-pay .user-pay-list ul li.selected label span{ display:block;}
+.user-pay .user-pay-list ul li.hover img{border:1px solid #ff6e03; cursor:pointer;}
+.user-pay .user-pay-list img{ width:143px; height:38px; border:1px solid #e0e0e0;}
+.user-pay-list-more{ text-indent:24px;padding-top: 5px;}
+.user-pay-list-more span{ cursor:pointer;}
+.user-pay-balance{ font-weight:bold; font-size:18px; color:#fb6e02;}
+.user-pay-money{ font-weight:bold; font-size:16px; color:#666;}
+/*充值页面end*/
+
+/*提现页面begi*/
+.user-drawings .form-style-1-value strong{ color:#fe6e00; font-size:16px;}
+.user-drawings .user-drawings-poundage strong{color:#d63838; font-size:14px;}
+.user-drawings .form-style-1{ padding-top:0;}
+.user-drawings h3{ font-weight:bold; font-size:14px; }
+.user-drawings-bank{ margin:0 0 20px 0; padding-bottom:15px; border-bottom:1px solid #e0e0e0;}
+.user-drawings-bank dt{ margin-bottom:10px; float:left; height30px; line-height:30px; font-size:14px; font-weight:bold; width:100%;}
+.user-drawings-bank dd{ float:left; margin-bottom:10px; width:228px; height:127px; margin-right:10px;  border:1px solid #e0e0e0; border-radius:5px; position:relative; cursor:pointer;}
+.user-drawings-bank dd.selectbank:hover{ border:1px solid #fe6e00;}
+.user-drawings-bank dd.selectbank:hover .delBtn{display:inline-block}
+.user-drawings-bank dd.selectbank .delBtn{position:absolute;bottom:0;right:1px;cursor:pointer;padding:0 5px;display:none}
+.user-drawings-bank dd.selectbank .delBtn:hover{background:yellow;}
+.user-drawings-bank dd.current{ border:1px solid #fe6e00;}
+.user-drawings-bank dd.current .icon-duigou{ display:block;}
+.user-drawings-bank dd.user-drawings-add-bank{ border:1px dashed #e0e0e0; background:#f5f5f5 url(../images/tianjia.png) center 40px no-repeat;}
+.user-drawings-bank dd.user-drawings-add-bank:hover{ border:1px dashed #fe6e00; background:#ffe0c9 url(../images/tianjia.png) center 40px no-repeat;}
+.user-drawings-bank dd .user-drawings-bank-num{ border-radius:5px 5px 0 0 ; display:block; text-align:center; height:32px; line-height:32px; border-bottom:1px solid #e0e0e0; background:#f5f5f5; }
+.user-drawings-bank .icon-duigou{ display:none; position:absolute; border-radius:0 0 5px 0 ; bottom:-1px; _bottom:-3px; right:0px;}
+.user-drawings-bank dd img{ display:block; margin:0 auto; margin-top:30px;}
+.user-drawings-add-bank-txt{ font-size:14px; color:#3181d8; display:block; text-align:center; padding-top:68px;}
+.user-drawings-bank dd.user-drawings-add-bank-show{ border:none; background:none; cursor:auto;}
+.user-drawings-bank dd.user-drawings-add-bank-show .user-drawings-add-bank-txt{ padding:0px; margin-top:108px; cursor:pointer;}
+.user-drawings-cancel-bank-txt{margin-left:10px;color:#1368EB;cursor:pointer;font-weight:normal}
+
+.user-box-title-more{ height:50px; float:right; }
+.user-box-title-more a{color:#3181d8;  }
+.user-box-title-more a:hover strong{ text-decoration:underline;}
+.user-deal-record .icon-xiala{ margin: 16px 8px 0 0; cursor:pointer; }
+.user-deal-record .classify-selected{ margin-top:20px;}
+.user-deal-record .user-deal-record-time{ line-height:22px;}
+.user-deal-record .user-deal-record-time span{ color:#999;}
+.user-deal-record-money{ color:#fb6e02; font-size:12px;}
+.table-style-2 .user-deal-record-money{text-align:right; padding-left:0px;}
+.user-deal-record-money strong{ color:#00c25f; font-weight:normal;}
+/*提现页面end*/
+
+/*表单通用样式begi*/
+.form-style-1{ padding:15px 0 30px 0; }
+.form-style-1-item{ float:left; width:100%; line-height: 22px; margin-top:15px; }
+.form-style-1-label,.form-style-2-label,.form-style-3-label{ float:left; text-align:right; width:225px; margin-right:20px; }
+.form-style-2-label{ width:62px;}
+.form-style-3-label{width:180px;}
+.form-style-4-label{ float:left; text-align:left; margin-left: 10px; }
+.form-style-1-value,.form-style-1-value-1,.form-style-2-value{ float:left; width:182px; margin-right:20px;line-height: 37px;text-align: left;  }
+.form-style-1-value-1{ width:270px;}
+.form-style-2-value{width:180px;}
+.form-style-1-other{ float:left; width:100px;}
+.form-style-1-error{ float:left; color:#d63838;}
+.form-style-1-submit,.form-style-2-submit,.form-style-3-submit{ float:left; height:33px; padding-left:245px; width:479px; margin-top:15px;}
+.form-style-3-submit{ padding-left:200px; width:140px}
+.form-style-2-submit input{ margin-right:10px;}
+.form-style-2-submit{ padding-left:82px;}
+.form-style-1 .input-text-style-1{ width:160px;}
+.form-style-1 .btn-style-1{ height:28px;}
+.form-warm-prompt{ background:#fffadc; border-top:1px solid #e0e0e0; padding:10px 20px; width:684px; line-height:24px; color:#666;}
+.form-warm-prompt-title{ float:left; width:100%;}
+.form-warm-prompt-con{ float:left; width:605px;}
+.form-warm-prompt-1{ background:#fffadc; border:1px solid #e3b367; padding:10px 20px; width:682px; line-height:24px; color:#666; font-size:12px;}
+.form-warm-prompt-1 .form-warm-prompt-title{ color:#b73736; font-weight:bold;}
+.form-warm-prompt-1 .form-warm-prompt-con{ float:left; width:680px;}
+.ps1-con-hint{ width:100%; text-indent:12px; line-height:30px; background:#fffadc; margin-bottom:5px; color:#999;}
+.ps1-con-hint strong{ color:#fe6e00;}
+.error-style-1{clear: left; color: #D63838; float: left; padding: 14px 0 0; text-align: center; width: 300px}
+form label {font-size: 12px;line-height: 30px;margin-left: 0;margin-right: 0;}
+/*表单通用样式end*/
+
+/*通用输入框样式begin*/
+.input-text-style-1,.input-text-style-readonly{ background:none; border:none; background-color:#fff; border:1px solid #d8d8d8; border-radius:3px; height:28px;  line-height:28px; padding:0 10px; }
+.input-text-style-select { background:none; border:none; background-color:#fff; border:1px solid #d8d8d8; border-radius:3px; height: 30px;  line-height:28px; margin-top: 3px; }
+.input-text-style-1:hover{ border:1px solid #feb67f;}
+.input-text-style-1:focus{ border:1px solid #fe6e00;}
+.select-style-1 select:hover{ border:1px solid #feb67f;}
+.select-style-1 select:focus{ border:1px solid #fe6e00;}
+/*通用输入框样式end*/
+
+.btn-style-1:hover, .btn-style-3:hover {text-decoration: none;background: #fe7e00;}
+.btn-style-1,.btn-style-3{ background:none; border:none; padding:0 15px; *padding:0 7px; text-align:center; display:block; float:left; height:24px; color:#fff; line-height:24px; background:#fe6d00; border:1px solid #eb6a05; border-radius:2px; font-size:12px; cursor:pointer;}
+.btn-style-1:hover,.btn-style-3:hover{ text-decoration:none; background:#fe7e00; }
+.btn-style-2,.btn-style-4{ background:none; border:none; padding:0 15px; *padding:0 8px; text-align:center; display:block; float:left; height:24px; color:#666666; line-height:24px; background:#f5f5f5; border:1px solid #e5e5e5; border-radius:2px; font-size:12px; cursor:pointer;}
+.btn-style-2:hover,.btn-style-4:hover{ background:#efefef; border:1px solid #d1d1d1; text-decoration:none; color:#666;}
+.btn-style-3,.btn-style-4{ height:34px; line-height:34px; padding:0 20px;  *padding:0 8px;}
+.btn-con-1{ padding-left:300px; margin-top:20px;}
+.ui-widget-content a.btn-style-3,.ui-widget-content a.btn-style-1{ color:#fff;}
+.ui-widget-content a.btn-style-4,.ui-widget-content a.btn-style-2{ color:#666;}
+.subBtn-style1{float: left; line-height: 33px; padding-left: 10px;color:#3181D8}

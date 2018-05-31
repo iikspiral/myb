@@ -1,0 +1,41 @@
+	<!-- 此层为基本信息---------------------------->
+	<div class="identity">
+	<input name="personalaccount" value="0" type="hidden"/>
+		<h3>身份信息</h3>
+		<ul>
+			  <li>
+				<label for="realname">真实姓名</label>
+				<#if chineseName?exists>
+					<input name="certificateName" value="${chineseName!''}" type="text"  readonly="readonly"/>
+				<#else>
+					<input name="certificateName"  type="text"  datatype="zh2-4" nullmsg="请输入真实姓名！" errormsg="请输入2-4个中文的真实姓名！"/>
+				</#if>
+			  </li>
+			  <li>
+				 <label for="idnum">身份证号</label>
+				 <#if certificateno?exists>
+					<input name="certificateNo" value="${certificateno!''}" type="text" readonly="readonly"/>
+				 <#else>
+					<input name="certificateNo" type="text" datatype="idcard" nullmsg="请输入真实的身份证号！" errormsg="身份证号输入有误！" />
+				 </#if>
+				<input type="hidden" name="certificatetype" id="certificatetype" value="0" />
+			 </li>
+			  <li>
+				<label>开户机构</label>
+				<#if branchname?exists && branchname != '-1'>
+					<input name="branchcode" value="${branchcode!''}" type="hidden" readonly="readonly"/>
+					<input name="branchname" value="${branchname!''}" type="text" readonly="readonly"/>
+				<#else>
+					<select id="yyb" name="branchcode" class="select" style="height: auto;">
+					<#if yywd?exists>
+					<#list yywd as yyb >
+						<option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+					</#list>
+					</#if>
+				</select>
+				</#if>
+				<input name="branchcodeflag" value="1" style="display:none" type="text">
+			</li>
+		</ul>
+    </div>
+	<!--  end -------------------------------------------------------------------------------------------------------------->

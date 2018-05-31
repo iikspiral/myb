@@ -1,0 +1,95 @@
+<div class="account-main clearfix">
+	<div class="simple-titlebar">
+		<h3 class="title">申请提前还款</h3>
+	</div>
+	<div class="account-board">
+	    <form id="addDateForm"  name="addDateForm" method="post">
+			<input type="hidden" id="proid" value="${proid!''}"/>
+			<input type="hidden" id="productname" value="${productname!''}"/>
+			<input type="hidden" id="advanced_repaydate" value="${advanced_repaydate!''}"/> 
+			<input type="hidden" id="J_paymentmode" value="${paymentmode!''}"/>
+			<div class="floorform">
+				<div class="floor">
+					<label class="property">产品名称</label>
+					<div class="value">${productname!''}</div>
+				</div>
+				<div class="floor">
+					<label class="property">提前还本付息截止日期</label>
+					<div class="value">
+						<input name="advanced_repaydate" id="J_advanced_repaydate" readonly="readonly" type="text" datatype="*" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyyMMdd'})">
+					</div>
+				</div>
+				<div class="floor">
+					<label class="property">申请提前还款日期</label>
+					<div class="value">
+						<input name="real_pay_date" id="J_real_pay_date" class="input " readonly="readonly" type="text" datatype="*" onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyyMMdd'})">
+					</div>
+				</div>
+				<div class="actionArea" style="text-align: left; margin: 0;">                                                     
+					<input type="button" id="J_addDateBtn" class="btn-md btn-orange" style="margin-left: 163px;" value="申请提前还款">
+				</div>
+			</div>           
+		</form>
+		<div class="account-tips">
+			<h3 class="title"><i class="iconfont">&#xe628;</i> 温馨提示</h3>
+			<p class="content">
+				1.产品提前还款需经平台审核通过后，您可以进行提前还款。<br>
+				2."申请提前还款日期"为您的打款日期。<br>
+				3."一次性还本付息截止日期"为产品的截止计息还本日期。<br>
+				4.申请过程遇到问题，请联系客服，400-078-4888(9:00-18:00)
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		
+	$("#J_addDateBtn").on("click",function(){
+		 
+	 
+		var productid = $("#proid").val();
+		var productname = $("#productname").val();
+		var advanced_repaydate = $("#J_advanced_repaydate").val();
+		var real_pay_date = $("#J_real_pay_date").val();
+		var paymentmode= $("#J_paymentmode").val();
+		if(advanced_repaydate==undefined||advanced_repaydate==""||real_pay_date==undefined||real_pay_date==""){
+			$.kd.kdMsg("所选两个日期都不能为空");
+			return;
+		}
+		if(advanced_repaydate<real_pay_date){
+			$.kd.kdMsg("申请提前还款日期不能大于一次性还本付息截止日期");
+			return;
+		}
+		
+		zhejiang_confirm("确认","确认发起提前还款申请?" ,function() { 
+			$("#J_addDateBtn").attr("disabled", "disabled");
+			$("#J_addDateForm input").addClass("readonly").attr("readonly", "readonly");
+			$.post(
+					"mall/bbw_productrepay!prorepayplanapply.do?ajax=yes",
+					{
+					productid:productid,
+					productname:productname,
+					advanced_repaydate:advanced_repaydate,
+					real_pay_date:real_pay_date,
+					paymentmode:paymentmode
+					},
+					function(data) {		
+						 if ( data.result == 1) {
+							 zhejiang_alert("消息",data.message,function(){
+								window.location.href = "product_repay_plan.html?tab=2&_="+new Date().getTime(); 
+							  });
+						  
+						 } else {
+						 
+								 zhejiang_alert("消息",data.message,function(){
+								    window.location.reload();
+							  });
+						};
+				},
+				"json"
+				); 
+	 });
+	
+	});
+});
+</script>

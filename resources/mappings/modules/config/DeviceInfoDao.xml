@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.deviceinfo.dao.DeviceInfoDao">
+    
+    <sql id="entityColumns">
+    	a.ID,
+ 		a.DEVICE_NAME_ENG, 
+		a.DEVICE_IP, 
+ 		a.DEVICE_PORT, 
+		a.CREATE_BY, 
+ 		a.CREATE_DATE, 
+		a.UPDATE_BY, 
+		a.UPDATE_DATE, 
+ 		a.REMARKS, 
+ 		a.DEL_FLAG 
+<!-- 		a.* -->
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+	<select id="get" resultType="DeviceInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM DEVICE_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="DeviceInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM DEVICE_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag}) 
+		<if test="deviceNameeng != null and deviceNameeng != ''">
+			AND a.DEVICE_NAME_ENG LIKE
+			<if test="dbName == 'oracle'">'%'||#{deviceNameeng}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{deviceNameeng}, '%')</if>
+		</if>
+		<if test="deviceIp != null and deviceIp != ''">
+			AND a.DEVICE_IP LIKE
+			<if test="dbName == 'oracle'">'%'||#{deviceIp}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{deviceIp}, '%')</if>
+		</if>
+		<if test="devicePort != null and devicePort != ''">
+			AND a.DEVICE_PORT LIKE
+			<if test="dbName == 'oracle'">'%'||#{devicePort}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{devicePort}, '%')</if>
+		</if>
+		 ORDER BY a.DEVICE_NAME_ENG
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO DEVICE_INFO(
+			ID,
+			DEVICE_NAME_ENG,
+			DEVICE_IP,
+			DEVICE_PORT,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{deviceNameeng}, 
+			#{deviceIp}, 
+			#{devicePort}, 
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE DEVICE_INFO SET 
+			DEVICE_NAME_ENG = #{deviceNameeng}, 
+			DEVICE_IP = #{deviceIp}, 
+			DEVICE_PORT = #{devicePort}, 
+			UPDATE_BY = #{updateBy.id}, 
+			UPDATE_DATE = #{updateDate}, 
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE DEVICE_INFO SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

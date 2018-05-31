@@ -1,0 +1,58 @@
+	<!--  start 此层分为三方存管-->
+	<div class="banks">
+		<h3>选择银行</h3>
+		<ul>
+		<li class="tieonBanks clearfix" name="sfcgbank">
+		<#if banklist?exists>
+			<#list banklist as item>
+			<#if item.bankcode?exists >
+				<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" code="${item.bankcode!''}" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+					<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+					<i class="iconfont">&#xe620;</i>
+					<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd!''}"/>
+					<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard!''}"/>
+					<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd!''}"/>
+					<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"/>
+					<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"/>
+					<div class="hide">
+						<input type="hidden" id="v_remark_${item.bankcode}" value="${item.remark!''}"/>
+					</div>
+				</a>
+			</#if>
+			</#list>
+		</#if>	
+		<input name="bankcode" type="hidden" id="J_bankcode"  value="" readonly="readonly" />
+		<input name="channelcode" type="hidden"  id="J_channelcode" readonly="readonly" style="display:none"/>
+		  </li>
+	    <li id="J_li_bankacount">
+			<label for="cardNum">银行卡号</label>
+			<input id="bancodeinput" name="bankaccount" type="text"  datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+		</li>	  
+		<li id="J_li_bankpwd">
+			<label for="cardNum">银行密码</label>
+			<input id="J_bankpwd" name="bankpwd" type="text"  nullmsg="请输入银行密码！" errormsg="银行密码输入有误！" />
+		</li>
+		<li>
+			<label for="realname">设置交易密码</label>
+				<input id="J_tradepwd" name="tradepwd_"  type="password" datatype="n6-6" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" />
+				<input id="J_tradepassword" name="tradepassword" type="hidden" value="123"/>
+		</li>
+		<li>
+			<label for="realname">确定交易密码</label>
+				<input id="J_tradepwd2"  type="password" datatype="*" recheck="tradepwd_" nullmsg="请再次输入6位交易密码！" errormsg="你输入的两次交易密码不一致！" placeholder="请再次输入6位数字" />				 
+		</li>
+		<li id="J_li_remark" class="">
+			<label for="cardNum">温馨提示:</label>
+			<span id="J_remark"></span>
+		</li>
+		<li class="agreement">
+                <input type="checkbox" id="terms" name="terms" datatype="*"/>
+                <label for="terms">
+                请您确认使用本人有效身份证件信息注册，并保证提供的证件信息的真实、准确、合法、有效，若您使用非本人身份证件信息，或者填写错误信息进行注册，引起的一切后果包括但不限于资金划拨等相关经济与法律责任由您本人承担。
+                </label>
+         </li>
+	</ul>	
+    </div>	  
+	<div class="actionArea clearfix">
+            <input id="openAccountBtn_sfcg" class="btn btn-lg btn-lg btn-orange" type="button" value="下一步" />
+	</div>	

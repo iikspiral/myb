@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.certCtml.dao.CertCtmlDao">
+    
+	<sql id="certCtmlColumns">
+		a.id,
+		a.cert_ctml_name,
+		a.cert_ctml_type,
+		a.cert_ctml_status,
+		a.cert_ctml_basedn,
+		a.cert_ctml_audit,
+		a.secret_type,
+		a.ctml_key_gen_place,
+		a.create_by AS "createBy.id",
+		a.create_date,
+		a.update_by AS "updateBy.id",
+		a.update_date,
+		a.del_flag
+	</sql>
+    
+	<select id="get" resultType="CertCtml">
+		SELECT
+			<include refid="certCtmlColumns"/>
+		FROM cert_ctml a
+		WHERE a.id = #{id}
+	</select>
+	
+	<!-- <select id="findList" resultType="CertCtml">
+		SELECT
+			<include refid="certCtmlColumns"/>
+		FROM cert_ctml a
+		WHERE a.del_flag =  #{DEL_FLAG_NORMAL}
+			AND a.cert_ctml_name LIKE <if test="dbName == 'oracle'">'%密钥宝%'</if>
+										<if test="dbName == 'mysql'">CONCAT('%', '密钥宝', '%')</if>
+		<if test="certCtmlName != null and certCtmlName != ''">
+			AND a.cert_ctml_name LIKE <if test="dbName == 'oracle'">'%'||#{certCtmlName}||'%'</if>
+										<if test="dbName == 'mysql'">CONCAT('%', #{certCtmlName}, '%')</if>
+		</if>
+		<if test="certCtmlType != null and certCtmlType != ''">
+			AND a.cert_ctml_type = #{certCtmlType}
+		</if>
+	</select> -->
+	
+	<select id="findList" resultType="CertCtml">
+		SELECT
+			<include refid="certCtmlColumns"/>
+		FROM cert_ctml a
+		WHERE a.del_flag =  #{DEL_FLAG_NORMAL} AND a.cert_ctml_type = 'SINGLE' AND a.ctml_key_gen_place = 'LOCAL'
+		<if test="certCtmlName != null and certCtmlName != ''">
+			AND a.cert_ctml_name LIKE <if test="dbName == 'oracle'">'%'||#{certCtmlName}||'%'</if>
+										<if test="dbName == 'mysql'">CONCAT('%', #{certCtmlName}, '%')</if>
+		</if>
+	</select>
+
+	<insert id="insert">
+		INSERT INTO cert_ctml(
+			id,
+			cert_ctml_name,
+			cert_ctml_type,
+			cert_ctml_status,
+			cert_ctml_basedn,
+			cert_ctml_audit,
+			secret_type,
+			ctml_key_gen_place,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{certCtmlName},
+			#{certCtmlType},
+			#{certCtmlStatus},
+			#{certCtmlBasedn},
+			#{certCtmlAudit},
+			#{secretType},
+			#{ctmlKeyGenPlace},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cert_ctml SET
+			cert_ctml_name = #{certCtmlName},
+			cert_ctml_type = #{certCtmlType},
+			cert_ctml_status = #{certCtmlStatus},
+			cert_ctml_basedn = #{certCtmlBasedn},
+			cert_ctml_audit = #{certCtmlAudit},
+			secret_type = #{secretType},
+			ctml_key_gen_place = #{ctmlKeyGenPlace},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteData">
+		DELETE FROM cert_ctml
+	</delete>
+</mapper>

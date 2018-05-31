@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.sms.dao.SMSTemplateDao">
+    
+	<sql id="smsTemplateColumns">
+    	a.*
+    </sql>
+    
+	<select id="get" resultType="SMSTemplate">
+		SELECT
+			<include refid="smsTemplateColumns"/>
+		FROM sms_template a
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="findList" resultType="SMSTemplate">
+		SELECT
+			<include refid="smsTemplateColumns"/>
+		FROM sms_template a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="templateName != null and templateName != ''">
+			AND a.template_name = #{templateName}
+		</if>
+		<if test="templateType != null and templateType != ''">
+			AND a.template_type = #{templateType}
+		</if>
+	</select>
+	
+	<select id="getTemplateId" resultType="java.lang.String" >
+        SELECT r.TEMPLATE_ID FROM SMS_TEMPLATE r 
+        WHERE r.TEMPLATE_NAME = #{templateName,jdbcType=VARCHAR} AND r.DEL_FLAG = '0'
+    </select>
+	
+	<select id="findAllList" resultType="SMSTemplate">
+		SELECT
+			<include refid="smsTemplateColumns"/>
+		FROM sms_template a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sms_template(
+			id,
+			template_type,
+			template_name,
+			sms_signature,
+			content,
+			template_id,
+			create_by,
+			create_date, 
+			update_by, 
+			update_date, 
+			remarks, 
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{templateType},
+			#{templateName},
+			#{smsSignature},
+			#{content},
+			#{templateId},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sms_template SET
+			template_type = #{templateType},
+			template_name = #{templateName},
+			sms_signature = #{smsSignature},
+			content = #{content},
+			template_id = #{templateId},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	
+	<update id="delete">
+		UPDATE sms_template SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

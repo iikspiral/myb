@@ -1,0 +1,299 @@
+@charset "utf-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.shadow-inset {
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.transition {
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.scalease {
+  -webkit-transition: -webkit-transform 0.6s ease;
+  transition: transform .6s ease;
+}
+.scalease:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+/***** 注册 *****/
+.account_register {
+  width: 960px;
+  margin: 50px auto;
+}
+.account_register > div {
+  width: 958px;
+  background-color: #FFFFFF;
+  border: 1px solid #f0f0f0;
+}
+.account_register > div .tips {
+  padding: 40px 0 0 40px;
+  font-size: 13px;
+  line-height: 24px;
+  color: #a7a7a7;
+}
+.account_register > div .tips i {
+  font-size: 16px;
+  line-height: 24px;
+  color: #747474;
+}
+.account_register > div form {
+  padding: 40px 0 0 40px;
+}
+.account_register > div form ul li {
+  height: 68px;
+  margin-bottom: 15px;
+  color: #666;
+}
+.account_register > div form ul li label {
+  font-size: 14px;
+  line-height: 28px;
+  font-weight: normal;
+  display: block;
+}
+.account_register > div form ul li input[type=text],
+.account_register > div form ul li input[type=password],
+.account_register > div form ul li select {
+  font-size: 16px;
+  line-height: 24px;
+  color: #000;
+  padding: 6px;
+  border: 1px solid #cacaca;
+  width: 320px;
+  border-radius: 2px;
+}
+.account_register > div form ul li select {
+  cursor: default;
+  width: 332px;
+}
+.account_register > div form ul li #captcha {
+  width: 120px;
+}
+.account_register > div form ul li .get_captcha {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 6px 15px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background-color: #999;
+  color: #fff;
+  vertical-align: top;
+}
+.account_register > div form ul li .captcha_sent {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 6px 15px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background-color: transparent;
+  color: #999;
+  vertical-align: top;
+}
+.account_register > div form ul li .captcha_sent:hover {
+  background-color: #888;
+}
+.account_register > div form ul .agreement {
+  height: 40px;
+}
+.account_register > div form ul .agreement label {
+  display: inline;
+  line-height: 40px;
+  font-weight: normal;
+}
+.account_register > div form ul .agreement label a {
+  color: #3a9bfc;
+  cursor: pointer;
+}
+.account_register .user-type {
+  background-color: #ffffff;
+  border: none;
+}
+.account_register .user-type > a {
+  display:inline-block;
+  width: 200px;
+  height: 60px;
+  margin: 140px 0;
+  color: #747474;
+  font-size: 18px;
+  letter-spacing: 2px;
+  line-height: 60px;
+  text-align: center;
+  border: 1px solid #dadada;
+  background-color: #ffffff;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.account_register .user-type > a:hover {
+  background-color: #3a9bfc;
+  border-color: #3096fc;
+  color: #ffffff;
+}
+.account_register .user-type .personal {
+  float: left;
+  margin-left: 200px;
+}
+.account_register .user-type .organized {
+  float: right;
+  margin-right: 200px;
+}
+.account_register .user-type .personal-account {
+  width: 878px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #FFFFFF;
+}
+.account_register .user-type .personal-account h3 {
+  font-size: 18px;
+  line-height: 60px;
+  color: #655641;
+  font-weight: bold;
+}
+.account_register .user-type .personal-account ul {
+  padding-left: 10px;
+  margin-bottom: 40px;
+}
+.account_register .user-type .personal-account ul li {
+  height: 68px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.account_register .user-type .personal-account ul li label {
+  display: block;
+  line-height: 28px;
+  font-weight: normal;
+  color: #655641;
+}
+.account_register .user-type .personal-account ul li input[type=text] {
+  width: 320px;
+}
+.account_register .user-type .personal-account ul .tieonBanks {
+  height: auto;
+}
+.account_register .user-type .personal-account ul .tieonBanks a {
+  position: relative;
+  float: left;
+  width: 141px;
+  border: 1px solid #f0f0f0;
+  margin: 0 5px 10px;
+  padding: 14px 10px;
+  text-align: center;
+}
+.account_register .user-type .personal-account ul .tieonBanks a:hover {
+  border-color: #f64d0b;
+}
+.account_register .user-type .personal-account ul .tieonBanks a img {
+  height: 24px;
+}
+.account_register .user-type .personal-account ul .tieonBanks a i {
+  display: none;
+  position: absolute;
+  bottom: -6px;
+  right: -5px;
+  font-size: 22px;
+  color: #f64d0b;
+}
+.account_register .user-type .personal-account ul .tieonBanks .selected {
+  border-color: #f64d0b;
+}
+.account_register .user-type .personal-account ul .tieonBanks .selected i {
+  display: block;
+}
+.account_register .user-type .personal-account ul.banks {
+  margin-bottom: 40px;
+}
+.account_register .user-type .personal-account .actionArea {
+  width: 100%;
+  height: 40px;
+  margin: 80px 0 40px;
+  text-align: center;
+  *zoom: 1;
+}
+.account_register .user-type .personal-account .actionArea:before,
+.account_register .user-type .personal-account .actionArea:after {
+  content: " ";
+  display: table;
+}
+.account_register .user-type .personal-account .actionArea:after {
+  clear: both;
+}
+.account_register .risk_assessment {
+  width: 878px;
+  padding: 40px;
+  background-color: #ffffff;
+}
+.account_register .risk_assessment .description {
+  font-size: 13px;
+  line-height: 24px;
+  color: #747474;
+  margin-bottom: 20px;
+}
+.account_register .risk_assessment .description i {
+  font-size: 16px;
+  line-height: 24px;
+  color: #666;
+}
+.account_register .risk_assessment .assess-survey {
+  padding: 20px 0;
+  float: none;
+}
+.account_register .risk_assessment .assess-survey dl {
+  height: 70px;
+  margin-bottom: 20px;
+  clear: both;
+}
+.account_register .risk_assessment .assess-survey dl dt {
+  float: left;
+  width: 100%;
+  font-size: 14px;
+  line-height: 30px;
+  color: #655641;
+}
+.account_register .risk_assessment .assess-survey dl dd {
+  float: left;
+  font-size: 13px;
+  line-height: 40px;
+  color: #333;
+  width: 25%;
+}
+.account_register .risk_assessment .assess-survey .agreement {
+  text-align: center;
+  font-size: 14px;
+  line-height: 30px;
+  padding-top: 20px;
+}
+.account_register .risk_assessment .assess-survey .agreement a {
+  color: #666;
+}
+.account_register .risk_assessment .assess-survey .actionArea {
+  padding-top: 20px;
+}
+.account_register .risk_assessment .assess-survey .actionArea .btn {
+  margin-left: 330px;
+}

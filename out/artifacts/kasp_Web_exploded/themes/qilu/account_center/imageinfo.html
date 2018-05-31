@@ -1,0 +1,115 @@
+<style>
+	.preview-pane {
+		float: left;
+		padding: 3px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		display: block;
+		margin-left: 12px;
+		border: 1px #EEE solid;
+		background-color: white;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+		-webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+	}
+	
+	.preview-pane .operate{
+		position: relative;
+		display: none;
+		float: right;
+		width: 16px;
+		height: 16px;
+		margin-left: -16px;
+		vertical-align: top;
+		cursor: pointer;
+	}
+	.preview-pane:hover .operate{
+		display: block;
+	}
+	
+	.preview-pane .preview-container {
+		width: 200px;
+		height: 109px;
+		overflow: hidden;
+	}
+	
+	.preview-pane .preview-container img {
+		width: 200px;
+		height: 109px;
+	}
+	
+	.slider {
+		background-position-x: 50%;
+		background-position-y: 0%;
+		background-repeat: no-repeat;
+	}
+</style>
+
+<div id="imagearea" class="clearfix" style="margin-top: 10px;"></div>
+
+<div style="margin: 10px;" class="clearfix">
+	<input type="button" class="kdmall-btn" value="添加图片" onclick="addImage();" style="width: 80px;float: left;" />
+	<input type="button" class="kdmall-btn" value="预览" onclick="preivewImage();" style="margin-left: 10px;width: 50px;float: left;" />
+	<span style="font-size: 14px;color: red;float: left;line-height: 32px;padding-left: 10px;">最多可以上传六张图片轮播，可拖动排序，第一张图片为主显图片。</span>
+</div>
+<div id="sliderimg" style="display: none"></div>
+
+<script>
+	$(function() {
+		var path = $("#coverimagehidden").val();
+		
+		if(path) {
+			path = path.split("?");
+			
+			for(var i = 0; i < path.length; i++) {
+				addItem(path[i]);
+			}
+		}
+	});
+	function preivewImage() {
+		if($(".preview-pane", "#imagearea").size() > 0) {
+			var html = [];
+			html.push('<div id="preivewImage" class="slider">');
+			html.push('<ul>');
+			$("img[name=preview]").each(function() {
+				html.push("<li class='slider' style='background-image: url(", $(this).attr("src"), ");'/>");
+			});
+			html.push('</ul>');
+			html.push('</div>');
+			$('#sliderimg').html(html.join(""));
+			$.kd.kdWin(675, 430, "图片轮播预览", "sliderimg", null, 0, "id", null, null, null, null, null, function() {
+				$('#preivewImage').unslider({
+					arrows : true,
+					fluid : true,
+					dots : true
+				});
+			});
+		} else {
+			$.kd.kdAlert("没有图片可以预览，请先上传图片！");
+		}
+	}
+	
+	function addImage() {
+		if($(".preview-pane", "#imagearea").size() < 6) {
+			$.kd.kdWin(915, 450, "添加项目轮播图片", "/imagecut.html", null, 0, "iframe");
+		} else {
+			$.kd.kdAlert("最多只能上传6张图片！");
+		}
+	}
+	
+	function addItem(str) {
+		if(!str) return;
+		var html = [];
+		html.push('<div class="preview-pane">');
+		html.push('	<img class="operate" src="${staticserver}/common/images/msg-error.png" onclick="$(this).parent().remove();">');
+		html.push(' <div class="preview-container">');
+		html.push('		<img name="preview" str="' + str + '" src="${fileserver}', str, '?v=', new Date().getTime(), '" />');
+		html.push('	</div>');
+		html.push('</div>');
+		$("#imagearea").append(html.join("")).sortable();
+	}
+</script>
+

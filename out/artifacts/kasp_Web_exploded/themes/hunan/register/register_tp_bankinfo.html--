@@ -1,0 +1,63 @@
+
+	<!--  start 此层分为三方支付----------------------------------------------------------------------------------------------------------->
+	
+	<div class="banks">
+		<h3>选择银行</h3>
+		<ul>
+		<li class="tieonBanks clearfix">
+		<#if thirdpaybanklist?exists>
+			<#list thirdpaybanklist as item>
+			<#if item.bankcode?exists && item.bankcode == "701">
+				<#else>
+					<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+						<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+						<i class="iconfont">&#xe620;</i>
+						<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd}"/>
+						<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard}"/>
+						<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd}"/>
+						<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+						<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+					</a>
+				</#if>
+			</#list>
+		</#if>	
+				<input name="tchannelcode" id="tchannelcode" type="hidden"  value="" readonly="readonly"/>
+				<input name="tbankcode" type="hidden" id="tbankcode"  value="" readonly="readonly" />
+				<input name="channelcode" type="hidden"  id="channelcode" readonly="readonly" style="display:none"/>
+		  </li>
+		  <li>
+			<label for="cardNum">银行卡号</label>
+			<input id="bancodeinput" name="tbankaccount" type="text"  datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+		  </li>
+		<div style="display:none">
+			<li>
+				<label for="cardNum">开户行省份</label>
+					<input  name="province" type="text" value="山西"  nullmsg="请输入开户行省份！" errormsg="省份输入有误！"  />
+			</li>
+			<li>
+				<label for="cardNum">开户行城市</label>
+					<input  name="city" type="text" value="大同" nullmsg="请输入开户行城市！" errormsg="城市输入有误！"  />
+			</li>
+			<li>
+				<label for="cardNum">开户行地址</label>
+					<input  name="openbankaddr" type="text" value="丽华"  nullmsg="请输入开户行地址！" errormsg="请输入2到24位中文！"  />
+			</li>
+		</div>
+			<li>
+				<label for="realname">设置交易密码</label>
+					<input id="tradepwd" name="tradepwd_"  type="password" datatype="n6-6" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" />
+					<input id="tradepassword" name="tradepassword" type="hidden" value="123"/>
+			</li>
+			<li>
+				<label for="realname">确定交易密码</label>
+					<input id="tradepwd2"  type="password" datatype="*" recheck="tradepwd_" nullmsg="请再次输入6位交易密码！" errormsg="你输入的两次交易密码不一致！" placeholder="请再次输入6位数字" />				 
+			</li>
+	</ul>	
+    </div>	  
+	<div class="actionArea clearfix">
+            <input id="openthirdpayAccountBtn" class="btn btn-lg btn-lg btn-orange" type="button" value="下一步" />
+	</div>	
+
+<!--  end -------------------------------------------------------------------------------------------------------------->
+
+</script>

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.cert.dao.CertInfoDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	<select id="get" resultType="CertInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.CERT_SN = #{id}
+	</select>
+	
+	<select id="getByCertSn" resultType="CertInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.CERT_SN = #{cerSn}
+	</select>
+	
+	<select id="getByCertSnAndCertStatus" resultType="CertInfo">
+		SELECT a.*
+		FROM CERT_INFO a
+		WHERE a.CERT_SN = #{cerSn}
+		and a.CERT_STATUS_MYB = 'Undown'
+		and (a.CERT_STATUS = 'Use' OR a.CERT_STATUS = 'Undown')
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	
+	<select id="getByOldCertSn" resultType="CertInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.OLD_CERT_SN = #{cerSn}
+	</select>
+	
+	<select id="findListBySP" resultType="CertInfo">
+		select DISTINCT * from (
+			SELECT 
+				a.*,
+				b.user_info_id as "certapplyInfo.userInfoId",
+				b.corp_user_id as "certapplyInfo.corpUserId"
+				FROM CERT_INFO a 
+				left outer join CERTAPPLY_INFO b
+				on a.cert_sn = b.cert_sn
+			WHERE a.del_flag = #{delFlag} and b.del_flag = #{delFlag}
+			AND (a.CERT_STATUS = 'Use' OR a.CERT_STATUS = 'Hold' OR a.CERT_STATUS = 'Undown')
+			<if test="certType != null and certType != ''">
+				AND a.CERT_TYPE = #{certType}
+			</if>
+			<if test="certapplyInfo != null">
+				<if test="certapplyInfo.projectId != null and certapplyInfo.projectId != ''">
+				AND b.PROJECT_ID = #{certapplyInfo.projectId}
+				</if>
+				<if test="certapplyInfo.corpUserId != null and certapplyInfo.corpUserId != ''">
+				AND b.CORP_USER_ID = #{certapplyInfo.corpUserId}
+				</if>
+				<if test="certapplyInfo.userInfoId != null and certapplyInfo.userInfoId != ''">
+				AND b.USER_INFO_ID = #{certapplyInfo.userInfoId}
+				</if>
+			</if>	
+		) aa ORDER BY aa.CREATE_DATE
+	</select>
+	
+	<select id="findList" resultType="CertInfo">
+	select DISTINCT * from (
+			SELECT 
+		a.*,
+		b.user_info_id as "certapplyInfo.userInfoId",
+		b.corp_user_id as "certapplyInfo.corpUserId"
+		FROM CERT_INFO a 
+		left outer join CERTAPPLY_INFO b
+		on a.cert_sn = b.cert_sn
+		WHERE a.del_flag = #{delFlag} and b.del_flag = #{delFlag}
+		<if test="certType != null and certType != ''">
+			AND a.CERT_TYPE = #{certType}
+		</if>
+		<if test="certStatus != null and certStatus != ''">
+			AND a.CERT_STATUS = #{certStatus}
+		</if>
+		<if test="certStatusMyb != null and certStatusMyb != ''">
+			AND a.CERT_STATUS_MYB = #{certStatusMyb}
+		</if>
+		<if test="certSubject != null and certSubject != ''">
+		    AND a.CERT_SUBJECT LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSubject}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSubject}, '%')</if>
+		</if>
+		<if test = 'certList != null and certList.size() >0'> 
+			and a.CERT_SN not in
+			<foreach collection="certList" item="corid" index="index"
+	            open="(" close=")" separator=",">
+	            #{corid}
+	        </foreach>
+		</if>
+		<if test="oldCertSn != null and oldCertSn != ''">
+			AND a.OLD_CERT_SN = #{oldCertSn}
+		</if>
+		<if test="certapplyInfo != null">
+			<if test="certapplyInfo.projectId != null and certapplyInfo.projectId != ''">
+			AND b.PROJECT_ID = #{certapplyInfo.projectId}
+			</if>
+		</if>
+		<if test="projectInfo != null">
+			<if test="projectInfo.id != null and projectInfo.id != ''"> 
+ 				AND b.PROJECT_ID = #{projectInfo.id}
+ 			</if>
+		</if>
+		
+		
+	) aa ORDER BY aa.CREATE_DATE
+	</select>
+	
+	<select id="getCertByCorIds" resultType="CertInfo" parameterType="java.util.List">
+		select DISTINCT * from (
+			SELECT 
+				a.*
+			FROM CERT_INFO a 
+			left outer join CERTAPPLY_INFO b
+			on a.cert_sn = b.cert_sn
+			WHERE a.del_flag = '0' and b.del_flag = '0'
+			<if test = '_parameter != null and _parameter.size() >0'> 
+				and b.USER_INFO_ID in
+				<foreach collection="list" item="corid" index="index"
+		            open="(" close=")" separator=",">
+		            #{corid}
+		        </foreach>
+			</if>
+			ORDER BY a.CREATE_DATE
+		) c
+	</select>
+	
+	<select id="fingByids" resultType="CertInfo" parameterType="list">
+		SELECT DISTINCT
+			a.*,
+			b.PROJECT_ID,
+			c.PROJECT_NAME
+		FROM CERT_INFO a
+		LEFT OUTER JOIN CERTAPPLY_INFO b ON A .cert_sn = b.cert_sn
+		LEFT OUTER JOIN PROJECT_INFO c ON b.project_id = c. ID
+		WHERE (a.del_flag = 0)
+		and a.CERT_SN in
+		<foreach collection="list" item="certsn" index="index"
+            open="(" close=")" separator=",">
+            #{certsn}
+        </foreach>
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	<select id="fingByCertSn" resultType="CertInfo" parameterType="list">
+		SELECT 
+			a.*
+		FROM CERT_INFO a
+		WHERE (a.del_flag = 0)
+		and a.CERT_SN in
+		<foreach collection="list" item="certsn" index="index"
+            open="(" close=")" separator=",">
+            #{certsn}
+        </foreach>
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+
+	<select id="getCertInfoListByUserIds" resultType="CertInfo" parameterType="list">
+		SELECT
+		<include refid="entityColumns"/>
+		FROM CERT_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = 0)
+		and a.USERINFO_ID in
+		<foreach collection="list" item="userinfoId" index="index"
+				 open="(" close=")" separator=",">
+			#{userinfoId}
+		</foreach>
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	<select id="getCertInfoList" resultType="CertInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_INFO a
+		WHERE a.CERT_STATUS = 'Use' AND a.CERT_TYPE = #{certType,jdbcType=VARCHAR} and a.del_flag = 0
+		ORDER BY a.CREATE_DATE
+	</select>
+
+	<insert id="insert">
+		INSERT INTO CERT_INFO(
+			ID,
+			CERT_SN,
+			SUBJECT_UPPERCASE,
+			CERT_SUBJECT,
+			COMMON_NAME,
+			CTML_NAME,
+			AUTH_CODE,
+			IS_ADMIN,
+			CERT_STATUS,
+			CERT_VALIDITY,
+			NOT_BEFORE,
+			NOT_AFTER,
+			USERINFO_ID,
+			CERT_TYPE,
+			APPLICANT_UPPERCASE,
+			APPLICANT,
+			OPT_TIME,
+			ORGAN_ID,
+			IS_RETAIN_KEY,
+			OLD_CERT_SN,
+			DOUBLE_CERT_SN,
+			OLD_DOUBLE_CERT_SN,
+			IS_WAITING,
+			SIGN_SERVER,
+			CERT_STATUS_MYB,
+			IS_RECOVERY,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{certSn},
+			#{subjectUppercase},
+			#{certSubject},
+			#{commonName},
+			#{ctmlName},
+			#{authCode},
+			#{isAdmin},
+			#{certStatus},
+			#{certValidity},
+			#{notBefore},
+			#{notAfter},
+			#{userinfoId},
+			#{certType},
+			#{applicantUppercase},
+			#{applicant},
+			#{optTime},
+			#{organId},
+			#{isRetainKey},
+			#{oldCertSn},
+			#{doubleCertSn},
+			#{oldDoubleCertSn},
+			#{isWaiting},
+			#{signServer},
+			#{certStatusMyb},
+			#{isRecovery},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE CERT_INFO SET
+		CERT_SN = #{certSn},
+		SUBJECT_UPPERCASE = #{subjectUppercase},
+		CERT_SUBJECT = #{certSubject},
+		COMMON_NAME = #{commonName},
+		CTML_NAME = #{ctmlName},
+		AUTH_CODE = #{authCode},
+		IS_ADMIN = #{isAdmin},
+		CERT_STATUS = #{certStatus},
+		CERT_VALIDITY = #{certValidity},
+		NOT_BEFORE = #{notBefore},
+		NOT_AFTER = #{notAfter},
+		USERINFO_ID = #{userinfoId},
+		CERT_TYPE = #{certType},
+		APPLICANT_UPPERCASE = #{applicantUppercase},
+		APPLICANT = #{applicant},
+		OPT_TIME = #{optTime},
+		ORGAN_ID = #{organId},
+		IS_RETAIN_KEY = #{isRetainKey},
+		OLD_CERT_SN = #{oldCertSn},
+		DOUBLE_CERT_SN = #{doubleCertSn},
+		OLD_DOUBLE_CERT_SN = #{oldDoubleCertSn},
+		IS_WAITING = #{isWaiting},
+		SIGN_SERVER = #{signServer},
+		CERT_STATUS_MYB = #{certStatusMyb},
+		IS_RECOVERY = #{isRecovery},
+		update_by = #{updateBy.id},
+		update_date = #{updateDate},
+		remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+
+	<select id="findbyList" resultType="CertInfo">
+			SELECT
+			DISTINCT
+			A . ID ,
+			A . IS_ADMIN,
+			A .OPT_TIME,
+			A .CERT_SN ,
+			A .CERT_SUBJECT,
+			A .COMMON_NAME ,
+			A .CTML_NAME ,
+			A .CERT_STATUS ,
+			A .CERT_STATUS_MYB ,
+			A .CERT_VALIDITY,
+			A .NOT_BEFORE,
+			A .NOT_AFTER,
+			A .CERT_TYPE,
+			A .CREATE_BY,
+			A .CREATE_DATE,
+			A .DEL_FLAG,
+			(case when A.CERT_TYPE='userinfo' then u.USER_INFO_NAME when A.CERT_TYPE='corporation_info' then d.USER_NAME end) as USER_NAME,
+			b.CERT_ID,
+			b.PROJECT_ID,
+			c.PROJECT_NAME,
+			c.ID as "projectInfo.projectId"
+		FROM
+			CERT_INFO A
+		LEFT OUTER JOIN CERTAPPLY_INFO b ON A .cert_sn = b.cert_sn
+		LEFT OUTER JOIN PROJECT_INFO c ON b.project_id = c. ID
+		LEFT OUTER JOIN USER_INFO u ON b.USER_INFO_ID = u.ID
+		LEFT OUTER JOIN CORPORATION_USER_INFO d ON b.CORP_USER_ID = d.ID
+		WHERE (a.del_flag = #{delFlag}) 
+		<if test="commonName != null and commonName != ''">
+			AND a.COMMON_NAME  = #{commonName}
+		</if> 
+		<if test="certStatus != null and certStatus != ''">
+			AND a.CERT_STATUS  = #{certStatus}
+		</if> 
+		<if test="certType != null and certType != ''">
+			AND a.CERT_TYPE  = #{certType}
+		</if> 
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSn}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSn}, '%')</if>
+		</if> 
+		<if test="projectName != null and projectName != ''">
+			AND c.ID  = #{projectName}
+		</if> 
+		<if test="certTemplate != null and certTemplate != ''">
+			AND a.CERT_TEMPLATE  = #{certTemplate}
+		</if> 
+		<if test="id != null and id != ''">
+			AND a.ID = #{id}
+		</if>
+		<if test="ctmlName != null and ctmlName != ''">
+			AND a.CTML_NAME = #{ctmlName}
+		</if>
+		<if test="certSubject != null and certSubject != ''">
+			AND a.CERT_SUBJECT LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSubject}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSubject}, '%')</if>
+		</if>
+		<if test="optTimeMin != null and optTimeMin != ''">
+			AND a.OPT_TIME  &gt;= ${optTimeMin}
+		</if>
+		<if test="optTimeMax != null and optTimeMax != ''">
+			AND a.OPT_TIME &lt;= ${optTimeMax}
+		</if>
+		<if test="beforeMin1 != null and beforeMin1 != ''">
+			AND a.NOT_BEFORE  &gt;= ${beforeMin1}
+		</if> 
+		 <if test="beforeMax1 != null and beforeMax1 != ''">
+			AND a.NOT_BEFORE &lt;= ${beforeMax1}
+		</if> 
+		 <if test="afterMin1 != null and afterMin1 != ''">
+			AND a.NOT_AFTER  &gt;= ${afterMin1}
+		</if> 
+		 <if test="afterMax1 != null and afterMax1 != ''">
+			AND a.NOT_AFTER &lt;= ${afterMax1}
+		</if> 
+		<if test = 'certList != null and certList.size() >0'> 
+			and a.CERT_SN not in
+			<foreach collection="certList" item="corid" index="index"
+	            open="(" close=")" separator=",">
+	            #{corid}
+	        </foreach>
+		</if>
+		<if test = 'serchCertId != null and serchCertId.size() >0'> 
+			and a.ID in
+			<foreach collection="serchCertId" item="certId" index="index"
+	            open="(" close=")" separator=",">
+	            #{certId}
+	        </foreach>
+		</if>
+		<if test="userName != null and userName != ''">
+		    AND (case when A.CERT_TYPE='userinfo' then u.USER_INFO_NAME when A.CERT_TYPE='corporation_info' then d.USER_NAME end) LIKE
+			<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{userName}, '%')</if>
+		</if>
+		ORDER BY a.NOT_BEFORE desc
+	</select>
+	
+	
+	<select id="getbyid" resultType="CertInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="getNodownCertinfo" resultType="CertInfo">
+		SELECT
+			DISTINCT a.*
+		FROM CERT_INFO a left join CERTAPPLY_INFO c on a.ID = c.CERT_ID
+		WHERE a.CERT_SUBJECT = #{certSubject}
+		and a.CERT_STATUS_MYB = 'Undown'
+		and (a.CERT_STATUS = 'Use' OR a.CERT_STATUS = 'Undown')
+		<if test="projectInfo.id != null and projectInfo.id != ''"> 
+ 			AND c.PROJECT_ID = #{projectInfo.id}
+ 		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+</mapper>

@@ -1,0 +1,151 @@
+<div class="account-main clearfix">	      
+	<div class="simple-titlebar clearfix">
+        <h2 class="title">发送消息</h2>
+    </div>
+    <div class="container-full">
+    	<div class="tabs-filter">
+	         <div class="list-wrap">
+	        	<div id="holden">
+	        		<div class="thefilter">
+						<div class="nav-filter">
+							<div id="orderstatus">
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-orange" id="J_send">发送</a>
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-orange" id="J_back">返回</a>
+								<input type="hidden" value="${message.id!''}" id="J_msgid">
+            					<input type="hidden" value="${flag}" id="J_flag">
+							</div>
+						</div>
+					</div>
+					<div class="account-board">
+						<form id="addDateForm"  name="addDateForm" method="post">
+							<div class="floorform">
+							<div class="floor">
+								<label class="property">发信人：</label>
+								<div class="value">
+									<#if namelist?exists>
+ 		       							<#list namelist as me>
+									<input id="J_insender" type="text" value="${me.loginname!''}" readonly="readonly"/>
+									    </#list>
+									</#if>
+								</div>
+							</div>
+							<div class="floor">
+								<label class="property">收信人：</label>
+								<div class="value">
+									<input id="J_inuser" placeholder="如(AA；BB)" type="text" datatype="*">
+									<label  id="J_rightWar" style="width:80px;color:green;vertical-align: bottom;font-size: 14px;display:none;">输入正确</label>	
+		    						<label  id="J_errorWar" style="width:80px;color:red;vertical-align: bottom;font-size: 14px;display:none;">用户名不存在</label>
+								</div>
+							</div>
+							<div class="floor">
+								<label class="property">标题：</label>
+								<div class="value">
+									<input id="J_title" type="text" datatype="*">
+								</div>
+							</div>
+							<div class="floor">
+								<label class="property">内容：</label>
+								<div class="value">
+									<textarea rows="40" cols="40" id="J_content" name="params" style="text-indent:2em;"></textarea>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<link type="text/css" rel="stylesheet" href="${staticserver}/bbw/js/kindeditor/themes/default/default.css" />
+<script charset="utf-8" src="${staticserver}/bbw/js/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="${staticserver}/bbw/js/kindeditor/lang/zh_CN.js"></script>
+ <script type="text/javascript">
+   $(function(){
+	var options = {
+			   width: '700px',
+			   height: '400px',
+				minWidth: 250,
+			   minHeight: 50,
+			   uploadJson : fileaction,
+			   filePostName:"upfile",
+			   extraParams:{ a: 'a'} ,
+		       afterBlur : function(){this.sync()},
+			   formatUploadUrl:function( url) {
+				 return fileserver+url;
+			   }
+			};
+			window.editor_content = KindEditor.create('textarea[id="J_content"]', options);
+		
+		//返回时标记已读
+		 $("#J_back").click(function(){
+		    var id=$("#J_msgid").val();
+		    var flag=$("#J_flag").val();
+		    if(flag == 0){
+				   zhejiang_confirm("消息","执行返回操作?",function() {
+			            	$.post(
+			            	"mall/bbw_message!updMsg.do?ajax=yes",
+			            	{msglist: id},
+			            	function(data) {
+										 if ( data.result == 1) {
+										 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										 } else {
+											 		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+										};
+			               },"json");   
+			            });
+		    }else{
+		        zhejiang_confirm("消息","执行返回操作?",function() {
+	            	
+		       		window.location.href = "my_msg.html?type=msg&_="+new Date().getTime(); 
+	            });
+		       
+		    }
+		});
+		//发送消息
+		$("#J_send").click(function(){
+		     var sendername=$("#J_insender").val();
+		     var username=$("#J_inuser").val();
+		     var title=$("#J_title").val();
+		     var content =$("#J_content").val();
+		      $.post("mall/bbw_message!sendMsg.do?ajax=yes",
+					     {"msgtitle":title,"msgcotent":content,"sendername":sendername,"username":username},
+						function(data){
+						  if(data.result=="1"){
+							 zhejiang_alert("发送消息",data.message,function() {
+							                  	 window.location.href="my_msg.html?type=msg_="+ new Date().getTime();	
+							                  });
+						}else{
+						    zhejiang_alert("发送消息","fail"+data.message,function() {
+							                  	 window.location.href="my_msg.html?type=msg_="+ new Date().getTime();	
+							                  });
+						}
+				},"json"); 
+		});
+	//验证输入信息是否正确
+	$("#J_inuser").blur(function(){
+	   var uname=$("#J_inuser").val();
+	   if(""==uname){
+				$("#J_errorWar").css("display","inline");
+	   }else{
+	    $.post("mall/bbw_message!checkName.do?ajax=yes",
+				{
+					"inputstr":uname},
+					function(data){
+					//alert("aaa");
+				    if(data.result=="1"){
+					  $("#J_rightWar").css("display","inline");
+					  $("#J_errorWar").css("display","none");
+					}else{
+					  $("#J_errorWar").css("display","inline");
+					  $("#J_rightWar").css("display","none");
+					}
+				},"json");
+	   }
+	});
+   });
+</script>
+
+
+

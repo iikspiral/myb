@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.mobile.dao.MobileApplyInfoDao">
+    
+	<sql id="mobileApplyInfoColumns">
+		a.id,
+		a.device_type,
+		a.device_num,
+		a.apply_type,
+		a.phone_num,
+		a.cert_subject,
+		a.cert_sn,
+		a.user_id,
+		a.project_id,
+		a.cancel_reason,
+		a.apply_result,
+		a.user_type,
+		a.corp_user_id,
+		a.old_cert_sn,
+		a.apply_business_id,
+		a.error_message,
+		a.create_by AS "createBy.id",
+		a.create_date,
+		a.update_by AS "updateBy.id",
+		a.update_date,
+		a.del_flag
+	</sql>
+    
+	<select id="get" resultType="MobileApplyInfo">
+		SELECT
+			<include refid="mobileApplyInfoColumns"/>
+		FROM mobile_apply_info a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MobileApplyInfo">
+		SELECT
+			<include refid="mobileApplyInfoColumns"/>
+		FROM mobile_apply_info a
+		WHERE a.del_flag =  #{DEL_FLAG_NORMAL}
+
+	</select>
+	
+	<select id="findbyCertSn" resultType="MobileApplyInfo">
+		SELECT
+			<include refid="mobileApplyInfoColumns"/>
+		FROM mobile_apply_info a
+		WHERE a.del_flag = '0'
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN  = #{certSn}
+		</if> 
+	</select>
+	
+	<select id="findbyOldCertSn" resultType="MobileApplyInfo">
+		SELECT
+			<include refid="mobileApplyInfoColumns"/>
+		FROM mobile_apply_info a
+		WHERE a.del_flag = '0'
+		<if test="certSn != null and certSn != ''">
+			AND a.OLD_CERT_SN  = #{certSn}
+		</if> 
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+
+	<insert id="insert">
+		INSERT INTO mobile_apply_info(
+			id,
+			device_type,
+			device_num,
+			apply_type,
+			phone_num,
+			cert_subject,
+			cert_sn,
+			user_id,
+			project_id,
+			cancel_reason,
+			apply_result,
+			user_type,
+			corp_user_id,
+			old_cert_sn,
+			apply_business_id,
+			error_message,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{deviceType},
+			#{deviceNum},
+			#{applyType},
+			#{phoneNum},
+			#{certSubject},
+			#{certSn},
+			#{userId},
+			#{projectId},
+			#{cancelReason},
+			#{applyResult},
+			#{userType},
+			#{corpUserId},
+			#{oldCertSn},
+			#{applyBusinessId},
+			#{errorMessage},
+			#{createBy.id},
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mobile_apply_info SET
+			device_type = #{deviceType},
+			device_num  = #{deviceNum},
+			apply_type = #{applyType},
+			phone_num = #{phoneNum},
+			cert_subject = #{certSubject},
+			cert_sn = #{certSn},
+			user_id = #{userId},
+			project_id = #{projectId},
+			cancel_reason = #{cancelReason},
+			apply_result = #{applyResult},
+			user_type = #{userType},
+			corp_user_id = #{corpUserId},
+			old_cert_sn = #{oldCertSn},
+			apply_business_id = #{applyBusinessId},
+			error_message = #{errorMessage},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<select id="findbyList" resultType="MobileApplyInfo">
+		SELECT 
+		a.ID,
+		a.DEVICE_TYPE,
+		a.DEVICE_NUM,
+		a.APPLY_TYPE,
+		a.PHONE_NUM,
+		a.CERT_SUBJECT,
+		a.CERT_SN,
+		a.USER_ID,
+		a.PROJECT_ID,
+		a.APPLY_RESULT,
+		a.ERROR_MESSAGE,
+		a.CREATE_BY,
+		a.CREATE_DATE,
+		a.UPDATE_BY,
+		a.UPDATE_DATE,
+		a.USER_TYPE,
+		a.APPLY_BUSINESS_ID,
+		b.id as proid,
+		b.PROJECT_NUM,
+		b.PROJECT_NAME,
+		(case when a.USER_TYPE='userinfo' then u.USER_INFO_NAME when a.USER_TYPE='corporation_info' then c.USER_NAME end) as USER_NAME
+		FROM MOBILE_APPLY_INFO a
+		LEFT OUTER JOIN PROJECT_INFO b ON a.PROJECT_ID = b . ID
+		LEFT OUTER JOIN USER_INFO u ON a.USER_ID = u.ID
+		LEFT OUTER JOIN CORPORATION_USER_INFO c ON a.CORP_USER_ID = c.ID
+		WHERE (a.del_flag = '0' and b.del_flag= '0')
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSn}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSn}, '%')</if>
+		</if>
+		<if test="projectName != null and projectName != ''">
+			AND b.ID  = #{projectName}
+		</if> 
+		<if test="phoneNum != null and phoneNum != ''">
+			AND a.PHONE_NUM LIKE
+			<if test="dbName == 'oracle'">'%'||#{phoneNum}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{phoneNum}, '%')</if>
+		</if>
+		<if test="deviceType != null and deviceType != ''">
+			AND a.DEVICE_TYPE LIKE
+			<if test="dbName == 'oracle'">'%'||#{deviceType}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{deviceType}, '%')</if>
+		</if>
+		<if test="deviceNum != null and deviceNum != ''">
+			AND a.DEVICE_NUM = #{deviceNum}
+		</if>
+		<if test="certSubject != null and certSubject != ''">
+			AND a.CERT_SUBJECT LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSubject}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSubject}, '%')</if>
+		</if>
+		<if test="applyBusinessId != null and applyBusinessId != ''">
+			AND a.APPLY_BUSINESS_ID = #{applyBusinessId}
+		</if>
+		<if test="applyType != null and applyType != ''">
+			AND a.APPLY_TYPE = #{applyType}
+		</if>
+		<if test="userName != null and userName != ''">
+		    AND (case when a.USER_TYPE='userinfo' then u.USER_INFO_NAME when a.USER_TYPE='corporation_info' then c.USER_NAME end) LIKE
+			<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{userName}, '%')</if>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+</mapper>

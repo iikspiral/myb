@@ -1,0 +1,411 @@
+<style>
+   .h2{
+    font-size: 18px;
+    color: #565656;
+    width: 900px;
+    margin: 2px auto 2px;
+    padding: 0;
+    border-bottom: 0px solid #e0e0e0;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .item-content{
+    margin: 0 auto;
+    padding: 0;
+    width: 1000px;
+    text-align: left;
+  }
+  .invDetails{
+    float: left;
+    width: 650px;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+  }
+  .itemTitles{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .itemName{
+    color: #FF5500;
+    text-decoration: none;
+  }
+  .invNumber{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  } 
+  .invPer{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .invPS{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .buttons{
+    margin: 0 auto;
+    padding: 0;
+  }
+  .myAccount{
+    width: 240px;
+    float: right;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+  }
+  .h3{
+    font-size: 14px;
+    color: #565656;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    height: auto;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .numRest{
+    font-family: Helvetica Arial;
+    font-size: 22px;
+    line-height: 40px;
+    color:#FF5500;
+  }
+  .moneyRest{
+    font-size: 14px;
+    font-family: "Microsoft Yahei" Helvetica Arial;
+    line-height: 18px;
+    color:#565656;
+  }
+  .clearboth{
+    clear: both;
+  }
+.reduce-btn, .plus-btn {
+	display: block;
+	float: left;
+	width: 20px;
+	height: 26px;
+	background: #eee url(/themes/version2.0/images/plus-icons.png) 0 -41px no-repeat;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.reduce-btn:hover {
+	background-color: #ea5404;
+	background-position: 0 -77px;
+}
+
+.plus-btn {
+	background-position: -20px -41px;
+}
+.plus-btn:hover {
+	color: #FFFFFF!important;
+	background-color: #ea5404;
+	background-position: -20px -77px;
+}
+
+.input-text {
+	height: 24px;
+	border: 1px solid #CCC;
+}
+.zhifu{
+	width:330px;
+	height:80px;
+	margin:0 auto;
+	margin-top:10px;
+	text-align:center;
+	
+	
+}
+
+.zhifutips{
+width: 209px;
+height: 55px;
+background: url("${staticserver}/images/tanhaotishi.png") no-repeat scroll 2px 14px rgba(0, 0, 0, 0);
+color: #999;
+font-size: 14px;
+line-height: 24px;
+padding: 1px 35px 12px 87px;
+}
+.buttondiv{
+	height:50px;
+	width:280px;
+	margin:0 auto;
+	margin: -10px 7px 3px 52px;
+
+}
+
+h2{
+	font-size: 16px;
+	line-height: 30px;
+	color: #666;
+	width: 990px;
+	margin: 20px auto 10px;
+	padding: 0 5px;
+	border-bottom: 1px solid #ccc;
+}
+</style> 
+<script type="text/javascript" src="../js/libs/kjax.des.js"></script>
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/kd.ui.win.css">
+<script type="text/javascript" src="${staticserver}/common/js/kd.ui.win.js"></script>
+
+
+<h2>订单确认</h2>
+
+	<!-- 订单确认 -->
+	<div class="order_confirm">
+		<#if project_info?exists>
+	    	<#list project_info as pinfo>
+			<h3>${pinfo.name!'金交在线项目'}</h3>
+			<dl>
+				<dt>预计年化收益率：</dt>
+				<dd><em>${pinfo.annualrate}%</em></dd>
+			</dl>
+			<dl>
+				<dt>融资期限：</dt>
+				<dd>${pinfo.deadline!'0'}个月</dd>
+			</dl>
+			<dl>
+				<dt>融资金额：</dt>
+				<dd>${pinfo.borrowamount?number /10000}万元</dd>
+			</dl>
+			<dl>
+				<dt>已投金额：</dt>
+				<dd>${pinfo.hasinvestamount?number /10000}万元</dd>
+			</dl>
+			<dl>
+				<dt>剩余可投金额：</dt>
+				<dd>${(pinfo.borrowamount?number /10000)-(pinfo.hasinvestamount?number /10000)}万元</dd>
+			</dl>
+			<dl>
+				<dt>认购起点：</dt>
+				<dd>${pinfo.mintenderedsum!'0'}元</dd>
+			</dl>
+			<dl>
+				<dt>最小认购金额：</dt>
+				<dd>${pinfo.smallestflowunit!'0'}元</dd>
+			</dl>
+			<form id="myform" method="post" action="/mall/newdealorder!DealOrder.do">
+				<input type="hidden" name="project_id" value="${pinfo.id}" id="project_id">      
+				<input id="annualrate" type="hidden" name="annualrate" value="${pinfo.annualrate}">
+				<input id="deadline" type="hidden" name="deadline" value="${pinfo.deadline}">
+				<input type="hidden" name="paymentmode" value="${pinfo.paymentmode}">
+				<input type="hidden" name="excitationsum" value="${pinfo.excitationsum}">
+				<input type="hidden" name="managefee" value="${pinfo.managefee}">
+				<input type="hidden" name="dealtype" value="10002" id= "dealtype">
+				<input type="hidden" name="cust_id" value="${pinfo.customerno}">
+				<input id="mintenderedsum" type="hidden" value="${pinfo.mintenderedsum!'0'}">
+				<input id="hasinvestamount" type="hidden" value="${pinfo.hasinvestamount!'0'}">
+				<input id="borrowamount" type="hidden" value="${pinfo.borrowamount!'0'}">
+				<input id="smallestflowunit" type="hidden" value="${pinfo.smallestflowunit!'0'}">
+				<input id="israise" type="hidden" value="${pinfo.israise!''}" name = "israise">
+				<input id="isbuyback" type="hidden" value="${pinfo.dealisbuyback!''}">
+				<input id="allowtime" type="hidden" value="${pinfo.allowtime!''}" >
+				<dl class="clearfix">
+					<dt>投资金额：</dt>
+					
+					<dd class="invest_num clearfix">
+						<a href="javascript:void(0);" class="reduce"  onmousedown="reduce()">-</a>
+						<input class="transition" type="text" autofocus id="amount" name="applicationamount" onkeyup="$(this).val($(this).val().replace(/[^\d]/g,'').replace(/^0(\d+)$/,'$1'));" datatype="checkMax" nullmsg="请输入金额！" errormsg="请输入不小于认购起点金额不大于可认购的金额" onblur="generateValue($(this));"/>
+						<a href="javascript:void(0);" class="add" onmousedown="plus()">+</a>
+						<span>元</span>
+						<span class="kdValidform_checktip" style=" margin-top: 10px;">请输入购买金额</span>
+					</dd>
+				</dl>
+				<#if channel_info?exists>
+				<#assign i = 0>
+ 					<#list channel_info as channel>
+					<#if i lt 1>
+					<#assign i = i+1>
+ 					<#if ((channel.channelno)?last_index_of('01')>-1)>
+					<input type= "hidden" name="repayradio" value="${channel.channelno!''}" id="zfradio"/>
+					</#if>
+					</#if>
+ 					</#list>
+ 				</#if>
+				
+				<#--<div class="backAccount-info">
+					<h4>请确认回款账户信息 <span>（该账户是出资人在本次投资收回本金和利息的账户，请仔细核对。）</span></h4>
+					<ul class="clearfix">
+					<#if channel_info?exists>
+ 					<#list channel_info as channel>
+ 					<#if ((channel.channelno)?last_index_of('01')>-1)>
+					<input type= "hidden" name="repayradio" value="${channel.channelno!''}" id="zfradio"/>
+						<li _bankId="${channel.bankcode!''}" class="isBank" title="${channel.bankname!''}">
+							<img src="${channel.banklogo!''}" />
+						</li>
+						<li class="pureText">${channel.bankaccount!''}</li>
+						<li class="pureText">${channel.depositacctname!''}</li>
+					</#if>
+ 					</#list>
+ 					</#if>
+					</ul>
+				</div>-->
+				<div class="order-terms">
+					<input type="checkbox" type="checkbox" name="xieyi" datatype="*" nullmsg="请阅读认购协议！" errormsg="请阅读认购协议！" value="01"/>
+					<label for="terms">我已阅读并同意<a href="javascript: $.kd.kdWin(635, 450,'${pinfo.name}认购协议', 'bondbuyagreement', null, 1, 'id');">《齐鲁众筹认购协议》</a></label>
+				</div>
+				<input id="dosubmit" type="button" name="dosubmit" value="提交订单" class="actionBtn XXL-Btn"/>
+			</form>
+			</#list>
+		</#if>
+	</div>
+
+
+
+
+
+
+ <div id="zhifubond"  style="display:none">
+		<from>
+		<div class="zhifu" >
+		<div class="zhifutips" >请您在新打开的页面进行支付，订单有效时间为${ordertime!''}分钟。</div>
+		<div class="buttondiv" >
+			<a  class="kdmall-btn" style="width:60px;" href="javascript:void(0)" id="zhifu">立即支付 </a> 
+			<!--<a  class="kdmall-btn">支付遇到问题 </a> -->
+		</div>
+		<input type="hidden" value="" id="orderno"/>
+		</div>
+		</from>
+ </div>
+
+
+
+
+
+<#include 'bondbuyagreement.html'/>
+<script type="text/javascript">
+	var $form = null;
+	$(function(){ 
+		$('#dealpassword').val("").focusout();
+    	$form = $("#myform").kdValidform({
+			datatype: {
+				checkMax: function(gets, obj, curForm, datatype) {
+					var hasinvestamount = $("#hasinvestamount").val();
+					var borrowamount = $("#borrowamount").val();
+					var data = $("#mintenderedsum").val();
+					if(hasinvestamount <= 0 || isNaN(hasinvestamount)) hasinvestamount = 0;
+					if(borrowamount <= 0 || isNaN(borrowamount)) borrowamount = 0;
+					var data1 = borrowamount-hasinvestamount;
+					if(data1 <=data){
+						$.kd.kdAlert("剩余可认购份额小于最小起点认购份额,您需认购已剩的全部份额！", function(){
+					 		$("#amount").val(data1);
+					 	});
+						return true;
+	                }
+	                
+					if(gets=="" || parseFloat(gets) < parseFloat(data)|| parseFloat(gets) > parseFloat(data1)) {
+						if(parseFloat(gets) < parseFloat(data)) $(obj).attr("errormsg", "请输入不小于认购起点金额的数值！")
+						else if(parseFloat(gets) > parseFloat(data1)) $(obj).attr("errormsg", "请输入不大于可认购的金额的数值！")
+						return false;
+					}
+					else {
+						return true;
+					}
+				}
+				}
+		}); 
+    	
+    	$("#zhifu").live("click",function(){
+			var url = "/order_payment.html"
+			var orderno = $('#orderno').val(); 
+			var data = {orderno:orderno};
+			$.kutil.pageReload(url,data);
+			//window.location.href="/order_payment.html?orderno="+$('#orderno').val(); 
+    	});
+    	
+    	
+    	$("#dosubmit").click(function() {
+    	//  
+    		if($form.check()) {
+    	    $("#dosubmit").attr("disabled",true);
+    		$data ={
+    			 project_id : $("#project_id").val(),
+    			 applicationamount : $("#amount").val(),
+    			 dealtype : $("#dealtype").val(),
+    			 repayradio : $("input[name='repayradio']").attr("value")
+    	      };      
+    //
+        	$.ajax({
+		      type : "post" ,
+			  datatype : "json",
+			  async : true,
+			  url : "/mall/creatorder!hbCreatOrder.do?ajax=yes",
+			  data : $data,
+			  success : function(data){
+			  var json = eval('(' + data + ')');
+				if(json.result == 1){
+				 $("#orderno").val(json.data.items[0].orderno);
+				  $.kd.kdhbZhifu($('#zhifubond').html(),function(){},"支付订单","tx_order_deal_list.html");
+				   }else if(json.result == 0){
+						$.kd.kdAlert(json.message,function(){
+						///account_certification_center.html
+							window.location.reload;
+							 $("#dosubmit").attr("disabled",false);
+						})
+				   }
+			  },
+			  error : function(data){
+			      alert(json.message)
+			  }
+		});
+    		}
+    	});
+	});
+	var danwei = parseInt($("#smallestflowunit").val()); //最小认购单位
+	var hasinvestamount = parseInt($("#hasinvestamount").val());
+	var borrowamount = parseInt($("#borrowamount").val());
+	var qidian = parseInt($("#mintenderedsum").val());
+	if(hasinvestamount <= 0 || isNaN(hasinvestamount)) hasinvestamount = 0;
+	if(borrowamount <= 0 || isNaN(borrowamount)) borrowamount = 0;
+	if(danwei <= 0 || isNaN(danwei)) danwei = 0;
+	if(qidian <= 0 || isNaN(qidian)) qidian = 0;
+	$("#amount").val(qidian);
+	
+	
+	function plus() {
+		if(!$("#amount").val()) {
+			$("#amount").val(qidian);
+		}
+		if($("#amount").val() < qidian) {
+			$("#amount").val(qidian);
+		if($("#amount").val() > (borrowamount - hasinvestamount)) {
+			 $("#amount").val((borrowamount - hasinvestamount));
+		 }
+			return;
+		}
+		$("#amount").val(parseInt($("#amount").val()) + danwei);
+		if($("#amount").val() > (borrowamount - hasinvestamount)) {
+			$("#amount").val((borrowamount - hasinvestamount));
+		}
+	}
+	function reduce() {
+		if($("#amount").val() <= qidian) {
+			if($("#amount").val() > (borrowamount - hasinvestamount)) {
+				$("#amount").val((borrowamount - hasinvestamount));
+			}
+			return;
+		}
+		$("#amount").val(parseInt($("#amount").val()) - danwei);
+		
+	}
+	
+	function generateValue($input) {
+		if($input.attr('val') && $input.attr('val') == $input.val()) return;
+		if($input.val() >= qidian){
+			var val = parseInt($input.val());
+			var m = (val - qidian) % danwei;
+			if(m != 0) $input.val(val - m + (m > danwei / 2 ? danwei : 0)).attr(val, $input.val());
+		}
+		if($("#amount").val() > (borrowamount - hasinvestamount)) {
+			$("#amount").val((borrowamount - hasinvestamount));
+		}
+	}	
+	
+</script>  

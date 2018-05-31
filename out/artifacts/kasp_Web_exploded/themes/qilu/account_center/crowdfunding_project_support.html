@@ -1,0 +1,159 @@
+<div class="thefilter">
+	<ul class="nav-filter clearfix" id="paystatus">
+		<li><a href="javascript:void(0);" val="" <#if paystatus == "">class="current" </#if>>全部</a></li>
+		<li><a href="javascript:void(0);" val="02" <#if paystatus == "02">class="current" </#if>>已支付</a></li>
+		<li><a href="javascript:void(0);" val="00" <#if paystatus == "00">class="current" </#if>>未支付</a></li>
+	</ul>
+</div>
+<table class="records-list">
+<thead>
+	<tr>
+		<th style="width: 55%;">项目信息</th>
+		<th style="width: 20%;">实付款（元）</th>
+		<th style="width: 10%;">交易状态</th>
+		<th style="width: 15%;">操作</th>
+	</tr>
+</thead>
+<tbody>
+<#if supportProductHold?exists>
+<#list supportProductHold as sph>
+	<tr>
+		<td class="project clearfix">
+			<a target="_blank" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}rc_details.html?project_id=${sph.project_id}" class="avatar">
+				<div class="avatar">
+					<img src="${fileserver}${sph.cover_image!''}" alt="项目名称">
+					<input id="projectid" value="${sph.project_id!''}" type="hidden"/>
+				</div>
+			</a>
+			<div class="info">
+				<h4 class="title">
+					<a target="_blank" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}rc_details.html?project_id=${sph.project_id}">${sph.project_name!''}</a>
+				</h4>
+				<a href="javascript:void(0)" onclick="orderinfo('${sph.orderno!''}')";>订单编号:${sph.orderno!''}</a>
+				<div class="labels">
+					<span class="label label-blue">产品众筹</span>
+					<#if  sph.status == "2">
+					<span class="label label-grey" href="javascript:void(0);">预热中</span>
+					<#elseif sph.status == "1">
+					<span class="label label-grey" href="javascript:void(0);">筹资中</span>
+					<#elseif sph.status == "3">
+					<span class="label label-grey" href="javascript:void(0);">成功的</span>
+					<#else>
+					<span class="label label-grey" href="javascript:void(0);">失败的</span>
+					</#if>
+				</div>
+				<div class="properties clearfix">
+					<dl>
+						<dt>筹资进度</dt>
+						<dd>${sph.percent!''}%</dd>
+					</dl>
+					<dl>
+						<dt>已筹集</dt>
+						<dd>${sph.current_fund!''}元</dd>
+					</dl>
+					<dl>
+						<dt>剩余时间</dt>
+						<dd>${sph.leftdays!''}天</dd>
+					</dl>
+				</div>
+			</div>
+		</td>
+		<td class="achieved">
+			<span class="num">${sph.realamount!'0.00'}</span>
+			<br>
+			<span >（含运费：${sph.transfee!'0.00'}）</span>
+		</td>
+		<#if  sph.paystatus == "0000" >
+		<td class="status">已退款</td>
+		<#elseif  sph.paystatus =="02">
+		<td class="status"><a>已支付</a></td>
+		<#elseif  sph.paystatus =="00" >
+		<td class="status"><a>未支付</a></td>
+		<#else>
+		<td class="status"><a></a></td>
+		</#if>
+		<td class="action">
+		<a href="javascript:void(0)" onclick="orderinfo('${sph.orderno!''}')";>订单详情</a>
+		<a href="javascript:void(0);" onclick="deleteorder('${sph.orderno!''}','0');">删除</a>
+		<#if  sph.paystatus == "00">
+			<#if isonlinepay == "1">
+				<a href="javascript:void(0);"  onclick="pay('${sph.orderno!''}');">继续支付</a>
+			<#else>
+			</#if>	
+		<#else>
+		</#if>
+		</td>
+	</tr>  
+</#list>
+</#if>
+</tbody>
+</table>
+<input id="currentpaystatus" value="${paystatus!''}" type="hidden"/>
+<div id="page_support" class="pager-info"></div>
+<script type="text/javascript">
+$(function(){
+//投资的项目
+	$.kd.kdPager.init({
+		pager : 'page_support',
+		currentPage: '${page_support!'1'}',
+		totalPage: '${totalPage_support!'1'}',
+		totalRecords: '${totalCount_support!'0'}',
+		prefix: 'myProductCrowdfunding.html',
+		suffix: function(n) {
+			return generalParam()+"&page_support=" + n;
+		},
+	});
+		
+		$("#paystatus li a").click(function() {				
+			$(this).parent().find(".current").removeClass("current");
+			$(this).addClass("current");
+			var paystatus = $(this).attr("val");
+			var url = "myProductCrowdfunding.html?type=support";
+			var data = {paystatus:paystatus};
+			$.kutil.pageReload(url,data);
+		});
+		
+		
+})
+		
+function generalParam() {
+			var param = "";
+			param += "type="+$("#currenttype").val()+"&";
+	    	param += "paystatus="+$("#currentpaystatus").val();
+	    	return param;
+		}
+		
+function pay(orderno) {	
+		window.open("ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}rc_order_payment.html?orderno="+orderno));
+}
+
+function orderinfo(orderno){
+	window.open("ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}.html?orderno="+orderno));
+}
+
+function deleteorder(orderno,showstatus){
+	var options = {
+	  type: "POST",
+	  dataType:"json",
+	  async:true,
+	  data:{orderno:orderno,showstatus:showstatus},
+	  url:"mall/qilu_deleteproductorder!deleteProductOrder.do?ajax=yes",                   
+	  success:function(data) {
+		if(data.kdjson.flag == "1"){
+			zhejiang_alert("消息","删除订单成功！",function(){
+				window.location.reload();
+			});
+		}else{
+			zhejiang_alert("消息",data.message);
+		}
+	  },
+	  error:function(data) {
+		
+	  }
+	}
+	zhejiang_confirm('确认','您确定要删除订单吗？',function(){$.ajax(options);});
+
+
+}
+		
+</script>

@@ -1,0 +1,215 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Microsoft YaHei", 微软雅黑, Arial;
+    width: 100%;
+    height: 100%;
+}
+body{
+    min-width: 797px;
+    min-height: 450px;
+    background: #efefef;
+}
+input{
+    border:none;
+    outline: none;
+}
+.container{
+    width: 797px;
+    height: 450px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -225px;
+    margin-left: -398px;
+}
+.container .Con_left{
+    float: left;
+    width: 466px;
+    height: 440px;
+    position: relative;
+}
+.container .Con_left .Con_L_text{
+    display: block;
+    width: 100%;
+    height: 20px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;;
+    margin-top: 412px;
+}
+
+.container .Con_right{
+
+    float: right;
+    width: 320px;
+    height: 440px;
+    position: relative;
+    padding-right: 5px;
+}
+/*共用角标*/
+.container .Con_right #icon_change{
+    width: 54px;
+    height: 52px;
+    float: right;
+    cursor: pointer;
+    margin-top: 4px;
+    background: url("../image/Word/icon_Pass_word.png") right top no-repeat;
+    background-size: 100%;
+}
+.container .Con_right .loading{
+    width: 100%;
+    height: 380px;
+    margin-top: 50px;
+    overflow: hidden;
+}
+.container .Con_right .Position{
+    width: 100%;
+    height: 100%;
+}
+/*,.container .Con_right .loading .Pass_key .Titie_head*/
+/*共用标题登录*/
+.container .Con_right .loading .Titie_head{
+    width: 100%;
+    height: 36px;
+    text-align: center;
+    color: #666;
+    font-size: 24px;
+    margin: 0 auto;
+    margin-top: 36px;
+}
+/*账号登录*/
+.container .Con_right .loading .Pass_word .user{
+    width: 244px;
+    height: 30px;
+    margin: 0px auto;
+    margin-top: 70px;
+    border-bottom: 1px solid #a0a0a0;
+}
+.container .Con_right .loading .Pass_word .icon_image{
+    width: 25px;
+    height: 30px;
+    float: left;
+}
+.container .Con_right .loading .Pass_word .icon_image_user{
+    background: url("../image/Word/user.png") top center no-repeat;
+}
+.container .Con_right .loading .Pass_word .pwd{
+    width: 244px;
+    height: 30px;
+    margin: 0px auto;
+    margin-top: 20px;
+    border-bottom: 1px solid #a0a0a0;
+}
+.container .Con_right .loading .Pass_word .pwd .icon_image_pass{
+    background: url("../image/Word/pwd.png") top center no-repeat;
+}
+.container .Con_right .loading .Pass_word .Pass_test{
+    width: 132px;
+    color: #aaa;
+    font-size: 14px;
+    padding-left: 30px;
+    height: 28px;
+}
+.container .Con_right .loading .Pass_word .loadingMassage_word{
+ 	width: 264px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 8px;
+    background: #ffe6c2;
+    color: #a35100;
+    margin: 0 auto;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 32px;
+
+}
+.container .Con_right .loading .Pass_word .loadingMassage_word_kong{
+ 	width: 264px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 8px;
+    color: #a35100;
+    margin: 0 auto;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 32px;
+
+}
+.container .Con_right .loading .Pass_word .BTN{
+    width: 132px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 8px;
+    background: #51bbf4;
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 96px;
+    margin-top: 46px;
+}
+.container .Con_right .Display{
+    display: none;
+}
+/*Key登录*/
+.container .Con_right .loading .Pass_key .loading_box{
+    width: 100%;
+    height: 250px;
+    margin-top: 66px;
+}
+.container .Con_right .loading .Pass_key .loading_Pic{
+    width: 270px;
+    height: 86px;
+    margin: 0 auto;
+}
+.container .Con_right .loading .Pass_key .loading_Pic img{
+    width: 100%;
+}
+.container .Con_right .loading .Pass_key .loading_test{
+    width: 264px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 8px;
+    background: #ceeba3;
+    margin: 0 auto;
+    color: #3e7006;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+}
+.container .Con_right .loading .Pass_key .loading_error{
+    width: 264px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 8px;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    background: #ffe6c2;
+    color: #a35100;
+}
+/*.container .Con_right .loading .Pass_key .loading_undone .loading_untest{
+    background: #ffe6c2;
+    color: #a35100;
+}*/
+.container .Con_right .loading .Pass_key .BTN{
+    width: 132px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 8px;
+    background: #51bbf4;
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    margin-left: 92px;
+    margin-top: 50px;
+}
+.container .Con_right .loading .Pass_key .loading_done .BTN{
+    cursor: pointer;
+}
+.container .Con_right .loading .Pass_key .BTN_undone{
+    background: #d9dada;
+}
+

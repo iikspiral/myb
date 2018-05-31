@@ -1,0 +1,33 @@
+<#include 'common/header.html' />
+<div class="container">
+	<div class="status-wrap">
+		<img class="status-loading" src="${staticserver}/zhongyuan/images/bx_loader.gif">
+	</div>
+</div>
+<#include 'common/footer.html' />
+
+<script type="text/javascript">
+	//主导航下拉菜单
+	$(document).ready(function(){
+		$.post("mall/zhongyuan_custOperType!getOperType.do",
+			{},
+			function(data) {
+				var result = $.parseJSON(data);
+			
+				if ( result.kdjson.flag == 1) {
+					var opertypes = result.kdjson.items;
+					if(opertypes.length<1)//游客
+						window.location.href = "account_asset_investor.html";
+					else if( opertypes[0].opertype == '1' || opertypes[0].opertype == '2')//投资者
+						window.location.href = "account_asset_investor.html";
+					else if( opertypes[0].opertype == '3')//企业
+						window.location.href = "account_asset_publisher.html";
+					else//各种会员
+						window.location.href = "account_asset_member.html";
+				} else {
+					zhejiang_alert('消息', result.kdjson.msg);
+				}   					
+			}
+		);
+	});
+</script>

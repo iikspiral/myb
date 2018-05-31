@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="${staticserver}/shx/css/register.css">
+<link rel="stylesheet" href="${staticserver}/shx/css/usermain.css">
+<link rel="stylesheet" href="${staticserver}/shx/css/charge-withdraw.css">
+<#switch type>
+	<#case "success">
+		<#include 'email_success.html' />
+	<#break>
+	<#case "fail">
+		<#include 'email_fail.html' />
+	<#break> 
+</#switch>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+<!--   用户注册  -->
+<bex id="f_web_insertCustinfo" type="http-bex"  httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" >
+<request>
+			<param name="serverid"     type="string" />
+			<param name="exchangeid"   type="string" />
+			<param name="customerno"		type="string"/>
+			<param name="email"   type="string" />
+			<param name="mobiletel"   type="string" />
+			<param name="username"   type="string" />
+			<param name="password"   type="string" />
+			<param name="logintype"   type="string" />
+			<param name="openid"   type="string" />
+			<param name="custtype" type="string"/>
+	   </request>
+</bex>
+
+<!--   修改密码  -->
+<bex id="f_web_updatePass" type="http-bex"  httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" >
+<request>
+			<param name="serverid"      type="string" /> 
+			<param name="exchangeid"    type="string" /> 
+			<param name="npassword"     type="string" /> <!--新密码-->
+			<param name="password"      type="string" /> <!--旧密码，用于校验-->
+			<param name="customerno"    type="string" /> <!-- 客户内码 -->
+	   </request>
+</bex>
+
+<!--   获取客户id序列  -->
+<bex id="f_web_apply_custid"  type="http-bex"  httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" >
+	   <request>
+		    <param name="serverid" source="serverid" type="string"/>
+		    <param name="exchangeid" source="exchangeid" type="string" />
+	   </request>
+</bex>
+
+<bex id="f_select_all_user" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_cif_all_user" operate="select" lparam="false" parameterType="java.util.HashMap"></bex>
+<bex id="f_select_user_details_by_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_cif_user_details_by_cust_id" operate="select" lparam="false" parameterType="java.util.HashMap"></bex>
+
+	<!--金证密码加密-->
+	<bex id="f_kingdom_encrypt_password" type="kesb-bex" lbm="kdmm" lparam="false">
+	</bex>
+
+
+</websuites>

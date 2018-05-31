@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>首页 - 高新普惠</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/jquery.bxslider.css">
+    <link rel="stylesheet" href="css/jquery.myslider.css">
+    <link rel="stylesheet" href="css/scroll_layout.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+</head>
+
+<body>
+
+	<!--#include virtual="public/header.shtm"-->
+
+	<div class="status-page">
+		<div class="pic">
+	    	<a href="http://www.gaoxinzb.com"><img src="images/backhome.png" width="48" height="37"></a>
+	    </div>
+	</div>
+
+	<!--#include virtual="public/footer.shtm"-->
+
+</body>
+</html>

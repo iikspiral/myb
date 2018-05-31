@@ -1,0 +1,124 @@
+
+			    <div class="user-box-con-1" id="sfcgpage"  style="display:none;">
+				<#if sfcglist?exists && sfcglist?size !=0>
+			      <form id="depositForm_sfcg" novalidate="novalidate">
+	            	<dl id="latestWithdraw_sfcg" class="user-drawings-bank clearfix">
+	                	<dt>银行卡</dt>
+	                	<#if sfcglist?exists >
+	                	<#list sfcglist as myBank>
+							  <dd id="latestCard" class="current" style="">
+									<#assign accountno = myBank.bankaccount>
+									<#assign leng = accountno?length>
+									<span class="user-drawings-bank-num">${accountno?substring(0,3)}********${accountno?substring(leng-4)}</span>
+									<img src="${myBank.banklogo!''}" width="143" height="38"> 
+									<span class="icon-duigou"></span>
+									<input name="capitalaccount" value="${myBank.capitalaccount}" type="text" class="input" readonly style="display:none"/>
+				                    <input name="channelno" value="${myBank.channelno}" type="text" class="input" readonly style="display:none"/>
+				                    <input name="channelname" value="${myBank.channelname}" type="text" class="input" readonly style="display:none"/>
+				                    <input name="custname" value="${myBank.custname}" type="text" class="input" readonly style="display:none"/>
+									<input name="bankaccount" value="${myBank.bankaccount!''}" type="text" class="input" readonly style="display:none"/>
+				                    <input name="bankid" value="${myBank.bankcode!''}" type="text" class="input" readonly style="display:none"/>
+								</dd>
+			             </#list>
+	                   </#if>
+	                </dl>
+	             
+	            	<h3>填写提现金额：</h3>
+	            	<div class="form-style clearfix">
+		             	 	<!-- <input name="capitalaccount" value="" type="text" class="input" readonly style="display:none"/>
+		                    <input name="channelno" value="" type="text" class="input" readonly style="display:none"/>
+		                    <input name="channelname" value="" type="text" class="input" readonly style="display:none"/>
+		                    <input name="custname" value="" type="text" class="input" readonly style="display:none"/> -->
+	                  
+	                    <ul class="kd-form-style">
+						<#if sfcglist?exists >
+	                	<#list sfcglist as myBank>
+	                        <li class="kd-form-style-item" style="width:550px;">
+	                            <label class="kd-form-style-label">可提现金额</label>
+	                            <span class="kd-form-style-value">
+	                            	<i><strong class="user-pay-balance">${myBank.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</strong> 元 （免提现手续费额度：0.00 元 ）</i>
+	                            </span>
+	                        </li>
+							  </#list>
+	                   </#if>
+	                        <li class="kd-form-style-item" style="width:650px;">
+	                            <label class="kd-form-style-label">提现金额</label>
+	                            <span class="kd-form-style-value" style="width:350px;">
+		                            <input id="money" name="money" type="text" class="input" datatype="/^[0-9]\d*(\.\d{2})?$/" nullmsg="金额不能为空" errormsg="金额必须大于0且只能输入小数点后2位">
+		                            <label class="kd-form-style-4-label">元</label>
+	                            </span>
+	                        </li>
+	                        <li class="kd-form-style-item user-drawings-poundage" style="width:650px;">
+	                            <label class="kd-form-style-label">手续费</label>
+	                            <span class="kd-form-style-value" style="width:465px;">
+	                            	<i><strong id="feeText">0.00</strong> 元</i>
+	                            </span>
+	                        </li>
+	                        <li class="kd-form-style-item" style="width:650px;">
+	                            <label class="kd-form-style-label">交易密码</label>
+	                            <span class="kd-form-style-value" style="width:350px;">
+	                            <input id="rechargePwd_sfcg" name="capitalpwd" autocomplete="off" type="password" class="input"   datatype="*" nullmsg="密码不能为空">
+	                            </span>
+	                        </li>
+	                        <li class="kd-form-style-item">
+	                            <label class="kd-form-style-label">&nbsp;</label>
+	                            <span class="kd-form-style-value" style="width:350px;">
+	                            <input id="withdrawSubmit_sfcg" type="button" class="linkButton" value="确认提现" onclick="depositMoney_sfcg()"></span>
+	                        </li>
+	                    </ul>
+	                     <input   name="businesscode" type="input" value="charge_out" class="input" readonly style="display:none">
+	                </div>
+					</form>
+					<#else>
+	                	 <div id="goToBindBankCard" style="display:block; width:300px; height:300px; font-size:16px" ><span>还未绑定银行卡并开通三方存管,
+	                	 <a href="account_bank_manage.html">现在就去绑定</a></span></div>
+	            	</#if>
+	               </div>
+<script>
+var $depositForm_sfcg;
+
+$(function(){
+	$depositForm_sfcg = $("#depositForm_sfcg").kdValidform();
+})
+
+function depositMoney_sfcg(){
+	var _tradepwd_ =$("#rechargePwd_sfcg").val();
+	var tmp = _tradepwd_;
+	var _tradepwd_ = $.des.getDes(_tradepwd_,'kingdom');
+	$("#rechargePwd_sfcg").val(_tradepwd_);
+	var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			url: "mall/newcharge!chargeInOut.do?ajax=yes",
+			success: function(data){
+				  $.kd.closeLoading();
+				 		  //var josn = eval("("+data+")");
+				 		  if(data.result == 1){
+				 		  	 $("#rechargePwd_sfcg").val("");
+				 		  	  $.kd.kdConfirm(data.data.msg +"  是否继续提现?", function() {
+									location.reload();
+								  }, function() {
+									location.href="/account_base_info.html";
+				 		  	  });
+				 		  	  
+				 		  }else{
+				 			 $("#rechargePwd_sfcg").val("")
+				 			 $("input[name=money]").val("")
+				 		  	 $.kd.kdAlert("提现失败!");
+				 		  }
+				 		  $("input[type=button]").attr("disabled", false);
+			},
+			error: function(data) {
+				  $.kd.kdAlert(data.message);
+			}
+			};
+	
+	if($depositForm_sfcg.check() && $("#latestWithdraw_sfcg dd").size()==1){
+		$.kd.showLoading($("#withdrawSubmit_sfcg"), "正在提现");
+		$("input[type=button]").attr("disabled", true);
+		$("#depositForm_sfcg").ajaxSubmit(options);
+		$("#rechargePwd_sfcg").val(tmp);
+	}		
+}
+</script>

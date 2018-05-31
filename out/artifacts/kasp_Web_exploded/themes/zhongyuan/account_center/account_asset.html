@@ -1,0 +1,585 @@
+<div class="account-body">
+	<div class="account-investor">
+		<div class="block border-box">
+			<div class="account-details">
+				<div class="actionArea">
+					<a class="btn-red btn-sm" href="charge.html">充值</a>
+					<a class="btn-red btn-sm" href="withdraw.html">提现</a>
+				</div>
+				<dl class="remaining">
+					<dt>账户余额（元）</dt>
+					<dd><#if accountinfoMap.ky?exists>${accountinfoMap.ky?default("0.00")?number?string("###,###,###,###,##0.00")}<#else>0</#if></dd>
+				</dl>
+				<ul class="accounts clearfix">
+					<li>银行卡：<em>${bank_sum !''}</em>张<a class="action" href="bankmanage.html">管理</a></li>
+					<li class="separate">|</li>
+					<li>资金账户：<em>${account_sum!''}</em>个</li>
+				</ul>
+			</div>
+		</div>
+		<div class="container-full">
+			<div class="btn-tabs panel-border" id="assetTabs">
+				<div class="titlebar border-titlebar margin-bottom">
+					<h3 class="title">资产信息</h3>
+				</div>
+				<ul class="nav clearfix">
+					<li class="nav-one"><a class="current" href="#balance">资金</a></li>
+					<li class="nav-two"><a href="#stock">股权持仓</a></li>
+					<li class="nav-three"><a href="#company">有限责任公司持仓</a></li>
+					<li class="nav-four"><a href="#bonds">私募债持仓</a></li>
+					<li class="nav-five"><a href="#bonus">未领取红利</a></li>
+				</ul>
+				<div class="list-wrap">
+					<div id="balance">
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>资金账号</th>
+									<th>支付渠道</th>
+									<th>资金余额(元)</th>
+									<th>资金可用(元)</th>
+									<th>资金可取(元)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if balancelist?exists>
+								<#list balancelist as ball>
+								<tr>
+									<td>${ball.capitalaccount!''}</td>
+									<td>${ball.channelname!''}</td>
+									<td>${ball.bal!''}</td>
+									<td>${ball.fetchbalance!''}</td>
+									<td>${ball.enablebalance!''}</td>
+								</tr>
+								</#list>
+								<#else>
+									<tr><td colspan="6" style="text-align:center;">暂无资金信息</td></tr>
+								</#if>
+							</tbody>
+						</table>
+						<#if balancelist?exists>
+							<div id="balance_page" class="pager-info" style="width:750px;"></div>
+						</#if> 
+					</div>
+					<div id="stock" class="hide">
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>产品代码</th>
+									<th>产品名称</th>
+									<th>份额余额</th>
+									<th>可用份额</th>
+									<th>交易冻结</th>
+									<th>异常冻结</th>
+									<th>在途份额</th>
+									<th>份额性质</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if stocklist?exists>
+								<#list stocklist as sl>
+								<tr>
+									<td>${sl.fundcode!''}</td>
+									<td>${sl.productname!''}</td>
+									<td>${sl.funddvol!''}</td>
+									<td>${sl.fetchfunddvol!''}</td>
+									<td>${sl.frozen!''}</td>
+									<td>${sl.abnmfrozen!''}</td>
+									<td>${sl.lastmatchunpay!''}</td>
+									<td>${sl.naturecode!''}</td>
+								</tr>
+								</#list>
+								<#else>
+									<tr><td colspan="6" style="text-align:center;">暂无股权持仓信息</td></tr>
+								</#if>
+							</tbody>
+						</table>
+						<#if stocklist?exists>
+							<div id="stock_page" class="pager-info" style="width:750px;"></div>
+						</#if> 
+					</div>
+					<div id="company" class="hide">
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>产品代码</th>
+									<th>产品名称</th>
+									<th>份额余额</th>
+									<th>可用份额</th>
+									<th>交易冻结</th>
+									<th>异常冻结</th>
+									<th>在途份额</th>
+									<th>份额性质</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if companylist?exists>
+								<#list companylist as cl>
+								<tr>
+									<td>${cl.fundcode!''}</td>
+									<td>${cl.productname!''}</td>
+									<td>${cl.funddvol!''}</td>
+									<td>${cl.fetchfunddvol!''}</td>
+									<td>${cl.frozen!''}</td>
+									<td>${cl.abnmfrozen!''}</td>
+									<td>${cl.lastmatchunpay!''}</td>
+									<td>${cl.naturecode!''}</td>
+								</tr>
+								</#list>
+								<#else>
+									<tr><td colspan="6" style="text-align:center;">暂无有限责任公司持仓信息</td></tr>
+								</#if>
+							</tbody>
+						</table>
+						<#if companylist?exists>
+							<div id="company_page" class="pager-info" style="width:750px;"></div>
+						</#if>
+					</div>
+					<div id="bonds" class="hide">
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>产品代码</th>
+									<th>产品名称</th>
+									<th>债权张数</th>
+									<th>债券金额(元)</th>
+									<th>交易冻结</th>
+									<th>异常冻结</th>
+									<th>在途份额</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if bondslist?exists>
+								<#list bondslist as bl>
+								<tr>
+									<td>${bl.fundcode!''}</td>
+									<td>${bl.productname!''}</td>
+									<td>${bl.funddvol!''}</td>
+									<td>${bl.fundbalance!''}</td>
+									<td>${bl.frozen!''}</td>
+									<td>${bl.abnmfrozen!''}</td>
+									<td>${bl.lastmatchunpay!''}</td>
+								</tr>
+								</#list>
+								<#else>
+									<tr><td colspan="6" style="text-align:center;">暂无私募债持仓信息</td></tr>
+								</#if>
+							</tbody>
+						</table>
+						<#if bondslist?exists>
+							<div id="bonds_page" class="pager-info" style="width:750px;"></div>
+						</#if>
+					</div>
+					<div id="bonus" class="hide">
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>产品代码</th>
+									<th>产品名称</th>
+									<th>税前金额(元)</th>
+									<th>待缴税额(元)</th>
+									<th>税后金额(元)</th>
+									<th>冻结金额(元)</th>
+									<th>已领取(元)</th>
+									<th>可取金额(元)</th>
+									<th>派发日期</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if bonuslist?exists>
+								<#list bonuslist as bonl>
+								<tr>
+									<td>${bonl.STK_CODE!''}</td>
+									<td>${bonl.STK_NAME!''}</td>
+									<td>${bonl.BONUS_DIVIDEND!''}</td>
+									<td>${bonl.TAX!''}</td>
+									<td>${bonl.DIVIDHAVE!''}</td>
+									<td>${bonl.FORZENDIVID!''}</td>
+									<td>${bonl.BONUS_FETCH!''}</td>
+									<td>${bonl.BALDIVID!''}</td>
+									<td>${bonl.EXREGISTER_DATENE!''}</td>
+								</tr>
+								</#list>
+								<#else>
+									<tr><td colspan="6" style="text-align:center;">暂无未领取红利信息</td></tr>
+								</#if>
+							</tbody>
+						</table>
+						<#if bonuslist?exists>
+							<div id="bonus_page" class="pager-info" style="width:750px;"></div>
+						</#if>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-full">
+			<div class="btn-tabs panel-border">
+				<div class="titlebar border-titlebar margin-bottom">
+					<h3 class="title">交易记录</h3>
+				</div>
+				<ul class="nav clearfix">
+					<li><a <#if '${type}' == '1'> class="current"</#if>  href="account_asset_investor.html?type=1&b=101">认购</a></li>
+					<li><a <#if '${type}' == '2'> class="current"</#if>  href="account_asset_investor.html?type=2&b=">转让委托</a></li>
+					<li><a <#if '${type}' == '3'> class="current"</#if>  href="account_asset_investor.html?type=3&b=">转让成交</a></li>
+					<li><a <#if '${type}' == '4'> class="current"</#if>  href="account_asset_investor.html?type=4&b=12001">充值</a></li>
+					<li><a <#if '${type}' == '5'> class="current"</#if>  href="account_asset_investor.html?type=5&b=12002">提现</a></li>
+					
+				</ul>
+				<#if '1'==type || '4'==type || '5'==type>
+				<#elseif '2'==type>
+				<ul class="nav clearfix">
+					<li><a <#if '${b}' == '02'> class="current"</#if>  href="account_asset_investor.html?type=2&b=02">私募债</a></li>
+					<li><a <#if '${b}' == '03'> class="current"</#if>  href="account_asset_investor.html?type=2&b=03">有限责任公司</a></li>
+					<li><a <#if '${b}' == '00'> class="current"</#if>  href="account_asset_investor.html?type=2&b=00">股权</a></li>
+				</ul>
+				<#else>
+				<ul class="nav clearfix">
+					<li><a <#if '${b}' == '02'> class="current"</#if>  href="account_asset_investor.html?type=3&b=02">私募债</a></li>
+					<li><a <#if '${b}' == '03'> class="current"</#if>  href="account_asset_investor.html?type=3&b=03">有限责任公司</a></li>
+					<li><a <#if '${b}' == '00'> class="current"</#if>  href="account_asset_investor.html?type=3&b=00">股权</a></li>
+				</ul>
+				</#if>
+				
+				<div class="list-wrap">
+					<div>
+						<#if '4'==type || '5'==type>
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>交易时间</th>
+									<th>交易描述</th>
+									<th>发生金额(元)</th>
+									<th>变动前金额(元)</th>
+									<th>余额(元)</th>
+									<th>状态</th>
+								</tr>
+							</thead>
+							<tbody>
+							    <#if tradelist?exists>
+								<#list tradelist as item>
+								<tr>
+									<td>
+									<#if item.transactiondate?length gt 0>
+										${item.transactiondate?substring(0,4)}-${item.transactiondate?substring(4,6)}-${item.transactiondate?substring(6,8)}
+									</#if >
+									<#if item.transactiontime?length gt 0>
+										${item.transactiontime?substring(0,2)}:${item.transactiontime?substring(2,4)}:${item.transactiontime?substring(4,6)}
+									</#if>
+									</td>
+									<td>${item.specification!''}</td>
+									<td>
+									<#if item.lastconfirmedamount?length gt 0>
+										${item.lastconfirmedamount?default("0.00")?number?string("###,###,###,###,##0.00")}
+									<#else>
+										${item.lastconfirmedamount!''}
+									</#if>
+									</td>
+									<td>
+									<#if item.lastamount != ''>
+									<#if item.lastamount?length gt 0>
+										${item.lastamount?default("0.00")?number?string("###,###,###,###,##0.00")}
+									<#else>
+										${item.lastamount!''}
+									</#if>
+									<#else>
+									</#if>
+									</td>
+									<td>
+									<#if item.afteramount?length gt 0>
+										${item.afteramount?default("0.00")?number?string("###,###,###,###,##0.00")}
+									<#else>
+										${item.afteramount!''}
+									</#if>
+									</td>
+									<td>${item.clearname!''}</td>
+								</tr>
+								</#list>
+								<#else>
+									<#if type == '4'>  
+										<tr><td colspan="6" style="text-align:center;">暂无充值记录</td></tr>
+									</#if>
+									<#if type == '5'>  
+										<tr><td colspan="6" style="text-align:center;">暂无提现记录</td></tr>
+									</#if>
+								</#if>
+							</tbody>
+						</table>
+						<#elseif '1'=='${type}'>
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>下单日期</th>
+									<th>产品名称</th>
+									<th>认购金额(元)</th>
+									<th>认购数量</th>
+									<th>交易总费用(元)</th>
+									<th>委托状态</th>
+								</tr>
+							</thead>
+							<tbody>
+							    <#if tradelist?exists>
+								<#list tradelist as item>
+								<tr>
+									<td>
+									${item.transdatetrans!''}<br>${item.transtimetrans!''}
+									</td>
+									<td>${item.fundname!''}</td>
+									<td>${item.applicationamount!''}</td>
+									<td>${item.dealvol!''}</td>
+									<td>${item.totalfee!''}</td>
+									<td>${item.applystatusname!''}</td>
+								</tr>
+								</#list>
+								<#else>
+										<tr><td colspan="6" style="text-align:center;">暂无认购记录</td></tr>
+								</#if>
+							</tbody>
+						</table>
+						<#elseif '2'==type>
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>下单日期</th>
+									<th>产品名称</th>
+									<th>申报金额(元)</th>
+									<th>申报数量</th>
+									<th>交易总费用(元)</th>
+									<th>委托状态</th>
+								</tr>
+							</thead>
+							<tbody>
+							    <#if tradelist?exists>
+								<#list tradelist as item>
+								<tr>
+									<td>
+									${item.transdatetrans!''}<br>${item.transtimetrans!''}
+									</td>
+									<td>${item.fundname!''}</td>
+									<td>${item.applicationamount!'0.00'}</td>
+									<td>${item.applicationvol!''}</td>
+									<td>${item.totalfee!''}</td>
+									<td>${item.matchstatusname!''}</td>
+								</tr>
+								</#list>
+								<#else> 
+									<#if '02'==b>
+										<tr><td colspan="6" style="text-align:center;">暂无私募债转让委托记录</td></tr>
+									<#elseif '03'==b>
+										<tr><td colspan="6" style="text-align:center;">暂无有限责任公司转让委托记录</td></tr>
+									<#else>
+										<tr><td colspan="6" style="text-align:center;">暂无股权转让委托记录</td></tr>
+									</#if>
+								</#if>
+							</tbody>
+						</table>
+						<#else>
+						<table class="records-table">
+							<thead>
+								<tr>
+									<th>成交日期</th>
+									<th>产品名称</th>
+									<th>成交金额(元)</th>
+									<th>成交数量</th>
+									<th>交易总费用(元)</th>
+									<th>成交结果</th>
+								</tr>
+							</thead>
+							<tbody>
+							    <#if tradelist?exists>
+								<#list tradelist as item>
+								<tr>
+									<td>
+									${item.committransactiondatetrans!''}<br>${item.committransactiontimetrans!''}
+									</td>
+									<td>${item.fundname!''}</td>
+									<td>${item.applicationamount!''}</td>
+									<td>${item.applicationvol!''}</td>
+									<td>${item.totalfee!''}</td>
+									<td>${item.matchname!''}</td>
+								</tr>
+								</#list>
+								<#else> 
+								    <#if '02'==b>
+										<tr><td colspan="6" style="text-align:center;">暂无私募债转让成交记录</td></tr>
+									<#elseif '03'==b>
+										<tr><td colspan="6" style="text-align:center;">暂无有限责任公司转让成交记录</td></tr>
+									<#else>
+										<tr><td colspan="6" style="text-align:center;">暂无股权转让成交记录</td></tr>
+									</#if>
+								</#if>
+							</tbody>
+						</table>
+						</#if>
+						<#if tradelist?exists>
+							<div id="page_trade" class="pager-info" style="width:750px;"></div>
+						</#if>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link rel="stylesheet" type="text/css" href="${staticserver}/zhongyuan/common/css/kd.ui.plugin.css">
+<script src="${staticserver}/zhongyuan/common/js/kd.ui.plugin.js"></script>
+
+<script>
+$(function(){
+
+	
+	$.kd.kdPager.init({
+		pager : 'balance_page',
+		currentPage: '${balance_page!'1'}',
+		totalPage: '${totalBalancePage!'0'}',
+		totalRecords: '${totalBalanceCount!'0'}',
+		prefix: 'account_asset_investor.html',
+		suffix: function(n) {
+			return  "assettype=0&balance_page=" + n;
+		}
+	});		
+	
+	$.kd.kdPager.init({
+		pager : 'stock_page',
+		currentPage: '${stock_page!'1'}',
+		totalPage: '${totalStockPage!'0'}',
+		totalRecords: '${totalBalanceCount!'0'}',
+		prefix: 'account_asset_investor.html',
+		suffix: function(n) {
+			return  "assettype=1&stock_page=" + n;
+		}
+	});	
+	
+	$.kd.kdPager.init({
+		pager : 'company_page',
+		currentPage: '${company_page!'1'}',
+		totalPage: '${totalCompanyPage!'0'}',
+		totalRecords: '${totalCompanyCount!'0'}',
+		prefix: 'account_asset_investor.html',
+		suffix: function(n) {
+			return  "assettype=2&company_page=" + n;
+		}
+	});		
+	$.kd.kdPager.init({
+		pager : 'bonds_page',
+		currentPage: '${bonds_page!'1'}',
+		totalPage: '${totalBondsPage!'0'}',
+		totalRecords: '${totalBondsCount!'0'}',
+		prefix: 'account_asset_investor.html',
+		suffix: function(n) {
+			return  "assettype=3&bonds_page=" + n;
+		}
+	});	
+	$.kd.kdPager.init({
+		pager : 'bonus_page',
+		currentPage: '${bonus_page!'1'}',
+		totalPage: '${totalBonusPage!'0'}',
+		totalRecords: '${totalBonusCount!'0'}',
+		prefix: 'account_asset_investor.html',
+		suffix: function(n) {
+			return  "assettype=4&bonus_page=" + n;
+		}
+	});	
+
+	$.kd.kdPager.init({
+		pager : 'page_trade',
+		currentPage: '${page!'1'}',
+		totalPage: '${totalPage!'0'}',
+		totalRecords: '${totalCount!'0'}',
+		prefix: 'account_asset_investor.html',
+		suffix: function(n) {
+			return  "type=${type}&b=${b}&n=" + n;
+		}
+	});
+    
+		//选项卡
+	$(".btn-tabs").organicTabs({
+                "speed": 200
+            });
+	//显示哪个标签页
+	<#if assettype??>
+	var assettype = "${assettype}";
+	if(assettype != "" && assettype != null){
+		$("#assetTabs ul li:eq("+assettype+") a").click();
+		if($("#assetTabs ul li:eq("+assettype+") a").attr("href")=="#balance"){
+			 $("#balance_page").css("display","block");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","none");
+		}else if($("#assetTabs ul li:eq("+assettype+") a").attr("href")=="#stock"){
+			 $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","block");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","none");
+		}else if($("#assetTabs ul li:eq("+assettype+") a").attr("href")=="#company"){
+			  $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","block");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","none");
+		}else if($("#assetTabs ul li:eq("+assettype+") a").attr("href")=="#bonds"){
+			  $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","block");
+			 $("#bonus_page").css("display","none");
+		}else if($("#assetTabs ul li:eq("+assettype+") a").attr("href")=="#bonus"){
+			  $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","block");
+		}
+	}
+	</#if>	
+	
+	$("#assetTabs ul li a").click(function(){
+		if($(this).attr("href")=="#balance"){
+			 $("#balance_page").css("display","block");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","none");
+		}else if($(this).attr("href")=="#stock"){
+			 $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","block");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","none");
+		}else if($(this).attr("href")=="#company"){
+			 $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","block");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","none");
+		}else if($(this).attr("href")=="#bonds"){
+			 $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","block");
+			 $("#bonus_page").css("display","none");
+		}else if($(this).attr("href")=="#bonus"){
+			 $("#balance_page").css("display","none");
+			 $("#stock_page").css("display","none");
+			 $("#company_page").css("display","none");
+			 $("#bonds_page").css("display","none");
+			 $("#bonus_page").css("display","block");
+		}
+		});
+	
+	var urlstr = window.location.href;
+
+	if( urlstr.indexOf("?refresh=true") > -1 ){ 
+		setTimeout(800);
+		window.location.href= "account_asset.html?_"+new Date().getTime();	
+
+	}
+	
+})
+
+	function safeStatus(){
+		window.location.href='myselfinfo.html';
+		safeClick();
+	}
+
+</script>

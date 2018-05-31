@@ -1,0 +1,381 @@
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/addborrow.css">
+
+<link rel="stylesheet" type="text/css" href="/themes/hebei/css/main.css">
+<script type="text/javascript" src="${staticserver}/common/js/libs/jquery-ui.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/jquery.stickUp.min.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/kindeditor/lang/zh_CN.js"></script>
+<link type="text/css" rel="stylesheet" href="${staticserver}/common/js/kindeditor/themes/default/default.css" />
+<div style="position: relative;padding-bottome:10px;" id="wrap">
+	<div class="contentAndSideBar clearfix" style="width: 1045px;">
+		<div class="pageNav">当前位置：<a href="/account_base_info.html">账户中心</a>&gt;<a href="/product_bonds.html">固定收益</a>&gt;<span class="current">发布项目</span></div>
+		<#if type="attachment">
+			<div id="leftnav" class="addproject left">
+				<div id="step" class="step" style="margin-bottom: 5px;background:white;">
+					<ul>
+						<li <#if type="basic">class="cur"</#if>>
+							<span class="nav1">&nbsp;</span>
+							<span class="text">
+								<a href="javascript: void(0);" onclick="changeTab('basic');">基本信息</a>
+							</span>
+							<span class="backend">&nbsp;</span>
+						</li>
+						<li <#if type="other">class="cur"</#if>>
+							<span class="nav3">&nbsp;</span>
+							<span class="text">
+								<a href="javascript: void(0);" onclick="changeTab('other');">扩展信息</a>
+							</span>
+							<span class="backend">&nbsp;</span>
+						</li>
+						<li <#if type="attachment">class="cur"</#if>>
+							<span class="nav2">&nbsp;</span>
+							<span class="text">
+								<a href="javascript: void(0);" onclick="changeTab('attachment');">相关资料</a>
+							</span>
+							<span class="backend">&nbsp;</span>
+						</li>
+						
+						<li class="save clearfix">
+							<a href="javascript: save();" class="save"><span></span>保存</a>                
+							<a href="javascript: void(0);" onclick="preview_info();" class="preview"><span></span>预览</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div id="rightcontent" class="addproject right">
+				<#include 'borrow_${type}.html'/>
+			</div>
+			
+			<input id="bid" type="hidden" name="id" value="${productid!''}"/>
+			<form id="addBorrowForm"  name="addBorrowForm" method="post"></form>
+		<#else>
+			<form id="addBorrowForm"  name="addBorrowForm" method="post">
+				<div id="leftnav" class="addproject left">
+					<div id="step" class="step" style="margin-bottom: 5px;background:white;">
+						<ul>
+							<li <#if type="basic">class="cur"</#if>>
+								<span class="nav1">&nbsp;</span>
+								<span class="text">
+									<a href="javascript: void(0);" onclick="changeTab('basic');">基本信息</a>
+								</span>
+								<span class="backend">&nbsp;</span>
+							</li>
+							<li <#if type="other">class="cur"</#if>>
+								<span class="nav3">&nbsp;</span>
+								<span class="text">
+									<a href="javascript: void(0);" onclick="changeTab('other');">扩展信息</a>
+								</span>
+								<span class="backend">&nbsp;</span>
+							</li>
+							<li <#if type="attachment">class="cur"</#if>>
+								<span class="nav2">&nbsp;</span>
+								<span class="text">
+									<a href="javascript: void(0);" onclick="changeTab('attachment');">相关资料</a>
+								</span>
+								<span class="backend">&nbsp;</span>
+							</li>
+							
+							<li class="save clearfix">
+							<a href="javascript: save();" class="save"><span></span>保存</a>                
+							<a href="javascript: void(0);" onclick="preview_info();" class="preview"><span></span>预览</a>
+						</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div id="rightcontent" class="addproject right" style="background:white;">
+					<#include 'borrow_${type}.html'/>
+				</div>
+				<input id="bid" type="hidden" name="id" value="${productid!''}"/>
+			</form>
+		</#if>
+	</div>
+</div>
+<script>
+	var $form = null, isdoing = false;
+	$(function() {
+		$form = $("#addBorrowForm").kdValidform({
+			datatype: {
+				raiseterm: function(gets, obj, curForm, datatype) {
+					if(gets > 90) {
+						return false;
+					} else {
+						return true;
+					}
+				},
+				investorable: function(gets, obj, curForm, datatype) {
+					if(gets > 200) {
+						return false;
+					} else {
+						return true;
+					}
+				},
+				deadline: function(gets, obj, curForm, datatype) {
+					var type = $("#paymentmode").val();
+					if((type == "4" || type == "8") && parseInt(gets) % 3 != 0) {
+						obj.attr("errormsg", $("option[value=" + type + "]", "#paymentmode").text() + "，请输入3的倍数！");
+						return false;
+					}
+					if((type == "4" || type == "9") && parseInt(gets) % 6 != 0) {
+						obj.attr("errormsg", $("option[value=" + type + "]", "#paymentmode").text() + "，请输入6的倍数！");
+						return false;
+					}
+					
+					return true;
+				},
+				checkback: function(gets, obj, curForm, datatype) {
+					if(gets == 1) {
+						$("#raiseterm").val("");
+						$("#raiseterm").removeAttr("datatype").closest("li").hide();
+						$("#buyback").attr("datatype", "*").closest("li").show();
+						
+						$("#nobuybackselect").hide();
+						$("select", "#nobuybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+						$("#buybackselect").show();
+						$("select", "#buybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+					} else {
+						$("#buyback").val("");
+						$("#raiseterm").attr("datatype", "n,raiseterm").closest("li").show();
+						$("#buyback").removeAttr("datatype").closest("li").hide();
+						
+						$("#nobuybackselect").show();
+						$("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+						$("#buybackselect").hide();
+						$("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+						
+					}
+				},
+				checkbackversion2: function(gets, obj, curForm, datatype) {
+					  if(gets == 1) {
+						 $("#raiseterm").val("");
+						//$("#raiseterm").removeAttr("datatype").closest("li").hide();
+						$("#raiseterm").attr("datatype", "n,raiseterm").closest("li").show();
+						$("#b_2").attr("checked", true);
+						$("#buyback").removeAttr("datatype").closest("li").hide();
+						/* $("#buyback").attr("datatype", "/^[1-9]*[1-9][0-9]*$/").closest("li").show();
+						
+						$("#nobuybackselect").hide();
+						$("select", "#nobuybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+						$("#buybackselect").show();
+						$("select", "#buybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode"); */
+					} else {
+						//$("#raiseterm").attr("datatype", "n,raiseterm").closest("li").show();
+						
+						$("#raiseterm").removeAttr("datatype").closest("li").hide;
+						$("#buyback").removeAttr("datatype").closest("li").hide();
+						$("#nobuybackselect").show();
+						$("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+						$("#buybackselect").hide();
+						$("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+					}  
+					
+				},
+				checkbackversion22: function(gets, obj, curForm, datatype) {
+					  if(gets == 1) {
+						$("#raiseterm").attr("datatype", "n,raiseterm").closest("li").show();
+						$("#b_2").attr("checked", true);
+						$("#buyback").removeAttr("datatype").closest("li").hide();
+					} else {
+						$("#raiseterm").removeAttr("datatype").closest("li").hide;
+						$("#buyback").removeAttr("datatype").closest("li").hide();
+						$("#nobuybackselect").show();
+						$("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+						$("#buybackselect").hide();
+						$("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+					}  
+					
+				},
+				
+				checkbackversion3: function(gets, obj, curForm, datatype) {
+					  if(gets == 1) {
+						$("#raiseterm").val("");
+						$("#raiseterm").removeAttr("datatype").closest("li").hide();
+						$("#buyback").attr("datatype", "*").closest("li").show();
+						
+						$("#nobuybackselect").hide();
+						$("select", "#nobuybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+						$("#buybackselect").show();
+						$("select", "#buybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+					} else {
+						$("#buyback").val("");
+						//$("#raiseterm").attr("datatype", "n,raiseterm").closest("li").show();
+						$("#buyback").removeAttr("datatype").closest("li").hide();
+						
+						$("#nobuybackselect").show();
+						$("select", "#nobuybackselect").attr("datatype", "*").attr("name", "paramBorrow.paymentmode");
+						$("#buybackselect").hide();
+						$("select", "#buybackselect").removeAttr("datatype").attr("name", "paramBorrow.paymentmode1");
+						
+					}  
+					
+				}
+				
+				
+			}
+		});
+		
+		$(document).ready(function() {
+			$("#leftnav").stickUp({
+		        parts: {"0": "rightcontent"}
+		   	});
+	   	});
+   	});
+   	
+   	function appendOptions(v) {
+		$("#paymentmode").append('<option value="0">--请选择--</option>');
+   		for(var i = 0; i < selectoption.length; i++) {
+   			if(v) {
+   				if(selectoption[i][0] != '6') $("#paymentmode").append('<option value="' + selectoption[i][0] + '">' + selectoption[i][1] + '</option>');
+   			} else {
+		   		if(selectoption[i][0] == '6') $("#paymentmode").append('<option value="' + selectoption[i][0] + '">' + selectoption[i][1] + '</option>');
+   			}
+   		}
+   	}
+	
+	function changeTab(type) {
+		if("${type}" == type) return;
+		if($("#bid").val()) {
+			window.location.href = '/addBorrow.html?type=' + type + '&id=' + $("#bid").val();	
+		} else {
+			$.kd.kdAlert("请先填写项目基本信息！");
+			var contentdetail_length = window.editor_project_com_info.html().length;
+            var content_length = window.editor_project_info.html().length;
+          
+	        $.kd.kdAlert(" 项目简介或者项目公司基本情况内容长度超过最大长度4000（2000个汉字）！"+"<br/>项目简介实际长度为"+contentdetail_length+";<br/>项目公司基本情况实际长度为"+content_length);
+		}
+	}
+
+	function save() {
+	   if("${type}" == "basic"){
+	         if(window.editor_project_com_info.html()!="" && window.editor_project_info.html()!="" 
+	           && window.editor_project_com_inf.html()!=""){
+	                  $("#project_com_info").val(window.editor_project_com_info.html());
+					  $("#project_info").val(window.editor_project_info.html());
+					  $("#project_com_inf").val(window.editor_project_com_inf.html());
+				if("${type}" == "attachment") {
+					$.kd.kdAlert("保存成功!", function() {
+						window.location.reload();
+					});
+				} else if($form.check() && !isdoing) {
+					isdoing = true;
+					$.kd.showLoading($("#step"), "正在保存");
+					
+					if("${type}" == "basic") {
+						var img = [];
+						$("img", "#imagearea").each(function() {
+							var imgsrc = $(this).attr("str");
+							if(imgsrc) img.push(imgsrc);
+						});
+						if(img.length > 0) img = img.join("?");
+						$("#coverimagehidden").val(img ? img : "/common/images/project.gif");
+					} else if("${type}" == "other") {
+						generateOtherInfo();
+					}
+					
+					$("#addBorrowForm").ajaxSubmit({
+						url : "mall/hbv1bond!addBorrow${type}.do?ajax=yes",
+						dataType : "json",
+						success : function(data) {
+							isdoing = false;
+							$("#bid").val(data.message);
+							if($("li.cur").next().not(".save").size() > 0) {
+								$.kd.kdConfirm("保存成功，继续填写下一部分内容？", function() {
+									$("a", $("li.cur").next()).click();
+								});
+							} else {
+								$.kd.kdAlert("保存成功!", function() {
+									if("${type}" == "other") {
+										window.location.reload();
+									}
+								});
+							}
+							$(".kdValidform_checktip").remove();
+							$.kd.closeLoading();
+						},
+						error : function(data) {
+							isdoing = false;
+							$.kd.kdAlert("保存失败！");
+						}
+					});
+				} else {
+					$(".kdValidform_error").last().focus();
+				}
+			    
+	         }else{
+	                 
+	                   
+	             $.kd.kdAlert("项目公司基本情况,项目简介,认购协议,为必填内容!", function() {
+				        window.location.reload();
+			    });
+	         
+	         
+	         }
+	        
+	   
+	   
+	   }else{
+	          if("${type}" == "attachment") {
+			$.kd.kdAlert("保存成功!", function() {
+				window.location.href="/account_base_info.html";
+			});
+		} else if($form.check() && !isdoing) {
+			isdoing = true;
+			$.kd.showLoading($("#step"), "正在保存");
+			
+			if("${type}" == "basic") {
+				var img = [];
+				$("img", "#imagearea").each(function() {
+					var imgsrc = $(this).attr("str");
+					if(imgsrc) img.push(imgsrc);
+				});
+				if(img.length > 0) img = img.join("?");
+				$("#coverimagehidden").val(img ? img : "/common/images/project.gif");
+			} else if("${type}" == "other") {
+				generateOtherInfo();
+			}
+			
+			$("#addBorrowForm").ajaxSubmit({
+				url : "mall/hbv1bond!addBorrow${type}.do?ajax=yes",
+				dataType : "json",
+				success : function(data) {
+					isdoing = false;
+					$("#bid").val(data.message);
+					if($("li.cur").next().not(".save").size() > 0) {
+						$.kd.kdConfirm("保存成功，继续填写下一部分内容？", function() {
+							$("a", $("li.cur").next()).click();
+						});
+					} else {
+						$.kd.kdAlert("保存成功!", function() {
+							if("${type}" == "other") {
+								window.location.reload();
+							}
+						});
+					}
+					$(".kdValidform_checktip").remove();
+					$.kd.closeLoading();
+				},
+				error : function(data) {
+					isdoing = false;
+					$.kd.kdAlert("保存失败！");
+				}
+			});
+		} else {
+			$(".kdValidform_error").last().focus();
+		}
+	   }
+		
+	}
+	
+	function preview_info() {
+	    var aid=$("#bid").val();
+		if(aid==""){
+		   $.kd.kdAlert("请先填写项目基本信息!", function() {
+				        window.location.reload();
+			    });
+		}else{
+		   		window.open("/bondsdetai_" + $("#bid").val() + ".html");
+		}
+	}
+</script>

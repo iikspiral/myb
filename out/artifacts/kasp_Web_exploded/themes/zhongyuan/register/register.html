@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="${staticserver}/zhongyuan/css/common.css">
+
+<link rel="stylesheet" href="${staticserver}/zhongyuan/css/normalize.css">
+
+<link rel="stylesheet" href="${staticserver}/zhongyuan/css/account.css">
+
+<link rel="stylesheet" href="${staticserver}/zhongyuan/css/register.css">
+
+<link rel="stylesheet" href="${staticserver}/zhongyuan/css/jquery.bxslider.css">
+
+<link rel="stylesheet" href="${staticserver}/zhongyuan/css/iconfont/iconfont.css">
+
+<script type="text/javascript" src="${staticserver}/zhongyuan/common/js/libs/kjax.des.js"></script>
+<script type="text/javascript" src="${staticserver}/zhongyuan/js/jquery.bxslider.min.js"></script>
+
+
+
+
+<div class="container">
+	<div class="account-register">
+	<input id="riskflag" type="hidden" value="${riskflag}">
+	<#switch type>
+
+		<#case "regist">
+
+			<#include 'register_zhuce.html' />
+
+		<#break>
+
+		<#case "sfcg">
+
+			<#if customerno?exists>
+
+				<#include 'register_sfcg.html' />
+
+			<#else>
+			   	<#include 'register_zhuce.html' />
+			</#if>
+
+		<#break>
+
+		<#case "fxcp">
+
+			<#if customerno?exists>
+				<table class="form-navigation">
+				    <thead>
+				    	<tr class="steps">
+				       		<th class="step"><span>注册</span></th>
+				       		<th class="step"><span>绑定银行卡</span></th>
+				      		<th class="step active"><span>风险测评</span></th>
+				    	</tr>
+				    </thead>
+				</table>
+
+				<#include 'register_fxcp.html' />
+
+			<#else>
+
+			   <#include 'register_zhuce.html' />
+
+			</#if>
+
+	</#switch>
+
+	
+	</div>
+</div>
+

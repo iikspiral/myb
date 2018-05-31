@@ -1,0 +1,36 @@
+<body class="body-grey">	
+    <div class="container">
+    	<div class="message-board">
+        <img class="icon" src="${staticserver}/bbw/images/success.png">
+        <!--<img class="icon" src="../images/fail.png">-->
+        <div class="text">
+      		<h2 class="status">恭喜您，交易权限申请成功！</h2>
+      		<p class="details">
+      			您可以:<br>1. 进入<a href="myCrowdfunding.html?type=invest">账户中心-我的众筹</a>查看您的项目
+				<br>2. 进入<a href="javascript:void(0);"  onclick="windopen();">股权众筹列表</a>查找您感兴趣的项目
+      		</p>
+        </div>
+    	</div>
+    </div>
+	
+	<script src="${staticserver}/bbw/js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+		
+		function windopen(){
+			window.location.href="ssologin.html?deal_action=accout_center&pageto="+encodeURIComponent("${kcsp_url}project.html");
+		}
+    </script>
+</body>
+
+</html>

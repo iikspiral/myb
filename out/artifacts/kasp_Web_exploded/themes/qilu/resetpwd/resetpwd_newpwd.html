@@ -1,0 +1,77 @@
+<div class="clearfix">
+	<p class="tips">
+	<i class="iconfont">&#xe628;</i> 设置新密码</br>
+	<i class="iconfont">&#xe628;</i> 温馨提示:密码涉及您的账户安全,请勿随意泄露。
+	</p>
+	
+	<form class="awesomeForm" id="fpwd_form" method="post">
+		<ul>
+			<li>
+				<label for="password">新密码</label>
+				<input name="newPassword" id="password" class="input" type="password"  datatype="checkPassword" nullmsg="请设置密码！" errormsg="6-16位字符，至少包含数字、字母(区分大小写),不能使用空格！"/>
+				<span class="kdValidform_checktip">密码范围在6~16位之间,不能使用空格</span>
+			</li>
+			<li>
+				<label for="pwdagain">确认新密码</label>
+				<input name="newPassword2" id="password2" class="input" type="password" datatype="*" recheck="newPassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！"/>
+				<span class="kdValidform_checktip">两次输入密码需一致</span>
+			</li>	
+			<li>
+				<input id="safe_newpwd_next"  	type="button" name="button"	value="完成"  class="btn btn-lg btn-orange"/>
+			</li>
+		</ul>
+		<input type="hidden" id="username"   name="username" 	class="input" value="${username!''}"  >
+		<input type="hidden" id="mobile"	 name="mobiletel"   class="input" value="${mobile!''}" >
+	</form>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+  		var $pwdForm = $("#fpwd_form").kdValidform();
+  		$("#safe_newpwd_next").bind('click',function(){
+  			if($pwdForm.check()){
+  				var $pwd = $("#password").val();
+  				var newpwd = $.des.getDes($pwd,'kingdom');
+				$("#password").val(newpwd);
+  				var options ={
+  							dataType : "text",
+  							url : "mall/shxfindpassword!resetLoginPwd.do?ajax=yes",
+  							success : function(data) {
+  								if(!data) {
+  									zhejiang_alert("消息!",'系统繁忙,请稍后重试!',function(){
+										$("#password").val("");
+										$("#password2").val("");
+									});
+  									
+  								} else {
+  									var json = eval("("+data+")");//eval(data)[0];
+  									if(json.result == "1"){
+										zhejiang_alert('消息',"登录密码修改成功!",function(){
+											window.location.href='login.html';
+											//window.location.href='resetpwd.html?type=find_pwd_end'
+										});
+  										 
+  									}else{
+										zhejiang_alert('消息',json.message,function(){
+											//window.location.href='resetpwd.html';
+										});
+									}
+  								}
+  						 
+  							},
+  							error : function() {
+								zhejiang_alert('消息','系统繁忙,请稍后重试!',function(){
+											window.location.href='resetpwd.html';
+									});
+							}
+  						
+  				};
+  				$("#fpwd_form").ajaxSubmit(options); 
+  				
+  			}
+  			
+  		});
+  })
+</script>
+

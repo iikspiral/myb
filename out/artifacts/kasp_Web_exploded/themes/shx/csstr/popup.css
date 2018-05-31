@@ -1,0 +1,194 @@
+.popup-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0, .7);
+    top: 0;
+    left: 100%;
+    opacity: 0;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    -webkit-transition: opacity .2s ease-out;
+    -moz-transition: opacity .2s ease-out;
+    -ms-transition: opacity .2s ease-out;
+    -o-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out;
+}
+.overlay .popup-overlay {
+    opacity: 1;
+    left: 0;
+}
+.popup {
+    position: relative;
+    /*top: 25%;*/
+    left: 65%;
+    top: 0;
+    z-index: -9999;
+    max-width: 100%!important;
+}
+.popup .popup-body {
+    background: #ffffff;
+    opacity: 0;
+    min-height: 150px;
+    width: 500px;
+    margin-left: -250px;
+    padding: 25px;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    -webkit-transition: opacity .2s ease-out;
+    -moz-transition: opacity .2s ease-out;
+    -ms-transition: opacity .2s ease-out;
+    -o-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out;
+    position: absolute;
+    /*-moz-box-shadow: 1px 2px 3px 1px rgb(185, 185, 185);
+    -webkit-box-shadow: 1px 2px 3px 1px rgb(185, 185, 185);
+    box-shadow: 1px 2px 3px 1px rgb(185, 185, 185);*/
+    text-align: center;
+    border: 1px solid #e9e9e9;
+}
+.popup.visible, .popup.transitioning {
+    z-index: 9999;
+}
+.popup.visible .popup-body {
+    opacity: 1;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+.popup .popup-exit {
+    cursor: pointer;
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: url(../images/x-btn.png) no-repeat;
+}
+
+.popup-content .popup-title {
+    margin-top: 0;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #E9E9E9;
+    text-align: left;
+    color: #c70808;
+}
+.popup-content p {
+    line-height: 1.25em;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 18px;
+    padding-top: 10px;
+    text-align: left;
+}
+
+
+
+
+/*******************我的内容*******************/
+.popup-content form{
+    margin-top: 20px;
+    height: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E9E9E9;
+    color: #666;
+    font-size: 16px;
+}
+.popup-content form div{
+    float: left;
+    margin-left: 25px;
+}
+.sureToBuyDebt{
+    float: right;
+    margin-right: 25px;
+}
+.popup-content form div input{
+    border: 1px solid #d4d4d4;
+    height: 24px;
+    font-size: 16px;
+    width: 100px;
+    border-radius: 3px;
+    padding: 3px;
+}
+.sureToBuyDebt{
+    width: 160px;
+    height: 32px;
+    background-color: #c70808;
+    border-radius: 3px;
+    color: #fff;
+    line-height: 32px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.popup-content ul{
+    height: 30px;
+    padding-bottom: 40px;
+    margin-top: 20px;
+    border-bottom: 1px solid #e9e9e9;
+    font-size: 16px;
+    color: #666;
+}
+.popup-content ul .realBenefitsPercent{
+    float: left;
+    margin-left: 25px;
+    height: 30px;
+    line-height: 30px;
+}
+.popup-content ul .realBenefits{
+    float: right;
+    margin-right: 25px;
+    height: 30px;
+    line-height: 30px;
+}
+.popup-content ul .tips{
+    font-size: 12px;
+    font-family: Simsun;
+    padding: 10px 0 25px;
+    margin-left: -40px;
+    height: 20px;
+    line-height: 20px;
+    color: #e67e22;
+}
+.finalNumberYouPay{
+    padding-bottom: 10px !important;
+    border-bottom: none !important;
+}
+
+.popup-content table{
+    padding: 15px 25px 0;
+}
+
+.popup-content table tr{
+    height: 30px;
+}
+.popup-content table tr th{
+    width: 80px;
+    float: left;
+    font-weight: normal;
+}
+.popup-content table tr td{
+    float: left;
+    width: auto !important;
+    text-align: left;
+}
+.popup-content table tr .includedArrowRight{
+    width: 20px;
+}
+.popup-content table tr .includedArrowRight img{
+    opacity: 0.4;
+    width: 12px;
+    float: right;
+    margin-right: 5px;
+}
+.benefitsDay{
+    width: 120px !important;
+    padding-right: 80px;
+}
+.popup-content p{
+    margin-left: 25px;
+    font-size: 16px;
+    height: 24px;
+    line-height: 24px;
+    color: #666;
+}
+
+/*******************END 我的内容*******************/

@@ -1,0 +1,156 @@
+﻿.topBanner {
+	margin: 10px 0;
+	height: 170px;
+	padding-left: 45px;
+}
+
+.left_banner {
+	float: left;
+	width: 680px;
+	height: 100%;
+	background: url('../images/transfer-list-banner-left.gif') repeat-x;
+}
+.right_banner {
+	float: left;
+	width: 280px;
+	height: 100%;
+	background: url('../images/transfer-list-banner-right.gif') repeat-x;
+}
+
+.content-left {
+	width: 810px;
+	float: left;
+}
+
+.content-right {
+	width: 230px;
+	float: right;
+}
+
+.transfer-data {
+    width: 242px;
+    height: 180px;
+    background: #f5f5f5;
+    border: 1px solid #e9e9e9;
+    padding: 0 8px;
+    margin: 0 0 20px 0;
+}
+
+.transfer-data-header {
+    padding: 0 5px;
+    margin: 5px 0;
+}
+
+.transfer-data-header h2 {
+    font-size: 15px;
+}
+
+.transfer-data-notice {
+    width: 240px;
+    height: 60px;
+    background: #fff;
+}
+
+.transfer-data-notice .success-rate,
+.transfer-data-notice .min-time {
+    color: #666;
+    float: left;
+    padding-top: 7px;
+    text-align: center;
+}
+
+.transfer-data-notice .success-rate {
+    background: url("../images/cut_off_line.png") no-repeat right 0;
+    height: 51px;
+    margin: 0 9px 0 25px;
+    padding-right: 10px;
+}
+
+.transfer-data-notice .success-rate strong {
+    color: #106F00;
+    font-size: 24px;
+}
+
+.transfer-data-notice .min-time strong {
+    color: #E6551D;
+    font-size: 24px;
+}
+
+.transfer-data-income {
+    width: 227px;
+    height: 70px;
+    background: #ececec;
+    border: 1px solid #fff;
+    border-top: 2px solid #dcdcdc;
+    border-left: 2px solid #e8e8e8;
+    padding: 5px 0 0 10px;
+}
+
+.transfer-data-income p {
+    line-height: 22px;
+}
+
+.transfer-data-income strong {
+    font-size: 14px;
+}
+
+.noticeQuestion {
+    border: 1px solid #d9d9d9;
+    margin: 0 0 10px;
+}
+
+.noticeQuestion .head {
+    padding: 0 15px 0 12px;
+    height: 34px;
+    line-height: 34px;
+    background-color: #F5F5F5;
+}
+
+.noticeQuestion .title {
+    display: inline-block;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.noticeQuestion .more {
+    display: inline-block;
+    float: right;
+}
+
+.noticeQuestion .more a {
+    display: inline-block;
+}
+
+.noticeQuestion .more span {
+    font-weight: bold;
+    margin-left: 3px;
+    color: #e6551d;
+}
+
+.noticeQuestion .contentList {
+    margin-top: 10px;
+    padding: 0 0 10px 15px;
+}
+
+.noticeQuestion .contentList li {
+    padding: 3px 0;
+    width: 210px;
+    white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.noticeQuestion .contentList li b {
+    border-color: #fff #fff #fff #4F9114;
+    border-style: solid;
+    border-width: 3px;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    width: 0;
+    margin: 0 2px 0 0;
+    display: inline-block;
+    vertical-align: middle;
+}

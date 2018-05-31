@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.idinfo.dao.ExtraInfoDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+	<select id="get" resultType="ExtraInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM EXTRA_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="ExtraInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM EXTRA_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag})
+		<if test="userInfoType != null and userInfoType != ''">
+			AND a.USER_INFO_TYPE = #{userInfoType}
+		</if>
+		<if test="attribute != null and attribute != ''">
+			AND a.ATTRIBUTE = #{attribute}
+		</if>
+		<if test="dataType != null and dataType != ''">
+			AND a.DATA_TYPE = #{dataType}
+		</if>
+		ORDER BY a.CREATE_DATE
+	</select>
+	<insert id="insert">
+		INSERT INTO EXTRA_INFO(
+			ID,
+			USER_INFO_TYPE,
+			EXTRA_MEAN,
+			DATA_TYPE,
+			ATTRIBUTE,
+			IS_REQUIRED,
+			DEFAULT_VALUE,
+			DIC_VALUE,
+			CHECK_VALUE,
+			FILED_LENGTH,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{userInfoType},
+			#{extraMean},
+			#{dataType},
+			#{attribute},
+			#{isRequired},
+			#{defaultValue},
+			#{dicValue},
+			#{checkValue},
+			#{filedLength},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE EXTRA_INFO SET 
+			USER_INFO_TYPE = #{userInfoType},
+			EXTRA_MEAN = #{extraMean},
+			DATA_TYPE = #{dataType},
+			ATTRIBUTE = #{attribute},
+			IS_REQUIRED = #{isRequired},
+			DEFAULT_VALUE = #{defaultValue},
+			DIC_VALUE = #{dicValue},
+			CHECK_VALUE = #{checkValue},
+			FILED_LENGTH = #{filedLength},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE EXTRA_INFO SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

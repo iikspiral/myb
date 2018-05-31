@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<bexConfig>	
+
+	<bexFile resource="/WEB-INF/conf/bex-config/pif" />	
+	<bexFile resource="/WEB-INF/conf/bex-config/bpm" />
+	<bexFile resource="/WEB-INF/conf/bex-config/aus" />	
+	<bexFile resource="/WEB-INF/conf/bex-config/auth" />	
+	<bexFile resource="/WEB-INF/conf/bex-config/ywxt" />	
+	<bexFile resource="/WEB-INF/conf/bex-config/oauth" />
+
+	 <bexFile resource="/WEB-INF/conf/bex-config/deal"></bexFile>
+
+	<bexFile resource="/WEB-INF/conf/bex-config/fms" />	
+	 
+
+	<bexFile resource="/WEB-INF/conf/bex-config/cif" />	
+	<bexFile resource="/WEB-INF/conf/bex-config/cms" />	
+	<!--<bexFile resource="/WEB-INF/conf/bex-config/aus" />
+	<bexFile resource="/WEB-INF/conf/bex-config/acl" />
+	 -->
+</bexConfig>

@@ -1,0 +1,76 @@
+<table class="form-navigation">
+    <thead>
+    	<tr class="steps">
+       		<th class="step"><span>注册</span></th>
+       		<th class="step active"><span>绑定银行卡</span></th>
+      		<th class="step"><span>风险测评</span></th>
+    	</tr>
+    </thead>
+</table>
+<div class="account-board" >
+    <div class="titlebar">
+        <h2>选择账户类型</h2>
+        <p class="capital-account">
+     		如果已经在交易柜台开户则在绑定银行卡页面选择
+            <a href="bankmanage.html?s=acct">绑定资金账户</a>
+        </p>
+    </div>
+    <div id="J_select" class="user-type clearfix" style="text-align: center;">
+        <div class="account-options">
+            <a id="J_openSfzf" class="personal">个人账户</a>
+            <a id="J_openSfzf_org" class="organized">机构账户</a>
+        </div>
+    </div>
+</div>
+
+<div class="account-board"  id="J_sccg" style="display:none">
+
+	<#if alreadyopen?exists>	
+
+		<h3>您已开通了资金账户,如需更换换银行卡,请选择银行卡解绑功能,谢谢!</h3>
+
+	<#else>
+
+		<#include 'register_cg.html'>
+
+	</#if>		
+
+</div>
+
+
+<script type="text/javascript">
+
+$(function(){
+	$("#J_openSfzf").bind("click",function(){
+
+		$("#J_sccg").show();		
+		$("#sfcg_open").show();
+		$("#sfcg_open_org").hide();
+
+		$("#J_select").hide();
+
+		}
+
+	)
+	
+	$("#J_openSfzf_org").bind("click",function(){
+
+		$("#J_sccg").show();	
+		$("#sfcg_open").hide();
+		$("#sfcg_open_org").show();
+
+		$("#J_select").hide();
+
+		}
+
+	)
+
+		
+
+});
+
+
+
+
+
+</script>

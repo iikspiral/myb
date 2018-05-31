@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<websuites>
+
+
+<!-- Open API页面的获取和处理-->
+
+
+<!-- 获取api分类 -->
+
+<bex id="f_get_api_dividing" ibatis="get_api_dividing" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 获取这个分类下的api -->
+<bex id="f_get_apis" ibatis="get_apis" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="dict_id" source="dict_id"	type="string"	 />	
+		</request>
+</bex>
+<!-- 获取Api列表 -->
+
+<bex id="f_select_oauth2_service_api" ibatis="select_oauth2_service_api" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_select_oauth2_service_api_info" ibatis="select_oauth2_service_api_info" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_select_oauth2_service_api_dict" ibatis="select_oauth2_service_api_dict" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_apiBexId" ibatis="get_apiBexId" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="dict_id" source="dict_id"	type="string"	 />	
+		</request>
+</bex>
+<!-- 获取参数 -->
+<bex id="f_get_params" ibatis="get_params" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="dict_id" source="dict_id"	type="string"	 />	
+			<param name="apiIds" source="apiIds"	type="string"	 />	
+		</request>
+</bex>
+
+<!-- 调用kifp的服务 -->
+<bex id="f_kifp_doBexId" type="http-bex" lparam="false" httpserver="kifp" target="kifpService" service="kifpServiceCommonCall" parameterType="java.util.HashMap"> 
+	<request> 
+		<param name="bexIdCall" source="bexIdCall"	type="string"	 />
+		<param name="param" source="param"	type="string"	 />
+	</request> 
+</bex>
+<!-- 调用otcpsvc下的服务-->
+
+<bex id="f_otcpsvc_call" type="http-bex" lparam="false" httpserver="otcpsvc" target="kifpService" service="kifpServiceCommonCall" parameterType="java.util.HashMap"> 
+	<request> 
+		<param name="bexIdCall" source="bexIdCall"	type="string"	 />
+		<param name="param" source="param"	type="string"	 />
+	</request> 
+</bex>
+<!-- 调用kifpsvc下的服务
+ -->
+<bex id="f_kifpsvc_call" type="http-bex" httpserver="kifpsvc"
+		target="kifpService" service="kifpServiceCommonCall" parameterType="java.util.HashMap"
+		lparam="false">
+		<request>
+			<param name="bexIdCall" source="bexIdCall"	type="string"	 />
+			<param name="param" source="param"	type="string"	 />
+		</request>
+	</bex>
+	
+	<!-- Open API页面的获取和处理 author:liuhd-->
+	
+<bex id="f_add_project" ibatis="add_project" operate="insert" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="project_name" source="project_name"	type="string"	 />	
+			<param name="project_id" source="project_id"	type="string"	 />	
+			<param name="create_time" source="create_time"	type="string"	 />	
+			
+		</request>
+</bex>
+
+</websuites>

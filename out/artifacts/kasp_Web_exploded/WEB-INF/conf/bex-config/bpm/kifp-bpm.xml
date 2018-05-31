@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<websuites>
+
+ 
+<!--1　流程部署 -->
+<bex id="f_bpm_workFlowDeploy" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService" service="workFlowDeploy" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="wsuser"  	            type="string" />	
+			<param name="filename"  	        type="string" /> 
+			<param name="data"                  type="string" /> 
+		</request>
+</bex>
+
+<!--2 指定审核人　指定员工 -->
+<bex id="f_bpm_setFlowStep_employ" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService" service="setFlowStep_employ" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="employes"  	         type="string" />	
+			<param name="processUUID"  	        type="string" /> 
+			<param name="step_id"                type="string" /> 
+			<param name="audit_type"             type="string"  /> 
+		</request>
+</bex>
+
+<!--2 指定审核人　指定角色  -->
+<bex id="f_bpm_setFlowStep_role" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService" service="setFlowStep_role" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="roleIds"  	            type="string" />	
+			<param name="processUUID"  	        type="string" /> 
+			<param name="step_id"               type="string" /> 
+			<param name="audit_type"            type="string" /> 
+		</request>
+</bex>
+
+<!--3　发起新流程  -->
+<bex id="f_bpm_workFlowCreate" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService" service="workFlowCreate" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="wsuser"  	            type="string" />	
+			<param name="processUUID"  	        type="string" /> 
+			<param name="user"                  type="string" /> 
+			<param name="busi_name"  	        type="string" /> 
+			<param name="flow_business_bex"   	type="string" />
+		</request>
+</bex>
+
+<!--4　审批节点提交、流程流转到下一个节点 -->
+<bex id="f_bpm_getReadyTaskDo" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService" service="getReadyTasktDo" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="user"  	        type="string" />	
+			<param name="wsuser"  	        type="string" /> 
+			<param name="processUUID"       type="string" /> 
+			<param name="instanceUUID"  	type="string" /> 
+			<param name="taskUUID"   	    type="string" />
+		</request>
+</bex>
+
+<bex id="f_bpm_getNextProcessStep" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService"  service="getNextProcessStep" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="instanceUUID" type="String"/>
+		</request>
+</bex>
+	
+<bex id="f_bpm_processStepList" type="http-bex" httpserver="bpm"  target="kbpmKesbImpService"  service="queryProcessStep" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="processUUID" type="String"/>
+		</request>
+</bex>
+	
+
+
+<!-- mybatis part========================================================================================= -->
+
+<!--5 我的待办任务  -->
+<bex id="f_bpm_getMyReadyTaskList" type="http-bex"  httpserver="bpm" target="kbpmKesbImpService" service="getReadyTaskList" parameterType="java.util.HashMap"> 
+		<request>
+			<param name="wsuser"  type="string"/>
+			<param name="pageNumber" type="string"/>
+			<param name="pageSize" type="string"/>
+			<param name="processUUID" 	type="string"/>
+		</request>
+</bex>
+
+ 
+
+<bex id="f_bpm_getStepRole"  type="http-bex"  httpserver="bpm" ibatis="getStepRole" operate="select" target="sysMybatisServiceBean" service="doCommonIbatis">
+		<request>
+			<param name="processUUID" type="String"/>
+			<param name="step" type="String"/>
+		</request>
+		<transfer>
+			<field name="STATUS"		target="STATUS_NAME"    dict="020001"/>
+		</transfer>
+</bex>
+
+<bex id="f_bpm_getProcessAuditInfo"  type="http-bex"  httpserver="bpm" ibatis="getProcessAuditInfo" operate="select" target="sysMybatisServiceBean" service="doCommonIbatis">
+		<request>
+			<param name="instanceUUID" type="String"/>
+		</request>
+</bex>
+
+<bex id="f_bpm_get_task_audit"  type="http-bex"  httpserver="bpm" ibatis="get_task_audit" operate="select" target="sysMybatisServiceBean" service="doCommonIbatis">
+		<request>
+			<param name="instanceUUID" type="String"/>
+			<param name="step_id" type="String"/>
+		</request>
+</bex>
+
+<bex id="f_bpm_get_process_task_audit"  type="http-bex"  httpserver="bpm" ibatis="audits_qry" operate="select" target="sysMybatisServiceBean" service="doCommonIbatis">
+		<request>
+			<param name="processUUID" type="String"/>
+			<param name="step_id" type="String"/>
+			<param name="audit_type" type="String"/>
+		</request>
+</bex>
+ 
+
+
+<bex id="f_get_sys_param_setting" ibatis="get_sys_param_setting" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_theme_manager" ibatis="get_theme_manager" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+</websuites>

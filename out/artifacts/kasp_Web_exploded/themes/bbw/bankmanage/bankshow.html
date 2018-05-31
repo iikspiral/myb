@@ -1,0 +1,149 @@
+<div class="container">
+<div class="bankcards page-wrap clearfix">
+	<ul class="breadcrumb clearfix">
+		<li><a href="account_asset.html">账户中心</a></li>
+		<li><i class="iconfont">&#xe615;</i></li>
+		<li><a href="account_asset.html">我的账户</a></li>
+		<li><i class="iconfont">&#xe615;</i></li>
+		<li class="active"><span>银行卡管理</span></li>
+	</ul>
+	<div class="panel-info">
+		<div class="titlebar clearfix">
+			<h2 class="title">银行卡管理</h2>
+		</div>
+	
+	<#if opentype == 'AL' || opentype == 'TP'>	
+		<div class="section">
+			<div class="titlebar-sub">
+				<h3 class="title">三方支付</h3>
+			</div>
+			<ul class="bankcards-list clearfix">
+			<#if sfzfbanklist?exists>
+				<#list sfzfbanklist as signBank>
+				<li class="card">
+					<img class="bank" src="${kasp_url}${signBank.banklogo!''}">
+					<span class="number">
+						<#assign leng=signBank.bankaccount?length>
+						<#if signBank.bankaccount?length gte 10>
+						${signBank.bankaccount?substring(0,3)}**********${signBank.bankaccount?substring(leng-4)}
+						<#else>
+							${signBank.bankaccount}
+						</#if>
+					</span>
+					<img class="platform" src="${kasp_url}${signBank.minilogo!''}" title="通联支付">
+					<#-- 
+					<a class="btn btn-text" href="bank_drop_bind.html?p=tp&code=${signBank.bankcode!''}&bkcct=${signBank.bankaccount!''}">解绑</a>
+					-->
+					<a name="dropCard" class="btn btn-xs btn-text"  onclick="dropBankCard('${signBank.bankcode!''}','${signBank.bankaccount!''}','${signBank.channelno!''}');">解除</a>
+				</li>
+				</#list>
+				<a href="bankmanage.html?s=select&p=tp">
+				<li class="new-card">
+					<span class="add">+</span>
+				</li>
+				</a>
+			<#else>
+				<a href="bankmanage.html?s=select&p=tp">
+				<li class="new-card">
+					<span class="add">+</span>
+				</li>
+				</a>
+			</#if>	
+			</ul>
+		</div>
+	</#if>
+
+	<#if opentype == 'AL' || opentype == 'CG'>
+		<div class="section">
+			<div class="titlebar-sub">
+				<h3 class="title">三方存管</h3>
+			</div>
+			<ul class="bankcards-list clearfix">
+			<#if sfcgbanklist?exists>
+			<#list sfcgbanklist as signBank>
+				<li class="card">
+					<img class="bank" src="${kasp_url}${signBank.banklogo!''}" title="${signBank.bankname!''}">
+					<span class="number">
+						<#assign leng=signBank.bankaccount?length>
+						<#if signBank.bankaccount?length gte 10>
+						${signBank.bankaccount?substring(0,3)}**********${signBank.bankaccount?substring(leng-4)}
+						<#else>
+							${signBank.bankaccount}
+						</#if>
+					</span>
+					<img class="platform" src="${kasp_url}${signBank.banklogo!''}" title="${signBank.bankname!''}">
+					<a class="btn btn-text" href="bank_drop_bind.html?p=cg&code=${signBank.bankcode!''}&bkcct=${signBank.bankaccount!''}">解绑</a>
+				</li>
+			</#list>
+			<#else>
+				<li class="new-card" >
+					<a href="bankmanage.html?s=select&p=cg">
+						<span class="add">+</span>
+					</a>
+				</li>
+				<li id="J_bind" class="new-card" >
+					<a href="javascript:void(0);">
+						<span class="bind">绑定资金账户</span>
+					</a>
+				</li>
+			</#if> 
+			</ul>
+		</div>
+	</#if>			
+	</div>
+</div>
+</div>
+<script>
+	$("#J_bind").on("click",function(){
+		window.location.href="bankmanage.html?s=acct&p=cg";
+	})
+	
+/**
+解绑银行卡
+**/
+function dropBankCard(bankid,bkacct,channelno){
+		if(check()){
+			var datas ={
+				bankid:bankid,
+				bankaccount:bkacct,
+				channelcode:channelno
+				};
+				zhejiang_confirm("消息","确定解除绑定?",function(){
+					$.ajax({
+						url:"mall/bbw_dropbankcard!dropBankCard.do?ajax=yes",	
+						dataType:"text",
+						data: datas,								
+						success:function(data) {
+							var redata = eval("("+data+")");
+							if(redata.result == 1){
+								zhejiang_alert("消息",'解除成功!', function(){
+									window.location.href = "bankmanage.html";
+								});
+								
+							}else if(redata.result == 0){
+								zhejiang_alert("消息",redata.message, function(){
+									window.location.href = "bankmanage.html";
+								});
+							}
+						},
+						error:function(data) {
+							zhejiang_alert("消息","系统繁忙!", function(){
+									window.location.href = "bankmanage.html";
+							});
+							return false;
+						}
+					});		
+				})	
+		}
+}
+
+function check(){
+	<#if sfzfbanklist?exists>
+		<#if (sfzfbanklist?size <2) >
+			zhejiang_alert("消息","合格投资者必需绑定一张银行卡，如需解绑,请联系客服!", null);
+			return false;
+		</#if>
+	</#if>
+	return true;
+}
+</script>

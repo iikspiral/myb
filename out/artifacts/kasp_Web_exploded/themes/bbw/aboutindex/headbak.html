@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>金交在线</title>
+		<meta name="keywords" content="金交在线">
+		<meta name="description" content="金交在线">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+
+		<link rel="shortcut icon" href="${staticserver}/shx/standard/ico/favicon.ico">
+		
+		
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/css/platform/kd.ui.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/css/platform/kd.tools.validate.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/common/css/kd.ui.plugin.css">
+		<!--   -->
+		<link rel="stylesheet" href="${staticserver}/shx/standard/css/reset.css">
+		
+		<link rel="stylesheet" href="${staticserver}/shx/standard/css/common.css">
+		
+		<link rel="stylesheet" href="${staticserver}/shx/standard/css/home.css">
+		 
+		<link rel="stylesheet" href="${staticserver}/shx/standard/css/login_and_register.css">
+		<link href="${staticserver}/shx/common/js/libs/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+		<!-- 	 -->
+		<link rel="stylesheet" href="${staticserver}/shx/css/common.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/config.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/home.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/jquery.bxslider.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/jquery.myslider.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/normalize.css">
+	
+		
+		<script src="${staticserver}/shx/js/jquery-1.11.1.min.js"></script>
+		<script src="${staticserver}/shx/js/jquery.bxslider.min.js"></script>
+		<script src="${staticserver}/shx/js/jquery.myslider.js"></script>
+		<script src="${staticserver}/shx/js/organictabs.jquery.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/shx/js/libs/jquery-1.8.3.min.js"></script> 
+		<script type="text/javascript" src="${staticserver}/shx/standard/js/jquery.autoscroll.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/shx/js/libs/jquery-form-2.33.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.ui.plugin.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.tools.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.tools.validate.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/libs/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/handlebars.js"></script>
+		<script type="text/javascript"	src="${staticserver}/shx/js/libs/jquery.flexslider.min.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/shx/common/js/5i.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/jquery-ui-custom/js/jquery-ui.custom.min.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/libs/jquery.ui.core.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/shx/common/js/libs/jquery.ui.tabs.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/json2.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/jquery.bex.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/jquery.kutil.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/organictabs.jquery.js"></script> 
+		<script type="text/javascript" src="${staticserver}/shx/js/kifp.head.js"></script>
+	
+		<script type="text/javascript">
+		    var fileserver = "${fileserver}";
+			var fileaction = "${fileserver}/file!upload.do";
+			window.umesession = document.cookie.replace("undefined; ", "").replace(" undefined;", "");
+			
+			$(function() {
+				$("#custlogout").bind("click", function() {
+					$.kd.kdConfirm("确定要退出吗？", function() {
+						$.post("mall/newlogin!newlogout.do",
+				    			{},
+				    			function(data) {
+				    				var result = $.parseJSON(data); 
+				    				if ( result.result == 1) {
+				    					window.location.href = "/index.html?_="+new Date().getTime();
+				    				} else {
+				    					rdmAlert(result.message);
+				    				}   					
+				    			}
+				    		);
+					});    	
+			    });
+			});
+			var cookies =  document.cookie.split(";");
+			for (idx in cookies) {
+			if ( cookies[idx].indexOf("JSESSIONID") > -1) {
+				window.umesession = cookies[idx];				 
+			   }
+			}
+		</script>
+	</head>
+<body>
+
+<div id="header" class="header">
+		<div class="container">
+	 <#if isLogin>
+			<div id="topbar" class="clearfix">
+				<ul class="help">
+					<li><a href="/helper.html?type=beginner&pid=helper">新手上路</a></li>
+					<li><a href="/helper.html?type=safe&pid=helper">帮助中心</a></li>
+					<li>客服热线：400-8655-056</li>
+				</ul>
+				<ul class="account-logged">
+					<li>
+						<span class="logout" id="custlogout" href="javascript: void(0);">退出</span>
+					</li>
+					<li>
+						<a href="/my_msg.html"><span class="message">站内信(<em>${personcount!'0'}</em>)</span></a>
+					</li>
+					<li >
+						<a href="/ssologin.html?deal_action=jump&pageto=http://127.0.0.1:8086/kisp/"  class="message"><i class="iconfont">&#xe62d;</i>我要理财</a>
+					</li>
+					<li>
+						<a href="/account_base_info.html" class="username"><i class="iconfont">&#xe62d;</i>${username!''}</a>
+					</li>
+					
+				</ul>
+			</div>
+		</#if>
+		<#if !isLogin>
+			<div id="topbar" class="clearfix">
+				<ul class="help">
+					<li><a href="/helper.html?type=beginner&pid=helper">新手上路</a></li>
+					<li><a href="/helper.html?type=safe&pid=helper">帮助中心</a></li>
+					<li>客服热线：400-8655-056</li>
+				</ul>
+				<ul class="account">
+					<li><a href="login.html" class="login">登录</a></li>
+					<li><a href="registerorg.html" class="register">机构注册</a></li>
+					<li><a href="register.html" class="register">个人注册</a></li>
+				</ul>
+			</div>
+		</#if>
+			<div class="wrapper">
+				<a href="index.html" title="首页">
+					<h1>金交在线</h1>
+				</a>
+				<!-- 导航 -->
+				<ul class="main-nav">
+					<li class="nav"><a href="index.html" id="n_home">首页</a></li>
+					<li class="nav">
+						<a href="privatelending.html" id="n_invest">我要投资</a>
+						<ul>
+							<li><a href="privatelending.html">投融资 </a></li>
+							<li><a href="incomeright.html">收益权类产品</a></li>
+							<li><a href="privateproduct.html">私募类产品</a></li>
+							<li><a href="badproducttransfer.html">不良资产转让</a></li>
+						</ul>
+					</li>
+					<li class="nav"><a href="product_transfer.html" id="n_transfer">产品转让</a></li>
+					<li class="nav"><a href="businessfinancing.html" id="n_financing">企业融资</a></li>
+					<li class="nav"><a href="getmore.html?type=about_us&pid=about" id="n_aboutus">关于我们</a></li>
+					<li class="nav"><a href="account_base_info.html" id="n_myaccount">我的账户</a></li>
+				</ul>
+			</div>
+		</div>
+</div>
+
+	 
+	<!-- 返回顶部 -->
+<ul class="floating-widgets">
+	<!--<li class="cuservice" title="在线客服">
+		<a href="javascript:void(0);" ><i class="iconfont">&#xe62f;</i></a>
+	</li>-->
+	<li class="feedback" title="收益计算器">
+		<a target="_blank" href="/calculator.html" ><i class="iconfont">&#xe62e;</i></a>
+	</li>
+	<li class="go-top">
+		<i class="iconfont">&#xe608;</i>
+	</li>
+</ul>
+	
+<script type="text/javascript" language="javascript">
+
+	//主导航下拉菜单
+	$(document).ready(function(){
+		$('li.nav').mousemove(function(){
+		$(this).find('ul').slideDown();//you can give it a speed
+		});
+		$('li.nav').mouseleave(function(){
+		$(this).find('ul').slideUp("fast");
+		});
+	});
+
+    setTimeout(function(){
+    	var rightlogin = $("#rightlogin1");
+    	rightlogin.css("display","block").animate({top:0,right:190},600).animate({top:0,right:115},800)},1200);
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+	
+	$(window).scroll(function(){
+	if ($(this).scrollTop() > 200){
+		$('.go-top').slideDown('normal');
+	} else {
+		$('.go-top').slideUp('normal');
+	}
+   });
+	// 返回顶部动画效果
+	$('.go-top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({scrollTop: 0}, 600);
+	});
+	   
+	   
+});
+</script>
+

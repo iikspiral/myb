@@ -1,0 +1,292 @@
+<#if !isopenidLogin>
+<div class="clearfix">
+            <p class="tips"><i class="iconfont">&#xe628;</i> 开户前请准备好您的机构相关证件，银行借记卡。</p></p>
+            <form id="registerform"">
+			<input type="hidden" name="openid" value="${openid!''}"></input>
+                <ul>
+                    <li>
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" datatype="s3zh2,/^[^ ]{3,18}$/ | /[\u4E00-\u9FA5]{2,8}/,/^[^ ]{2,8}$/" nullmsg="请输入用户名！" errormsg="昵称至少3个英文数字字符或2个中文字符,最多18个字符，不能使用空格！" ajaxurl="${kasp_url}mall/newRegister!regUsername.do" />
+						<span class="kdValidform_checktip">用户名至少3个字符或2个中文字符,最多18个字符，不能使用空格和纯数字！</span>
+                    </li>
+                    <li>
+                        <label for="login_pwd">登录密码</label>
+                        <input type="password" id="password__" name="password__" datatype="checkPassword,/^[^ ]{2,16}$/" nullmsg="请设置密码！" errormsg="6-12位字符，至少包含数字、字母(区分大小写)不能使用空格！"/>
+						<input type="password" name="password" id="password" class="input" style="display:none" />
+						<span class="kdValidform_checktip">6-16位字符，至少包含数字、字母(区分大小写)不能使用空格！</span>
+                    </li>
+                    <li>
+                        <label for="login_cfm">确认密码</label>
+                        <input type="password" id="password__2" name="password__2" datatype="*" recheck="password__" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！"/>
+						<span class="kdValidform_checktip">两次输入密码需一致</span>
+                    </li>
+					<li>
+						<label for="username">推荐人</label>
+						<#if invitorname?exists>
+							<#if invitorname?length gt 0>
+								<input type="text" value="${invitorname!''}" name="invitorname" class="input"  id="invitorname"   ajaxurl="${kasp_url}mall/newRegister!checkInvetor.do" readonly="readonly"/>
+							<#else>
+								<input type="text" value="" name="invitorname" class="input"  id="invitorname"   errormsg="推荐人不存在" ajaxurl="${kasp_url}mall/newRegister!checkInvetor.do" />
+								<span class="kdValidform_checktip" invitornamespan="invitornamespan">如有,请填写推荐人用户名</span>
+							</#if>
+						</#if>
+					</li>
+					
+                    <li>
+                        <label for="cell_num">手机号码</label>
+						<input type="text" id="mobile" name="mobiletel"  datatype="m" errormsg="您输入的手机号码有误！" ajaxurl="${kasp_url}mall/newRegister!regPhone.do"/>
+						<span class="kdValidform_checktip">请输入手机号码！</span>
+                    </li>
+                    <li>
+                        <label for="captcha">手机验证码</label>						
+						<input type="text" id="txt_validatecode" name="txt_validatecode" datatype="n6-6"  errormsg="请输入6位数字验证码！"/>
+						<input type="button" id="get_captcha" value="获取验证码" name="button" class="btn btn-lg btn-grey"/>
+						<span class="kdValidform_checktip">请获取验证码！</span>
+                    </li>
+                    <li class="agreement">
+                        <input type="checkbox" id="terms" name="terms" datatype="*" />
+                        <label for="terms">我已阅读并同意<a id="agree"  onclick="windowUp()" >《用户注册协议》</a></label>
+                    </li>
+                    <li>
+						<input id="register" type="button" name="button" class="btn btn-lg btn-orange" value="注册" onclick="submitForm()" />
+                    </li>
+                </ul>
+            </form>
+        </div>
+</#if>
+
+<!--验证码-->
+ <div id="codeimgdiv" style="display:none">
+ 	<div style="width: 380px;">
+		<label style="font-size: 14px; line-height: 32px; font-weight: normal; display: inline-block; padding-right: 10px;">验证码</label>
+		<input name="validcode" style="width:100px; font-size: 14px; padding: 7px; vertical-align:middle;border: 1px solid #CCC;" type="text" value='' id="validcode" datatype="*" class="input" errormsg="请输入右侧的验证码！"/>
+		<img id="codeimg" style="width: 100px;height: 30px;margin: 4px;vertical-align: middle;cursor: pointer;border: 1px solid #EFEFEF;" title="看不清楚？" src="${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime();" onclick="$(this).attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime())">
+		<input type="hidden" id='hiddencode' />
+ 	</div>
+ </div>
+
+
+<div id="khxy" style="display: none">
+	<#include 'register_xieyi.html'>
+	</div>
+</div>
+
+<div id="J_next"  style="display:none">
+	<form>
+		<div class="zhifu" >
+			<div class="zhifutips">恭喜您完成注册,接下来</div>
+			<div class="buttondiv" >
+				<a  class="kdmall-btn" 	href="account_asset.html">我先去逛逛吧 </a> 
+				<a  class="kdmall-btn" 	href="registerorg.html?type=sfcg">继续下一步</a> 
+			</div>
+	</form>
+</div>
+
+
+<style>
+</style>
+<script type="text/javascript">
+	var $form = null;
+	$(function() {
+		$(".modal-dialog").css("width","600px");
+	
+		$(".step-content-left").bind("mouseover", function() {
+			$(this).parent().addClass("on-step-left").removeClass("on-step-right");
+		});
+		
+		$(".step-content-right").bind("mouseover", function() {
+			$(this).parent().addClass("on-step-right").removeClass("on-step-left");
+		});
+		
+		
+	
+	$("#get_captcha").bind('click',function(){
+			var wa = $("#get_captcha").val();
+			var array = wa.match(/\d+/);
+			if(!(array==null)){
+				wa = array[0];
+			}
+			if( wa && wa >0 && wa < 300){
+				return ;
+			}
+			var mobiletel = $("#mobile").val();
+			if(mobiletel.length != 11){ return};
+			if (!$form.check($("#mobile"))) {return};
+
+			checkcode(300,$("#get_captcha"),$.trim(mobiletel));
+	
+		});
+		
+		$form = $("#registerform").kdValidform( );
+	});
+	
+	function submitForm() {
+		if($form.check() && $("input.kdValidform_error").size() == 0) {
+			$.kd.showLoading($("#register"));
+			$("#password").val($.des.getDes($("#password__").val()));
+			$("input[type=button]").attr("disabled", true);
+			$("#registerform input").addClass("readonly").attr("readonly", true);
+			$("#registerform").ajaxSubmit({
+				dataType : "text",
+				url : "${kasp_url}mall/newRegister!saveRegisterBasic.do?ajax=yes",
+				success : function(data) {
+					$.kd.closeLoading();
+					$("input[type=button]").attr("disabled", false);
+					$("#registerform input").removeClass("readonly").attr("readonly", false);
+					if(!data) {
+					
+						zhejiang_alert("消息",'出错了!');
+						//$.kd.kdAlert("出错了！");
+					} else {
+						var result = eval("[" + data + "]");
+						if ( result[0].result == 1 ) {
+								$.kd.kdZhifu($('#J_next').html(),function(){
+									//	window.location.href = "registerorg.html?type=sfcg"
+								},"注册提示");
+							return;
+						} else {
+							zhejiang_alert('消息',result[0].message, function() {
+								$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+							});
+						}
+					}
+				},
+				error : function() {}
+			});
+		}
+	}
+
+	function timeCounter(wait,$btn) {  
+        if (wait == 0) {  
+        	$btn.attr("disabled", false).val("获取验证码");            
+            wait = 300;  
+        } else {  
+        	$btn.attr("disabled", "disabled").val("重新发送(" + wait + ")");  
+            wait--;  
+            setTimeout(function() {  
+                timeCounter(wait,$btn)  
+            },  
+            1000)  
+        }  
+    }
+
+	function checkcode(wait,$btn,mobiletel){
+    	$("#codeimg").attr('src','${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+    	
+    	zhejiang_confirm("提示",$('#codeimgdiv').html(), function(){
+    		$("#hiddencode").val($("#validcode",$("#confirmWindow")).val());
+    		sendcode(wait,$btn,mobiletel);
+    	}, '确定');
+    }
+	
+	function sendcode(wait,$btn,mobiletel){
+   		
+   		var code = $("#hiddencode").val();
+   		$.post('${kasp_url}mall/newRegister!obtainValidateCode.do', {validcode:code,mobiletel:mobiletel}, function(data) {
+ 
+   			//var data = eval("("+data+")");
+   			if(data.result==0){
+   				$.kd.kdMsg(data.message);
+   				return false;
+   			}else{
+   				$.kd.kdMsg('验证码已发送!');  
+				timeCounter(wait,$btn);
+   			};
+   		},"json");
+   	}
+	
+   	$("#kd-ui-dialog-content-border #validcode").bind('blur', function(event) {
+   		$('#hiddencode').val($(this).val());
+   	});
+	
+	
+	$("#invitorname").bind("blur",function(){
+			$("span[invitornamespan]").removeClass("kdValidform_checktip kdValidform_wrong");
+			$("span[invitornamespan]").removeClass("kdValidform_checktip kdValidform_right");
+			$("span[invitornamespan]").addClass("kdValidform_checktip");
+			var invitorname = $("#invitorname").val();		
+			//console.info($("#invitorname").val());
+			if(invitorname!=null&&invitorname!=""){
+			 var data = {
+                invitorname : invitorname		
+			   }; 
+			$.ajax({
+		      type:"post" ,
+			  data: data,
+			  dataType : "text",
+			  url: "${kasp_url}mall/newRegister!checkInvetor.do?ajax=yes",
+			  success: function(data){
+			  var data = eval("("+data+")");
+			   if(data.data.len > 0){
+				//$.kd.kdMsg("推荐人存在");
+				$("span[invitornamespan]").removeClass("kdValidform_checktip kdValidform_wrong");
+				$("span[invitornamespan]").addClass("kdValidform_checktip kdValidform_right");
+				
+			   }else{
+			   $("span[invitornamespan]").removeClass("kdValidform_checktip kdValidform_right");
+				$("span[invitornamespan]").addClass("kdValidform_checktip kdValidform_wrong");
+				$.kd.kdMsg("推荐人不存在");
+				$("#invitorname").val("");
+			   }
+			  },
+			  error : function(data){
+			      zhejiang_alert("消息",'出错了!');
+			  }
+		  });   
+		}else{
+			return true;
+		}
+			      	
+    	});
+		
+	
+$("#agree").bind("click",function(){
+	$(".modal-dialog").css("width","800");
+})
+	
+	
+function  windowUp(){
+	
+	zhejiang_alert('用户注册协议',$('#khxy').html(),function(){
+		
+	})
+}	
+	
+</script>
+
+<style>
+#kd-ui-dialog-bottom {
+	padding-top: 15px;
+	text-align: right;
+	width: 330px;
+}
+
+
+.zhifu{
+	width:399px;
+	height:80px;
+	margin:0 auto;
+	margin-top:10px;
+	text-align:center;
+	
+	
+}
+
+.zhifutips{
+	width: 209px;
+    height: 43px;
+	background: url("${staticserver}/images/tanhaotishi.png") no-repeat scroll 20px 5px rgba(0, 0, 0, 0);
+    color: #999;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 9px 35px 12px 105px;
+}
+.buttondiv{
+	height: 6px;
+    margin: 0 auto;
+}
+
+.selected{
+	border:1px solid #fb6e02;
+}
+ </style>

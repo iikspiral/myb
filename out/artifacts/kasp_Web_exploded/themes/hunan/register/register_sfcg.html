@@ -1,0 +1,23 @@
+<!--个人开户-->
+
+<#if opentype == 'TP'>
+	<#if alreadyopen?exists>
+		<h3>您已开通了资金账户,如需绑定多张银行卡,请进入银行卡管理功能进行相关操作,谢谢!</h3>
+	<#else>
+		<#include 'register_tp.html'>
+	</#if>	
+</#if>
+
+<#if opentype == 'CG'>
+	<#if alreadyopen?exists>
+		<h3>您已开通了资金账户,如需绑定多张银行卡,请进入银行卡管理功能进行相关操作,谢谢!</h3>
+	<#else>
+		<#include 'register_cg.html'>
+	</#if>
+	
+</#if>
+
+<#if opentype == 'AL'>
+	<#include 'register_al.html'>	
+</#if>
+

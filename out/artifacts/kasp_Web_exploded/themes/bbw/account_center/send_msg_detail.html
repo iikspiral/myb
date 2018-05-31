@@ -1,0 +1,96 @@
+<div class="account-main clearfix">	      
+	<div class="simple-titlebar clearfix">
+        <h2 class="title">消息详情</h2>
+    </div>
+    <div class="container-full">
+    	<div class="tabs-filter">
+	         <div class="list-wrap">
+	        	<div id="holden">
+	        		<div class="thefilter">
+						<div class="nav-filter">
+							<div class="value" id="orderstatus">
+								<a href="javascript:void(0);" id="J_back">返回</a>
+								<input type="hidden" value="${message.id!''}" id="J_msgid">
+            					<input type="hidden" value="${flag}" id="J_flag">
+							</div>
+						</div>
+					</div>
+					<div class="account-board">
+						<form id="J_receive">
+							<div class="floorform">
+							<div class="floor">
+								<label class="property">发信人：</label>
+								<div class="value">
+									<label class="property">${message.name!''}</label>
+								</div>
+							</div>
+							<div class="floor">
+								<label class="property">时间：</label>
+								<div class="value">
+									<label class="property">${message.addtime!''}</label>
+								</div>
+							</div>
+							<div class="floor">
+								<label class="property">内容：</label>
+								<div class="value">
+									<textarea rows="40" cols="40" id="J_content" name="params" style="text-indent:2em;">${message.msgcotent!''}</textarea>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link type="text/css" rel="stylesheet" href="${staticserver}/bbw/js/kindeditor/themes/default/default.css" />
+<script charset="utf-8" src="${staticserver}/bbw/js/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="${staticserver}/bbw/js/kindeditor/lang/zh_CN.js"></script>
+ <script type="text/javascript">
+   $(function(){
+	var options = {
+			   width: '700px',
+			   height: '400px',
+				minWidth: 250,
+			   minHeight: 50,
+			   uploadJson : fileaction,
+			   filePostName:"upfile",
+			   extraParams:{ a: 'a'} ,
+		       afterBlur : function(){this.sync()},
+			   formatUploadUrl:function( url) {
+				 return fileserver+url;
+			   }
+			};
+			window.editor_content = KindEditor.create('textarea[id="J_content"]', options);
+		//返回时标记已读
+		 $("#J_back").click(function(){
+		    var id=$("#J_msgid").val();
+		    var flag=$("#J_flag").val();
+		    if(flag == 0){
+		    zhejiang_confirm("消息","执行返回操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!updMsg.do?ajax=yes",
+	            	{msglist: id},
+	            	function(data) {
+								 if ( data.result == 1) {
+								 		window.location.href = "send_msg.html?_="+new Date().getTime(); 
+								 } else {
+									 		window.location.href = "send_msg.html?type=msg&_="+new Date().getTime(); 
+								};
+	               },"json");   
+	            });
+		    }else{
+		        zhejiang_confirm("消息","执行返回操作?",function() {
+	            	
+		       		window.location.href = "send_msg.html?type=msg&_="+new Date().getTime(); 
+	            });
+		       
+		    }
+		});
+
+   });
+</script>
+
+
+

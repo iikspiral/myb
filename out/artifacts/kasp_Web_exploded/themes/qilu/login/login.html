@@ -1,0 +1,146 @@
+<script type="text/javascript"	src="${staticserver}/qilu/js/libs/kjax.des.js"></script>
+
+
+<div onkeypress="clickBtn(event)" class="container-full" style="height: 500px;">
+        <ul id="J_loginbg" class="adsBG clearfix" style="min-height:420px;">
+		<#if advlists?exists>
+			<#list advlists as item>
+				<li style="background:url('${fileserver}${item.atturl!''}') 50% 0 no-repeat;">
+				<a href="${item.url!''}{{url}}"></a>
+			</li>	
+			</#list>
+		</#if>
+				
+        </ul>
+        <div class="login-board">
+			<input type="hidden" id="forward" value="${forward!''}"></input>           
+		   <h2>登录齐鲁众筹</h2>
+			<div class="transition validation" id="errortxt" style="display: none;">
+			<span id="errortip" class="kdValidform_checktip kdValidform_wrong"></span>
+			</div>
+            <form id="loginform"  class="login-form" method="post">
+            	<ul>
+            		<li class="username">
+            			<i class="iconfont">&#xe637;</i>
+            			<input id="custid" name="username" type="text"  >
+            		</li>
+            		<li class="password">
+            			<i class="iconfont">&#xe627;</i>
+            			<input id="password" name="password" type="password"  >
+            		</li>
+            		<li class="captcha clearfix">
+            			<input name="validcode" type="text" placeholder="验证码">
+            			<img id="codeimg"  class="captchaImg" title="看不清楚？" src="${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime();" onclick="$(this).attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime())" alt="验证码" >
+            		</li>
+            		<li class="login clearfix">
+            			<input id ="J_keydown" class="btn btn-lg btn-blue" type="button" onclick="login()" value="登录">
+            			<a href="register.html"><input class="btn btn-lg btn-orange" type="button" onclick="login()" value="注册"></a>
+            		</li>
+            		<li class="register clearfix">
+            			<a href="resetpwd.html">忘记密码？</a>
+            			<span>没有账号？<a href="register.html">马上注册</a></span>
+            		</li>
+            	</ul>
+            </form>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+	var url = '${url!''}';
+
+	$(function() {
+		$("#errortxt").hide();
+		$("#custid").focus();
+	});
+
+	function clickBtn(event) {
+		if (event.keyCode==13) {
+			login();
+		}
+	}
+	
+	function login() {
+		if (!$('#custid').val()) {
+			$('#custid').focus();
+			$("#errortip").text("用户名不能为空！").show();
+			$("#errortxt").show();
+			return false;
+		}
+		
+		if (!$('#password').val()) {
+			$('#password').focus();
+			$("#errortip").text("密码不能为空！").show();
+			$("#errortxt").show();
+			return false;
+		}
+		$("#errortxt").hide();
+		$("#errortip").hide();
+		$("#J_keydown").val("登录中...");
+		//$.kd.showLoading($("#btnreset"), "登录中");
+		var pswd = $('#password').val();
+		$('#password').val($.des.getDes(pswd));
+		$("#btnlogin, #btnreset").attr("disabled", "disabled");
+		$("#loginform input").addClass("readonly").attr("readonly", "readonly");
+		
+		$("#loginform").ajaxSubmit({
+			dataType : "text",
+			url : "mall/qilu_login!newlogin.do?ajax=yes",
+			success : function(data) {
+				var redata = eval("("+data+")");
+					if ( redata.result == '1' ) {
+						$.kutil.pageReload("ssologin.html",{deal_action:"login_confirmed"});
+					} else {
+						$.kd.closeLoading();
+						if(redata.message == '验证码错误!'){
+							zhejiang_alert('消息',redata.message, function() {
+								$('#password').val("").focus();
+								$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+								$("#J_keydown").val("登录");
+							});
+						}else{
+							zhejiang_alert('消息',redata.message, function() {
+								$('#password').val("").focus();
+								$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+								$("#J_keydown").val("登录");
+							});
+						reset();
+						}	
+					}
+					$("#loginform input").removeClass("readonly").attr("readonly", false);
+					$("#btnlogin, #btnreset").attr("disabled", false);
+			},
+			error : function() {
+					zhejiang_alert('消息','系统繁忙,请稍后!', function() {
+						$('#password').val("").focus();
+						$("#codeimg").attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+					});
+					reset();
+			}
+		});
+	}
+	
+	function reset() {
+		$("#custid").focus();
+		$("#custid, #password").val("");
+	}
+	
+	function changeImg() {
+		var obj = document.getElementById("image_span");
+		obj.innerHTML = '<img align="middle" src="invalidate.vc"/>';
+	}
+		
+$('.adsBG').bxSlider({
+	  mode: 'fade',
+	  captions: false,
+	  responsive: true,
+	  auto: true,
+	  speed: 800,
+	  autoHover: false,
+	  controls: false,
+	  adaptiveHeight: false,
+	  pager: false
+	});	
+		
+</script>
+

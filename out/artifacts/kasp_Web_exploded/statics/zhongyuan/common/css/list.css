@@ -1,0 +1,264 @@
+@CHARSET "UTF-8";
+
+.clearfix:before,.clearfix:after {
+	content: "\0020";
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.searchNav {
+	padding: 10px 0;
+	font-size: 13px;
+	border-bottom: 1px solid #ddd;
+}
+
+.searchNav .container dl dt,.searchNav .container dl dd {
+	float: left;
+	margin: 8px 0;
+	padding: 0 10px;
+	line-height: 280%;
+	display: inline-block;
+}
+
+.searchNav .container dl dt {
+	width: 100px;
+	text-align: right;
+}
+
+.searchNav .container dl dd {
+	width: 860px;
+}
+
+.searchNav .container dl dd a {
+	margin: 0 2px;
+	padding: 1px 10px 2px 10px;
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+.searchNav .container dl dd a:hover {
+	color: #FFFFFF;
+	font-weight: bold;
+	background-color: #c0c0c0;
+	border-radius: 3px;
+}
+
+.searchNav .container dl dd a.cur {
+	color: #FFFFFF;
+	font-weight: bold;
+	border-radius: 3px;
+	background: none repeat scroll 0 0 #FF5500;
+}
+
+.searchNav .container {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.searchNav .container .more_list_item {
+	display: none;
+}
+
+.searchNav .container .list_more_btn {
+	color: orange;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+.searchNav .container .list_more_btn:hover {
+	text-decoration: underline;
+}
+
+.pjlist .topinfo {
+	height: 50px;
+	line-height: 50px;
+	text-align: right;
+}
+
+.pjlist .topinfo h3 {
+	float: left;
+	height: 50px;
+	font-size: 16px;
+	padding: 0 20px;
+	line-height: 50px;
+	font-weight: lighter;
+	line-height: 50px;
+	padding: 0 20px;
+}
+
+.pjlist .topinfo .sort {
+	float: right;
+	padding-right: 20px;
+}
+
+.pjlist .topinfo .sort .order {
+	color: #FFA500;
+	font-weight: bold;
+}
+
+.pjlist .listcontent {
+	
+}
+
+.pjlist .listcontent li.list {
+	padding-top: 10px;
+	padding-left: 20px;
+	border-bottom: solid 1px #DDD;
+}
+
+.pjlist .listcontent li.list .logo {
+	float: left;
+	width: 80px;
+	background: url(../images/imgloading.gif) center no-repeat;
+}
+
+.pjlist .listcontent li.list a img {
+	width: 80px;
+	height: 80px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px #DDD;
+}
+
+.pjlist .listcontent li.list .baseinfo {
+	float: left;
+	width: 680px;
+	display: inline;
+	margin-left: 10px;
+}
+
+.pjlist .listcontent li.list .baseinfo .title {
+	display: inline-block;
+	color: #3B70E1;
+	max-width: 400px;
+	font-size: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	vertical-align: top;
+	font-weight: bold;
+	font-family: "Microsoft YaHei", "微软雅黑" !important;
+}
+
+.pjlist .listcontent li.list .baseinfo .sign {
+	display: inline-block;
+	color: #FFF;
+	margin: 0 5px;
+	padding: 0 5px;
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: top;
+	border: solid 1px #F40;
+	background-color: #FF6C22;
+	font-family: "Microsoft YaHei", "微软雅黑" !important;
+}
+
+.pjlist .listcontent li.list .baseinfo .remark {
+	color: #333;
+	width: 660px;
+	height: 18px;
+	font-size: 14px;
+	margin: 10px 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	line-height: 18px;
+	overflow: hidden;
+}
+
+.pjlist .listcontent li.list .baseinfo .location {
+	color: #666;
+	line-height: 30px;
+	padding-left: 15px;
+	border-bottom: 1px solid #DDD;
+	background: url(../images/location.png) 0 center no-repeat;
+}
+
+.pjlist .listcontent li.list .baseinfo .location.investor {
+	margin-top: 5px;
+	border-bottom: 0;
+}
+
+.pjlist .listcontent li.list .baseinfo .stat {
+	margin: 5px 0;
+}
+
+.pjlist .listcontent li.list .extinfo {
+	float: right;
+	width: 170px;
+	margin-right: 30px;
+}
+
+
+.pjlist .listcontent li.list .extinfo .sign_star {
+	display: inline-block;
+	color: #FFF;
+	margin: 0 5px;
+	padding: 0 5px;
+	font-size: 12px;
+	line-height: 40px;
+	text-align: center;
+	width: 40px;
+	height: 40px;
+	font-weight: bold;
+	vertical-align: top;
+	font-family: "Microsoft YaHei", "微软雅黑" !important;
+	background: url(../images/plist_icons.png) 0 center no-repeat;
+}
+
+.pjlist .listcontent li.list .extinfo .opendate {
+	float: right;
+	color: #EB6100;
+	margin: 0 10px;
+}
+
+.pjlist .listcontent li.list .extinfo .countdown {
+	color: #EB6100;
+	margin: 0 10px;
+	text-align: right;
+}
+
+.pjlist .listcontent li.list .extinfo .percent {
+	margin: 10px;
+	color: #585858;
+	font-weight: bold;
+	font-size: 16px;
+	text-align: right;
+}
+
+.pjlist .listcontent li.list .extinfo .money {
+	display: inline-block;
+	width: 100%;
+	height: 13px;
+	border-radius: 8px;
+	background-color: #DDD;
+}
+
+.pjlist .listcontent li.list .extinfo .money .bar {
+	position: relative;
+	height: 100%;
+	background: #FA5603;
+	border-radius: 8px;
+}
+
+.pjlist .listcontent li.list .extinfo ul.info {
+	width: 100%;
+	font-weight: bold;
+	margin-top: 8px;
+}
+
+.pjlist .listcontent li.list .extinfo ul.info li {
+	float: left;
+	margin-left: 0px;
+	font-size: 12px;
+	line-height: 16px;
+	text-align: left;
+}
+
+.pjlist .listcontent li.list .extinfo ul.info li:last-child {
+	float: right;
+	text-align: right;
+}

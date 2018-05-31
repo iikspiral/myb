@@ -1,0 +1,99 @@
+<div class="rightcontent formdiv ">
+	<div id="tabsCont" class="nav">
+		<ul class="tab-list" id="tab-list">
+			<li><a href="#tabs-1">项目动态</a></li>
+		</ul>
+		<div class="memberTabsCont" id="tabs-1">
+			<div class="tipinfo2">
+				您在浙投网上的<label>${productmap.project_name!''}</label>的项目动态 <a class="btn1"
+					style="float: right; margin-top: 2px;" href="issuetrends.html?productid=${productmap.project_id!''}">创建新动态</a>
+			</div>
+			<div class="list">
+				<ul class="contentUl" style="margin-left: 0px;">
+				<#if trendlist?exists>
+				<#list  trendlist as tl>
+				<li>
+				<div class="imgDiv">
+					<a href="" target="_blank"> 
+					<script>
+			    	var path = "${productmap.cover_image!''}";
+					if(path) {
+						path = path.split("?");
+						
+						if(path.length >= 1) {
+							var html = [];
+							html.push("<img id='bigImg' imgsrc='${fileserver}${productmap.cover_image}' src='${fileserver}"+path[0]+"' style='border: 1px solid #EFEFEF;background: url(${staticserver}/common/images/imgloading.gif) center no-repeat;'>")
+							document.write(html.join(""));
+						} 
+					} else {
+							document.write('<img id="bigImg" src="${staticserver}/common/images/project_min.gif" style="border: 1px solid #EFEFEF;background: url(${staticserver}/common/images/imgloading.gif) center no-repeat;">');
+						}
+				</script>
+							</a>
+						</div>
+						<div class="textDiv">
+							<h3>${tl.piftitle!''}&nbsp;</h3>
+							<!-- <div class="desc">${tl.piftype!''}&nbsp;</div> -->
+							<div class="line"></div>
+							<div class="status">
+								项目动态
+								 <lable>
+								 <#if tl.status == "0">
+								       正常显示
+								 <#else>
+								       审核失败
+								 </#if>            
+								 </lable>
+								中...
+							</div>
+							<div class="ibtn ibtn1 fl">
+								<span class="bg"></span><a href="issuetrends.html?pifid=${tl.pifid!''}&productid=${productmap.project_id!''}">编辑动态</a>
+							</div>
+							<div class="ibtn ibtn6 fl" style="margin-left: 50px;">
+								<span class="bg"></span><a href="#">动态浏览</a>
+							</div>
+						</div>
+					</li>
+					</#list>
+					</#if>
+				</ul>
+			</div>
+			<div id="page_area" class="pager-info"></div>
+		</div>
+	</div>
+<script type="text/javascript">
+	$(function() {
+		$.kd.kdPager.init({
+			currentPage: '${trendpage}',
+			totalPage: '${totalPage_trend}',
+			totalRecords: '${totalCount_trend}',
+			prefix: '/myproject.html',
+			suffix: function(n) {
+				return generalParam() + "&page=" + n;
+			}
+		});
+	});
+	function generalParam() {
+		var param = "type=trendlist";
+		var productid ="${prodcutid!''}"
+		var producttype ="${producttype!''}"
+		return param + (productid ? ("&productid=" + productid) : "") + (productid ? ("&producttype=" + producttype) : "");
+	}
+</script>
+
+	<script type="text/javascript"
+		src="${staticserver}/common/js/libs/jquery.ui.core.min.js"></script>
+	<script type="text/javascript"
+		src="${staticserver}/common/js/libs/jquery.ui.widget.min.js"></script>
+	<script type="text/javascript"
+		src="${staticserver}/common/js/libs/jquery.ui.tabs.min.js"></script>
+
+
+	<script>
+		$(function() {
+			$("#tabsCont").tabs();
+		});
+	</script>
+
+
+</div>

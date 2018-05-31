@@ -1,0 +1,247 @@
+
+
+<div class="account-board">
+	<div class="titlebar">
+	    <h2>风险测评</h2>
+	</div>
+	<div class="messager messager-info">
+	    <i class="iconfont">&#xe60d;</i>
+	    <p>亲爱的投资者，为了对您的风险承受能力做出评估，请您认真、客观地填写以下问卷。对于您填写的个人信息，本中心将予以严格保密，不会向任何第三方透露。因监管部门履行监管职责要求或司法部门依法行使调阅查询权除外。</p>
+	</div>
+      	<form class="risk-evaluation" id="doEstimateForm" method="post">
+      	<#if fxcpList?exists>
+			<#list fxcpList as item>
+				<div class="question">
+				<label>${item_index+1}.${item.qusname!''}:<input type="radio" name="questionnaire${item_index}" style="display: none;" datatype="*" nullmsg="请选择答案!" /></label>
+				<div class="options">
+		        	<label>
+						<input type="radio" value="4" name="questionnaire${item_index}" id="questionnaire${item_index}1" />
+						<span>A.${item.ans1!''}</span>
+					</label>
+					<label>
+						<input type="radio" value="3" name="questionnaire${item_index}" id="questionnaire${item_index}2"/>
+						<span>B.${item.ans2!''}</span>
+					</label>
+					<label>
+						<input type="radio" value="2" name="questionnaire${item_index}" id="questionnaire${item_index}3" />
+						<span>C.${item.ans3!''}</span>
+					</label>
+					<#if item.ans4 != ''>
+					<label>
+						<input type="radio" value="1" name="questionnaire${item_index}" id="questionnaire${item_index}4" />
+						<span>D.${item.ans4!''}</span>
+					</label>
+					</#if>
+                 </div>
+             </div>
+			</#list>
+		</#if>    
+			<form id="checkForm" class="agreement-form">	  
+			  <div class="agreement">
+		          <input id="serviceAgreement" name="serviceAgreement" datatype="*" type="checkbox" />
+		          <label for="serviceAgreement">我已阅读并同意<a id="fxs" onclick="windowUp()" href="javascript:void(0);" >《风险揭示书》</a></label>
+		        </div>
+		        <div class="actionArea">
+		          <input id="doEstimate" class="btn btn-md btn-red" type="submit" value="提交"/>
+		        </div>
+			</form>	
+    	</form>
+    </div>
+</div>
+
+<div id="fxjss" style="display: none">
+    <div class="regist-questionnaire">
+        <div class="regist-questionnaire_con" style="height: 300px;font-size: 14px;overflow:auto;text-align:justify">
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    尊敬的投资者：
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    <br />
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    为了使您更好地了解e路投综合金融平台产品的投资风险，根据相关市场制度的规定，本平台特向您提供此份特别风险揭示书，请您认真阅读并签署。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    <br />
+                </span>
+            </p>
+            <p class="MsoNormal" style="text-indent:32.0000pt;">
+                <span style="font-family:'Microsoft YaHei';font-size:14px;color:#000000;line-height:1.5;">
+                    <strong>
+                        一、重要提示
+                    </strong>
+                </span>
+                <span style="font-family:黑体;font-size:16.0000pt;">
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    1. 本平台所指的金融产品，是指融资项目的发起人发起项目，经本平台审核，通过互联网进行信息展示，由投资者自主决策实现投资的投融资对接服务。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    2. 本平台所指的发起人，是指发行融资项目，并愿意引入其他投资者或债权人，在项目运作中遵守本平台规定，进行项目管理的企业。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    3. 您在参与本平台展示的金融产品前，应当全面了解各项制度及金融产品业务规则、投资标的或投资项目、融资期限、投资风险、金融产品业务的收费标准和收费方式等信息。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    4. 本平台负责督促权益类产品发行人、众筹产品发行人进行信息披露，但对披露内容不进行实质性审核，对披露信息的真实性、准确性、完整性不承担责任，同时对权益类产品、众筹产品发行人违反信息披露要求的行为和后果不承担任何责任。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    5. 您应当提供有效的联系方式和服务获取方式，如有变动须及时向本公司进行说明，如因您自身原因或不可抗力因素导致您未能及时获取相关的信息服务，由此带来的后果将由您自行承担。
+                </span>
+            </p>
+            <p class="MsoNormal" style="text-indent:32.0000pt;">
+                <span style="font-family:'Microsoft YaHei';font-size:14px;color:#000000;line-height:1.5;">
+                    <strong>
+                        二、风险揭示
+                    </strong>
+                </span>
+                <span style="font-family:黑体;font-size:16.0000pt;">
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    1. 经营风险：包括且不限于以下情形：部分公司抗市场风险和行业风险的能力较弱，业务收入可能波动较大，经营业绩和运营状况可能会发生重大变化；部分公司内部治理薄弱，可能会出现不按规定进行信息披露、非公允关联交易等损害公司利益及中小股东权益的情况，还可能存在因停业、解散、撤销、破产，或者被有关职能部门撤销相关业务许可、责令停业整顿等原因导致不能履行职责的风险。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    经营性风险使您存在亏损的可能，您将不得不承担由此可能导致的损失。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    2. 流动性风险：权益类产品、众筹产品属于私募产品，市场整体流动性大大低于其他资本市场，部分产品可能会出现单一买方/卖方市场的情形。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    流动性风险使您存在亏损的可能，您将不得不承担由此可能导致的损失。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    3. 道德风险：项目运营者对资金的使用和资金管理者对资金的管理，可能发生资金管理者疏于管理、资金使用不当的情况，资金未能投入项目运作，使您存在亏损的可能，您将不得不承担由此可能造成的损失。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    4. 政策风险：国家的法律、法规、政策以及行业导向发生变化，可能导致项目无法达到预期，使您存在亏损的可能，您将不得不承担由此可能造成的损失。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    5. 技术风险：由于交易撮合及行情揭示是通过电子通讯技术和电脑技术来实现的，这些技术存在着被网络黑客和计算机病毒攻击的可能，本所会尽力保障交易系统的正常运行，但您将不得不承担由您的个人电脑终端故障或其他本所以外的因素导致系统故障而可能造成的损失。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    6. 不可抗力因素导致的风险：诸如地震、火灾、水灾、战争等不可抗力因素可能导致交易系统的瘫痪，您将不得不承担由此可能导致的损失。
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    <br />
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    本风险揭示书的揭示事项仅为列举性质，未能详尽列示参与权益类产品、众筹产品的全部投资风险和可能导致投资损失的所有因素。您在参与前，请务必对此有清醒的认识。&nbsp;
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    我们诚挚地建议您，从风险承受能力、风险认知能力、投资目标、心理和生理承受能力等自身实际情况出发，审慎参与权益类产品、众筹产品投资，合理配置金融资产。&nbsp;
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    <br />
+                </span>
+            </p>
+            <p>
+                <span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">
+                    <strong>
+                        &nbsp;特别提示：
+                    </strong>
+                    投资者应签署本风险揭示书，表明投资者已经理解并愿意自行承担接受参与金融产品业务的风险和损失。
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+	var $riskForm = $("#checkForm").kdValidform();
+	var $doEstimateFormValidate = $("#doEstimateForm").kdValidform();
+	$(function(){
+		$("#doEstimate").bind('click',function(){
+			var options = {
+					type: "POST",
+					dataType:"json",
+					async:true,
+					url: "${kasp_url}mall/zhongyuan_riskmate!doEstimate.do?ajax=yes",
+					success: function(data){
+						$.kd.closeLoading();
+			 			$("input[type=button]").attr("disabled", false);
+			 			if (data.result == '1') {	
+							zhejiang_alert('消息',data.message, function() {
+								window.location.href='security.html';
+				 			 });
+			 			}else{
+							zhejiang_alert('消息',data.message, function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+						}
+						
+					},
+					error: function(data) {
+						  zhejiang_alert('消息',"系统异常", function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+					}
+				};
+			if( $riskForm.check()&&$doEstimateFormValidate.check()){
+				//$.kd.showLoading($("#doEstimate"));
+		        $("#doEstimate").val("处理中...");
+		        $("#doEstimate").attr("disabled", true);
+			 	$("#doEstimateForm").ajaxSubmit(options);
+			}
+			
+		});
+	});
+	function next() {
+		zhejiang_alert('消息',"完成注册及绑定", function() {
+				window.location.href='${kasp_url}account_asset.html';
+		});	
+	}
+	$("#fxs").bind("click",function(){
+		$(".modal-dialog").css("width","800");
+	})	
+	function windowUp(){
+		
+		zhejiang_alert('风险揭示书',$('#fxjss').html(),function(){
+			
+		})
+	}	
+	
+</script>

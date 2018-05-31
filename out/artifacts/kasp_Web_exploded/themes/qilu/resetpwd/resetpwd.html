@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="${staticserver}/qilu/css/common.css">
+<link rel="stylesheet" href="${staticserver}/qilu/css/normalize.css">
+<link rel="stylesheet" href="${staticserver}/qilu/css/account.css">
+<link rel="stylesheet" href="${staticserver}/qilu/css/register.css">
+<link rel="stylesheet" href="${staticserver}/qilu/css/jquery.bxslider.css">
+<link rel="stylesheet" href="${staticserver}/qilu/css/iconfont/iconfont.css">
+<script type="text/javascript" src="${staticserver}/qilu/common/js/libs/kjax.des.js"></script>
+
+<div class="account_register">
+<#switch type>
+	<#case "find_pwd_user">
+		<#include 'resetpwd_user.html' />
+	<#break>
+	<#case "find_pwd_safequestion">
+		<#include 'resetpwd_safequestion.html' />
+	<#break>
+	<#case "find_pwd_newpwd">
+		<#include 'resetpwd_newpwd.html' />
+	<#break>
+	 
+	 
+</#switch>
+</div>

@@ -1,0 +1,363 @@
+<script type="text/javascript" src="${staticserver}/common/js/libs/kjax.des.js"></script>
+<style type="text/css">
+	h2{
+		font-size: 16px;
+		line-height: 30px;
+		color: #666;
+		width: 990px;
+		margin: 20px auto 10px;
+		padding: 0 5px;
+		border-bottom: 1px solid #ccc;
+	}
+</style>
+<h2>订单支付</h2>
+
+<!-- 订单确认 -->
+<div class="order_pay">
+	<#if orderlist?exists>
+	<#list orderlist as order>
+	<#setting number_format="number"/>
+	<ul class="num_paid">
+		<li>支付金额：<em>${order.smrjg?default("0.00")?number?string("###,###,###,##0.00")}</em>元</li>
+		<input type="hidden" id="ordermoney" value="${order.smrjg!'0'}"/>
+		<li><span>请您及时支付，以便订单尽快处理。</span></li>
+	</ul>
+	<div class="bill">
+		<dl>
+			<dt>产品名称</dt>
+			<dd>${bond.name!''}</dd>
+		</dl>
+		<dl>
+			<dt>订单编号</dt>
+			<dd>${order.sbbh!''}</dd>
+		</dl>
+		<dl>
+			<dt>产品编号</dt>
+			<dd>${bond.id!''}</dd>
+		</dl>
+		<dl>
+			<dt>投资人</dt>
+			<dd>${bankCard.chineseName!''}</dd>
+		</dl>
+		<dl>
+			<dt>年化收益率</dt>
+			<dd>${bond.annualrate}%</dd>
+		</dl>
+		<dl>
+			<dt>订单时间</dt>
+			<dd>${order.yxrq?substring(0,4)}-${order.yxrq?substring(4,6)}-${order.yxrq?substring(6,8)} 
+				${order.sbsj?substring(0,2)}:${order.sbsj?substring(2,4)}:${order.sbsj?substring(4,6)}</dd>
+		</dl>
+	</div>
+	<form class="pay-method" id="orderForm">
+		<input name="dealtype" value="${order.dealtype!''}" type="hidden"/>
+		<input id="investamount" name="orderAmount" value="${order.smrjg!''}" type="hidden"/>
+		<input id="paymoney" value="${order.paymoney!''}"  type="hidden"/>
+		<input name="yxrq" value="${order.yxrq!''}" type="hidden"/>
+		<input name="transtime" value="${order.sbsj!''}" type="hidden"/>
+		<input id="productchannel" value="${bond.channel!''}" type="hidden"/>
+		
+		<h3>请选择支付方式 <span>/ 2种支付方式可以同时使用(账户有余额时首先扣账户的钱)</span></h3>
+
+		<!-- 三方支付 -->
+		<div id="TPD">
+			<#if bondchannel?exists>
+			<#list bondchannel as bondchannel>
+			<#if ((bondchannel.channelno)?last_index_of('01')>-1)>
+			<div class="option">
+				<input id="balancepay" name="checkway" type="checkbox" />
+				<label for="balancepay">三方支付</label>
+			</div>
+			<ul>
+				<li>
+					<label>账户余额：</label>
+					<span value="${thirdpay.balance!''}"><em>${thirdpay.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</em>元</span>
+				</li>
+				<input id="thirdpayamount"  value="${thirdpay.enablebalance!'0'}" title="三方支付账户余额" type="hidden"/>
+				<input id="thirdpay_channelno"  value="${thirdpay.channelno!''}" title="三方支付渠道代码" type="hidden"/>
+			</ul>
+			</#if>
+			</#list>
+			</#if>
+		</div>
+		
+		<input name="orderNo" value="${order.sbbh!''}" type="hidden"/>	
+		
+		<!-- 网银支付 -->
+		<div id="OB">
+			<div class="option">
+				<input id="onlinepay" name="checkway" type="checkbox" />
+				<label for="onlinepay">网银支付</label>
+			</div>
+			<#if bondchannel?exists>
+			<#list bondchannel as bondchannel>
+			<#if ((bondchannel.channelno)?last_index_of('01')>-1)>
+			<div class="payment" id="thirdpaybanks" style="display:none;">
+				<h4>请选择支付账户：</h4>
+				<div class="options clearfix">
+					<#if thirdpaybanklist?exists>
+						<#list thirdpaybanklist as item>
+						<#if item.bankcode?exists && item.bankcode == "701">
+						<a href="javascript:void(0)"  bank="bank" code="${item.bankcode}">
+							<img src="${item.banklogo!''}" width="138" height="33" title="${item.bankname}" />
+							<i class="iconfont">&#xe616;</i>
+							<input type="hidden"  id="v_code_${item.bankcode}" value=""/>
+						</a>
+						</#if>
+						</#list>
+					</#if>
+				</div>
+				<div class="num" id="zhifujiner">
+					<label>支付金额：</label>
+					<input id="inputamount"  name="" type="text" ignore="ignore" datatype="/^[0-9]\d*(\.\d+)?$/" nullmsg="请输入交易金额！" errormsg="金额只能是数字且大于0" />
+					<span>元</span>
+				</div>
+				<div style="margin-top:10px;display:none;" id="hastopaymoneydiv"><label style="margin-left: 70px;">温馨提示:你还需支付<span id="hastopaymoney" style="color: #ff8800;font-size: 20px;">0</span>元</label></div>
+			</div>
+			</#if>
+			</#list>
+			</#if>
+		</div>
+		<div class="trade-psw">
+			<label>交易密码：</label>
+			<input id="tradePWD" type="password" class="input" datatype="n6-6" nullmsg="请输入6位数字交易密码！" errormsg="交易密码只能是6位数字"/>
+		</div>
+		<input id="nextbutton"  class="actionBtn XXXL-Btn" value="确认支付" type="button"  onclick="thirdpayFromSubmit()"/>
+		</#list>
+  		</#if>
+	</form>
+	
+	<form id="onlinepayForm" name="onlinepayForm" method="post" style="display:none" >
+				
+		<input id="inputCharset" type="hidden" name="inputCharset" value=""/>
+		<input id="pickupUrl" type="hidden" name="pickupUrl" value=""/>
+		<input id="receiveUrl" type="hidden" name="receiveUrl" value="" />
+		<input id="version" type="hidden" name="version" value=""/>
+		<input id="language" type="hidden" name="language" value="" />
+		<input id="signType" type="hidden" name="signType" value=""/>
+		<input id="merchantId" type="hidden" name="merchantId" value="" />
+		<input id="payerName" type="hidden" name="payerName" value=""/>
+		<input id="payerEmail" type="hidden" name="payerEmail" value="" />
+		<input id="payerTelephone" type="hidden" name="payerTelephone" value="" />
+		<input id="orderNo" type="hidden" name="orderNo" value="" />
+		<input id="orderAmount" type="hidden" name="orderAmount" value=""/>
+		<input id="orderCurrency" type="hidden" name="orderCurrency" value="" />
+		<input id="orderDatetime" type="hidden" name="orderDatetime" value="" />
+		
+		
+		<input id="productName" type="hidden" name="productName" value="" />
+		<input id="productPrice" type="hidden" name="productPrice" value="" />
+		<input id="productNum" type="hidden" name="productNum" value=""/>
+		<input id="productId" type="hidden" name="productId" value="" />
+		<input id="productDesc" type="hidden" name="productDesc" value="" />
+		<input id="ext1" type="hidden" name="ext1" value="" />
+		<input id="ext2" type="hidden" name="ext2" value="" />
+		<input id="payType" type="hidden" name="payType" value="" />
+		<input id="tradeNature" type="hidden" name="tradeNature" value="" />
+		<input id="signMsg" type="hidden" name="signMsg" value="" />
+		<input id="payerIDCard" type="hidden" name="payerIDCard" value="" />
+		<input id="pid" type="hidden" name="pid" value=""/>
+		<input id="orderExpireDatetime" type="hidden" name="orderExpireDatetime" value=""/>	
+		<input id="issuerId" type="hidden" name="issuerId" value="" />
+		<input id="pan" type="hidden" name="pan" value="" />
+	</form>
+</div>
+
+
+<script type="text/javascript">
+
+	
+	var $orderForm;
+	$orderForm = $("#orderForm").kdValidform();
+	
+	var $balancepay;
+	/*
+	支付
+	*/
+	function balancepay(){	
+		var _tradepwd_ =$("#tradePWD").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd_,'kingdom');		 
+		var dataPWD = {npassword:_tradepwd_};
+		var options = {
+				data:dataPWD,
+				url :"mall/newpay!pay.do?ajax=yes",
+				dataType : "text",
+				success : function(data) {
+					var json = eval("("+data+")");
+					if(json.result=="1"){
+						if(json.data.items[0].redirect=="Y"){
+							
+							$("#signType").val(json.data.items[0].signType);
+							$("#pickupUrl").val(json.data.items[0].pickupUrl);
+							$("#orderCurrency").val(json.data.items[0].orderCurrency);
+							$("#version").val(json.data.items[0].version);
+							$("#signMsg").val(json.data.items[0].strSignMsg);
+							$("#inputCharset").val(json.data.items[0].inputCharset);
+							$("#receiveUrl").val(json.data.items[0].receiveUrl);
+							$("#orderAmount").val(json.data.items[0].orderAmount);
+							$("#orderNo").val(json.data.items[0].orderNo);
+							$("#payType").val(json.data.items[0].payType);
+							$("#merchantId").val(json.data.items[0].merchantId);
+							$("#language").val(json.data.items[0].language);
+							$("#orderDatetime").val(json.data.items[0].orderDatetime);
+							$("#onlinepayForm").attr("action",json.data.items[0].serverUrl);
+							$("#onlinepayForm").submit();
+						}else{
+							$.kd.kdConfirm("订单支付成功!", function(){
+							//setTimeout(function(){
+							window.location.href = "/tx_order_deal_list.html?paymethod=2";
+					//},1000);
+						});	
+						}
+							
+					}else{
+						$("#tradePWD").val("");
+						$.kd.kdAlert("订单支付失败!   "+json.message);
+						$("#nextbutton").attr("disabled",false);
+					}
+				},
+				error : function(data) {
+					$("#tradePWD").val("");
+					var json = eval("("+data+")");
+					$.kd.kdAlert(json.data.msg);
+					return false;
+				}
+		};
+					
+				if($orderForm.check()){
+					$("#nextbutton").attr("disabled",true);
+					$("#orderForm").ajaxSubmit(options);
+				}
+	}
+	
+		
+		//三方支付余额
+		var thirdpayamount1 = $("#thirdpayamount").val();
+		var thirdpayamount = parseFloat(thirdpayamount1).toFixed(2);
+		//订单金额
+		var investamount1 = $("#investamount").val();
+		var investamount =  parseFloat(investamount1).toFixed(2);
+		
+	
+	$(function(){	
+	
+			if(thirdpayamount1 =='0'){
+				$("#balancepay").attr("disabled",true);
+			}
+			
+			if(Number(thirdpayamount) > Number(investamount) || Number(thirdpayamount) == Number(investamount)){
+				$("#zhifujiner").css("display","none");
+				$inputamount.attr("ignore","ignore");
+				$("a[bank]").on("click",function(){
+					$("a[bank]").removeClass("selected");
+					$.kd.kdMsg("您的余额充足，请优先使用余额支付！");
+					$("#inputamount").attr("ignore","ignore").attr("name","");
+					$(this).find("input[type=hidden]").attr("name","");
+					$onlinepay.attr("selected",false);
+				});
+				
+			}else{
+				var hastopaymoney1 = investamount-thirdpayamount;
+				var hastopaymoney = parseFloat(hastopaymoney1).toFixed(2);
+				$("#hastopaymoney").text(hastopaymoney);
+				$("#hastopaymoneydiv").css("display","block");
+			}
+	})
+	
+	
+	/*支付表单提交*/
+	function thirdpayFromSubmit(){
+		var $onlinepay = $("#onlinepay");
+		var $balancepay = $("#balancepay");
+		if($onlinepay.is(':checked') || $balancepay.is(':checked')){
+			if($onlinepay.is(':checked')){
+				if(Number(thirdpayamount) < Number(investamount)){
+					if($("a[bank]").hasClass('selected')){
+						balancepay();
+					}else{
+						$.kd.kdMsg("请选择第三方支付！");
+					}
+				}else{
+					$(this).find("input[type=hidden]").attr("name","");
+					$.kd.kdMsg("您的账户余额充足,请优先使用账户余额支付！");
+					$("#inputamount").attr("ignore","ignore");
+					$onlinepay.attr("checked",false);
+					
+				}
+				
+			}else{
+				balancepay();
+			}	
+		}
+		else {
+			$.kd.kdMsg("请选择支付方式！");
+		}
+	}	
+	
+	//隐藏赋名name
+
+	$("#balancepay").bind("click",function(){
+		$("#thirdpayamount").attr("name","thirdpayamount");
+		$("#thirdpay_channelno").attr("name","thirdpay_channelno");
+	})
+	
+ 
+	/*网银支付隐藏、显示*/
+	$(function(){
+		var $onlinepay = $("#onlinepay");
+		$onlinepay.bind("click",function(){
+			var $bank_list = $("#thirdpaybanks");
+			//var $lastconfirmedamount = $("#zhifujiner");
+			var $li_banks_checked = $("a.selected")
+			
+			if(!$onlinepay.is(':checked')){
+				//$lastconfirmedamount.slideToggle();
+				$bank_list.slideToggle();
+				$li_banks_checked.removeClass("selected");
+			}else{
+				//$lastconfirmedamount.slideToggle();
+				$bank_list.slideToggle();
+			}
+		})	
+	});
+	
+	//选择银行
+	var $li_bank = $("a[bank]");
+	$li_bank.bind("click",function(){
+		var code = $(this).attr("code");
+		var v_code = "v_code_"+code;
+		$("#"+v_code).val(code);
+		var $li_bank_checked = $("a.selected");
+		$li_bank_checked.removeClass("selected");
+		$(this).addClass("selected");
+		$(".options a").find("input[type=hidden]").attr("name","");
+		$(this).find("input[type=hidden]").attr("name","bankid");
+		
+		
+	});
+	
+	var $onlinepay = $("#onlinepay");
+	var $inputamount = $("#inputamount");
+	//var finalruel = "/^[0-9]\d*(\.\d+)?$/";
+	$onlinepay.bind("click",function(){
+		if($onlinepay.is(':checked')){
+			$inputamount.attr("ignore","").attr("name","currentamount");
+	}else{
+			$inputamount.attr("ignore","ignore").attr("name","");
+	}
+	})
+	
+	//产品销售渠道
+	var $productchannel = $("#productchannel");
+	var productchannel = $productchannel.val();
+	if(productchannel == ""){
+		//产品只支持三方存管
+		
+	}else if(productchannel == ""){
+		//产品只支持三方支付
+	}else{
+		//产品都支持
+	};
+	
+
+</script>  

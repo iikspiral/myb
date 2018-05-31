@@ -1,0 +1,91 @@
+<div class="account-body">
+	<div class="account-investor">
+		<div class="panel-border">
+			<div class="titlebar border-titlebar">
+				<h3 class="title">基本信息</h3>
+			</div>
+			<div class="panel-content">
+				<div class="properties clearfix">
+					<dl>
+						<dt>姓名</dt>
+						<dd>${chinesename!''}</dd>
+					</dl>
+					<dl>
+						<dt>客户代码</dt>
+						<dd>${custno!''}</dd>
+					</dl>
+					<dl>
+						<dt>资金账号</dt>
+						<dd><#if sfzfcapitalaccount?exists >
+							【${sfzfcapitalaccount!''}】
+						  </#if>
+						  <#if sfcgcapitalaccount?exists >
+							【${sfcgcapitalaccount!''}】
+						  </#if></dd>
+					</dl>
+					<dl>
+						<dt>证件信息</dt>
+						<dd><em>${certificateno!''}</em></dd>
+					</dl>
+					<#if riskflag == '1'>
+					<dl>
+						<dt>风险测评</dt>
+						<dd>${riskEstimate!''}<a class="action"  href="risk_evaluation.html"><#if riskEstimate ?? && riskEstimate != "">重新测评<#else>马上测评</#if></a></dd>
+					</dl>
+					</#if>
+				</div>
+			</div>
+		</div>
+		<div class="panel-border">
+			<div class="titlebar border-titlebar">
+				<h3 class="title">安全设置</h3>
+			</div>
+			<div class="panel-content">
+				<ul class="items-list">
+					<li>
+						<span class="status-checked fl"></span>
+						<label class="text fl">登录密码</label>
+						<a class="action fr" target="_self" href="reset_pwd.html">修改</a>
+					</li>
+					<li>
+						<span <#if signbank?exists>class="status-checked fl"<#else>class="status-warn fl"</#if>></span>
+							<label class="text fl" href="">交易密码</label>
+						<a class="action fr" target="_self" href="reset_pwd_trade.html">修改</a>
+						<!--a class="action fr" href="">设置</a-->
+					</li>
+					<li>
+						<span  <#if safeStatus?exists>
+              <#if safeStatus.safequestion?string == "1">
+                class="status-checked fl"<#else>class="status-warn fl"
+              </#if>
+            </#if>></span>
+						<label class="text fl" href="">密保设置</label>
+						<a class="action fr" href="secret_questions.html">设置</a>
+						<!--a class="action fr" href="">修改</a-->
+					</li>
+					<li>
+						<span class="status-checked fl"></span>
+						<label class="text fl">手机验证</label>
+						<label class="text fl"><#if mobiletel?exists>${mobiletel?substring(0,3)}****${mobiletel?substring(7)}<#else>****</#if></label>
+						<a class="fr" href="rebind_cellphone.html">修改</a>
+						<!--a class="fr" href="">绑定</a-->
+					</li>
+					<!--li>
+						<span class="status-checked fl"></span>
+						<label class="text fl" href="">邮箱验证</label>
+						<a class="fr" href="email_veify.html">修改</a>
+					</li-->
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	//选项卡
+	$(function() {
+        $(".btn-tabs").organicTabs({
+            "speed": 200
+        });
+    });
+</script>

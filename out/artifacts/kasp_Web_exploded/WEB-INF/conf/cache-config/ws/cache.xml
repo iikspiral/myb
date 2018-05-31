@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GBK"?>
+<ws>
+	<bex id="spm_queryDictValue" key="{6F0D3C1B-BC57-4ead-872C-47B5545D6502}">
+		<flush bex="sys_dict_new" />
+		<flush bex="sys_dict_upd" />
+		<flush bex="sys_dict_del" /> 	
+	</bex>
+
+	<bex id="ws_find_printers" key="{0D60F297-0C63-4d55-AFD4-2D942ECD56F3}">
+    		<flush bex="ws_refresh_printers" />
+	</bex>
+</ws>

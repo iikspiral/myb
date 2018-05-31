@@ -1,0 +1,119 @@
+<div class="footer-wrap container-full" style="position:relative;">
+    <div class="sitemap clearfix">
+        <a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}aboutus.html">关于我们</a>
+        <a href="javascript: void(0);" onclick="contact()">联系我们</a>
+        <a href="javascript: void(0);" onclick="joinus()">加入我们</a>
+        <a href="javascript: void(0);" onclick="safe()">安全保障</a>
+        <a href="javascript: void(0);" onclick="guid()">新手指引</a>
+        <a href="javascript: void(0);" onclick="help()">帮助中心</a>
+        <a href="javascript:void(0);" style="margin:0;">手机客户端</a>
+    </div>
+    <div class="footer container" style="position:relative;">
+    	<div class="links clearfix">
+    		<label>友情链接：</label>
+    		<ul class="link-list">
+            <#if friendLinkList?? && friendLinkList?size gt 0>
+                <#list friendLinkList as item>
+                <li><a href="${item.url!''}">${item.aname!''}</a></li>
+                </#list>
+            </#if>
+            <span class="trigger">更多</span>
+        </div>
+        <div class="footer-content clearfix">
+	        <div class="footer-logo">
+	            <a href="#"><img src="${staticserver}/shx/imagesshx/footer-logo.png" width="83" height="83"></a>
+	            <p>山西高新普惠资本投资<br>服务有限公司</p>
+	        </div>
+	        <div class="service">
+	            <p>服务时间：工作日08:30-22:00  节假日09:00-18:00</p>
+	            <strong>400-078-4888</strong>
+	            <i>客服邮箱：service@gaoxinzb.com</i>
+	            <p>企业官方QQ群：201630030</p>
+	        </div>
+	      	<div class="attention" style="float:left;">
+	            <!--<div class="app">
+	                <img src="${staticserver}/shx/imagesshx/app.jpg" width="110" height="110"> 
+	              	<p>手机APP下载</p>
+	        	</div>-->
+	            <div class="wx">
+	                <img src="${staticserver}/shx/images/wechat.jpg" width="110" height="110">
+	                <p>关注我们的微信</p>
+	        	</div>
+	        </div>
+			<div style="margin-top:60px">
+					<a href="http://webscan.360.cn/index/checkwebsite/url/www.gaoxinzb.com"><img border="0" src="http://img.webscan.360.cn/status/pai/hash/f89c1bdb3114401012b6bfb6f40eb6f7"/></a>
+		  </div>
+	    </div>
+   </div>
+   <p class="copyright">&copy; 2015 山西高新普惠资本投资服务有限公司 版权所有 晋ICP备15002650号</p>
+   <div style="position:absolute;bottom:13px;left:68%;"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255742469'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255742469%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div>
+</div>
+
+<div class="float">
+	<ul>
+    	<li>
+        	<img src="${staticserver}/shx/imagesshx/img1.jpg" width="46" height="47">
+        	<div class="qq">
+            	<b class="zx">在线客服</b>
+                <i class="time">(工作日：9:00-18:00)</i>
+                <p>
+                	<span><a href="#">在线咨询</a></span>
+                </p>
+                <span class="zx">服务电话<br>400-078-4888</span>
+            	<span class="zx">企业官方QQ群：201630030</span>
+            </div>
+      	</li>
+    	<li><img src="${staticserver}/shx/imagesshx/img2.jpg" width="46" height="47"></li>
+    	<li>
+        	<img src="${staticserver}/shx/imagesshx/img3.jpg" width="46" height="47">
+            <div class="ss"></div>
+        </li>
+    	<li><img src="${staticserver}/shx/imagesshx/img4.jpg" width="46" height="47"></li>
+    </ul>
+</div>
+<script>
+
+function contact(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=contact_shx_kfsp");
+}
+
+function joinus(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=join_shx_kfsp");
+}
+
+function guid(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=guide_shx_kfsp");
+}	
+
+function safe(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=security_shx_kfsp");
+}
+
+function help(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=help_shx_kfsp");
+}
+
+</script>
+<script>
+    // 页脚友情链接的更多按钮
+    var footerTrigger = $(".footer-wrap .links .trigger");
+    // 友情链接收缩前高度
+    var linkOriginHeight = $(".footer-wrap .links > ul").height();
+    // 友情链接收缩后高度
+    var linkMinHeight = $(".footer-wrap .links > ul > li:first").height();
+    if( linkOriginHeight > 30 ){
+        // 先收起
+        $(".footer-wrap .links > ul").css("overflow","hidden").animate({ "height" : linkMinHeight+"px" });
+        // 显示更多按钮，绑定点击事件
+        $(footerTrigger).removeClass("hide").click(function(){
+            // 实现展开
+            if( $(this).html() == "更多" ){
+                $(".footer-wrap .links > ul").animate({ "height" : linkOriginHeight+"px" });
+                $(this).html("收起"); 
+            }else if( $(this).html() == "收起" ){
+                $(".footer-wrap .links > ul").animate({ "height" : linkMinHeight+"px" });
+                $(this).html("更多"); 
+            }
+        })
+    }
+</script>

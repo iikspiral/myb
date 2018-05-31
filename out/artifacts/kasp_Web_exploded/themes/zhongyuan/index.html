@@ -1,0 +1,63 @@
+<#include 'common/header.html' />
+${widget_apng!''}
+<div class="twoCols clearfix">
+${widget_pifwidget!''}
+
+<div class="mainContent">
+<!-- 优选产品 -->
+<div class="products-list">
+${widget_indexpriorityproduct!''}
+</div>
+<!-- 分类产品 -->
+<div class="products-list" id="categories_product">
+<div class="tabs clearfix">
+	<div class="lava"><i class="iconfont">&#xe60d;</i></div>
+	<a href="privatelending.html" class="item" id="privatelending_item">投融资</a>
+	<a href="incomeright.html" class="item" id="incomeright_item">收益权产品</a>
+	<a href="privateproduct.html" class="item" id="privateproduct_item">私募产品</a>
+	<a href="javascript:void(0)" class="item" id="badproducttransfer_item">不良资产转让</a>
+</div>
+<div class="content">
+	<div class="panel">
+		${widget_indexprivatelending!''}
+		${widget_indexincomeright!''}
+		${widget_indexprivateproduct!''}
+		${widget_indexbadproducttransfer!''}
+		
+	</div>
+</div>
+</div>
+<!-- 已交易成功产品 -->
+<div class="products-list">
+${widget_indexsuccessproduct!''}
+</div>
+</div>
+<div class="rightSidebar">
+${widget_getmore!''}
+</div>
+</div>
+
+ <!-- 新手指引 -->
+<div class="guideline">
+		<a class="register" href="/helper.html?type=beginner&pid=helper">
+			<i class="iconfont">&#xe605;</i> 注册
+		</a>
+		<a class="certification" href="/helper.html?type=identification&pid=helper">
+			<i class="iconfont">&#xe600;</i> 认证
+		</a>
+		<a class="investment" href="/helper.html?type=cat201501191614349156&pid=helper">
+			<i class="iconfont">&#xe609;</i> 投资
+		</a>
+		<a class="security" href="/helper.html?type=safe&pid=helper">
+			<i class="iconfont">&#xe601;</i> 安全保障
+		</a>
+</div>
+
+<#include 'common/footer.html' />
+
+<script>
+	$(function() {
+		$(".nav a").removeClass("current");
+		$("#n_home").addClass("current");
+	});
+</script>

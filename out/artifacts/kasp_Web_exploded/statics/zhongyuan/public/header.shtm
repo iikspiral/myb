@@ -1,0 +1,32 @@
+<div class="header">
+	<div class="head container clearfix">
+		<form class="search-field">
+			<input class="input-field" type="text">
+			<input class="action btn-sm btn-red-glow" type="button" value="搜索">
+		</form>
+		<!-- 登录前 -->
+		<ul class="horizontal-list">
+			<li><a class="login" href="">登录</a></li>
+			<li><a class="register" href="">注册</a></li>
+		</ul>
+		<!-- 登录后 -->
+		<ul class="horizontal-list hide">
+			<li><a class="exit" href="">退出</a></li>
+			<li><a class="account" href="">我的账户</a></li>
+			<li><span>你好，username</span></li>
+		</ul>
+		<h1 class="logo">中原股权交易中心</h1>
+	</div>
+	<div class="container-full">
+		<ul class="navigation container clearfix">
+			<li><a class="active" href="">首页</a></li>
+			<li><a href="">股权融资</a></li>
+			<li><a href="">股权质押融资</a></li>
+			<li><a href="">私募债融资</a></li>
+			<li><a href="">企业服务</a></li>
+			<li><a href="">会员服务</a></li>
+			<li><a href="">信息披露</a></li>
+			<li><a href="">中心服务</a></li>
+		</ul>
+	</div>
+</div>

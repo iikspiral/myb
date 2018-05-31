@@ -1,0 +1,581 @@
+<link rel="stylesheet" href="${staticserver}/hunan/css/common.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/normalize.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/account.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/register.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/jquery.bxslider.css">
+
+<link rel="stylesheet" href="${staticserver}/hunan/css/iconfont/iconfont.css">
+<style type="text/css">
+	body{
+		background-color: #FAFAFA;
+	}
+</style>
+<script type="text/javascript" src="${staticserver}/hunan/common/js/libs/kjax.des.js"></script>
+
+
+<div class="account_register">
+	
+	<ul class="breadcrumb clearfix">
+		<li><a href="">账户中心</a></li>
+		<li><i class="iconfont">&#xe615;</i></li>
+		<li><a href="">我的账户</a></li>
+		<li><i class="iconfont">&#xe615;</i></li>
+		<li><span>银行卡管理</span></li>
+	</ul>
+	
+<div class="user-type clearfix">
+	<form class="personal-account" id="J_confirm" method="post">
+	<!--销户基本信息 1机构  0个人 -->
+	<#if safeStatus?exists>
+		<#if safeStatus.individualorinstitution == "1">
+		<div class="identity">
+				<input name="personalaccount" value="0" type="hidden"/>
+				<h3>机构信息</h3>
+				<ul>
+					  <li>
+						<label for="realname">企业名称</label>
+							<input  value="${chineseName!''}" type="text"  readonly="readonly"/>
+					  </li>
+					  <li>
+						 <label for="idnum">证件号码</label>
+							<input name="certificateNo" value="${certificateno!''}" type="text" readonly="readonly"/>
+						<input type="hidden" name="certificatetype" id="certificatetype" value="0" />
+					 </li>
+				</ul>
+			</div>
+		</#if>
+		<#if safeStatus.individualorinstitution == "0">
+			<div class="identity">
+				<input name="personalaccount" value="0" type="hidden"/>
+				<h3>身份信息</h3>
+				<ul>
+					  <li>
+						<label for="realname">真实姓名</label>
+							<input  value="${chineseName!''}" type="text"  readonly="readonly"/>
+					  </li>
+					  <li>
+						 <label for="idnum">身份证号</label>
+							<input  value="${certificateno!''}" type="text" readonly="readonly"/>
+						<input type="hidden" name="certificatetype" id="certificatetype" value="0" />
+					 </li>
+				</ul>
+			</div>	
+	
+	</#if>
+		</#if>
+	<div class="banks">
+		<h3>银行卡信息</h3>
+		<ul>
+		<#if '${p}' == 'tp'>
+		<#if sfzfbanklist?exists>
+			<#list sfzfbanklist as item>
+			<#if item.bankcode?exists >
+		<li class="tieonBanks clearfix">	
+			<a href="javascript:void(0);" class="selected" code="${item.bankcode!''}" >
+				<i class="iconfont">&#xe620;</i>
+				<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+			</a>
+		</li>
+	    <li id="">
+			<label for="cardNum">银行卡号</label>
+			<input name="bankaccount" type="text"  value="${item.bankaccount}" readonly="readonly" />
+		</li>		
+			</#if>
+			</#list>
+		</#if>	
+		</#if>  
+		
+		
+		<#if '${p}' == 'cg'>
+		<#if sfcgbanklist?exists>
+			<#list sfcgbanklist as item>
+			<#if item.bankcode?exists >
+		<li class="tieonBanks clearfix">	
+			<a href="javascript:void(0);" class="selected" code="${item.bankcode!''}" >
+				<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+			</a>
+		</li>
+	    <li id="">
+			<label for="cardNum">银行卡号</label>
+			<input name="bankaccount" type="text"  value="${item.bankaccount}" readonly="readonly" />
+		</li>		
+			</#if>
+			</#list>
+		</#if>	
+		</#if>  
+
+		
+		<li >
+			<label for="cardNum">交易密码</label>
+			<input id="J_oldpwd" name="old_tradepwd" type="password" datatype="n6-6"  nullmsg="请输入6位数字交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位交易密码" />
+		</li>	 
+		</ul>	
+	</div>
+		<div class="actionArea clearfix">
+				<input id="J_infoconfirm" class="btn  btn-lg btn-orange" type="button" value="下一步" />
+		</div>	
+	</form>
+	
+	
+	<form class="personal-account" id="J_bank_bind_form" method="post" style="display:none">
+	
+		<div style="display:none">
+		<#if '${p}' == 'tp'>
+			<#if sfzfbanklist?exists>
+				<#list sfzfbanklist as item>
+					<input name="bankid"   		value="${item.bankcode!''}" 	type="hidden" />
+					<input name="bankaccount"   value="${item.bankaccount!''}" 	type="hidden" />
+					<input name="channelcode"   value="${item.channelno!''}" 	type="hidden" />
+				</#list>
+			</#if>	
+		</#if>
+		<#if '${p}' == 'cg'>
+			<#if sfcgbanklist?exists>
+				<#list sfcgbanklist as item>
+					<input name="bankid"   		value="${item.bankcode!''}" 	 type="hidden"/>
+					<input name="bankaccount"   value="${item.bankaccount!''}" 	 type="hidden"/>
+					<input name="channelcode"   value="${item.channelno!''}" 	 type="hidden"/>
+				</#list>
+			</#if>	
+		</#if>
+		
+		<input id="J_tradepwd" name="trdpwd"  value=""  type="hidden"/>	
+		</div>
+
+		<!--销户基本信息 1机构  0个人 -->
+		
+		<#if safeStatus?exists>
+		<#if safeStatus.individualorinstitution == "1">
+			<div class="identity">
+				<input name="personalaccount" value="0" type="hidden"/>
+				<h3>机构信息</h3>
+				<ul>
+					  <li>
+						<label for="realname">企业名称</label>
+							<input name="certificateName" value="${chineseName!''}" type="text"  readonly="readonly"/>
+					  </li>
+					  <li>
+						 <label for="idnum">证件号码</label>
+							<input name="certificateNo" value="${certificateno!''}" type="text" readonly="readonly"/>
+						<input type="hidden" name="certificatetype" id="certificatetype" value="0" />
+					 </li>
+				</ul>
+			</div>	
+		</#if>
+		<#if safeStatus.individualorinstitution == "0">
+			<div class="identity">
+				<input name="personalaccount" value="0" type="hidden"/>
+				<h3>身份信息</h3>
+				<ul>
+					  <li>
+						<label for="realname">真实姓名</label>
+							<input name="certificateName" value="${chineseName!''}" type="text"  readonly="readonly"/>
+					  </li>
+					  <li>
+						 <label for="idnum">身份证号</label>
+							<input name="certificateNo" value="${certificateno!''}" type="text" readonly="readonly"/>
+						<input type="hidden" name="certificatetype" id="certificatetype" value="0" />
+					 </li>
+				</ul>
+			</div>	
+		</#if>
+		</#if>
+		
+		<!-- 重新绑定银行 tp三方支付  cg三方存管  参数-->
+		<#if '${p}' == 'tp'>
+		<div class="banks">
+			<h3>选择银行</h3>
+			<ul>
+			<li id="J_bank" class="tieonBanks clearfix">
+			<#if thirdpaybanklist?exists>
+				<#list thirdpaybanklist as item>
+				<#if item.bankcode?exists && item.bankcode == "701">
+					<#else>
+						<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+							<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+							<i class="iconfont">&#xe620;</i>
+							<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd}"/>
+							<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard}"/>
+							<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd}"/>
+							<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+							<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+						</a>
+					</#if>
+				</#list>
+			</#if>	
+			 
+			  </li>
+			  <li>
+				<label for="cardNum">银行卡号</label>
+				<input id="bancodeinput" name="opnbankaccount" type="text"  datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+			  </li>
+			  <!--
+				<li>
+					<label for="cardNum">开户行省份</label>
+						<input  name="opnprovince" type="text" datatype="*"  nullmsg="请输入开户行省份！" errormsg="省份输入有误！"  />
+				</li>
+				
+				<li>
+					<label for="cardNum">开户行城市</label>
+						<input  name="opncity" type="text" datatype="*"  nullmsg="请输入开户行城市！" errormsg="城市输入有误！"  />
+				</li>
+				<li>
+					<label for="cardNum">开户行地址</label>
+						<input  name="opnbankaddr" type="text" datatype="*"  nullmsg="请输入开户行地址！" errormsg="地址输入有误！"  />
+				</li>
+				-->
+				<li>
+					<label for="cardNum">开户行省份</label>
+					<input id="J_prove"  name="opnprovince" value="" type="hidden"  /> 
+					<select id="J_province"  style="height: auto;" datatype="*">
+						<option value="-1">--选择省份--</option>
+						<#if procinceList?exists>
+						<#list procinceList as province >
+							<option value="${province.cityid!''}" >${province.cityname}</option>
+						</#list>
+						</#if>
+					</select>
+				</li>
+				<li>
+					<label for="cardNum">开户行城市</label>
+					<!-- 	<input  name="city" type="text" datatype="zh2-24"  nullmsg="请输入开户行城市！" errormsg="城市输入有误！"  /> -->
+					<select id="J_city" name="opncity" style="height: auto;" datatype="*">
+					</select>
+				</li>
+				<li>
+					<label for="cardNum">开户行地址(若查询不到,请双击输入框进行填写)</label>
+					<select id="J_openbankaddr" name="opnbankaddr" style="height: auto;" datatype="*">
+					</select>
+					<input id="J_editlocalbank"  type="text" nullmsg="请输入开户行地址！" errormsg="地址输入有误！" class="hide">
+				</li>
+				
+				<input id="opnchannelno" 		name="opnchannelno"  type="hidden"  value="200101" >
+				<input id="opnbankid"			name="opnbankid" 	 type="hidden" />
+				<input id="opnbankpwd"			name="opnbankpwd" 	 type="hidden" />
+				<input id="opnbankname"			name="opnbankname" 	 type="hidden" />
+		</ul>	
+		</div>	
+
+		</#if>
+		
+		
+	<#if '${p}' == 'cg' >
+		<div class="banks">
+		<h3>选择银行</h3>
+		<ul>
+		<li class="tieonBanks clearfix">
+		<#if banklist?exists>
+			<#list banklist as item>
+			<#if item.bankcode?exists >
+				<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" code="${item.bankcode!''}" _bankId_="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+					<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+					<i class="iconfont">&#xe620;</i>
+					<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd}"/>
+					<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard}"/>
+					<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd}"/>
+					<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+					<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+					
+				</a>
+			</#if>
+			</#list>
+		</#if>	
+		<input name="bankcode" type="hidden" id="bankcode"  value="" readonly="readonly" />
+		  </li>
+	    <li id="J_li_bankacount">
+			<label for="cardNum">银行卡号</label>
+			<input id="opnbankaccount" name="opnbankaccount" type="text"  datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+		</li>	  
+		<li id="J_li_bankpwd">
+			<label for="cardNum">银行密码</label>
+			<input id="J_bankpwd" name="bankpwd" type="text"  nullmsg="请输入银行密码！" errormsg="银行密码输入有误！" />
+		</li>	 
+		
+		<input id="opnchannelno" 		name="opnchannelno"  type="hidden" />
+		<input id="opnbankid"			name="opnbankid" 	 type="hidden" />
+		<input id="opnbankpwd"			name="opnbankpwd" 	 type="hidden" />
+		<input id="opnbankname"			name="opnbankname" 	 type="hidden" />
+		
+	</ul>	
+    </div>
+	<div class="actionArea clearfix">
+				<input id="J_bank_bind_btn1" class="btn btn-lg btn-lg btn-orange" type="button" onclick="sfcg_drop_bind()" value="下一步" />
+		</div>
+	</#if>
+		
+		
+	</form>
+</div>
+</div>
+
+
+<script>
+
+var $J_bank_bind_from; 
+	$J_bank_bind_from = $("#J_bank_bind_form").kdValidform();
+var $J_confirm;
+	$J_confirm = $("#J_confirm").kdValidform();
+function sfz_drop_bind(){
+		$("#J_prove").val($("#J_province").find("option:selected").text());
+		var options = {
+			type:"post",
+				dataType:"json",
+				async:true,
+				url :"${kasp_url}mall/hunan_dropacct!dropsfcgAcct.do?ajax=yes",
+				success : function(data) {
+					if(data.result == 1){
+						zhejiang_alert("消息",data.data.msg,function(){
+							window.location.href='account_asset.html';
+						});
+					}else if(data.result == 0){
+						zhejiang_alert("消息",data.message,function(){
+							window.location.href='bankmanage.html';
+					});
+					}	
+				},
+				error:function(data) {
+					zhejiang_alert("消息","系统异常，请联系管理员！",function(){
+						window.location.href='account_asset.html';
+					});
+				}
+		}
+		
+		if($J_bank_bind_from.check()){
+			$("#J_bank_bind_btn").attr("disabled",true);
+			$("#J_bank_bind_form").ajaxSubmit(options);
+			$.kd.showLoading($("#J_bank_bind_btn"));
+		}
+	
+}
+
+function sfcg_drop_bind(){
+
+		var options = {
+			type:"post",
+				dataType:"json",
+				async:true,
+				url :"${kasp_url}mall/hunan_dropacct!dropAcct.do?ajax=yes",
+				success : function(data) {
+					if(data.result == 1){
+						zhejiang_alert("消息",data.data.msg,function(){
+							window.location.href='account_asset.html';
+						});
+					}else if(data.result == 0){
+						zhejiang_alert("消息",data.message,function(){
+							window.location.href='bankmanage.html';
+					});
+					}	
+				},
+				error:function(data) {
+					zhejiang_alert("消息","系统异常，请联系管理员！",function(){
+						window.location.href='account_asset.html';
+					});
+				}
+		}
+		
+		if($J_bank_bind_from.check()){
+			$("#J_bank_bind_btn1").attr("disabled",true);
+			$("#J_bank_bind_form").ajaxSubmit(options);
+			$.kd.showLoading($("#J_bank_bind_btn1"));
+		}
+	
+}
+
+
+$(function(){
+	$("#J_infoconfirm").on("click",function(){
+		
+		if($J_confirm.check()){
+		
+			var $tradePwd = $("#J_oldpwd").val();
+			var $desPwd = $.des.getDes($tradePwd);	
+			$("#J_tradepwd").val($desPwd);
+			$("#J_confirm").hide();
+			$("#J_bank_bind_form").show();
+		}
+	})
+	
+		//选择银行
+		$("a[_bankId]").on("click",function(){
+			$(".tieonBanks a").removeClass("selected");
+			$(this).addClass("selected");
+			
+		    $("#channelcode").val();
+			$("#tchannelcode").val();
+			var opnbankid = $(this).attr("_bankid");
+			var opnbankname = $(this).attr("_bankcode");					
+			$("#opnbankid").val(opnbankid);
+			$("#opnbankname").val(opnbankname);
+		});
+		
+
+<#if '${p}' == 'tp'>		
+		<#if thirdpaybanklist?exists>
+			<#list thirdpaybanklist as item>
+			<#if item.selected =="1">
+				var opnbankid = "${item.bankcode!''}";
+				var opnbankname = "${item.bankname!''}";
+				$("#opnbankid").val(opnbankid);
+				$("#opnbankname").val(opnbankname);
+			</#if>
+			</#list>
+		</#if>
+		
+</#if>		
+})
+
+
+
+
+
+$(function(){
+var $J_li_bankpwd = $("#J_li_bankpwd");
+var $J_li_bankacount = $("#J_li_bankacount");
+
+<#if '${p}' == 'cg'>
+<#if banklist?exists>
+	<#list banklist as item>
+		<#if item.selected="1">
+			var opnbankname = "${item.bankname!''}";
+			$("#opnbankname").val(opnbankname);
+			var opnbankid = "${item.bankcode!''}";
+			$("#opnbankid").val(opnbankid);
+			var opnchannelno = opnbankid+"06";
+			$("#opnchannelno").val(opnchannelno);
+			
+			var vcard = "${item.vacard}";
+			var vcardpwd = "${item.vacardpwd}";
+			var vtradepwd = "${item.vatradepwd}";
+			var vcardaccount = "${item.vacardaccount}";
+			var vremark = '${item.remark}';
+			if(vcard == '0' && vcardpwd =='0' && vtradepwd =='0'){
+				$(".bank-list-remark").children("p").html(vremark);
+				$(".bank-list-remark").show();
+				var $li = $(".kdmall-btn", $(".bank-list-remark").next()).closest("li");
+				$("li", $(".bank-list-remark").next()).not($li).hide();
+			}else{
+				$(".bank-list-remark").hide();
+				$("li", $(".bank-list-remark").next()).show();
+			}
+			if(vcard == '0'){
+				$('#bancodeinput').val("");
+				$J_li_bankacount.hide();
+			}
+			if(vcardpwd =='0'){
+				$J_li_bankpwd.hide();
+				$('#J_bankpwd').val("");
+			}
+		</#if>
+	</#list>
+</#if>
+</#if>	
+$("a[_bankId_]").on("click",function(){
+	
+	$(".tieonBanks a").removeClass("selected");
+	$(this).addClass("selected");
+	var channelcode = $(this).attr("_bankId_");
+	var bankcode = $(this).attr("_bankcode")
+	
+	$("#opnbankname").val(bankcode);
+	$("#opnbankid").val(channelcode);
+	var opnchannelno = channelcode+"06";
+	$("#opnchannelno").val(opnchannelno);
+	
+	var bankcode = $(this).attr("code");
+	var v_cardpwd = $("#v_cardpwd_"+bankcode).val();
+	var v_card = $("#v_card_"+bankcode).val();
+	var v_tradepwd = $("#v_tradepwd_"+bankcode).val();
+	var v_cardaccount = $("#v_cardaccount_"+bankcode).val();
+	var v_remark = $("#v_remark_"+bankcode).val();
+	
+	
+	if(v_card == '0' && v_cardpwd =='0' && v_tradepwd =='0'){
+		$("#bancodeinput, #openAccountBankPwd__, #openAccountBankPwd").val("");
+		$(".bank-list-remark").children("p").html(v_remark);
+		$(".bank-list-remark").show();
+		var $li = $(".kdmall-btn", $(".bank-list-remark").next()).closest("li");
+		$("li", $(".bank-list-remark").next()).not($li).hide();
+	}else{
+		$(".bank-list-remark").hide();
+		$("li", $(".bank-list-remark").next()).show();
+	}
+	
+	if(v_card == '0'){
+		$('#bancodeinput').val("");
+		$J_li_bankacount.hide();
+	}else{
+		$J_li_bankacount.show();
+	}
+	if(v_cardpwd =='0'){
+		$('#J_bankpwd').val("");
+		$J_li_bankpwd.hide();
+	}else{
+		$J_li_bankpwd.show();
+	}
+
+});
+})
+
+
+	$("#J_province").change(function(){
+		$("#J_city").find("option").remove();
+		$("#openbankaddr").find("option").remove();
+		var cityid = $("#J_province").attr("value");
+		$.post("${kasp_url}mall/newRegister!getPayCity.do?ajax=yes", 
+				{ "cityid": cityid },
+				   function(data){
+					var i = 0;
+					var arr = new Array();
+					$("#J_city").append( "<option value=\"-1\">--选择城市--</option>" );
+					for(i;i < data.kdjson.len;i++){
+						arr[i] = data.kdjson.items[i].areanames;
+						$("#J_city").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+					}
+				   }, "json");
+	});
+
+	$("#J_city").change(function(){
+		turnStatus();
+		$("#J_openbankaddr").find("option").remove();
+		var province = $("#J_province").find("option:selected").text();
+		var city = $("#J_city").attr("value");
+		var bankid = $("#J_bank > a.selected").attr("_bankid");
+		//alert(bankid);
+		$.post("${kasp_url}mall/hunan_register!getPayLocalBank.do?ajax=yes",
+				{ "province": province,
+				  "city": city,
+				  "bankid":bankid
+				},
+				function(data){
+					if(data.kdjson.flag==1){
+						$("#J_openbankaddr").append( "<option value=\"-1\">--选择分支行--</option>" );
+						var i = 0;
+						var arr = new Array();
+						for(i;i<data.kdjson.len;i++){
+							arr[i] = data.kdjson.items[i].paybankname;
+							$("#J_openbankaddr").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+						}
+					}
+				},
+				"json"
+				);
+	});
+	
+		$("#J_openbankaddr").dblclick(function(){
+		$("#J_openbankaddr").addClass("hide");
+		$("#J_openbankaddr").removeAttr("datatype");
+		$("#J_openbankaddr").removeAttr("name");
+		$("#J_editlocalbank").removeClass("hide");
+		$("#J_editlocalbank").attr("datatype","*");
+		$("#J_editlocalbank").attr("name","opnbankaddr");
+	})
+	
+	function turnStatus(){
+		$("#J_openbankaddr").removeClass("hide");
+		$("#J_openbankaddr").attr("datatype","*");
+		$("#J_openbankaddr").attr("name","opnbankaddr");
+		$("#J_editlocalbank").addClass("hide");
+		$("#J_editlocalbank").removeAttr("datatype");
+		$("#J_editlocalbank").removeAttr("name");
+	}
+</script>

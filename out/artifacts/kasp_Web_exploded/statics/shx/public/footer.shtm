@@ -1,0 +1,30 @@
+<div class="footer-wrap container-full">
+	<div class="footer container">
+		<div class="sitemap">
+			<a href="aboutus.html">关于我们</a>
+			<a href="rulesguide.html">规则指引</a>
+			<a href="guideline.html">新手上路</a>
+			<a href="usualquestions.html">常见问题</a>
+			<a href="statement.html">免责声明</a>
+			<a href="contact.html">联系我们</a>
+		</div>
+		<div class="contactinfo clearfix">
+			<a href="index.html"><img src="images/logo_footer.png" alt="LOGO"></a>
+			<div class="contactus">
+				<div class="freeline">400-820-8820</div>
+				<div class="email">客服邮箱：<a href="mailto:service@szkingdom.com">service@szkingdom.com</a></div>
+			</div>
+			<div class="qrcodes clearfix">
+				<dl>
+					<dt><img src="images/ourapp.jpg" alt="扫一扫，下载我们的APP" title="扫一扫，下载我们的APP"></dt>
+					<dd>手机APP</dd>
+				</dl>
+				<dl>
+					<dt><img src="images/wechat.jpg" alt="扫一扫，关注我们的微信" title="扫一扫，关注我们的微信"></dt>
+					<dd>关注我们的微信</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<div class="copyright">&copy; 2015  山西高新普惠资本有限公司 版权所有  晋ICP备 12040508号</div>
+</div>

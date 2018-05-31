@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.cert.dao.CertapplyBusinessDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	<select id="get" resultType="CertapplyBusinessInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERTAPPLY_BUSINESS_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CertapplyBusinessInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERTAPPLY_BUSINESS_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag})
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN = #{certSn}
+		</if>
+		<if test="applyType != null and applyType != ''">
+			AND a.APPLY_TYPE = #{applyType}
+		</if>
+		<if test="certSubject != null and certSubject != ''">
+			AND a.CERT_SUBJECT = #{certSubject}
+		</if>
+		<if test="projectId != null and projectId != ''">
+			AND a.PROJECT_ID = #{projectId}
+		</if>
+	</select>
+	
+	
+	<insert id="insert">
+		INSERT INTO CERTAPPLY_BUSINESS_INFO(
+			ID,
+			DEVICE_TYPE,
+			DEVICE_NUM,
+			APPLY_TYPE,
+			PHONE_NUM,
+			CERT_SUBJECT,
+			CERT_SN,
+			USER_TYPE,
+			USER_ID,
+			CORP_USER_ID,
+			PROJECT_ID,
+			APPLY_RESULT,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{deviceType},
+			#{deviceNum},
+			#{applyType},
+			#{phoneNum},
+			#{certSubject},
+			#{certSn},
+			#{userType},
+			#{userId},
+			#{corpUserId},
+			#{projectId},
+			#{applyResult},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE CERTAPPLY_BUSINESS_INFO SET 
+			DEVICE_TYPE = #{deviceType},
+			DEVICE_NUM = #{deviceNum},
+			APPLY_TYPE = #{applyType},
+			PHONE_NUM = #{phoneNum},
+			CERT_SUBJECT = #{certSubject},
+			CERT_SN = #{certSn},
+			USER_TYPE = #{userType},
+			USER_ID = #{userId},
+			CORP_USER_ID = #{corpUserId},
+			PROJECT_ID = #{projectId},
+			APPLY_RESULT = #{applyResult},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="findbyList" resultType="CertapplyBusinessInfo">
+		SELECT 
+		a.id as id,
+	    a.DEVICE_TYPE as DEVICE_TYPE,
+	    a.DEVICE_NUM as DEVICE_NUM,
+	    a.APPLY_TYPE as APPLY_TYPE,
+	    a.PHONE_NUM as PHONE_NUM,
+	    a.CERT_SUBJECT as CERT_SUBJECT,
+	    a.CERT_SN as CERT_SN,
+	    a.USER_TYPE as USER_TYPE,
+	    a.USER_ID as USER_ID,
+	    a.CORP_USER_ID as CORP_USER_ID,
+	    a.PROJECT_ID as PROJECT_ID,
+	    a.APPLY_RESULT as APPLY_RESULT,
+	    (case when a.USER_TYPE='userinfo' then u.USER_INFO_NAME when a.USER_TYPE='corporation_info' then c.USER_NAME end) as USER_NAME,
+	    p.PROJECT_NAME as PROJECT_NAME,
+	    a.CREATE_BY as CREATE_BY,
+	    a.CREATE_DATE as CREATE_DATE,
+	    a.UPDATE_BY as UPDATE_BY,
+	    a.UPDATE_DATE as UPDATE_DATE,
+	    a.REMARKS as REMARKS,
+	    a.DEL_FLAG as DEL_FLAG
+    
+
+		FROM CERTAPPLY_BUSINESS_INFO a
+		LEFT OUTER JOIN PROJECT_INFO p ON a.PROJECT_ID = p.ID
+		LEFT OUTER JOIN USER_INFO u ON a.USER_ID = u.ID
+		LEFT OUTER JOIN CORPORATION_USER_INFO c ON a.CORP_USER_ID = c.ID
+		WHERE a.del_flag = '0'
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSn}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSn}, '%')</if>
+		</if> 
+		<if test="projectName != null and projectName != ''">
+			AND a.PROJECT_ID  = #{projectName}
+		</if> 
+		<if test="phoneNum != null and phoneNum != ''">
+			AND a.PHONE_NUM LIKE
+			<if test="dbName == 'oracle'">'%'||#{phoneNum}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{phoneNum}, '%')</if>
+		</if> 
+		<if test="deviceType != null and deviceType != ''">
+			AND a.DEVICE_TYPE = #{deviceType}
+		</if>
+		<if test="deviceNum != null and deviceNum != ''">
+			AND a.DEVICE_NUM = #{deviceNum}
+		</if>
+		<if test="certSubject != null and certSubject != ''">
+			AND a.CERT_SUBJECT LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSubject}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSubject}, '%')</if>
+		</if>
+		<if test="applyResult != null and applyResult != ''">
+			AND a.APPLY_RESULT = #{applyResult}
+		</if>
+		<if test="userName != null and userName != ''">
+		    AND (case when a.USER_TYPE='userinfo' then u.USER_INFO_NAME when a.USER_TYPE='corporation_info' then c.USER_NAME end) LIKE
+			<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{userName}, '%')</if>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	
+	
+	
+	
+	
+</mapper>

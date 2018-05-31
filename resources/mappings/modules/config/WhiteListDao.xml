@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.whitelist.dao.WhiteListDao">
+    
+    <sql id="entityColumns">
+				U .user_info_name,
+				U .USER_PHONE_NUM,
+				P .project_name,
+				w."ID",
+				w."USER_INFO_ID",
+				w."PROJECT_INFO_ID",
+				w."IS_USED",
+				w."ISUSE_FACE",
+				w."OPT_TYPE",
+				w."CREATE_BY",
+				w."CREATE_DATE",
+				w."UPDATE_BY",
+				w."UPDATE_DATE",
+				w."REMARKS",
+				w."DEL_FLAG",
+				w."CERT_SN",
+			    C."CERT_SUBJECT"
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+ 	<select id="get" resultType="WhiteList">
+		SELECT 
+			A.ID AS ID,
+			A.USER_INFO_ID AS userInfoId,
+			A.PROJECT_INFO_ID AS projectInfoId,
+			A.CERT_SN AS certSn,
+			A.OPT_TYPE AS optType,
+			A.CERT_SUBJECT AS certSubject,
+			A.IS_USED AS isUsed,
+			A.UPDATE_DATE AS updateDate,
+			b.ID AS "userInfo.id",
+			b.USER_INFO_NAME AS "userInfo.username",
+			b.USER_PHONE_NUM AS "userInfo.phonenum",
+			b.USER_CONTACT_ADDR AS "userInfo.usercontactaddr",
+			b.IDCARD_TYPE AS "userInfo.idtype",
+			b.USER_INFO_IDCARD_NUM AS "userInfo.useridcardnum",
+			b.USER_ORG AS "userInfo.org",
+			c.PROJECT_NAME AS "projectInfo.projectName",
+			c.ISUSE_FACE AS "projectInfo.isuseFace",
+			D .CERT_SUBJECT AS "certInfo.certSubject",
+			D .COMMON_NAME AS "certInfo.commonName",
+			D .CTML_NAME AS "certInfo.ctmlName",
+			D .USERINFO_ID AS "userInfoId"
+		FROM  WHITE_LIST a 
+		LEFT OUTER JOIN USER_INFO b on a.USER_INFO_ID =b.ID
+		LEFT OUTER JOIN PROJECT_INFO c on a.PROJECT_INFO_ID = C.ID
+		LEFT OUTER JOIN CERT_INFO d on a.CERT_SN=d.CERT_SN
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	
+	<select id="findWaitwhiteList" resultType="WhiteList">
+		SELECT 
+			A.ID AS ID,
+			A.USER_INFO_ID AS userInfoId,
+			A.PROJECT_INFO_ID AS projectInfoId,
+			A.CERT_SN AS certSn,
+			A.OPT_TYPE AS optType,
+			A.IS_USED AS isUsed,
+			A.CERT_SUBJECT AS certSubject,
+			A.UPDATE_DATE AS updateDate,
+			b.ID AS "userInfo.id",
+			b.USER_INFO_NAME AS "userInfo.username",
+			b.USER_PHONE_NUM AS "userInfo.phonenum",
+			b.USER_CONTACT_ADDR AS "userInfo.usercontactaddr",
+			b.IDCARD_TYPE AS "userInfo.idtype",
+			b.USER_INFO_IDCARD_NUM AS "userInfo.useridcardnum",
+			b.USER_ORG AS "userInfo.org",
+			c.PROJECT_NAME AS "projectInfo.projectName",
+			c.ISUSE_FACE AS "projectInfo.isuseFace",
+			c.ID AS "projectInfo.id"
+		FROM  WHITE_LIST a 
+		LEFT OUTER JOIN USER_INFO b on a.USER_INFO_ID =b.ID
+		LEFT OUTER JOIN PROJECT_INFO c on a.PROJECT_INFO_ID = C.ID
+		<include refid="entityJoins"/>
+		WHERE a.del_flag = '0' AND b.del_flag = '0' AND c.del_flag = '0' and a.IS_USED = '0'
+ 		<if test="userInfo.phonenum != null and userInfo.phonenum != ''"> 
+ 			AND b.USER_PHONE_NUM = #{userInfo.phonenum}
+ 		</if> 
+ 		<if test="userInfo.useridcardnum != null and userInfo.useridcardnum != ''"> 
+ 			AND b.USER_INFO_IDCARD_NUM = #{userInfo.useridcardnum}
+ 		</if>
+ 		<if test="optType != null and optType != ''"> 
+ 			AND a.OPT_TYPE = #{optType}
+ 		</if>
+ 		<if test="userInfoId != null and userInfoId != ''"> 
+ 			AND a.USER_INFO_ID = #{userInfoId}
+ 		</if> 
+ 		<if test="projectInfoId != null and projectInfoId != ''"> 
+ 			AND a.PROJECT_INFO_ID = #{projectInfoId}
+ 		</if> 
+	</select>
+	
+	
+	<select id="getView" resultType="WhiteList">
+		SELECT 
+			a.*
+		FROM  WHITE_LIST a
+		<include refid="entityJoins"/>
+		WHERE a.del_flag = '0' AND a.ID = #{id}
+	</select>
+	
+	<select id="getbyProId" resultType="WhiteList">
+		SELECT 
+			a.*
+		FROM  WHITE_LIST a
+		WHERE a.del_flag = '0'
+ 		<if test="_parameter != null and _parameter != ''"> 
+ 			AND a.PROJECT_INFO_ID =#{projectId}
+ 			AND a.IS_USED = '0'
+ 			AND a.OPT_TYPE = '0'
+ 		</if>
+	</select>
+	
+	<select id="getbyCertSn" resultType="WhiteList">
+		SELECT 
+			a.*
+		FROM  WHITE_LIST a
+		WHERE a.del_flag = '0'
+ 		<if test="certSn != null and certSn != ''"> 
+ 			AND a.CERT_SN =#{certSn}
+ 		</if>
+	</select>
+	
+	<select id="getWhiteList" resultType="WhiteList">
+		SELECT 
+			a.*
+		FROM  WHITE_LIST a
+		WHERE a.del_flag = '0' AND a.OPT_TYPE = '1' AND a.IS_USED = '0'
+	</select>
+	
+	
+	<select id="findNameList" resultType="WhiteList">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM
+				(SELECT * FROM white_list) w
+			LEFT JOIN user_info U ON w.USER_INFO_ID = U . ID
+			LEFT JOIN PROJECT_INFO P ON w.PROJECT_INFO_ID = P . ID
+			LEFT JOIN CERT_INFO C ON C.CERT_SN = W . CERT_SN
+		WHERE w.del_flag = '0' AND U.USER_INFO_NAME = #{userInfoName}
+	</select>
+	
+	<select id="findCertList" resultType="WhiteList">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM
+				(SELECT * FROM white_list) w
+			LEFT JOIN user_info U ON w.USER_INFO_ID = U . ID
+			LEFT JOIN PROJECT_INFO P ON w.PROJECT_INFO_ID = P . ID
+			LEFT JOIN CERT_INFO C ON C.CERT_SN = W . CERT_SN
+		WHERE w.del_flag = '0' AND C.CERT_SN = #{certSn}
+	</select>
+	
+	
+	
+		<select id="findList" resultType="WhiteList">
+			SELECT
+				U.user_info_name,
+				U.USER_PHONE_NUM,
+				P.project_name,
+				w.ID,
+				w.USER_INFO_ID,
+				w.PROJECT_INFO_ID,
+				w.IS_USED,
+				w.ISUSE_FACE,
+				w.OPT_TYPE,
+				w.CREATE_BY,
+				w.CREATE_DATE,
+				w.UPDATE_BY,
+				w.UPDATE_DATE,
+				w.REMARKS,
+				w.DEL_FLAG,
+				w.CERT_SN,
+				w.CERT_SUBJECT AS certSubject,
+			    C.CERT_SUBJECT AS searchCertSubject
+			FROM
+				white_list w
+				LEFT JOIN user_info U ON w.USER_INFO_ID = U.ID
+				LEFT JOIN PROJECT_INFO P ON w.PROJECT_INFO_ID = P.ID
+				LEFT JOIN CERT_INFO C ON C.CERT_SN = W.CERT_SN
+			WHERE ( w.del_flag = '0' )
+		<if test="projectName != null and projectName != ''"> 
+ 			AND P.PROJECT_NAME LIKE 
+ 			<if test="dbName == 'oracle'">'%'||#{projectName}||'%'</if> 
+ 			<if test="dbName == 'mysql'">CONCAT('%', #{projectName}, '%')</if> 
+ 		</if> 
+  		<if test="userInfoName != null and userInfoName != ''"> 
+  			AND U.USER_INFO_NAME LIKE  
+  			<if test="dbName == 'oracle'">'%'||#{userInfoName}||'%'</if>  
+  			<if test="dbName == 'mysql'">CONCAT('%', #{userInfoName}, '%')</if>  
+  		</if> 
+  		<if test="userPhoneNum != null and userPhoneNum != ''"> 
+  			AND U.USER_PHONE_NUM LIKE  
+  			<if test="dbName == 'oracle'">'%'||#{userPhoneNum}||'%'</if>  
+  			<if test="dbName == 'mysql'">CONCAT('%', #{userPhoneNum}, '%')</if>  
+  		</if> 
+  		<if test="userInfoId != null and userInfoId != ''"> 
+  			AND w.USER_INFO_ID = #{userInfoId}
+  		</if>
+  		<if test="certSn != null and certSn != ''"> 
+  			AND w.CERT_SN = #{certSn}
+  		</if>
+  		<if test="isUsed != null and isUsed != ''"> 
+  			AND w.IS_USED = #{isUsed}
+  		</if>
+  		<if test="optType != null and optType != ''"> 
+ 			AND w.OPT_TYPE = #{optType}
+ 		</if>
+  		<if test="searchCertSubject != null and searchCertSubject != ''">
+ 			AND C.CERT_SUBJECT LIKE
+ 			<if test="dbName == 'oracle'">'%'||#{searchCertSubject}||'%'</if>
+  			<if test="dbName == 'mysql'">CONCAT('%', #{searchCertSubject}, '%')</if>
+ 		</if>
+ 			order by w.CREATE_DATE DESC
+	
+	</select>
+	
+	
+	<select id="findUserList" resultType="WhiteList" parameterType="String">
+		SELECT 
+		a.ID as id,
+		a.USER_INFO_ID as userInfoId ,
+		a.PROJECT_INFO_ID as projectInfoId,
+		a.CERT_SN as certSn,
+		a.OPT_TYPE as optType,
+		a.IS_USED as isUsed,
+		A.CERT_SUBJECT AS certSubject,
+		a.UPDATE_DATE as updateDate,
+		b.ID as "userInfo.id",
+		b.USER_INFO_NAME as "userInfo.userInfoName",
+		b.USER_PHONE_NUM as "userInfo.userPhoneNum",
+		b.USER_CONTACT_ADDR as "userInfo.userContactAddr",
+		b.IDCARD_TYPE as "userInfo.idCardType",
+		b.USER_INFO_IDCARD_NUM as "userInfo.userInfoIdcardNum",
+		b.USER_ORG as "userInfo.userOrg"
+		FROM  WHITE_LIST a 
+		LEFT OUTER JOIN USER_INFO b on a.USER_INFO_ID =b.ID
+		WHERE (a.del_flag = '0' AND b.del_flag = '0')
+ 		 <if test="_parameter != null and _parameter != ''"> 
+ 			AND a.USER_INFO_ID = #{userInfoId}
+ 		</if>  
+	</select>
+	
+	
+	<insert id="insert">
+		INSERT INTO WHITE_LIST(
+			ID,
+			USER_INFO_ID,
+			PROJECT_INFO_ID,
+			IS_USED,
+			ISUSE_FACE,
+			OPT_TYPE,
+			CERT_SN,
+			CERT_SUBJECT,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{userInfoId}, 
+			#{projectInfoId}, 
+			#{isUsed}, 
+			#{isuseFace},
+			#{optType},
+			#{certSn},
+			#{certSubject},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE WHITE_LIST SET 
+			USER_INFO_ID = #{userInfoId}, 
+			PROJECT_INFO_ID = #{projectInfoId}, 
+			IS_USED = #{isUsed}, 
+			CERT_SN = #{certSn}, 
+			CERT_SUBJECT = #{certSubject}, 
+			ISUSE_FACE = #{isuseFace}, 
+			OPT_TYPE = #{optType}, 
+			UPDATE_BY = #{updateBy.id}, 
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE WHITE_LIST SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<select id="findbyprojectInfoId" resultType="WhiteList" parameterType="String">
+		SELECT 
+		a.*
+		FROM  WHITE_LIST a 
+		WHERE (a.del_flag = '0' AND a.IS_USED = '0' )
+ 		 <if test="_parameter != null and _parameter != ''"> 
+ 			AND a.PROJECT_INFO_ID = #{projectInfoId}
+ 		</if>  
+	</select>
+	
+	
+</mapper>

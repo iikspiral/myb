@@ -1,0 +1,135 @@
+@CHARSET "UTF-8";
+
+.footer {
+	clear: both;
+	height: 220px;
+	margin-top: 20px;
+	background: #ddd;
+	background-image: -moz-linear-gradient(top, #FAFAFA, #DADADA);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(#DADADA) );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFAFA, endColorstr=#DADADA);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FAFAFA,endColorstr=#DADADA)";
+	border-top:#F5F0F0 1px solid;
+}
+
+.footer a {
+	color: gray;
+}
+
+.footer .footer-content {
+	z-index: 1;
+	clear: both;
+	width: 980px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.footer .footer-content ul {
+	height: 200px;
+	margin-top: 15px;
+}
+
+.footer .footer-content ul li {
+	float: left;
+	text-align: left;
+}
+
+.footer .footer-content ul li.left {
+	width: 220px;
+}
+
+.footer .footer-content ul li.left .logo {
+	width: 190px;
+	height: 65px;
+	background: url("../images/logo.png") no-repeat 20px top;
+}
+.footer .footer-content ul li.left .logorong {
+	width: 190px;
+	height: 65px;
+	background: url("../images/logorong.png") no-repeat 20px top;
+}
+.footer .footer-content ul li.left .item {
+	font-size: 18px;
+	margin-top: 5px;
+	margin-left: 25px;
+	font-family: Microsoft Yahei;
+}
+
+.footer .footer-content ul li.left .item .time{
+	font-size: 14px;
+	margin-left: 5px;
+}
+
+.footer .footer-content ul li.left .item .content {
+	display: block;
+	font-size: 14px;
+}
+
+.footer .footer-content ul li.left .mail {
+}
+
+.footer .footer-content ul li.center {
+	width: 500px;
+	padding-top: 40px;
+}
+
+.footer .footer-content ul li.center .item {
+	text-align: center;
+}
+
+.footer .footer-content ul li.center .item .copytxt {
+	float: left;
+	color: #AAA;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.footer .footer-content ul li.center .item .copy {
+	height: 50px;
+	line-height: 50px;
+	padding-right: 100px;
+	background: url("../images/foot_icon.png") no-repeat 370px center;
+}
+
+.footer .footer-content ul li.center .item .kingdom {
+	float: left;
+	width: 175px;
+	height: 50px;
+	line-height: 50px;
+	margin-right: 10px;
+	background: url("../images/kingdom_logo.gif") no-repeat right;
+}
+
+.footer .footer-content ul li.center .item .icbc {
+	float: left;
+	width: 110px;
+	height: 50px;
+	line-height: 50px;
+	margin-left: 10px;
+	background: url("../images/icbc_logo.gif") no-repeat left;
+}
+.footer .footer-content ul li.center .item .abc {
+	float: left;
+	width: 155px;
+	height: 50px;
+	line-height: 50px;
+	margin-left: 10px;
+	background: url("../images/abc_logo.png") no-repeat left;
+}
+
+.footer .footer-content ul li.right {
+	width: 250px;
+}
+
+.footer .footer-content ul li.right a {
+	float: right;
+	margin: 25px 5px 0 5px;
+	display: block;
+}
+
+.footer .footer-content ul li.right a img {
+	width: 115px;
+	height: 115px;
+}

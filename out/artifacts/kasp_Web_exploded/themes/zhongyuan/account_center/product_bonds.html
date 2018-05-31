@@ -1,0 +1,346 @@
+<script type="text/javascript" src="js/myproject.flow.js"></script>
+<div class="rightcontent">
+ 
+ 
+
+	<div class="user-content">
+		<span class="user-h">发起的项目</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"></div>
+	    </div>
+	    <div style="margin: 5px 0;">
+			<input id="restartSubmit" class="linkButton" type="button"  value="发起项目">
+		</div>
+        <table class="table" style="text-align: center;">
+			<tr>
+				<th class="time" style="width:40px;">行号</th>
+				<th style="min-width: 145px;">项目名称</th>
+				<th style="min-width: 40px">期限</th>
+				<th style="min-width: 80px">年化收益率</th>
+				<th style="min-width: 80px">征信措施</th>
+				<th style="min-width: 80px">已募集金额(万)</th>	
+				<th style="min-width: 100px">募集总额(万)</th>
+				<th style="min-width: 60px;text-align: center;">操作</th>
+			</tr>
+			
+			<#if startBond?exists>
+			<#if (startBond?size>0)>
+    		<#list startBond as item>
+    		<input type="hidden" id="${item.id!''}" value="${item.project_id!''}"/>
+			<tr class="unRead">
+				<td>${item.id!""}</span></td>
+				<td>
+					<div style="width: 145px;" name="borrowtitle">
+					<#if item.status=="99">
+					<a href="/addborrow.html?type=basic&id=${item.project_id!""}"  ><span title="${item.borrowtitle!""}" class="msg-title">${item.borrowtitle!""}</span></a>
+					<#else>
+					<a href="/bondsdetai_${item.project_id!''}.html" ><span title="${item.borrowtitle!""}" class="msg-title">${item.borrowtitle!""}</span></a>
+					</#if>
+					</div>
+				</td>
+				
+				<#if  item.newview == "0"  >	
+					<td style="width: 60px">
+					${item.deadline!""}
+					<#if (item.deadlineunit)?exists && (item.deadlineunit) =='M'>
+						个月
+					<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='D'>
+						天
+					<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='Y'>
+						年
+					<#else>
+						个月
+					</#if>
+					</td>
+					<#elseif item.newview == "1">
+					<td style="width: 60px">${item.buyback!""}天</td>
+				</#if>
+				
+				
+				<td>${item.annualrate!""}%</td>
+				<td>${item.creditstatus!""}</td>
+				<td>
+				 	<div style="width: 100px;">
+				 	<#assign hasinvestamount=item.hasinvestamount!"0">
+					<#assign hasinvestamount1=hasinvestamount?number>
+					${hasinvestamount1/10000}
+					</div>
+				</td>
+				<td> 
+				 	<div style="width: 100px;">
+				 	<#assign borrowamount=item.borrowamount!"0">
+					<#assign borrowamount1=borrowamount?number>
+					${borrowamount1/10000}
+					</div>
+				</td>
+				<td>
+					<#assign checkstatus=item.checkstatus!''>
+					<#assign status=item.status!''>
+					<#if checkstatus == "0">
+					    <span><strong>项目审核中</strong></span>
+					<#elseif checkstatus == "2">
+					    <span><strong>未通过审核</strong></span>	
+					<#elseif status == "5">
+					    <span><strong>完成</strong></span>			  	
+					<#elseif status == "4">
+					    <span><strong>完成</strong></span>
+					<#elseif status == "3">
+					    <a class="linkButton btn_beginflow"    kifp-action="bpm" data-value="${item.project_id!''}" data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">结束募集</a>
+					<#elseif status == "2">
+					    <a class="linkButton btn_beginflow"    kifp-action="bpm"   data-value="${item.project_id!''}" data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">发起募集</a>
+				    <#elseif  status == "99">
+					    <a id="bondpublish" class="linkButton btn_beginflow"   kifp-action="bpm"  data-value="${item.project_id!''}"data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">材料审核</a>
+					<#elseif status == "77">
+					    <span><strong>已下架</strong></span>
+					</#if>
+				</td>								
+			</tr>
+			</#list>
+		    	
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><span class="msg-title">金额总计</span></td>
+				<td>
+				<div style="width: 100px;">
+					<#assign ymjtotal1=ymjtotal!"0">
+					<#assign ymjtotal2=ymjtotal1?number>
+					${ymjtotal2/10000}
+				</div>
+				</td>
+				<td>
+				<div style="width: 100px;"> 
+					<#assign mjtotal1=mjtotal!"0">
+					<#assign mjtotal2=mjtotal1?number>
+					${mjtotal2/10000}
+				</div>
+				</td>
+				<td></td>
+			</tr>
+			<#else>
+			<tr>
+				<td colspan="8" style="text-align:center;width:747px;">暂无发起的项目记录</td>
+			</tr>
+			</#if>
+			</#if>
+		</table>
+		<div id="page_publish" class="pager-info" style="width:750px;"></div>
+	</div>
+	<!--<div class="user-content">
+		<span class="user-h">推荐的项目</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"></div>
+	    </div>
+		<table class="table">
+			<tr>
+				<th style="width:40px;">行号</th>
+				<th style="min-width:200px;">项目名称</th>
+				<th style="min-width:100px;">收益率</th>
+				<th style="min-width:100px;">融资期限</th>
+				<th style="min-width:100px;">发行规模(万元)</th>	
+				<th style="min-width:100px;">认购起点(万元)</th>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div style="width: 200px;" onmouseover="this.title = this.innerText"><a href="#" ></a></div></td>
+				<td></td>
+				<td></td>
+				<td><div style="width: 100px;"></div></td>
+				<td><div style="width: 100px;"></div></td>
+			</tr>
+		</table>
+		<div id="page_popular" class="pager-info"></div>
+	</div>-->
+</div>
+<script>
+$(function() {	
+
+ 
+	
+	//投资的项目
+	$.kd.kdPager.init({
+		pager : 'page_invenst',
+		currentPage: '${page_invenst!'1'}',
+		totalPage: '${totalPage_invenst!'1'}',
+		totalRecords: '${totalCount_invenst!'0'}',
+		prefix: '/product_bonds.html',
+		suffix: function(n) {
+			return "page_invenst=" + n;
+		},
+		tagurl:'/product_bonds.html?page_invenst='
+	});
+	
+	//发起的项目
+	$.kd.kdPager.init({
+		pager : 'page_publish',
+		currentPage: '${page_publish!'1'}',
+		totalPage: '${totalPage_publish!'1'}',
+		totalRecords: '${totalCount_publish!'0'}',
+		prefix: '/product_bonds.html',
+		suffix: function(n) {
+			return "page_publish=" + n;
+		},
+		tagurl:'/product_bonds.html?page_publish='
+	});
+	
+	//推荐的项目
+	
+	/*$.kd.kdPager.init({
+		pager : 'page_popular',
+		currentPage: '${page_popular!'1'}',
+		totalPage: '${totalPage_popular!'1'}',
+		totalRecords: '${totalCount_popular!'0'}',
+		prefix: '/product_bonds.html',
+		suffix: function(n) {
+			return "&page_popular=" + n;
+		}
+	});*/
+	
+	$("#restartSubmit").bind('click',function() {			
+		var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data:{},
+			url:"mall/newjudge!restart.do?ajax=yes",										
+			success:function(data) {
+				//alert("11111");
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href ="/addborrow.html";
+					} else {
+
+					window.location.href ="/apply_usertype.html";  
+
+					}
+				})
+						
+			}
+		}
+		$.ajax(options);
+	});
+});
+
+function judge(id, onlyid) {	
+	$.ajax({
+		type: "POST",
+		dataType:"json",
+		async:true,
+		data: {id: id},
+		url:"mall/judge!checkIftransfer.do?ajax=yes",										
+		success:function(data) {
+		},
+		error:function(data) {
+			if(!data) return;
+			var ss = data.responseText;
+			var resultJson = eval(ss);
+				if(resultJson[0].result){
+					window.location.href = "bondtransfer.html?id=" + id + "&onlyid=" + onlyid;
+				}else{
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href = "bondtransfer.html?id=" + id + "&onlyid=" + onlyid;
+					} else {
+						
+					}
+				})
+			}
+		}
+	});
+}
+
+function judge2(id, onlyid) {	
+
+	window.location.href = "/transferorder.html?id=" + id + "&onlyid=" + onlyid;
+	/* $.ajax({
+		type: "POST",
+		dataType:"json",
+		async:true,
+		data: {id: id},
+		url:"mall/judge!checkIftransfer.do?ajax=yes",										
+		success:function(data) {
+		},
+		error:function(data) {
+			if(!data) return;
+			var ss = data.responseText;
+			var resultJson = eval(ss);
+				if(resultJson[0].result){
+					window.location.href = "transferorder.html?id=" + id + "&onlyid=" + onlyid;
+				}else{
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href = "transferorder.html?id=" + id + "&onlyid=" + onlyid;
+					} else {
+						
+					}
+				})
+			}
+		}
+	}); */
+}
+
+function cancel2(id, onlyid,appsheetserialno) {	
+	$.kd.kdConfirm('确认撤单？',function(){
+		$.ajax({
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data: {borrowid: id,onlyid:onlyid,appsheetserialno:appsheetserialno},
+			url:"mall/v2transfer!cancelTransfer.do?ajax=yes",										
+			success:function(data) {
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+					if (resultJson[0].success) {	
+						location.reload();
+				}
+			}
+		});
+	});
+	
+}
+
+function cancel(id, onlyid) {	
+	$.kd.kdConfirm('确认撤单？',function(){
+		$.ajax({
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data: {borrowid: id,onlyid:onlyid},
+			url:"mall/judge!cancelTransfer.do?ajax=yes",										
+			success:function(data) {
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+					if (resultJson[0].success) {	
+						location.reload();
+				}
+			}
+		});
+	});
+	
+}
+
+
+	var $borrowtitle = $(".table tr td div[name=borrowtitle]");
+	$borrowtitle.mousemove(function(){
+		var self = $(this);
+		self.css({"white-space":"normal","overflow":"visible"});
+	})
+	$borrowtitle.mouseleave(function(){
+		var self = $(this);
+		self.css({"white-space":"nowrap","overflow":"hidden"});
+	})
+
+</script>

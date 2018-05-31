@@ -1,0 +1,147 @@
+<div class="out-container">
+	<div class="navi-container">
+		<ol class="ui-step">
+			<li class="ui-step-done">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">1</i>
+		            <span class="ui-step-text">注册</span>
+		        </div>
+		    </li>		
+		    
+			<li class="ui-step-active">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">2</i>
+		            <span class="ui-step-text">实名认证</span>
+		        </div>
+		    </li>		
+				
+			<li>
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">3</i>
+		            <span class="ui-step-text">三方存管</span>
+		        </div>
+		    </li>		
+			
+			<li>
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">4</i>
+		            <span class="ui-step-text">影像上传</span>
+		        </div>
+		    </li>
+			
+			<li>
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">5</i>
+		            <span class="ui-step-text">资料完善</span>
+		        </div>
+		    </li>
+						
+			<li class="ui-step-end">
+		        <div class="ui-step-line"></div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont successnever"></i>
+		            <span class="ui-step-text">成功</span>
+		        </div>
+		    </li>	
+		</ol>
+	</div>
+	
+	<ul class="tab-choose">
+        <li class="tab-choose-item tab-choose-item-personal choosed" onclick="$('li.personal').show('fast');$('li.business').hide('fast');"><span>个人账户</span><em></em></li>
+        <li class="tab-choose-item tab-choose-item-business" onclick="$('li.personal').hide('fast');$('li.business').show('fast');"><span>企业账户</span><em></em></li>
+    </ul>
+    
+    <div class="form-box">
+	    <form action="" class="awesomeForm">
+            <ul class="form-style" style="padding-left: 225px;height: 280px">
+                <li class="form-style-item personal">
+                    <label class="form-style-label">真实姓名</label>
+                    <span class="form-style-value">
+                    	<input name="realname" type="text" class="input" />
+                    </span>
+                </li>
+                <li class="form-style-item personal clear-left">
+                    <label class="form-style-label">身份证号</label>
+                    <span class="form-style-value">
+                    	<input name="card_id" type="text" class="input" />
+                    </span>
+                </li>
+                
+                <li class="form-style-item business clear-left" style="display: none">
+                    <label class="form-style-label">机构名称</label>
+                    <span class="form-style-value">
+                    	<input name="realname" type="text" class="input" />
+                    </span>
+                </li>
+                <li class="form-style-item business clear-left" style="display: none">
+                    <label class="form-style-label">证件类型</label>
+                    <span class="form-style-value">
+                    	<select name="bank" id="bank" class="select">
+                        	<option value="1">营业执照</option>
+                        	<option value="2">组织机构代码证</option>
+                        	<option value="3">社会团体</option>
+                        	<option value="4">军队</option>
+                        	<option value="5">武警</option>
+                        	<option value="6">下属机构（具有主管单位批文号）</option>
+                        	<option value="7">基金会</option>
+                        </select> 
+                    </span>
+                </li>
+                <li class="form-style-item business clear-left" style="display: none">
+                    <label class="form-style-label">证件号码</label>
+                    <span class="form-style-value">
+                    	<input name="card_id" type="text" class="input" />
+                    </span>
+                </li>
+                
+                <li class="form-style-item clear-left">
+					<label class="form-style-label">&nbsp;</label>
+					<span class="form-style-value">
+						<input id="serviceAgreement" name="serviceAgreement" type="checkbox">
+						<label for="serviceAgreement">我同意金交在线<a href="#" target="_blank" class="service-agreement">服务协议</a></label>
+					</span>
+				</li>
+                <li class="form-style-item clear-left">
+					<label class="form-style-label">&nbsp;</label>
+                    <span class="form-style-value">
+                    	<input class="kdmall-btn cancel" value="下一步" type="button" onclick="window.location.href='/register.html?type=sfcg'"/>
+                    </span>
+                </li>
+            </ul>
+	    </form>
+	    
+	    <div class="link-trigger" onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();"><a>开户前需要准备什么资料？</a></div>
+	    <div class="list-info">
+	        <h3 class="title">个人账户需要准备：</h3>
+	        <ul class="list-rule">
+	            <li class="list-rule-item">1、您的<a>身份证影印件</a></li>
+	            <li class="list-rule-item">2、银行账户（存折或银行卡），可以是基本户或一般户</li>
+	        </ul>
+	        <h3 class="title">企业账户，除以上资料，还需准备：</h3>
+	        <ul class="list-rule">
+	            <li class="list-rule-item">1、企业的<a>营业执照影印件</a></li>
+	            <li class="list-rule-item">3、法定代表人的<a>身份证影印件</a></li>
+	            <li class="list-rule-item">2、企业委托书，必须盖有公司公章或者财务专用章，不能是合同/业务专用章</li>
+	        </ul> 
+	        <span class="explain">影印件必须为彩色原件的扫描件或数码照</span>
+	    </div>
+	</div>
+</div>
+
+<script>
+$(function() {
+	$("li.tab-choose-item").bind("click", function() {
+		if(!$(this).hasClass("choosed")) $("li.tab-choose-item").toggleClass("choosed");
+	});
+});
+</script>

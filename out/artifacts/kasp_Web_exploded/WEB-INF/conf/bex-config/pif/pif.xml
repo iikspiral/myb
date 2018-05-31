@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+
+
+<bex id="f_get_pif_project_basic_info_by_project_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_project_basic_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_all_invest" type="http-bex"   httpserver="kifp" transaction="false" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_all_project_summary_and_project_basic" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_all_myfocus_project" type="http-bex"   httpserver="kifp" transaction="false" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_all_myfocus_project" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_all_myfocus_borrow" type="http-bex"   httpserver="kifp" transaction="false" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_all_myfocus_borrow" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_show_bonds" type="http-bex"   httpserver="kifp" transaction="false" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_show_bonds" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_pif_project_public_info_by_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_project_public_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_pif_project_team_member_by_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_project_team_member" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_pif_project_businessplan" type="http-bex"   httpserver="kifp" transaction="false" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_project_business_plan" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_pif_project_basic_by_project_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="get_kifp_project_basic_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_add_pif_project_basic_info" type="http-bex"  httpserver="kifp" target="pifProjectService" service="addPifProjectBasic"   lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_add_pif_project_summary" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="add_kifp_project_summary" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_add_pif_project_team_member" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="add_kifp_project_team_member" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_count_pif_project_team_member_by_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="count_pif_project_team_member_by_id" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_addPifProjectBusinessPlan" type="http-bex"  httpserver="kifp" target="pifProjectService" service="addPifPublicBusinessPlan"   lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_addPifProjectTeam" type="http-bex"  httpserver="kifp" target="pifProjectService" service="addPifProjectTeam"   lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_addPifPublicInfo" type="http-bex"  httpserver="kifp" target="pifProjectService" service="addPifPublicInfo"   lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_del_kifp_project_team_member" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="delete_kifp_project_team_member_by_id" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_select_kifp_project_list_info" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="select_kifp_project_list_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_kifp_get_all_project_dict" type="http-bex"   httpserver="kifp" transaction="false" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_all_project_dict" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债权转让 转让专区显示-->
+
+<bex id="f_kifp_aus_transfer" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_aus_transfer_list" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 产品交易 债权转让 大于3天的下架 -->
+<bex id="f_delete_kifp_aus_transfer_list_big3" ibatis="delete_kifp_aus_transfer_list_big3"
+		operate="delete" httpserver="kifp" type="http-bex" target="sysMybatisServiceBean"
+		service="doCommonIbatis" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--债券转让明细-->
+<bex id="f_get_bond" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bond" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券新增转让记录页面-->
+<bex id="f_add_transfer_list" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="add_transfer_list" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券新增转让记录页面回购-->
+<bex id="f_add_transfer_list_hg" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="add_transfer_list_hg" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资的债券项目列表-->
+<bex id="f_get_bondhold" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bondhold" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资的债券项目列表中判断是否已经转让-->
+<bex id="f_get_bondhold_isdebt" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bondhold_isdebt" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资的债券项目列表 转让用-->
+<bex id="f_get_bondholdnew" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bondholdnew" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资债券转让拆分 计算新的应收利息用-->
+<bex id="f_get_newinterest" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_newinterest" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资债权转让 计算转让购买实际价格-->
+<bex id="f_get_realprice" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_realprice" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资债权转让 查询转让状态-->
+<bex id="select_transfer_status" type="http-bex" httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_transfer_status" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资债权转让 计算转让购买实际价格 回购-->
+<bex id="f_get_realprice_hg" type="http-bex" httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_realprice_hg" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--发布债权转让 计算转让价格-->
+<bex id="f_get_bondholdpayment" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bondholdpayment" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- new 发布债权转让 计算转让价格-->
+<bex id="f_get_transfer_price" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_transfer_price" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--发布债权回购转让 计算转让价格-->
+<bex id="f_get_bondholdpayment_hg" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bondholdpayment_hg" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债权转让 投资人查看债权信息页面列表-->
+<bex id="f_get_transferpayment" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_transferpayment" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债权转让 投资人查看债权信息页面列表-->
+<bex id="f_get_transferconfirm_info" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_transferconfirm_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债权转让 投资人查看债权信息还款及项目详细信息列表-->
+<bex id="f_get_transfer_repaydate" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_transfer_repaydate" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--投资的股权项目列表-->
+<bex id="f_get_stockhold" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_stockhold" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--发起的股权项目列表-->
+<bex id="f_get_starthold" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_starthold" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--发起的债券项目列表-->
+<bex id="f_get_startbond" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_startbond" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--资金明细-->
+<bex id="f_get_capitalinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_capitalinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--股权投资明细-->
+<bex id="f_get_stock_trdinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_stock_trdinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债权投资明细-->
+<bex id="f_get_bond_trdinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_bond_trdinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--账户详情-->
+<bex id="f_get_accountinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_accountinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--江苏小微私募 账户详情 -->
+<bex id="f_get_jsxw_accountinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_jsxw_accountinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--江苏小微私募 债持仓信息-luowei-->
+<bex id="f_get_jsxw_bondsinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_jsxw_bondsinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--是否为投资人-->
+<bex id="f_get_investorinfo" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_investorinfo" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 是否有交易权限判断 -->
+<bex id="f_get_crowfunding" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_crowfunding" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--是否实名认证有权限完善资料-->
+<bex id="f_get_checksafe" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_checksafe" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 判断未来72小时内为还息日不能转让-->
+<bex id="f_get_isdebt_transfer" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_istransfer" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 原来的，固定收益（有募集期的）  -->
+<bex id="f_kifp_get_all_bonds" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_all_bonds" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 新增的，产品销售（无募集期的）  -->
+<bex id="f_kifp_get_no_bonds" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_no_bonds" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_kifp_get_deal_bonds" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_deal_bonds" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_get_kifp_project_preinvite" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_project_preinvite" operate="select" lparam="false" parameterType="java.util.HashMap">
+
+</bex>
+
+<bex id="f_get_kifp_all_credit_record" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="get_kifp_all_credit_record" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_get_kifp_credit_record_by_user_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="get_kifp_credit_record_by_user_id" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_add_kifp_credit_record" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="add_kifp_credit_record" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_delete_kifp_credit_record_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="delete_kifp_credit_record_id" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="f_delete_kifp_project_pulic_info_by_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="update_kifp_for_detele" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<bex id="get_kifp_email_validate_record_by_user_id" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" 
+service="doCommonIbatis" ibatis="get_kifp_email_validate_record_by_user_id" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 当前融资金额更改 -->
+<bex id="f_modify_kifp_addcurrentmount" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="modify_kifp_addcurrentmount" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_pif_get_pif_borrow_borrowid" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="pif_get_pif_borrow_borrowid" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<bex id="f_update_pif_borrow_borrowid" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="update_pif_borrow_borrowid" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 修改浏览数 -->
+<bex id="f_modify_kifp_view_count" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="modify_kifp_view_count" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 查询还款日期  -->
+<bex id="f_select_pif_borrow_repayment" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="select_pif_borrow_repayment" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 查询债权 投资人数-->
+<bex id="f_kifp_get_borrow_invester" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_borrow_invester" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 查询 股权投资人数-->
+<bex id="f_kifp_get_project_invester" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_project_invester" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券转让撤单  查询状态-old-->
+<bex id="f_query_rds_status_old" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="query_rds_status_old" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券转让撤单  查询状态-->
+<bex id="f_query_rds_status" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="query_rds_status" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券转让撤单  修改持仓表状态-->
+<bex id="f_update_rds_status" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="update_rds_status" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券转让撤单  删除转让表挂单状态 5 撤单 -->
+<bex id="f_delete_transfer" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="delete_transfer" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券转让撤单 查询转让表记录 -->
+<bex id="f_get_transfer_info" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_transfer_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债券转让撤单 写流水 -->
+<bex id="f_get_insert_trd_order" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_insert_trd_order" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 还款详情 -->
+<bex id="f_select_kifp_pif_borrow_repayment" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="select_kifp_pif_borrow_repayment" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 通过custno查询需要还款的项目 -->
+<bex id="f_get_rds_bal_repayplan_info" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_rds_bal_repayplan_info" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--增加信息动态的bex -->
+<bex id="f_pif_add_trends" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="pif_add_trends" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 通过projectid 和custno 查询股权持仓项目 -->
+<bex id="f_get_rds_bal_project_by_projectid" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_rds_bal_project_by_projectid" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 查询股权持仓和份额 -->
+<bex id="f_get_rds_bal_project_and_trd_order_by" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_rds_bal_project_and_trd_order_by" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 修改份额投资人状态-->
+<bex id="f_update_rds_project_investstatus" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="update_rds_project_investstatus" operate="update" lparam="false" parameterType="java.util.HashMap"></bex>
+<!-- 修改全部份额投资人状态-->
+<bex id="f_update_all_rds_project_investstatus" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="update_all_rds_project_investstatus" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 查询项目动态-->
+<bex id="f_pif_select_trends" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="pif_select_trends" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 查询 债权项目详细  for 动态-->
+<bex id="f_kifp_get_deal_bonds_forupdate" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="kifp_get_deal_bonds_forupdate" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--更新项目动态-->
+<bex id="f_update_trends" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="update_trends" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--债券转让撤单  修改转让表挂单状态 5 撤单 
+<bex id="f_update_transfer" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="update_transfer" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>-->
+<!-- 【认购时判断repay_time并调用】 -->
+<bex id="f_repaytime" type="http-bex" httpserver="kifp" target="addPaymentOld" service="AddBorrowPayment" parameterType="java.util.HashMap" lparam="false" > 
+<request > 
+<param name ="repay_time" source="repay_time" type="string" /> 
+<param name ="investid" source="investid" type="string" /> 
+<param name ="borrowid" source="borrowid" type="string" /> 
+<param name ="zjlsh" source="zjlsh" type="string" /> 
+<param name ="realamount " source="realamount" type="string" /> 
+</request> 
+</bex> 
+
+</websuites>

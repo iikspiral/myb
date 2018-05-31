@@ -1,0 +1,226 @@
+@charset "UTF-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.shadow-inset {
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.transition {
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.scalease {
+  -webkit-transition: -webkit-transform 0.6s ease;
+  transition: transform .6s ease;
+}
+.scalease:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+/* 政策动态 */
+.headlines {
+  margin: 30px 0 30px;
+}
+.headlines .headline_slider {
+  float: right;
+  width: 460px;
+  height: 300px;
+}
+.headlines .headline_slider img {
+  width: 100%;
+}
+.headlines .content {
+  float: left;
+  width: 600px;
+}
+.headlines .content .article {
+  margin-bottom: 20px;
+}
+.headlines .content .article h2 a {
+  font-size: 24px;
+  line-height: 40px;
+  color: #655641;
+}
+.headlines .content .article h2 a:hover {
+  color: #272119;
+}
+.headlines .content .article p {
+  font-size: 14px;
+  line-height: 30px;
+  color: #747474;
+}
+#NewsTabs .list-wrap li {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px dashed #c0c0c0;
+  font-size: 14px;
+  line-height: 40px;
+  margin-top: 5px;
+  *zoom: 1;
+}
+#NewsTabs .list-wrap li:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+#NewsTabs .list-wrap li a {
+  float: left;
+  margin-left: 5px;
+  color: #655641;
+}
+#NewsTabs .list-wrap li span {
+  float: right;
+  margin-right: 5px;
+  color: #747474;
+}
+/* 专家介绍、金融机构 */
+#categoryTabs {
+  margin: 30px 0 -10px;
+}
+#categoryTabs .nav {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+}
+#categoryTabs .nav li {
+  float: left;
+  margin-right: 10px;
+}
+#categoryTabs .nav li a {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 34px;
+  padding: 0 20px;
+  color: #655641;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+#categoryTabs .nav li a:hover {
+  border: 1px solid #dadada;
+}
+#categoryTabs .nav li span {
+  font-size: 14px;
+  line-height: 34px;
+  color: #655641;
+}
+#categoryTabs .nav li .current {
+  color: #080705;
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+#categoryTabs .filter {
+  margin-bottom: 30px;
+  padding: 20px 0 0;
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+#categoryTabs .filter dl {
+  *zoom: 1;
+  margin-bottom: 20px;
+}
+#categoryTabs .filter dl:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+#categoryTabs .filter dl dt {
+  float: left;
+  width: 104px;
+  margin: 5px 0;
+  padding: 4px 8px;
+}
+#categoryTabs .filter dl dd {
+  width: 958px;
+}
+#categoryTabs .filter dl dd a {
+  padding: 4px 8px;
+  margin: 5px;
+}
+.people-cards li {
+  float: left;
+  width: 478px;
+  height: 170px;
+  border: 1px solid #dadada;
+  margin: 0 30px;
+  margin-bottom: 30px;
+}
+.people-cards li .photo {
+  float: left;
+  width: 140px;
+  height: 170px;
+}
+.people-cards li .desc {
+  float: left;
+  width: 298px;
+  padding: 20px;
+}
+.people-cards li .desc h3 {
+  font-size: 18px;
+  line-height: 30px;
+  color: #655641;
+  margin-bottom: 10px;
+}
+.people-cards li .desc span {
+  display: block;
+  font-size: 12px;
+  line-height: 24px;
+  color: #747474;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.people-cards li .desc span i {
+  font-size: 14px;
+  color: #c0c0c0;
+}
+.people-cards li .desc > a {
+  margin-top: 15px;
+}
+.logo-cards li {
+  float: left;
+  width: 228px;
+  border: 1px solid #dadada;
+  margin: 0 20px 40px;
+}
+.logo-cards li .logo {
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #dadada;
+}
+.logo-cards li .desc {
+  padding: 0 10px 10px 10px;
+}
+.logo-cards li .desc h3 {
+  font-size: 16px;
+  line-height: 40px;
+  color: #655641;
+}
+.logo-cards li .desc p {
+  font-size: 12px;
+  line-height: 24px;
+  color: #747474;
+  height: 144px;
+  overflow: hidden;
+}

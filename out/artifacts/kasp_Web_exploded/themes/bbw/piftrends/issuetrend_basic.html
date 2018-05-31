@@ -1,0 +1,175 @@
+<script type="text/javascript" src="${staticserver}/common/js/libs/jquery.json-2.4.js"></script>
+<style>
+	.ext-add {
+		padding: 10px;
+		font-size: 14px;
+		margin-top: 10px;
+		text-align: center;
+		background: #F9F9F9;
+		border: 1px solid #CCC;
+	}
+	
+	.ext-add a {
+		width: 130px;
+		height: 30px;
+		display: block;
+		margin: 0 auto;
+		line-height: 30px;
+		background: url("${staticserver}/common/images/icons.png") no-repeat -21px -1449px;
+	}
+	.ext-add a:hover {
+		background-position: -13px -1932px;
+	}
+	
+	.operate-bar {
+		width: 36px;
+	    float: right;
+		cursor: pointer;
+		margin-top: 15px;
+		margin-left: -36px;
+	}
+	.operate-bar a {
+	    width: 30px;
+	    height: 32px;
+	    display: block;
+	    border: 1px solid #CCCCCC;
+		background: url("${staticserver}/common/images/icons.png") no-repeat;
+	}
+	.operate-bar a.del {
+	    background-position: -20px -1555px;
+	}
+	.operate-bar a.del:hover {
+	    background-position: -45px -1555px;
+	}
+	.operate-bar a.up {
+	    background-position: -21px -1487px;
+	}
+	.operate-bar a.up:hover {
+	    background-position: -46px -1487px;
+	}
+	.operate-bar a.down {
+	    border-top: 0 none;
+	    border-bottom: 0 none;
+	    background-position: -21px -1521px;
+	}
+	.operate-bar a.down:hover {
+	    background-position: -46px -1521px;
+	}
+</style>
+
+<div class="right-title">
+    <h2>发布信息动态</h2>
+</div>
+<form action="" id="issuetrend" name="issuetrend" method="post">
+<input name="pifid" type="hidden" value="${pifid}"/>
+<input name="projectid" type="hidden" value="${productid}" />
+<div id="otherinfoarea" style="padding-top: 10px;">
+<ul id="ul" tid="e" eid="" isdefault="" class="kd-form-style clearfix" style="border-bottom: 1px dashed #CDCDCD;padding-bottom: 20px;">
+	<div class="operate-bar">
+        <a class="up" title="上移" href="javascript: void(0);"></a>
+        <a class="down" title="下移" href="javascript: void(0);" ></a>
+        <a class="del remove" title="删除" href="javascript: void(0);" ></a>
+    </div>
+	<li class="kd-form-style-item oneline need long" style="width: 690px;">
+		<label class="kd-form-style-label" style="width: 690px">
+			<span>标题<em>*</em></span>
+		</label>
+		<span class="kd-form-style-value">
+			<input name="piftitle" class="input" type="text" value="${basicmap.piftitle!''}" style="width: 650px;"/>
+		</span>				
+	</li>
+	<li class="kd-form-style-item oneline need long" style="width: 690px;">
+		<label class="kd-form-style-label" style="width: 690px">
+			<span>类别<em>*</em></span>
+		</label>
+		<span class="kd-form-style-value">
+			<select style="width: 659px;margin: 0 0 0 5px;" name="piftype">
+			 <#if typelist?exists>
+			 <#list typelist as tl>
+			 <option value="${tl.dict_key}">${tl.dict_value}</option>
+			 </#list>
+			 </#if>
+			</select>
+		</span>				
+	</li>
+ 	<li class="kd-form-style-item oneline need long" style="width: 690px;">
+		<label class="kd-form-style-label">内容<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="e_id" name="pifcontent">
+				${basicmap.pifcontent!''}
+			</textarea>
+		</span>				
+	</li>
+</ul>
+</div>
+
+<ul class="kd-form-style clearfix">
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">&nbsp;</label>
+		<span class="kd-form-style-value">
+			<input type="button" class="kdmall-btn" value="保存" onclick="save();" style="width: 80px;float: left;" id="savaid">
+			<input type="button" class="kdmall-btn" value="重置" onclick="$form.resetForm();" style="width: 80px;float: left;">
+		</span>
+	</li>
+</ul>
+</form>
+<link href="${staticserver}/common/js/libs/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/umeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+$(function() {
+		$("textarea").each(function() {
+			var tid = $(this).attr('id');
+			setTimeout(function() {
+ 				UM.getEditor(tid).setWidth(720);
+ 				var $body = UM.getEditor(tid).$body;
+				UM.getEditor(tid).$body.parent().height(parseInt($body[0].scrollHeight));
+ 				UM.getEditor(tid).addListener('contentchange', function() {
+					var $body = UM.getEditor(tid).$body;
+					UM.getEditor(tid).$body.parent().height(parseInt($body[0].scrollHeight));
+				});
+ 			}, 0);
+		});
+	});
+	
+		function save() {
+		$("#savaid").attr("disabled",true);
+		$("#e_id").val(
+		 UM.getEditor("e_id").getContent());
+			$("#issuetrend").ajaxSubmit({
+				url : "mall/issuetrend!addTrend.do?ajax=yes",
+				dataType : "json",
+				success : function(data) {
+				$("#savaid").attr("disabled",false);
+					//isdoing = false;
+					//$("#bid").val(data.message);
+					//var json = eval('(' + data + ')');
+					if(data.result == "0"){
+					if($("li.cur").next().not(".save").size() > 0) {
+						$.kd.kdConfirm("保存成功，是否上传文档说明？", function() {
+							$("a", $("li.cur").next()).click();
+						});
+					} else {
+						$.kd.kdAlert("保存成功!", function() {
+							if("${type}" == "extend") {
+								window.location.reload();
+							}
+						});
+					}
+					$(".kdValidform_checktip").remove();
+					$.kd.closeLoading();
+					}else{
+					isdoing = false;
+					$.kd.kdAlert("保存失败！");
+					}
+				},
+				error : function(data) {
+					isdoing = false;
+					$.kd.kdAlert("保存失败！");
+				}
+			});
+		} 
+	
+</script>	
+

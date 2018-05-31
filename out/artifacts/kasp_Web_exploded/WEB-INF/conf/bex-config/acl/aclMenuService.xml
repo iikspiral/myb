@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312"?>
+<kjax>
+	<bex id="acl_queryCustMenu" type="http-bex"  lbm="otcp.aus" target="aclMenuService" service="queryCustMenu" parameterType="java.util.HashMap">
+		<request>
+			<param name="custNo" source="custId"	type="string"	from="session"/>	
+			<param name="serverId" source="serverId"	type="string"	from="session"/>
+			<param name="exchangeId" source="exchangeId"	type="string"	from="session"/>
+		</request>
+	</bex>
+<!--
+	<bex id="acl_queryCustMenu" type="service-bex"  target="aclMenuService" service="queryCustMenu" parameterType="java.util.HashMap">
+		<request>
+			<param name="custNo" source="custId"	type="string"	from="session"/>	
+			<param name="serverId" source="serverId"	type="string"	from="session"/>
+			<param name="exchangeId" source="exchangeId"	type="string"	from="session"/>
+		</request>
+	</bex>
+	<bex id="acl_queryCustMenu" type="kesb-bex" lbm="888881" lparam="false" package="pkg_test" procedure="sp_test" results="1">
+		<request>
+			<param name="custNo" source="custId"	type="string"	from="session"/>	
+		</request>
+	</bex>
+-->
+	
+
+</kjax>
+

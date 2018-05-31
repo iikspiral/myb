@@ -1,0 +1,580 @@
+
+<body>
+      <div class="user-type" id="thirdpayopen" style="display:none;">
+        <form class="personal-account awesomeform" id="thirdpayopenForm" method="post">
+          <div class="identity clearfix">
+		  <input name="personalaccount" value="0" type="hidden"/>
+            <h3>身份信息</h3>
+            <div class="floor full">
+              <label class="property" for="realname">真实姓名</label>
+              <div class="value">
+                <input name="certificateName" class="xs" type="text"  datatype="zh2-4" nullmsg="请输入真实姓名！" errormsg="请输入2-4个中文的真实姓名！"/>
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property" for="idnum">身份证号</label>
+              <div class="value">
+               <input type="hidden" name="certificatetype" id="certificatetype" value="0" />
+
+				<input name="certificateNo" class="sm" type="text" datatype="idcard" nullmsg="请输入真实的身份证号！" errormsg="身份证号输入有误！" />
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property">营业部</label>
+              <div class="value">
+                <select id="yyb" name="branchcode" class="sm">
+
+					<#if yywd?exists>
+
+					<#list yywd as yyb >
+
+						<option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+
+					</#list>
+
+					</#if>
+
+				</select>
+              </div>
+            </div>
+          </div>
+          <div class="banks">
+            <h3>选择银行</h3>
+            <ul>
+               <li class="tieonBanks clearfix" id="J_bank">
+					<#if thirdpaybanklist?exists>
+						<#list thirdpaybanklist as item>
+						<#if item.bankcode?exists && item.bankcode == "701">
+							<#else>
+								<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+									<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+									<i class="iconfont">&#xe620;</i>
+									
+								</a>
+							</#if>
+						</#list>
+					</#if>	
+				<input name="tchannelcode" id="tchannelcode" type="hidden"  value="" readonly="readonly"/>
+				<input name="tbankcode" type="hidden" id="tbankcode"  value="" readonly="readonly" />
+				<input name="channelcode" type="hidden"  id="channelcode" readonly="readonly" style="display:none"/>
+		  </li>
+            </ul>
+              <div class="floor full">
+                <label class="property" for="cardNum">银行卡号</label>
+                <div class="value">
+                  <input id="bancodeinput" class="sm" name="tbankaccount" type="text"  datatype="n10-30" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+                </div>
+              </div>
+		
+			<div class="floor full">
+              <label class="property">开户行省份</label>
+			  <input id="J_prove"  name="province" value="" type="hidden"  /> 
+              <div class="value">
+				<select id="J_province"  class="sm" datatype="*">
+					<option value="-1">--选择省份--</option>
+					<#if procinceList?exists>
+					<#list procinceList as province >
+						<option value="${province.cityid!''}" >${province.cityname}</option>
+					</#list>
+					</#if>
+				</select>
+              </div>
+          </div>
+		  
+ 
+		  
+		  <div class="floor full">
+              <label class="property">开户行城市</label>
+              <div class="value">
+				<select id="J_city" name="city" datatype="*">
+				</select>
+              </div>
+			
+          </div>
+		  
+		  <div class="floor full" style="display:none;">
+              <label class="property">开户行地址</label>
+              <input  name="openbankaddr" type="text" value="深圳市高新南五道"/>
+			
+          </div>
+		  
+		  <div class="floor full">
+			<label class="property" for="cardNum">设置交易密码</label>
+			<div class="value">
+			  <input id="tradepwd" class="xs" name="tradepwd_"  type="password" datatype="n6-6" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" />
+				<input id="tradepassword" name="tradepassword" type="hidden" value="123"/>
+			</div>
+		  </div>
+
+              <div class="floor full">
+                <label class="property" for="cardNum">确定交易密码</label>
+                <div class="value">
+                  <input id="tradepwd2"  class="xs" type="password" datatype="*" recheck="tradepwd_" nullmsg="请再次输入6位交易密码！" errormsg="你输入的两次交易密码不一致！" placeholder="请再次输入6位数字" />
+                </div>
+              </div>
+		  </div>
+          <div class="actionArea clearfix">
+            <!--input class="back btn-md btn-grey" type="button" value="上一步" onclick="location.href='javascript:history.go(-1);'"-->
+            <input class="continue btn-md btn-red" type="button" id="openthirdpayAccountBtn" value="下一步" />
+          </div>
+        </form>
+		</div>
+		
+		
+		<!--  机构绑定银行卡页面 -->
+		
+		<div class="user-type" id="thirdpayopen_org" style="display:none;">
+        <form class="personal-account awesomeform" id="thirdpayopenForm_org">
+          <div class="identity">
+		  <input name="organizeaccount" value="1" type="hidden"/>
+            <h3>机构信息</h3>
+            <div class="floor full">
+              <label class="property" for="realname">企业名称</label>
+              <div class="value">
+				<input class="xs" id="certificateName" name="certificateName" type="text" datatype="zh2-999" nullmsg="请输入名称！" errormsg="请输入中文名称！"/>
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property">证件类型</label>
+              <div class="value">
+                <select id="certificatetype" name="certificatetype">
+
+						<#if certTypeList?exists>
+
+								<#list certTypeList as item >
+
+							<option value="${item.subitem}">${item.subitemname}</option>
+
+						</#list>
+
+						</#if>
+
+					</select>
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property" for="idnum">证件号码</label>
+              <div class="value">
+                <input class="sm" id="certificateNo" name="certificateNo" type="text" datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" />
+              </div>
+            </div>
+            <div class="floor full">
+              <label class="property">营业部</label>
+              <div class="value">
+               <select id="yyb" name="branchcode">
+				<#if yywd?exists>
+				<#list yywd as yyb >
+					<option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+				</#list>
+				</#if>
+			</select>
+              </div>
+            </div>
+          </div>
+         <div class="banks">
+            <h3>选择银行</h3>
+            <ul>
+               <li class="tieonBanks clearfix" id="J_bank_org">
+					<#if thirdpaybanklist?exists>
+						<#list thirdpaybanklist as item>
+						<#if item.bankcode?exists && item.bankcode == "701">
+							<#else>
+								<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" _bankId_org="${item.bankcode!''}" _bankcode_org="${item.bankname!''}">
+									<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+									<i class="iconfont">&#xe620;</i>
+									
+								</a>
+							</#if>
+						</#list>
+					</#if>	
+				<input name="tchannelcode" id="tchannelcode_org" type="hidden"  value="" readonly="readonly"/>
+				<input name="tbankcode" type="hidden" id="tbankcode_org"  value="" readonly="readonly" />
+				<input name="channelcode" type="hidden"  id="channelcode_org" readonly="readonly" style="display:none"/>
+		  </li>
+            </ul>
+              <div class="floor full">
+                <label class="property" for="cardNum">银行卡号</label>
+                <div class="value">
+                  <input id="bancodeinput" class="sm" name="tbankaccount" type="text"  datatype="n10-30" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+                </div>
+              </div>
+		
+			<div class="floor full">
+              <label class="property">开户行省份</label>
+			  <input id="J_prove_org"  name="province" value="" type="hidden"  /> 
+              <div class="value">
+				<select id="J_province_org"  class="sm" datatype="*">
+					<option value="-1">--选择省份--</option>
+					<#if procinceList?exists>
+					<#list procinceList as province >
+						<option value="${province.cityid!''}" >${province.cityname}</option>
+					</#list>
+					</#if>
+				</select>
+              </div>
+          </div>
+		  
+ 
+		  
+		  <div class="floor full">
+              <label class="property">开户行城市</label>
+              <div class="value">
+				<select id="J_city_org" name="city" datatype="*">
+				</select>
+              </div>
+			
+          </div>
+		  
+		  <div class="floor full" style="display:none;">
+              <label class="property">开户行地址</label>
+              <input  name="openbankaddr" type="text" value="深圳市高新南五道"/>
+			
+          </div>
+		  
+		  <div class="floor full">
+			<label class="property" for="cardNum">设置交易密码</label>
+			<div class="value">
+			  <input id="tradepwd_org" class="xs" name="tradepwd_"  type="password" datatype="n6-6" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" />
+				<input id="tradepassword_org" name="tradepassword" type="hidden" value="123"/>
+			</div>
+		  </div>
+
+              <div class="floor full">
+                <label class="property" for="cardNum">确定交易密码</label>
+                <div class="value">
+                  <input id="tradepwd2"  class="xs" type="password" datatype="*" recheck="tradepwd_" nullmsg="请再次输入6位交易密码！" errormsg="你输入的两次交易密码不一致！" placeholder="请再次输入6位数字" />
+                </div>
+              </div>
+		  </div>
+          <div class="actionArea clearfix">
+            <!--input class="back btn-md btn-grey" type="button" value="上一步" onclick="location.href='javascript:history.go(-1);'"-->
+            <input class="continue btn-md btn-red" id="openthirdpayAccountBtn_org" type="button" value="下一步" />
+          </div>
+        </form>
+      </div>
+      
+
+
+<!--#include virtual="public/footer.shtm"-->
+	
+	<script src="js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+    </script>
+	
+	
+	
+</body>
+
+</html>
+
+
+<script>
+
+var banktype=1000;
+
+var riskflag = $("#riskflag").val();
+
+var kifpwebregister_tp = kifpwebregister_tp || {};
+
+kifpwebregister_tp.registerbingding = {
+	
+	init:function(){
+		var self = this;
+		$thirdpayopenForm = $("#thirdpayopenForm").kdValidform();
+		//初始化
+		$("#channelcode").val($(".tieonBanks a.selected").attr("_bankid"));
+		$("#tbankcode").val($(".tieonBanks a.selected").attr("_bankcode"));
+		$("#tchannelcode").val($(".tieonBanks a.selected").attr("_bankid"));
+		
+		var _type = "${t!''}";
+		if(_type == 'psl'){
+			$('#bancodeinput').attr("datatype","n10-19");
+		}else if(_type==""){
+			$('#bancodeinput').attr("datatype","n10-19");
+		}else{
+			$('#bancodeinput').attr("datatype","/^[0-9]*{0,32}$/");
+		}
+
+		$("a[_bankId]").on("click",function(){
+		    $("#channelcode").val();
+			$("#tbankcode").val();
+			$("#tchannelcode").val();
+			var current = $(this);
+			$(".tieonBanks a").removeClass("selected");
+			current.addClass("selected");
+			var channelcode = current.attr("_bankid");
+			var tbankcode = current.attr("_bankcode")
+			$("#channelcode").val(channelcode);
+			$("#tbankcode").val(tbankcode);
+			$("#tchannelcode").val(channelcode);
+			$("#J_province").val("-1");
+			$("#J_city").val("-1");
+			$("#J_openbankaddr").val("-1");
+		});
+		
+		$("a[_bankId_org]").on("click",function(){
+		    $("#channelcode_org").val();
+			$("#tbankcode_org").val();
+			$("#tchannelcode_org").val();
+			var current = $(this);
+			$(".tieonBanks a").removeClass("selected");
+			current.addClass("selected");
+			var channelcode = current.attr("_bankid_org");
+			var tbankcode = current.attr("_bankcode_org")
+			$("#channelcode_org").val(channelcode);
+			$("#tbankcode_org").val(tbankcode);
+			$("#tchannelcode_org").val(channelcode);
+			$("#J_province_org").val("-1");
+			$("#J_city_org").val("-1");
+			$("#J_openbankaddr").val("-1");
+		});
+		
+		$("#openthirdpayAccountBtn").on("click",function(){
+			self.openthirdpayaccount();
+		
+		});
+		
+		$("#openthirdpayAccountBtn_org").on("click",function(){
+			self.openthirdpayaccount_org();
+		
+		});
+		
+	}
+	,openthirdpayaccount:function(){
+		$("#J_prove").val($("#J_province").find("option:selected").text());
+		$("#tradepassword").val("");
+		var $thirdpayopenForm;
+		$thirdpayopenForm = $("#thirdpayopenForm").kdValidform();
+		var _tradepwd =$("#tradepwd").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd,'kingdom');	
+		$("#tradepassword").val(_tradepwd_);
+		var options = {
+				type:"post",
+				dataType:"json",
+				async:true,
+				url :"${kasp_url}mall/zhongyuan_register!openThirdpayAccount.do?ajax=yes",
+				success : function(data) {
+					
+					if(data.result == 1){
+						if(riskflag == '1'){//根据风险测评参数显示不同页面
+							zhejiang_alert("消息",data.data.msg,function(){
+								window.location.href = "register.html?type=fxcp";
+							});
+						}else{
+							riskEstimate();
+						}
+					}else if(data.result == 0){
+						zhejiang_alert("消息",data.message, function(){
+							window.location.href = "register.html?type=sfcg&"+new Date().getTime();
+					});
+					}
+				},
+				error:function(data) {
+					zhejiang_alert("消息","系统异常，请联系管理员！",null);
+				}
+		
+		};
+		if($thirdpayopenForm.check()){
+			$("#openthirdpayAccountBtn").attr("disabled",true);
+			$.kd.showLoading($("#openthirdpayAccountBtn"));
+			$("#thirdpayopenForm").ajaxSubmit(options);
+		}
+	
+	}
+	,openthirdpayaccount_org:function(){
+		$("#J_prove_org").val($("#J_province_org").find("option:selected").text());
+		$("#tradepassword_org").val("");
+		var $thirdpayopenForm;
+		$thirdpayopenForm = $("#thirdpayopenForm_org").kdValidform();
+		var _tradepwd =$("#tradepwd_org").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd,'kingdom');	
+		$("#tradepassword_org").val(_tradepwd_);
+		var options = {
+				type:"post",
+				dataType:"json",
+				async:true,
+				url :"${kasp_url}mall/zhongyuan_register!openThirdpayAccount.do?ajax=yes",
+				success : function(data) {
+					
+					if(data.result == 1){
+						if(riskflag == '1'){//根据风险测评参数显示不同页面
+							zhejiang_alert("消息",data.data.msg,function(){
+								window.location.href = "register.html?type=fxcp";
+							});
+						}else{
+							riskEstimate();
+						}
+					}else if(data.result == 0){
+						zhejiang_alert("消息",data.message, function(){
+							window.location.href = "register.html?type=sfcg&"+new Date().getTime();
+					});
+					}
+				},
+				error:function(data) {
+					zhejiang_alert("消息","系统异常，请联系管理员！",null);
+				}
+		
+		};
+		if($thirdpayopenForm.check()){
+			$("#openthirdpayAccountBtn_org").attr("disabled",true);
+			$.kd.showLoading($("#openthirdpayAccountBtn_org"));
+			$("#thirdpayopenForm_org").ajaxSubmit(options);
+		}
+	
+	}
+	,bankselected:function(){
+		var current = $(this);
+		$(".tieonBanks a").removeClass("selected");
+		current.addClass("selected");
+	}
+
+}
+
+$(function(){
+	kifpwebregister_tp.registerbingding.init();
+});
+
+//进入风险测评方法，不执行方法
+function riskEstimate(){
+	$.ajax({
+		  type:"post" ,
+		  async:false,
+		  dataType : "text",
+		  url: "${kasp_url}mall/zhongyuan_riskmate!doEstimate.do?ajax=yes",
+		  success: function(redata){
+			var redta = eval("("+redata+")");
+			if(redta.result == 1){
+				$.kd.kdAlert("恭喜您完成注册及绑定", function() {
+				window.location.href='account_asset.html';
+			},'温馨提示');	
+			}else{
+				$.kd.kdAlert("交易权限申请失败！", function() {
+				window.location.href='account_asset.html';
+			});
+			}
+		  },
+		  error:function(redata){
+			$.kd.kdAlert("交易权限申请失败！", function() {
+				window.location.href='account_asset.html';
+			});
+		  }
+	  });  
+}
+
+	$("#J_province").change(function(){
+		$("#J_city").find("option").remove();
+		$("#openbankaddr").find("option").remove();
+		var cityid = $("#J_province").attr("value");
+		$.post("${kasp_url}mall/zhongyuan_register!getPayCity.do?ajax=yes", 
+				{ "cityid": cityid },
+				   function(data){
+					var i = 0;
+					var arr = new Array();
+					$("#J_city").append( "<option value=\"-1\">--选择城市--</option>" );
+					for(i;i < data.kdjson.len;i++){
+						arr[i] = data.kdjson.items[i].areanames;
+						$("#J_city").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+					}
+				   }, "json");
+	});
+	
+	$("#J_province_org").change(function(){
+		$("#J_city_org").find("option").remove();
+		$("#openbankaddr").find("option").remove();
+		var cityid = $("#J_province_org").attr("value");
+		$.post("${kasp_url}mall/zhongyuan_register!getPayCity.do?ajax=yes", 
+				{ "cityid": cityid },
+				   function(data){
+					var i = 0;
+					var arr = new Array();
+					$("#J_city_org").append( "<option value=\"-1\">--选择城市--</option>" );
+					for(i;i < data.kdjson.len;i++){
+						arr[i] = data.kdjson.items[i].areanames;
+						$("#J_city_org").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+					}
+				   }, "json");
+	});
+
+	$("#J_city").change(function(){
+		turnStatus();
+		$("#J_openbankaddr").find("option").remove();
+		var province = $("#J_province").find("option:selected").text();
+		var city = $("#J_city").attr("value");
+		var bankid = $("#J_bank > a.selected").attr("_bankid");
+		//alert(bankid);
+		$.post("${kasp_url}mall/zhongyuan_register!getPayLocalBank.do?ajax=yes",
+				{ "province": province,
+				  "city": city,
+				  "bankid":bankid
+				},
+				function(data){
+					if(data.kdjson.flag==1){
+						$("#J_openbankaddr").append( "<option value=\"-1\">--选择分支行--</option>" );
+						var i = 0;
+						var arr = new Array();
+						for(i;i<data.kdjson.len;i++){
+							arr[i] = data.kdjson.items[i].paybankname;
+							$("#J_openbankaddr").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+						}
+					}
+				},
+				"json"
+				);
+	});
+	
+	$("#J_city_org").change(function(){
+		turnStatus();
+		$("#J_openbankaddr").find("option").remove();
+		var province = $("#J_province_org").find("option:selected").text();
+		var city = $("#J_city_org").attr("value");
+		var bankid = $("#J_bank_org > a.selected").attr("_bankid_org");
+		//alert(bankid);
+		$.post("${kasp_url}mall/zhongyuan_register!getPayLocalBank.do?ajax=yes",
+				{ "province": province,
+				  "city": city,
+				  "bankid":bankid
+				},
+				function(data){
+					if(data.kdjson.flag==1){
+						$("#J_openbankaddr").append( "<option value=\"-1\">--选择分支行--</option>" );
+						var i = 0;
+						var arr = new Array();
+						for(i;i<data.kdjson.len;i++){
+							arr[i] = data.kdjson.items[i].paybankname;
+							$("#J_openbankaddr").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+						}
+					}
+				},
+				"json"
+				);
+	});
+	
+	$("#J_openbankaddr").dblclick(function(){
+		$("#J_openbankaddr").addClass("hide");
+		$("#J_openbankaddr").removeAttr("datatype");
+		$("#J_openbankaddr").removeAttr("name");
+		$("#J_editlocalbank").removeClass("hide");
+		$("#J_editlocalbank").attr("datatype","*");
+		$("#J_editlocalbank").attr("name","openbankaddr");
+	})
+	
+	function turnStatus(){
+		$("#J_openbankaddr").removeClass("hide");
+		$("#J_openbankaddr").attr("datatype","*");
+		$("#J_openbankaddr").attr("name","openbankaddr");
+		$("#J_editlocalbank").addClass("hide");
+		$("#J_editlocalbank").removeAttr("datatype");
+		$("#J_editlocalbank").removeAttr("name");
+	}
+</script>

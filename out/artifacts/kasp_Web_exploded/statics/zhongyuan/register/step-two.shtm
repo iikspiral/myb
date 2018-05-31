@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>注册 - 中原股权交易中心</title>
+    <base href="../">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/awesomeform.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+    <style type="text/css">
+        body{
+            background-color: #fafafa;
+        }
+        .process-cells tr td{
+            background-color: #fff;
+        }
+    </style>
+    <script src="js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+
+    <!--#include virtual="public/header.shtm"-->
+	
+    <div class="account_register">
+        <table class="process-cells step-one">
+            <tr>
+                <td style="width: 33.3%">注册</td>
+                <td class="current" style="width: 33.3%">绑定银行卡</td>
+                <td style="width: 33.3%">风险测评</td>
+            </tr>
+        </table>
+        <div class="user-type clearfix" style="text-align: center;">
+            <a class="personal" href="register/personal_account.shtm">个人账户</a>
+            <a class="organized" href="register/organized_account.shtm">机构账户</a>
+        </div>
+    </div>
+
+	<!--#include virtual="public/footer.shtm"-->
+	
+	<script src="js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+    </script>
+</body>
+
+</html>

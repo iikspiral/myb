@@ -1,0 +1,100 @@
+<script type="text/javascript" src="js/kifp.cust.js"></script>
+<script type="text/javascript" src="js/projectBasic.js"></script>
+<div class="rightcontent">
+	<div class="user-content">
+		<span class="user-h">基本信息</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"></div>
+	    </div>
+	    
+	    <form id="addCustForm"  name="addCustForm" method="post">
+			<ul class="kd-form-style clearfix">
+				<li class="kd-form-style-item need" style="width: 740px">
+					<label class="kd-form-style-label">个人介绍<em>*</em></label>
+					<span class="kd-form-style-value">
+						<input id="singinfo" name="paramCust.singinfo" type="text" maxlength="100" class="input" value="${m.singinfo!''}" style="width: 379px" datatype="*"  nullmsg="请输入个人信息" errormsg="个人信息不能为空！" />
+						<span class="kdValidform_checktip"></span>
+					</span>
+				</li>
+				<li class="kd-form-style-item need" style="width: 740px">
+					<label class="kd-form-style-label">所在地<em style="color: transparent!important">*</em></label>
+					<span class="kd-form-style-value">					
+						<span class="bginput">
+			            	<select name="paramCust.province" id="provinceSelect" class="select" data-value="${m.province!'-1'}" style="width: 190px">
+								<option value="-1" >
+									--请选择--
+								</option>
+								<#if provinceDict?exists>
+								<#list provinceDict as i>
+								<option value="${i.dict_key!''}">
+									${i.dict_value!''}
+								</option>
+								</#list>
+								</#if>
+							</select>						
+			            </span>
+			            <span class="bginput">
+			            	<select name="paramCust.city" id="citySelect" class="select" data-value="${m.city!'-1'}" style="width: 190px">
+								<option value="-1">
+									--请选择--
+								</option>
+							</select>
+						</span>
+						<span class="kdValidform_checktip"></span>
+					</span>
+				</li>
+				<li class="kd-form-style-item need" style="width: 740px">
+					<label class="kd-form-style-label">关注行业<em>*</em></label>
+					<span class="kd-form-style-value">
+		            	<div id="listcontainer" class="input tag" name="listcontainer"></div>
+						<span class="kdValidform_checktip"></span>
+						<input id="attention_info" name="paramCust.attention_info" type="hidden" value="${m.attention_info!''}">
+						<div id="datalist" class="taglist" style="margin-left: 136px;width: 391px;">
+							<#if industryDict?exists>
+							<#list industryDict as i>
+							<span rel="${i.dict_key!''}">${i.dict_value!''}</span>
+							</#list>
+							</#if>
+			            </div>
+					</span>
+				</li>
+				<li class="kd-form-style-item need" style="width: 740px">
+					<label class="kd-form-style-label">联系地址<em>*</em></label>
+					<span class="kd-form-style-value">
+						<input name="paramCust.address" type="text" id="address" maxlength="100" class="input" value="${m.address!''}" datatype="*" nullmsg="请输入联系地址" errormsg="联系地址不能为空！" style="width: 379px">
+						<span class="kdValidform_checktip"></span>
+					</span>
+				</li>
+				<li class="kd-form-style-item need" style="width: 740px">
+					<label class="kd-form-style-label">投资理念<em style="color: transparent!important">*</em></label>
+					<span class="kd-form-style-value">
+						<textarea id="invest_idea" name="paramCust.attention_idea" class="textarea" style="width: 379px">${m.attention_idea!''}</textarea>
+						<span class="kdValidform_checktip"></span>
+					</span>
+				</li>
+				<li class="kd-form-style-item" style="width: 740px">
+					<label class="kd-form-style-label">&nbsp;</label>
+					<span class="kd-form-style-value">
+						<input type="button" id="addCustBtn" class="kdmall-btn" value="保存修改">
+					</span>
+				</li>
+			</ul>
+	</div>
+</div>
+<script>
+	$(function() {
+		var val = $("#attention_info").val();
+		$("span", "#datalist").bind("click", function() {
+			if(!$(this).hasClass("choosed")) {
+				$("#listcontainer").append($(this).clone().append('<a rel="' + $(this).attr("rel") + '" onclick="$(this).parent().remove();$(\'span[rel=' + $(this).attr("rel") + ']\').removeClass(\'choosed\')" title="移除 电子商务">×</a>'))
+				$(this).addClass("choosed")
+			}
+		});
+		if(val) {
+			var temp = val.split(",");
+			for(var i in temp) {
+				$("span[rel=" + temp[i] + "]", "#datalist").click();
+			}
+		}
+	});
+</script>

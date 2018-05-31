@@ -1,0 +1,563 @@
+<script type="text/javascript" src="js/kifp.bondtransfer.js"></script>
+<script type="text/javascript" src="../js/libs/kjax.des.js"></script>
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/kd.ui.win.css">
+<link rel="stylesheet" href="${staticserver}/standard/css/main.css">
+<script type="text/javascript" src="${staticserver}/common/js/kd.ui.win.js"></script>
+<style>
+	.weightColor {
+		color: #e25353;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	   .h2{
+    font-size: 18px;
+    color: #565656;
+    width: 900px;
+    margin: 2px auto 2px;
+    padding: 0;
+    border-bottom: 0px solid #e0e0e0;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .item-content{
+    margin: 0 auto;
+    padding: 0;
+    width: 900px;
+    text-align: left;
+  }
+  .invDetails{
+    float: left;
+    width: 560px;
+    margin: 0;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+  }
+  .itemTitles{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .itemName{
+    color: #FF5500;
+    text-decoration: none;
+  }
+  .invNumber{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  } 
+  .invPer{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .invPS{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .buttons{
+    margin: 0 auto;
+    padding: 0;
+  }
+  .myAccount{
+    width: 240px;
+    float: right;
+    margin: 0;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+  }
+  .h3{
+    font-size: 14px;
+    color: #565656;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .numRest{
+    font-family: Helvetica Arial;
+    font-size: 22px;
+    line-height: 40px;
+    color:#FF5500;
+  }
+  .moneyRest{
+    font-size: 14px;
+    font-family: "Microsoft Yahei" Helvetica Arial;
+    line-height: 18px;
+    color:#565656;
+  }
+  .clearboth{
+    clear: both;
+  }
+.reduce-btn, .plus-btn {
+	display: block;
+	float: left;
+	width: 20px;
+	height: 26px;
+	background: #eee url("${staticserver}/common/images/plus-icons.png") 0 -41px no-repeat;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.reduce-btn:hover {
+	background-color: #ea5404;
+	background-position: 0 -77px;
+}
+
+.plus-btn {
+	background-position: -20px -41px;
+}
+.plus-btn:hover {
+	color: #FFFFFF!important;
+	background-color: #ea5404;
+	background-position: -20px -77px;
+}
+.zhifu{
+	width:330px;
+	height:80px;
+	margin:0 auto;
+	margin-top:10px;
+	text-align:center;
+}
+.zhifutips{
+width: 209px;
+height: 55px;
+background: url("${staticserver}/images/tanhaotishi.png") no-repeat scroll 2px 14px rgba(0, 0, 0, 0);
+color: #999;
+font-size: 14px;
+line-height: 24px;
+padding: 1px 35px 12px 87px;
+}
+.buttondiv{
+	height:50px;
+	width:280px;
+	margin:0 auto;
+	margin: -10px 7px 3px 52px;
+
+}
+</style>
+
+<script type="text/javascript" src="${staticserver}/common/js/libs/kjax.des.js"></script>
+<div class="contentAndSideBar clearfix">
+	<div class="breadCrumb">
+		<span>当前位置：</span>
+		<a href="/product_transfer.html">产品转让</a>
+		<span>/</span>
+		<span>生成订单</span>
+	</div>
+		<div align="center">
+			<div class="kd-outer-box" style="height:600px;margin-top: 10px">
+				<form id="doDebtTransferForm"  name="transferParam1" method="post" >				
+				<!--          允许拆分允许拆分允许拆分允许拆分允许拆分允许拆分页面    -->
+				<div class="kd-outer-box-title">
+					<h>债权信息</h>
+				</div>
+					<table class="table" style="text-align:center;margin:0 0 20px 0">
+						<tr>
+							<th width="100">项目名称</th>
+							<th width="130" style="display: none">还款方式</th>
+							<th width="90">产品期限</th>
+							<th width="90">已存续天数</th>
+							<th width="90">剩余天数</th>
+							<th width="100">预期年利率（%）</th>														
+						</tr>						
+						<tr>				
+						<#if bonddeal?exists>
+						<#list bonddeal as item>
+							<td>${item.borrowtitle!""}</td>
+							<td style="display: none"><span><a href="#">${item.paymentmode!""}</a></span></td>							
+							<td>${item.deadline!""}个月</td>
+							<td>${item.existdays!""}天</td>
+							<td>${item.leftdays!""}天</td>
+							<td>${item.yqannualrate!""}</td>
+							<li style="display: none">						 	
+							 	<input type="text" name="transferParam1.remainannualrate" value="${item.remainannualrate!''}"/>
+							 	<input type="text" name="transferParam1.leftdays" value="${item.leftdays!''}"/>
+							 	<input type="text" name="transferParam1.fxrdm" value="${item.fxrdm!''}"/>		
+					         	<input type="text" name="transferParam1.totalinvestamount" value="${item.debtsum!''}"/>
+					         	<input type="text" name="transferParam1.onlyid" value="${item.id!''}"/>
+					         	<input type="text" name="transferParam1.deadline" value="${item.deadline!''}"/>
+					         	<input type="text" name="transferParam1.publishtime" value="${item.publishtime!''}"/>
+					         	<input type="text" name="transferParam1.yqannualrate" value="${item.yqannualrate!''}"/>
+					         	<input type="text" name="transferParam1.alienatorid" value="${item.alienatorid!''}"/>
+					         	<input type="text" name="transferParam1.mintenderedsum" value="${item.mintenderedsum!''}"/>
+								<input type="text" name="transferParam1.borrowid" value="${item.borrowid!''}"/>	
+								<!-- 
+								<input type="text" name="transferParam1.totalrealprice" value="${item.auctionbaseprice!''}"/>
+					         	<input type="text" name="transferParam1.publishlimit" value="${item.publishlimit!''}"/>
+								<input type="text" name="transferParam1.yqinterest" value="${item.yqinterest!''}"/>
+								<input type="text" name="transferParam1.channelno" value="200101"/>
+								-->
+								<input type="text" name="transferParam1.limitDates" value="${item.publishlimit!''}"/>
+					         	<input type="text" name="transferParam1.borrowtitle" value="${item.borrowtitle!''}"/>
+					         	<input type="text" name="transferParam1.appsheetserialno" value="${item.appsheetserialno!''}"/>
+								<input id="realprice" type="text" name="transferParam1.realprice" value=""/>
+								
+								<input id="refecustid" type="text" name="transferParam1.refereeid" value=""/>
+					    	</li>	
+						</tr>				
+					</table>
+				<div class="kd-outer-box-title">
+					<h>项目信息</h>
+				</div>	
+				<ul class="kd-form-style clearfix" style="margin-top: 30px">
+				
+				    <li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">还款方式：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="">${item.paymentmode!""}</span>&nbsp;<span class="kdValidform_checktip">
+							</span></i>
+						</span>
+					</li>
+				    <li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">可认购份额：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="newtotal">${item.debtsum!'0'}元</span>&nbsp;<span class="kdValidform_checktip">
+							</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
+						</span>
+					</li>
+									
+	    		<li class="kd-form-style-itemnew" >
+					<label class="kd-form-style-label">认购份额：</label>
+					<div class="invNumber">	     			
+		     			&nbsp;&nbsp;<a class="reduce-btn"  onmousedown="reduce()"></a>
+		     			<input type="text" id="transfershare" auctionbaseprice="${item.auctionbaseprice!''}" alienatorid="${item.alienatorid!''}" 
+		     			bid="${item.id!''}" appsheetserialno="${item.appsheetserialno!''}"
+		     			newview="${item.newview!''}" investamount="${item.debtsum!''}"
+		     			debtnum="${item.debtsum!'0'}" name="transferParam1.transfershare" size="5" class="input-text" datatype="parseNum" 
+		     			nullmsg="请输入金额！" errormsg="请正确输入金额!" style="float: left;border: 1px solid #E0E0E0;height:24px;width: 90px;" value="${item.mintenderedsum!'0'}" onmousemove="maxcheck(this)">
+		     			<a class="plus-btn disabled" onmousedown="plus()"></a>
+		     			<div style="float: left;width: 90px;">元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		     			<span class="kdValidform_checktip kdValidform_right" style="display: none!important;">通过信息验证！</span>
+	    			</div>
+				</li>
+				<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">剩余应付利息：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="leftpay">0</span>元&nbsp;<span class="kdValidform_checktip"></span></i>
+						</span>
+				</li>
+				<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">实际支付金额：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="realpay">0</span>元&nbsp;<span class="kdValidform_checktip"></span></i>
+						</span>
+				</li>
+			</#list>
+			</#if>		
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">推荐人：</label>
+						<span class="kd-form-style-value">
+						<input id="referee" name="transferParam1.refereeid" type="text" style="border: 1px solid #E0E0E0 !important;"/>	
+						</span>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">请选择回款方式：</label>
+						<span class="kd-form-style-value">
+							<i>
+							<#if channel_info?exists>
+								<#list channel_info as channel>
+								<#if ((channel.channelno)?last_index_of('01')>-1)>
+								<input type= "radio" name="transferParam1.channelno" value="${channel.channelno!''}"/>第三方支付	
+								</#if>
+								</#list>
+							</#if>
+							<span class="kdValidform_checktip"> </span>
+							</i>
+						</span>
+					</li>
+					
+					
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">交易密码：</label>
+						<span class="kd-form-style-value">
+							<i>
+							<input id="tradepass" name="transferParam1.tradepass" type="password" errormsg="请输入交易密码！" nullmsg="交易密码不能为空！" datatype="p" style="border: 1px solid #E0E0E0 !important;"/>
+							<span class="kdValidform_checktip"> </span></i>
+						</span>
+					</li>					
+					<li class="kd-form-style-item">
+						<label class="kd-form-style-label"></label>
+						<span class="kd-form-style-value">
+							<input id="doDebtTransferId" type="button" class="kdmall-btn" value="提交" onclick="creatTransferOrder()">
+						</span>
+					</li>			
+				</ul>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+ <div id="zhifubond"  style="display:none">
+		<from>
+		<div class="zhifu" >
+		<div class="zhifutips" >请您在新打开的页面进行支付，订单有效时间为${ordertime!''}分钟。</div>
+		<div class="buttondiv" >
+			<a  class="kdmall-btn" style="width:60px;" href="javascript:void(0)" id="zhifu">立即支付 </a> 
+			<a  class="kdmall-btn">支付遇到问题 </a> 
+		</div>
+		<input type="hidden" value="" id="orderno"/>
+		</div>
+		</from>
+ </div>
+<script type="text/javascript">
+	var $doDebtTransferForm; 
+	
+	$(function(){
+		$doDebtTransferForm =$("#doDebtTransferForm").kdValidform({
+			datatype: {                                                        
+				parseNum: function(gets, obj, curForm, datatype) {
+					if(gets > obj.attr("debtnum")) {
+						//obj.val(obj.attr("debtnum"))
+					}
+					$.ajax({
+						type: "post",
+						dataType: "json",
+						async: true,
+						url: "mall/v2transfer!doTransferprice.do?ajax=yes",
+						data: {id: $("#transfershare").attr("bid"),  auctionbaseprice: $("#transfershare").attr("auctionbaseprice"),alienatorid: $("#transfershare").attr("alienatorid"),investamount: $("#transfershare").attr("investamount"),
+						 newview: $("#transfershare").attr("newview"),appsheetserialno: $("#transfershare").attr("appsheetserialno"), transfershare: $("#transfershare").val()},
+						success: function(data){
+						 //var json = data//eval("("+data.responseText+")");
+						 if(data.result == 1){
+							
+							$("#leftpay").text(parseFloat(data.data.items[0].newsylx).toFixed(2) );
+							$("#realpay").text(parseFloat(data.data.items[0].newtransferprice).toFixed(2) );
+							$("#realprice").val(parseFloat(data.data.items[0].newtransferprice).toFixed(2)); 
+							
+						 }
+						},
+						error: function(data) {
+						   // var json = eval("("+data.responseText+")");
+						    $("#realprice").val(parseFloat(json[0].newtransferprice).toFixed(2)); 
+							$("#leftpay").text(parseFloat(json[0].newsylx).toFixed(2) );
+							$("#realpay").text(parseFloat(json[0].newtransferprice).toFixed(2) );
+						}
+					});
+				}
+			}
+		});
+		
+		$("#transfershare").blur();
+		genFeeFromServer();
+	})
+	
+
+	function genFeeFromServer(){
+		var amount = $("#transferprice").val();
+ 		var projectid =$("#project_borrowid").val() ;
+		if(!projectid){
+			return ;
+		}
+		if(!amount){
+			return ;	
+		}
+		var datass ={
+				amount:amount,
+				feetype:1,
+				typeid:'99',
+				feeflag:'B',
+				projectid:projectid
+		};
+		$.ajax({
+			type: "POST",
+			dataType:"json",
+			async:true,
+			url: "mall/v2getCharge!getCharge.do?ajax=yes",
+			data: datass,
+			success: function(data){
+				genResult(data);
+			},
+			error: function(data) {
+				genResult(data);
+			}
+		});
+	}
+		function genResult(data){
+			 if(data.result == 1){
+				 var feeback = data.feeback ;
+				 if(feeback){
+					 $("#fees" ).text(feeback) ;
+					  $("#outfees").val(feeback) ;
+				 }
+			 }
+		};
+
+	function doDebtTransfer(){
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/v2transfer!dohbtransferDeal.do?ajax=yes",
+				success: function(data){
+					$("input[type=button]").attr("disabled", false);
+					var response = data.responseText;
+					var obj = eval(response);
+					if (obj[0].success){
+					
+					}
+				},
+				error: function(data){
+					 $("input[type=button]").attr("disabled", false);
+					var response = data.responseText;
+					var obj = eval(response);
+					if (obj[0].success){
+						$.kd.kdAlert(obj[0].msg  , function() {
+							  window.location.href="/transfer.html?_=" + new Date().getTime();
+				 		  	  },'提示');
+					}else{
+					    if(obj[0].msg == "投资人数已满!" ){
+							$.kd.kdAlert("投资人数已满!", function() {       				
+	    							window.location.href = "/transfer.html?_=" + new Date().getTime();
+										},"确定");
+							}
+						else{
+							$.kd.kdMsg(obj[0].msg );
+							}
+					}
+				}
+			};
+			if($doDebtTransferForm.check()){
+				var rawpas = $("#tradepass").val();
+				var _tradepwd_ = $.des.getDes(rawpas,'kingdom');
+				$("#tradepass").val(_tradepwd_);
+				$("input[type=button]").attr("disabled", true);
+				$("#doDebtTransferForm").ajaxSubmit(options);
+			}
+	}
+	
+	function reduce() {
+		var _initamount = parseInt("${mintenderedsum!'0'}");
+		var _unit = parseInt("${smallestflowunit!'0'}");
+		var _curamount = parseInt($("#transfershare").val());
+		var _afteramount = _curamount - _unit;
+		if (_afteramount < _initamount) {
+			return;
+		}else{
+			$("#transfershare").val(_afteramount).blur();
+		};
+	}
+	
+	function plus() {
+	var _maxamount = parseInt("${debtsum!'0'}");
+	var _initamount = parseInt("${mintenderedsum!'0'}");
+	var _unit = parseInt("${smallestflowunit!'0'}");
+	var _curamount = parseInt($("#transfershare").val());
+	var _afteramount = _curamount + _unit;
+	if (_afteramount > _maxamount) {
+		return;
+	}else{
+		$("#transfershare").val(_afteramount).blur();
+	};
+	}
+	
+	function creatTransferOrder(){
+		var options = {
+				type: "POST",
+				dataType:"json",
+				async:true,
+				url: "mall/v2transfer!createhbTransferOrder.do?ajax=yes",
+				success: function(data){
+					$("input[type=button]").attr("disabled", false);
+					//data.data.items[0].orderno
+					//var json = eval('(' + data + ')');
+						if(data.result == 1){
+							if(data.data.flag == 0){
+								$.kd.kdAlert(data.data.msg);
+							}else{
+								//console.info(data.data.items[0].orderno);
+								$("#tradepass").val("");
+								$("#orderno").val(data.data.items[0].orderno);
+								$.kd.kdZhifu($('#zhifubond').html(),function(){},"支付订单");
+							}
+						 
+				   }
+				   $("#tradepass").val("");
+				},
+				error : function(data){
+				  $("#tradepass").val("");
+			      alert(data.message)
+			  }
+			};
+			if($doDebtTransferForm.check()){
+				var rawpas = $("#tradepass").val();
+				var _tradepwd_ = $.des.getDes(rawpas,'kingdom');
+				$("#tradepass").val(_tradepwd_);
+				$("input[type=button]").attr("disabled", true);
+				$("#doDebtTransferForm").ajaxSubmit(options);
+			}
+	}
+	
+		$("#zhifu").live("click",function(){
+			var orderno = $('#orderno').val();
+			var url = "/order_payment.html";
+			var data={orderno:orderno}
+			$.kutil.pageReload(url,data);
+			//window.location.href="/order_payment.html?orderno="+$('#orderno').val(); 
+    	});
+		
+		$("#referee").live("blur",function(){
+			var invitorname = $("#referee").val();		
+			//console.info($("#invitorname").val());
+			if(invitorname!=null&&invitorname!=""){
+			 var data = {
+                invitorname : invitorname		
+			   }; 
+			$.ajax({
+		      type:"post" ,
+			  data: data,
+			  dataType : "text",
+			  url: "/mall/newRegister!checkInvetor.do?ajax=yes",
+			  success: function(data){
+			  var data = eval("("+data+")");
+			   if(data.data.len > 0){
+				$("#refecustid").val(data.data.items[0].custid);
+				$.kd.kdMsg("推荐人存在");
+				
+			   }else{
+				$.kd.kdMsg("推荐人不存在");
+				$("#referee").val("");
+			   }
+			  },
+			  error : function(data){
+			      $.kd.kdAlert("出错啦!");
+			  }
+		  });   
+		}else{
+			return true;
+		}
+			      	
+    	});
+		
+function maxcheck(obj){
+	var _unit = parseInt("${smallestflowunit!'0'}");
+	var _transferval = parseInt($(obj).val());
+	var _max_transferval = parseInt($('#newtotal').text());
+	var _initamount = parseInt("${mintenderedsum!'0'}");
+	if (_transferval > _max_transferval) {
+		$.kd.kdMsg("认购价格价格超过最大可投总金额");
+		$('#transfershare').val(parseInt("${mintenderedsum!'0'}"));
+	};
+	if (_transferval < _initamount) {
+		$.kd.kdMsg("认购价格不能低于最低认购金额");
+		$('#transfershare').val(parseInt("${mintenderedsum!'0'}"));
+	};
+	
+	if(_transferval%_unit == 0){
+		
+	}else{
+		$.kd.kdMsg("认购份额数出错!");
+		$('#transfershare').val(parseInt("${mintenderedsum!'0'}"));
+	}
+}
+</script>

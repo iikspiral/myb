@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.idinfo.dao.CorporationInfoDao">
+    
+    <sql id="entityColumns">
+    	a.ID as id,
+		a.CORP_NAME as corpname,
+		a.LEGAL_PERSON_NAME as legalpersonname,
+		a.CORP_IDCARD_TYPE as corpidtype,
+		a.CORP_IDCARD_NUM as corpidcardnum,
+		a.AGENT_NAME as agentname,
+		a.AGENT_PHONE as agentphone,
+		a.AGENT_CONTACT_ADDR as agentcontactaddr,
+		a.AGENT_IDCARD_TYPE as agentidtype,
+		a.AGENT_IDCARD_NUM as agentidcardnum,
+		a.RA_USER_ID as raUserId,
+		a.USER_STATE as userState,
+		a.EXTRA1 as extra1,
+		a.EXTRA2 as extra2,
+		a.EXTRA3 as extra3,
+		a.EXTRA4 as extra4,
+		a.EXTRA5 as extra5,
+		a.EXTRA6 as extra6,
+		a.EXTRA7 as extra7,
+		a.EXTRA8 as extra8,
+		a.EXTRA9 as extra9,
+		a.EXTRA10 as extra10,
+		a.REMARKS as remarks
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+	<select id="get" resultType="CorporationInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CORPORATION_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="CorporationInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CORPORATION_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag})
+		<if test="corpname != null and corpname != ''">
+			AND a.CORP_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{corpname}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{corpname}, '%')</if>
+		</if>
+		<if test="legalpersonname != null and legalpersonname != ''">
+			AND a.LEGAL_PERSON_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{legalpersonname}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{legalpersonname}, '%')</if>
+		</if>
+		<if test="agentname != null and agentname != ''">
+			AND a.AGENT_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{agentname}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{agentname}, '%')</if>
+		</if>
+		<if test="agentcontactaddr != null and agentcontactaddr != ''">
+			AND a.AGENT_CONTACT_ADDR LIKE
+			<if test="dbName == 'oracle'">'%'||#{agentcontactaddr}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{agentcontactaddr}, '%')</if>
+		</if>
+		<if test="raUserId != null and raUserId != ''">
+			AND a.RA_USER_ID = #{raUserId}
+		</if>
+		<if test="id != null and id != ''">
+			AND a.ID = #{id}
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	
+	<select id="fingByids" resultType="CorporationInfo" parameterType="list">
+		SELECT
+		a.ID AS "corporationUserRelation.id", 
+		b.USER_NAME AS "corporationUserInfo.userName",
+		b.ID AS "corporationUserInfo.id",
+    	c.ID as id,
+		c.CORP_NAME as corpname,
+		c.LEGAL_PERSON_NAME as legalpersonname,
+		c.CORP_IDCARD_TYPE as corpidtype,
+		c.CORP_IDCARD_NUM as corpidcardnum,
+		c.AGENT_NAME as agentname,
+		c.AGENT_PHONE as agentphone,
+		c.AGENT_CONTACT_ADDR as agentcontactaddr,
+		c.AGENT_IDCARD_TYPE as agentidtype,
+		c.AGENT_IDCARD_NUM as agentidcardnum,
+		c.RA_USER_ID as raUserId,
+		c.USER_STATE as userState,
+		c.EXTRA1 as extra1,
+		c.EXTRA2 as extra2,
+		c.EXTRA3 as extra3,
+		c.EXTRA4 as extra4,
+		c.EXTRA5 as extra5,
+		c.EXTRA6 as extra6,
+		c.EXTRA7 as extra7,
+		c.EXTRA8 as extra8,
+		c.EXTRA9 as extra9,
+		c.EXTRA10 as extra10
+		FROM CORPORATION_USER_RELATION a
+		left outer join
+		  CORPORATION_USER_INFO b
+		    on a.corporation_user_id = b.id
+		  left outer join CORPORATION_INFO c
+		    on a.corporation_id = c.id
+		WHERE 
+		a.ID in
+		<foreach collection="list" item="corid" index="index"
+            open="(" close=")" separator=",">
+            #{corid}
+        </foreach>
+        and c.del_flag = 0 and b.del_flag = 0
+		ORDER BY c.CREATE_DATE
+	</select>
+
+	<select id="fingByCorUserinfo" resultType="CorporationInfo">
+		SELECT
+		a.ID AS "corporationUserRelation.id",
+		b.USER_NAME AS "corporationUserInfo.userName",
+		b.ID AS "corporationUserInfo.id",
+		c.ID as id,
+		c.CORP_NAME as corpname,
+		c.LEGAL_PERSON_NAME as legalpersonname,
+		c.CORP_IDCARD_TYPE as corpidtype,
+		c.CORP_IDCARD_NUM as corpidcardnum,
+		c.AGENT_NAME as agentname,
+		c.AGENT_PHONE as agentphone,
+		c.AGENT_CONTACT_ADDR as agentcontactaddr,
+		c.AGENT_IDCARD_TYPE as agentidtype,
+		c.AGENT_IDCARD_NUM as agentidcardnum,
+		c.RA_USER_ID as raUserId,
+		c.USER_STATE as userState,
+		c.EXTRA1 as extra1,
+		c.EXTRA2 as extra2,
+		c.EXTRA3 as extra3,
+		c.EXTRA4 as extra4,
+		c.EXTRA5 as extra5,
+		c.EXTRA6 as extra6,
+		c.EXTRA7 as extra7,
+		c.EXTRA8 as extra8,
+		c.EXTRA9 as extra9,
+		c.EXTRA10 as extra10
+		FROM CORPORATION_USER_RELATION a
+ 		LEFT JOIN CORPORATION_USER_INFO b ON a.corporation_user_id = b.id
+		LEFT OUTER JOIN CORPORATION_INFO c ON a.corporation_id = c.id
+		WHERE c.del_flag = '0 '
+		AND b.del_flag = '0'
+		<if test="idCard != null and idCard != ''">
+			AND b.ID_CARD = #{idCard}
+		</if>
+		<if test="phoneNum != null and phoneNum != ''">
+			AND b.PHONE_NUM = #{PHONE_NUM}
+		</if>
+		ORDER BY c.CREATE_DATE
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO CORPORATION_INFO(
+			ID,
+			CORP_NAME,
+			LEGAL_PERSON_NAME,
+			CORP_IDCARD_TYPE,
+			CORP_IDCARD_NUM,
+			AGENT_NAME,
+			AGENT_PHONE,
+			AGENT_CONTACT_ADDR,
+			AGENT_IDCARD_TYPE,
+			AGENT_IDCARD_NUM,
+			RA_USER_ID,
+			USER_STATE,
+			EXTRA1,
+			EXTRA2,
+			EXTRA3,
+			EXTRA4,
+			EXTRA5,
+			EXTRA6,
+			EXTRA7,
+			EXTRA8,
+			EXTRA9,
+			EXTRA10,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{corpname},
+			#{legalpersonname},
+			#{corpidtype},
+			#{corpidcardnum},
+			#{agentname},
+			#{agentphone},
+			#{agentcontactaddr},
+			#{agentidtype},
+			#{agentidcardnum},
+			#{raUserId},
+			#{userState},
+			#{extra1},
+			#{extra2},
+			#{extra3},
+			#{extra4},
+			#{extra5},
+			#{extra6},
+			#{extra7},
+			#{extra8},
+			#{extra9},
+			#{extra10},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE CORPORATION_INFO SET 
+			CORP_NAME = #{corpname},
+			LEGAL_PERSON_NAME = #{legalpersonname},
+			CORP_IDCARD_TYPE = #{corpidtype},
+			CORP_IDCARD_NUM = #{corpidcardnum},
+			AGENT_NAME = #{agentname},
+			AGENT_PHONE = #{agentphone},
+			AGENT_CONTACT_ADDR = #{agentcontactaddr},
+			AGENT_IDCARD_TYPE = #{agentidtype},
+			AGENT_IDCARD_NUM = #{agentidcardnum},
+			RA_USER_ID = #{raUserId},
+			USER_STATE = #{userState},
+			EXTRA1 = #{extra1},
+			EXTRA2 = #{extra2},
+			EXTRA3 = #{extra3},
+			EXTRA4 = #{extra4},
+			EXTRA5 = #{extra5},
+			EXTRA6 = #{extra6},
+			EXTRA7 = #{extra7},
+			EXTRA8 = #{extra8},
+			EXTRA9 = #{extra9},
+			EXTRA10 = #{extra10},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE CORPORATION_INFO SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<select id="findProUserlist" resultType="CorporationInfo">
+		SELECT
+		a.ID AS "corporationUserRelation.id", 
+		b.USER_NAME AS "corporationUserInfo.userName",
+		b.ID AS "corporationUserInfo.id",
+    	c.ID as id,
+		c.CORP_NAME as corpname,
+		c.LEGAL_PERSON_NAME as legalpersonname,
+		c.CORP_IDCARD_TYPE as corpidtype,
+		c.CORP_IDCARD_NUM as corpidcardnum,
+		c.AGENT_NAME as agentname,
+		c.AGENT_PHONE as agentphone,
+		c.AGENT_CONTACT_ADDR as agentcontactaddr,
+		c.AGENT_IDCARD_TYPE as agentidtype,
+		c.AGENT_IDCARD_NUM as agentidcardnum,
+		c.RA_USER_ID as raUserId,
+		c.USER_STATE as userState,
+		c.EXTRA1 as extra1,
+		c.EXTRA2 as extra2,
+		c.EXTRA3 as extra3,
+		c.EXTRA4 as extra4,
+		c.EXTRA5 as extra5,
+		c.EXTRA6 as extra6,
+		c.EXTRA7 as extra7,
+		c.EXTRA8 as extra8,
+		c.EXTRA9 as extra9,
+		c.EXTRA10 as extra10
+		FROM CORPORATION_USER_RELATION a
+		  left outer join CORPORATION_USER_INFO b
+		    on a.corporation_user_id = b.id
+		  left outer join CORPORATION_INFO c
+		    on a.corporation_id = c.id
+		WHERE c.del_flag = 0 and b.del_flag = 0 and a.del_flag = 0
+		<if test = 'strList != null and strList.size() >0'> 
+			and a.ID not in
+			<foreach collection="strList" item="corid" index="index"
+	            open="(" close=")" separator=",">
+	            #{corid}
+	        </foreach>
+		</if>
+		<if test="corpname != null and corpname != ''">
+			AND c.CORP_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{corpname}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{corpname}, '%')</if>
+		</if>
+		ORDER BY c.CREATE_DATE desc
+	</select>
+</mapper>

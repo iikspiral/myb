@@ -1,0 +1,36 @@
+<div class="contentAndSideBar clearfix">
+${widget_getmore}
+</div>
+<script>
+	$(function() {
+		$("#n_home").addClass("cur");
+		
+	$("#tab-1").mouseover(function(){
+		$("#tab-1").addClass("current");
+		$("#tab-2").removeClass("current");
+		$("#tab-3").removeClass("current");
+		$("#privatebonslist").css("display","block");
+		$("#productsalelist").css("display","none");
+		$("#transfer").css("display","none");
+		});
+	
+	$("#tab-2").mouseover(function(){
+		$("#tab-2").addClass("current");
+		$("#tab-1").removeClass("current");
+		$("#tab-3").removeClass("current");
+		$("#privatebonslist").css("display","none");
+		$("#productsalelist").css("display","block");
+		$("#transfer").css("display","none");
+		});
+	
+	$("#tab-3").mouseover(function(){
+		$("#tab-3").addClass("current");
+		$("#tab-1").removeClass("current");
+		$("#tab-2").removeClass("current");
+		$("#privatebonslist").css("display","none");
+		$("#productsalelist").css("display","none");
+		$("#transfer").css("display","block");
+
+		});
+});
+</script>

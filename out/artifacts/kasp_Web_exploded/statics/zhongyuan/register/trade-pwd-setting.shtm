@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>注册 - 中原股权交易中心</title>
+    <base href="../">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/awesomeform.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/register.css">
+    <style type="text/css">
+        body{
+            background-color: #fafafa;
+        }
+        .process-cells tr td{
+            background-color: #fff;
+        }
+    </style>
+    <script src="js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+
+    <!--#include virtual="public/header.shtm"-->
+	
+    <div class="account_register">
+      <table class="process-cells step-one">
+            <tr>
+                <td style="width: 33.3%">注册</td>
+                <td class="current" style="width: 33.3%">绑定银行卡</td>
+                <td style="width: 33.3%">风险测评</td>
+            </tr>
+        </table>
+      <div class="user-type">
+        <form class="personal-account awesomeform" action="register/step_three.shtm">
+          <h3>设置交易密码</h3>
+          <div class="floor full">
+            <label class="property" for="realname">交易密码</label>
+            <div class="value">
+              <input class="xs" id="realname" name="realname" type="password" />
+            </div>
+          </div>
+          <div class="floor full">
+            <label class="property" for="idnum">再输入一次</label>
+            <div class="value">
+              <input class="xs" id="idnum" name="idnum" type="password" />
+            </div>
+          </div>
+          <div class="actionArea clearfix">
+            <!--input class="back btn-md btn-grey" type="button" value="上一步" onclick="location.href='javascript:history.go(-1);'"-->
+            <input class="continue btn-md btn-red" type="button" value="完成绑卡" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+	<!--#include virtual="public/footer.shtm"-->
+	
+	<script src="js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+    </script>
+</body>
+
+</html>

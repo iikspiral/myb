@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="kcbpFactory" class="com.websuites.esb.plugins.kcbp.ConnectionFactory" init-method="initFactory" destroy-method="destroyFactory">
+	    	<property name="defaultNode">
+	    		<value>KCBP01</value>
+	    	</property>	
+	    	<property name="kcbpNode">
+	    	    <map>
+	    	    	<entry key="KCBP01">
+	    			<props>
+				        <prop key="server">127.0.0.1</prop>
+				        <prop key="protocal">0</prop>
+				        <prop key="address">127.0.0.1</prop>
+				        <prop key="port">21000</prop>
+				        <prop key="send">req01</prop>
+				        <prop key="receive">ans01</prop>
+		                 	<prop key="usepool">true</prop>
+		                 	<prop key="maxpoolsize">5</prop>
+				        <prop key="minpoolsize">5</prop>
+				        <prop key="timeout">100</prop>
+				        <prop key="reconnect">5</prop>
+				        <prop key="sleeptime">5000</prop>
+			        </props>	    	    		
+	    	    	</entry>
+	            </map>
+		</property>
+    </bean>
+
+    <bean id="kcbpBex" class="com.websuites.esb.plugins.kcbp.KcbpBex" init-method="loadProcParam">
+<!--
+    <bean id="kcbpBex" class="com.websuites.esb.plugins.kcbp.KcbpBex">
+-->    
+        <property name="factory">
+            <ref bean="kcbpFactory"/>
+        </property>
+    	 <property name="publicParam">
+    	 	<map>
+    	 		<entry key="KCBP01">
+		 		<props>
+				        <prop key="g_sysid">4</prop>
+				        <prop key="g_menuid">0</prop>
+				        <prop key="g_funcid">888880</prop>
+				        <prop key="g_userid">0</prop>
+				        <prop key="g_userpwd">0</prop>
+				        <prop key="g_orgid">0</prop>
+			                <prop key="g_userway">0</prop>
+			                <prop key="g_stationaddr">0</prop>
+				        <prop key="g_chkuserid">0</prop>
+				        <prop key="g_checksno">0</prop>
+				        <prop key="g_confirmaction">0</prop>
+				        <prop key="g_confirmlevel">0</prop>
+				        <prop key="hostname">server</prop>
+			        </props>	    	    		   	 			
+    	 		</entry>
+    	 	</map>	
+    	 </property>
+		 <!--每页默许显示10条记录 -->
+		 <property name="pagination">
+			<value>java</value>
+		 </property>
+	</bean>
+	
+<!--	
+    <bean id="heartBeatThread" class="com.websuites.esb.plugins.kcbp.HeartBeatThread" init-method="startThread">
+        <property name="factory">
+            <ref bean="kcbpFactory"/>
+        </property>
+    	<property name="publicParam">
+			<props>
+		        <prop key="g_sysid">4</prop>
+		        <prop key="g_menuid">0</prop>
+		        <prop key="g_funcid">888888</prop>
+		        <prop key="g_userid">0</prop>
+		        <prop key="g_userpwd">0</prop>
+		        <prop key="g_orgid">0</prop>
+	                <prop key="g_userway">0</prop>
+	                <prop key="g_stationaddr">0</prop>
+		        <prop key="g_chkuserid">0</prop>
+		        <prop key="g_checksno">0</prop>
+		        <prop key="g_confirmaction">0</prop>
+		        <prop key="g_confirmlevel">0</prop>
+		        <prop key="hostname">server</prop>
+	        </props>	    	    		
+		</property>
+    	<property name="sleepTime">
+    		<value>5000</value>
+    	</property>			
+    </bean>
+-->
+</beans>

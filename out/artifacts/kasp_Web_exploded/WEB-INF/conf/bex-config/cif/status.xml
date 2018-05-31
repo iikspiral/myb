@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+<!-- 通过custid update客户状态  -->
+<!-- <bex id="f_get_cif_investors_by_custid" ibatis="get_cif_investors_by_custid" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="custid" source="custid"	type="string"	 />	
+	</request>
+</bex> -->
+<!--  通过custid update众筹项目状态 -->
+<!-- <bex id="f_get_cif_crowfunding_by_custid" ibatis="get_cif_crowfunding_by_custid" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="custid" source="custid"	type="string"	 />	
+	</request>
+</bex> -->
+
+<!--  通过project_id update股权和债权项目状态 -->
+<bex id="f_update_pif_project_summary_by_projectid" ibatis="update_pif_project_summary_by_projectid" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="project_id" source="project_id"	type="string"	 />	
+			<param name="checkstatus" source="checkstatus"	type="string"	 />	
+	</request>
+</bex>
+
+<bex id="f_update_pif_borrow_by_projectid" ibatis="update_pif_borrow_by_projectid" operate="update" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+			<param name="project_id" source="project_id"	type="string"	 />	
+			<param name="checkstatus" source="checkstatus"	type="string"	 />	
+	</request>
+</bex>
+
+</websuites>

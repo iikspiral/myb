@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="GB2312"?>
+<ws>
+	<bex id="ws_do_emtpy" type="java-bex" bean="WsEmptyBex" class="com.websuites.web.bex.WsEmptyBex" method="success"/>
+</ws>

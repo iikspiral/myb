@@ -1,0 +1,409 @@
+<script type="text/javascript" src="js/kifp.bondtransfer.js"></script>
+<script type="text/javascript" src="${staticserver}/common/js/libs/kjax.des.js"></script>
+<script type="text/javascript" src="${staticserver}/common/My97DatePicker/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/My97DatePicker/skin/WdatePicker.css">
+<style>
+		.weightColor {
+		color: #C73838;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	   .h2{
+    font-size: 18px;
+    color: #565656;
+    width: 900px;
+    margin: 2px auto 2px;
+    padding: 0;
+    border-bottom: 0px solid #e0e0e0;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .item-content{
+    margin: 0 auto;
+    padding: 0;
+    width: 900px;
+    text-align: left;
+  }
+  .invDetails{
+    float: left;
+    width: 560px;
+    margin: 0;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+  }
+  .itemTitles{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .itemName{
+    color: #FF5500;
+    text-decoration: none;
+  }
+  .invNumber{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  } 
+  .invPer{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .invPS{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .buttons{
+    margin: 0 auto;
+    padding: 0;
+  }
+  .myAccount{
+    width: 240px;
+    float: right;
+    margin: 0;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+  }
+  .h3{
+    font-size: 14px;
+    color: #565656;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .numRest{
+    font-family: Helvetica Arial;
+    font-size: 22px;
+    line-height: 40px;
+    color:#FF5500;
+  }
+  .moneyRest{
+    font-size: 14px;
+    font-family: "Microsoft Yahei" Helvetica Arial;
+    line-height: 18px;
+    color:#565656;
+  }
+  .clearboth{
+    clear: both;
+  }
+.reduce-btn, .plus-btn {
+	display: block;
+	float: left;
+	width: 20px;
+	height: 26px;
+	background: #eee url("${staticserver}/common/images/plus-icons.png") 0 -41px no-repeat;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.reduce-btn:hover {
+	background-color: #ea5404;
+	background-position: 0 -77px;
+}
+
+.plus-btn {
+	background-position: -20px -41px;
+}
+.plus-btn:hover {
+	color: #FFFFFF!important;
+	background-color: #ea5404;
+	background-position: -20px -77px;
+}
+.table th{
+	text-align: center;
+}
+</style>
+<div id="container" class="contentAndSideBar clearfix">
+	<div class="pageNav">当前位置：<a href="/account_base_info.html">账户中心</a>&gt;<a href="/product_bonds.html">固定收益</a>&gt;<span class="current">产品转让</span></div>
+		<div align="center">
+			<div class="kd-outer-box" style="height:600px;margin-top: 10px">
+				<form id="addTransferForm"  name="addTransferForm" method="post" >
+				<div class="kd-outer-box-title">
+					<h>项目信息</h>
+				</div>
+					<table class="table" style="margin:0 0 20px 0">
+						<tr style="text-align:center;">
+							<th width="130">项目名称</th>
+							<th width="60">到期日</th>
+							<#if bondslist?exists>
+			    		   <#list bondslist as item>
+			    		   				<#if  item.newview == "0"  >	
+											<th width="120">已还期限/总期限</th>
+											<#elseif item.newview == "1">
+											<th width="120">已持有期限/总期限(天)</th>
+										</#if>
+							<th width="100">投资金额（元）</th>
+							<th width="70">已收本金（元）</th>
+							<th width="70">已收利息（元）</th>
+						</tr>
+						<tr style="text-align:center;">
+							<td><span><a href="#">${item.borrowtitle!''}</a></span></td>							
+							<td>${duedate!'0'}</td>
+							   			<#if  item.newview == "0"  >	
+											<td>${item.hasdeadline!'0'}/${item.deadline!'0'}</td>
+											<#elseif item.newview == "1">
+											<td>${item.hasbuyback!'0'}/${item.buyback!'0'}</td>
+										</#if>
+							
+							<td>${item.investamount!'0'}</td>
+							<td>${item.hasprincipal!'0'}</td>
+							<td>${item.hasinterest!'0'}</td>							
+						</tr>
+						 <li style="display: none">						 	
+						 	<input type="text" name="paramTransfer.onlyid" value="${item.onlyid!''}"/>	
+				         	<input type="text" name="paramTransfer.borrowid" id="project_borrowid" value="${item.borrowid!''}"/>
+				         	<input type="text" name="paramTransfer.borrowtitle" value="${item.borrowtitle!''}"/>				         	
+				         	<input type="text" name="paramTransfer.deadline" value="${deadline!'0'}"/>				        	
+				         	<input type="text" name="paramTransfer.hasdeadline" value="${hasdeadline!'0'}" />
+				         	<input type="text" name="paramTransfer.publishlimit" value="${item.publishlimit!''}"/>
+				         	<input type="text" name="paramTransfer.newtotal" value="${investamount!'0'}"/>					         		         	
+				         	<input type="text" name="paramTransfer.newdeadline" value="${item.remaindays!''}"/>
+				         	<input type="text" name="paramTransfer.mintenderedsum" value="${item.mintenderedsum!''}"/>
+					    </li>
+						</#list>
+					    </#if>
+					</table>
+				<div class="kd-outer-box-title" >
+					<h><input name="checkbutton" checked="checked"   type="radio" onclick="checkone()">一口价
+					  
+					</h>
+				</div>	
+				
+				
+				
+				<ul  id="form_transfer" class="kd-form-style clearfix" style="margin-top: 30px;display:block">
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让有效时间：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="auctionendtime">${valid!'0'}</span>&nbsp;小时<span class="kdValidform_checktip">${valid!'0'}小时未成交将被系统下架</span></i>
+						</span>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">可投总金额：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="newtotal">${investamount!'0'}</span>&nbsp;元<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+					<#if paymentlist?exists>
+			    		<#list paymentlist as i>
+					<li class="kd-form-style-itemnew" >
+					<label class="kd-form-style-label">转让份额：</label>
+					<div class="invNumber">	     			
+		     			&nbsp;&nbsp;<a class="reduce-btn" disabled="disabled" onmousedown="reduce()"></a>
+		     			<input type="text" id="transfershare"  floatrate="${floatrate!'0'}" alienatorid="${i.investor!''}" bid="${i.id!''}" newview="${i.borrowid!''}" debtnum="${investamount?number/10000!''}" name="paramTransfer.transfershare" size="5" class="input-text" datatype="parseNum" nullmsg="请输入金额！" errormsg="请正确输入金额!" style="float: left" value="${investamount?number/10000!'0'}">
+		     			<a class="plus-btn" onmousedown="plus()"></a>
+		     			<div style="float: left">万元</div>
+		     			<span class="kdValidform_checktip kdValidform_right" style="display: none!important;">通过信息验证！</span>
+	    			</div>
+					</li>					
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">剩余应得利息：</label>
+						<span class="kd-form-style-value">
+							<#setting number_format="0.00"> 
+							<#assign str_num = i.ydlx!'0'>
+							
+							<i><span class="weightColor" id="realinterest" >${str_num?number}</span>&nbsp;元<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+						<input type="text" style="display:none" name="paramTransfer.remaindeadline" value="${i.remaindeadline!'0'}"/>
+						<input type="text" style="display:none" name="paramTransfer.remainannualrate" value="${i.sylx!'0'}"/>
+				        <input type="text" style="display:none" id="price" title="转让参考价格" value="${i.zrjg!'0'}"/>
+				        <input type="text" style="display:none" id="limitPricepo" name="limitPricepo" title="限制参考价格(大于)" name="paramTransfer.limitPricepo" value="${limitpricepo!'0'}"/>
+				        <input type="text" style="display:none" id="limitPricemin" name="limitPricemin" title="限制参考价格（小于）" name="paramTransfer.limitPricemin" value="${limitpricemin!'0'}"/>
+				        <input type="text" style="display:none" id="floatrate" title="浮动比率" value="${floatrate!'0'}"/>
+				        <input type="text" style="display:none" id="rootrate" title="手续费比例" value="0"/>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让参考价格：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" title="转让参考价格" id="referprice" >${i.zrjg!'0'}</span>&nbsp;元<span class="kdValidform_checktip">等额剩余本金</span></i>
+						</span> 
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让价格：</label>
+						<span class="kd-form-style-value">
+							<i><input id="reprice"  class="input" nullmsg="请输入转让价格！" onblur="genFeeFromServer();" onkeyup="getTotal();" errormsg="不能超过浮动比率${floatrate!'0'}！" name="paramTransfer.reprice" datatype="*"><!--  -->
+							<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+					</#list>
+					</#if>					
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让手续费：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="fees" value="0">0</span>&nbsp;元<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">交易密码：</label>
+						<span class="kd-form-style-value">
+							<i><input id="tradepass" type="password" class="input" nullmsg="请输入交易密码！" errormsg="请输入正确的6位数交易密码！" name="paramTransfer.tradepass" datatype="p"><!-- -->
+							<span class="kdValidform_checktip"> </span></i>
+						</span>
+					</li>
+								
+				</ul>	
+				
+				
+				
+				<ul>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label"></label>
+						<span class="kd-form-style-value">
+							<input id="addTransferBtn" type="button" class="kdmall-btn" value="提交">
+						</span>
+					</li>
+				</ul>
+				</form>
+		 
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	var $addTransferForm; 
+	$(function(){
+		$addTransferForm =$("#addTransferForm").kdValidform({
+			datatype: {
+				parseNum: function(gets, obj, curForm, datatype) {
+					if(gets > obj.attr("debtnum")) {
+						obj.val(obj.attr("debtnum"))
+					}
+					$.ajax({
+						type: "post",
+						dataType: "json",
+						async: true,
+						url: "mall/v2transfer!transferOrderPriceAction.do?ajax=yes",
+						data: {id: $("#transfershare").attr("bid"), alienatorid: $("#transfershare").attr("alienatorid"), newview: $("#transfershare").attr("newview"), floatrate: $("#transfershare").attr("floatrate"), transfershare: $("#transfershare").val() * 10000},
+						success: function(data){
+						  var json = eval(data);
+							if(json.result == 1){
+								$("#referprice").text(parseFloat(json.zrjg).toFixed(2) );
+								$("#realinterest").text(parseFloat(json.ydlx).toFixed(2) );
+								$("#limitPricemin").val(parseFloat(json.limitPricemin).toFixed(2));
+								$("#limitPricepo").val(parseFloat(json.limitPricepo).toFixed(2)); 
+								$("#remainInterest").val(parseFloat(json.remainInterest).toFixed(2)); 
+							   }
+						},
+						error: function(data) {
+							 alert(json.message);
+							$("#realpay, #realpayinput").text(data.message);
+						}
+					});
+				}
+			}
+		});
+		
+		$("#transfershare").blur();
+		genFeeFromServer();
+		
+	});
+
+	
+	
+function getTotal(){
+    var a = document.getElementById("reprice").value;
+    var b = document.getElementById("rootrate").value;	
+	try{
+	document.getElementById("fees").innerHTML = a*b;
+	}catch(e){
+	alert("输入的数值有误");
+	}
+}
+
+function genFeeFromServer(){
+		var amount = $("#transferprice").val();
+ 		var projectid =$("#project_borrowid").val() ;
+		if(!projectid){
+			return ;
+		}
+		if(!amount){
+			return ;	
+		}
+		var datass ={
+				amount:amount,
+				feetype:1,
+				typeid:'99',
+				feeflag:'B',
+				projectid:projectid
+		};
+		$.ajax({
+			type: "POST",
+			dataType:"json",
+			async:true,
+			url: "mall/getCharge!getCharge.do?ajax=yes",
+			data: datass,
+			success: function(data){
+				genResult(data);
+			},
+			error: function(data) {
+				genResult(data);
+			}
+		});
+	}
+	function genResult(data){
+		 if(data.result == 1){
+			 var feeback = data.charge;
+			 if(feeback){
+				 $("#fees").text(feeback);
+				 $("#insfees").val(feeback); 
+			 }
+		 }
+	};
+	
+
+	function reduce() {
+			if(!$("#transfershare").val() || $("#transfershare").val() <= 1) {
+				$("#transfershare").val(1);
+				$("#transfershare").val(parseInt(n) - 1).blur();
+				return;
+			}
+			
+			var n = $("#transfershare").val();
+			$("#transfershare").val(parseInt(n) - 1).blur();
+	}
+	
+	function plus() {
+		if(!$("#transfershare").val()) {
+			$("#transfershare").val(1);
+			$("#transfershare").val(parseInt(n) + 1).blur();
+		}
+		
+		var n = $("#transfershare").val();
+		$("#transfershare").val(parseInt(n) + 1);
+		
+		$("#transfershare").blur();
+	}
+
+ 
+	function checkon(){
+		$("#form_transfer").css("dsiplay","block");
+		$("#form_auction").css("dsiplay","none");
+		$("#reprice").attr("datatype","*");
+		$("#reprice").attr("onblur","genFeeFromServer()");
+	}
+	
+	function checktw(){
+		$("#form_auction").css("dsiplay","block");
+		$("#form_transfer").css("dsiplay","none");
+		$("#auctiondays").attr("datatype","*");
+		$("#tradepass1").attr("datatype","*");
+		$("#initialprice").attr("datatype","*");
+
+	}
+	
+
+	</script> 

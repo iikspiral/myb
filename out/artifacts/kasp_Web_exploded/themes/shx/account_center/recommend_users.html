@@ -1,0 +1,68 @@
+<script type="text/javascript" src="${staticserver}/shx/common/js/ZeroClipboard/ZeroClipboard.js"></script>
+<script type="text/javascript"> 
+ $(document).ready(function() {
+
+  var clip = new ZeroClipboard($("#J_copy"));
+  clip.on("ready", function() {
+    this.on("aftercopy", function(event) {
+	  $.kd.kdMsg("已复制到剪贴板!");
+    });
+  });
+  clip.on("error", function(event) {
+    $(".demo-area").hide();
+    ZeroClipboard.destroy();
+  });
+});
+ </script>
+ 
+ <div class="account-main">
+	<div class="simple-titlebar clearfix">
+        <h2 class="title">我的推广</h2>
+    </div>
+	<div class="tabs-filter">
+			<ul class="nav clearfix">
+				<li><a href="recommend_users.html?type=way" <#if type = "way"> class="current"</#if>>推广用户</a></li>
+				<li><span>|</span></li>
+				<li><a href="recommend_users.html?type=list" <#if type = "list"> class="current"</#if>>推荐记录</a></li>
+				<li><span>|</span></li>
+			</ul>
+	</div>
+	<div class="panel-info trade-history">
+		
+		
+		<#if '${type}' == "way">
+			<div class="table-wrap">
+			<div class="asset-statis">
+			<#if safeStatus?exists>
+				<#if safeStatus.individualorinstitution == '1' || safeStatus.individualorinstitution == '0'>
+				<div  class="title clearfix">
+					<h3 >如何推广：</h3></br>
+					<dl>
+						<dt>1、发送下面的邀请链接给好友等（建议不要发送给陌生人），通过此链接注册并绑定银行卡成功即可成为您的推荐用户</dt>
+						<dt>邀请连接：<input id="J_promoteurl" class="" type="text"  value="${invitorurl!''}"  name="promoteurl" style="width:400px;">
+							<input id="J_copy" class="btn-lf btn-xs  btn-orange"  data-clipboard-text="${invitorurl!''}" type="button" value="复制"  />
+						</dt>
+					</dl>
+					<dl>
+						<dt>2、用户注册时，在“推荐人”处填写您的用户名，注册并绑定银行卡成功即可成为您的推荐用户。如下图：</dt>
+						<dt><img src="${staticserver}/shx/images/reffer.png">
+						</dt>
+					</dl>
+				</div>
+				<#else>
+					您尚未绑定银行卡,<a href="bankmanage.html">立即绑定</a>。
+				</#if>
+			<#else>
+				您尚未绑定银行卡,<a href="bankmanage.html">立即绑定</a>。
+			</#if>
+				
+			</div>
+			</div>
+		</#if>
+		
+		<#if '${type}' == "list">
+			<#include 'recommend_records.html'>
+		</#if>
+		
+	</div>
+</div>

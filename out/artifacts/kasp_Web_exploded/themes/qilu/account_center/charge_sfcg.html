@@ -1,0 +1,160 @@
+
+			    <div class="user-box-con-1" id="sfcgpage" style="display:none">
+			     <form id="rechargeForm_sfcg"  method="post">
+			        <#if sfcglist?exists && sfcglist?size !=0>
+			        <dl id="selectBank" class="user-pay-list clearfix">
+			        <dt>选择银行</dt>
+			            <dd>
+			            	<ul class="clearfix">
+			            	    <#assign i = 0>
+			            		<#list sfcglist as myBank>
+			                        <#assign i = i+1>
+			                           <#if myBank.channeltype=='06'>
+				                        <li <#if i % 2 == 0>class="isBank"<#else>class="isBank selected"</#if>  _bankid="${myBank.channeltype!''}">
+				                        <label>
+				                            <img src="${myBank.banklogo!''}" width="143" height="38"><span class="icon-duigou1"></span>
+				                        </label>
+				                        <input name="capitalaccount" value="${myBank.capitalaccount!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="channelno" value="${myBank.channelno!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="channelname" value="${myBank.channelname!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="custname" value="${myBank.custname!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="bankaccount" value="${myBank.bankaccount!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="bankid" value="${myBank.bankcode!''}" type="text" class="input" readonly style="display:none"/>
+			                        </li>
+			                        </#if>
+			                   </#list>
+			                    	<!--<li id="moreBankBtn" class="user-pay-list-more"><span>选择其他银行&nbsp;&nbsp;∨</span></li> -->
+			                </ul>
+			            </dd>
+			        </dl>
+			        <div class="kd-form-style clearfix" style="padding-top:0px;">
+			         <#assign i = 0>
+	            	 <#list sfcglist as myBank>
+	            	  <#assign i = i+1>
+			         <ul  id ="banalance_${myBank.channeltype!''}" _channelno="${myBank.channeltype}"  class="kd-form-style"  >
+			                <li   class="kd-form-style-item">
+			                    <label class="kd-form-style-label">账户余额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<i><strong class="user-pay-balance">${myBank.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}元</strong></span></i>
+			                    </span>
+			                </li>
+			             
+			                <li class="kd-form-style-item" style="width:550px;">
+			                    <label class="kd-form-style-label">充值金额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+				                    <input name="money" type="text" class="input" datatype="/^[0-9]\d*(\.\d+)?$/" nullmsg="金额不能为空" errormsg="金额必须大于0">
+				                    <span>元</span>
+			                    </span>
+			                </li>
+			               
+			               <!--  <li id="liBankPwd" class="kd-form-style-item" style="width:550px;">
+			                    <label class="kd-form-style-label">银行卡密码</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="capitalpwd" type="password" class="input" datatype="*" nullmsg="密码不能为空">
+			                    </span>
+			                </li> -->
+			              
+			                
+			                <li class="kd-form-style-item" style="display:none">
+			                    <label class="kd-form-style-label"> </label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input   name="businesscode" type="input" value="charge_in" class="input" readonly style="display:none">
+			                    </span>
+			                </li>
+			                
+			                <li class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="important" type="checkbox" name="importantInfo" datatype="*" nullmsg="请先阅读下方重要提示"  >&nbsp;&nbsp;
+			                    	<label for="important">我已阅读并确认下方重要提示信息</label>
+		                    	</span>
+			                </li>
+			               
+			                <li class="kd-form-style-item">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="rechargeSubmit_sfcg"  type="button" class="linkButton" value="确认充值">
+			                </span>
+			               </li>
+			            </ul>
+			           </#list>
+			        </div>
+			        </form>
+	            	</#if>
+			    </div>
+<script type="text/javascript">
+var $rechargeForm_sfcg;
+	
+	$(function() {
+		
+		$rechargeForm_sfcg = $("#rechargeForm_sfcg").kdValidform();
+		$("li.isBank").bind("click", function() {
+			$("li.isBank.selected").removeClass("selected");
+			$(this).addClass("selected");
+			
+			$("table.bank-data").hide();
+			$("table.bank-data").eq($(this).prevAll("li.isBank").size() % 4).show();
+		});
+		$("li.ispayment").bind("click", function() {
+			if(!$(this).hasClass("selected")) {
+				$("li.ispayment.selected").removeClass("selected");
+				$(this).addClass("selected");
+				if($(this).attr("id") == "unionpay") {
+					$("#selectBank, #quotaContainer").slideDown();
+				} else {
+					$("#selectBank, #quotaContainer").slideUp();
+				}
+			}
+		});
+		
+		$("#rechargeSubmit_sfcg").bind("click",function(){
+			var _tradepwd_ =$("#rechargePwd").val();
+			var tmp = _tradepwd_;
+			var _tradepwd_ = _tradepwd_ ? $.des.getDes(_tradepwd_,'kingdom') : "";
+			$("#rechargePwd").val(_tradepwd_);
+			
+			var options = {
+					type: "POST",
+					dataType:"json",
+					async:true,
+					url: "mall/newcharge!chargeInOut.do?ajax=yes",
+					success: function(data){
+						$.kd.closeLoading();
+				 		  //var josn = eval("("+data+")");
+				 		  if(data.result == 1){
+				 		  	 $("#rechargePwd").val("");
+				 		  	  $.kd.kdConfirm(data.data.msg +"  是否继续充值?", function() {
+									location.reload();
+								  }, function() {
+									location.href="/account_base_info.html";
+				 		  	  });
+				 		  	  
+				 		  }else{
+				 			 $("#rechargePwd").val("")
+				 			 $("input[name=money]").val("")
+				 		  	 $.kd.kdAlert("充值失败请重试!"+data.message);
+				 		  }
+				 		  $("input[type=button]").attr("disabled", false);
+					},
+					error: function(data) {
+						  $.kd.kdConfirm("充值失败!"+data.message, function(){
+							window.location.href = "/charge.html";
+						  });	
+						}
+					};
+			
+			if($rechargeForm_sfcg.check()){
+				$.kd.showLoading($("#rechargeSubmit_sfcg"), "正在充值中");
+				$("input[type=button]").attr("disabled", true);
+
+				$("#rechargeForm_sfcg").ajaxSubmit(options);
+				$("#rechargePwd").val(tmp);
+			}		
+			
+		});
+		
+		if($("li.isBank[_bankid=1002]").size() > 0) $("#liBankPwd").remove();
+	});
+	
+		
+</script>

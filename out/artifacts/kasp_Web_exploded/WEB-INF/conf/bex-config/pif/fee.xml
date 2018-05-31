@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+<bex id="f_get_kifp_fee" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_kifp_fee" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+</websuites>

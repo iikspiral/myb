@@ -1,0 +1,82 @@
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/main_1018.css">
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/account-new.css">
+<div class="rightcontent formdiv ">	      
+		<div class="tab-content-wrap-account">          
+	        <div class="head-content">
+			<h1 class="content-title">股权投资明细</h1>
+			<form id="addDateForm"  name="addDateForm" method="post" action="/myproject.html?type=bank"  >
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：&ensp;
+                        <span class="input-wrap">
+                            <input name="startdate" id="startdate" startDate="2014-03-01"  
+                            class="input input-small calendar from" readonly="readonly" type="text" onfocus="WdatePicker()"/>
+                        </span>
+                        &emsp;至&emsp;
+                        <span class="input-wrap">
+                            <input name="enddate" id="enddate"    
+                            class="input input-small calendar to" readonly="readonly" type="text" onfocus="WdatePicker()"/>
+                        </span> 
+                        <span class="input-wrap">                            
+                            <input type="submit" id="addDateBtn" class="kdmall-btn cancel" value="查询">
+                        </span>	
+           </form>		
+		</div>  
+	        <table class="list-table hidden" style="display: table;" >
+	            <thead>
+					<tr>				
+						<th class="time" style="border-right:#e0e0e0 1px solid;width:60px;">行号</th>
+						<th class="origin" style="border-right:#e0e0e0 1px solid;width:350px;">产品名称</th>						
+						<th class="origin" style="border-right:#e0e0e0 1px solid;">认购金额</th>						
+						<th class="origin" style="border-right:#e0e0e0 1px solid;">发生日期</th>
+						<th class="origin" style="border-right:#e0e0e0 1px solid;">发生时间</th>
+						<th class="origin" >状态</th>					
+					</tr>
+	            </thead>
+	            <tbody id="msg-list-content"> 				
+				<#if stocktrd?exists>
+    			<#list stocktrd as item>
+				<tr class="unRead" style="border-top:#e0e0e0 1px solid;">							
+							<td style="border-right:#e0e0e0 1px solid;">${item.id!""}</td>													
+							<td style="border-right:#e0e0e0 1px solid;">
+								<a><span class="msg-title">${item.project_name!""}</span></a>
+							</td>							
+							<td style="border-right:#e0e0e0 1px solid;">
+							<#assign smrjg=item.smrjg!"">
+						<#assign smrjg1= smrjg?number>
+						${smrjg1/10000}
+							万元</td>							
+							<td style="border-right:#e0e0e0 1px solid;">${item.sbrq!""}</td>
+							<td style="border-right:#e0e0e0 1px solid;">${item.sbsj!""}</td>	
+							<td style="">${item.STATUS!""}</td>						
+				</tr>				
+				</#list>
+				</#if>						
+				</tbody>
+			</table>
+		</div>
+		<div id="page_area" class="pager-info"></div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$.kd.kdPager.init({
+			currentPage: '${page_stock}',
+			totalPage: '${totalPage_stock}',
+			totalRecords: '${totalCount_stock}',
+			prefix: '/myproject.html',
+			suffix: function(n) {
+				return generalParam() + "&page=" + n;
+			}
+		});
+		$("#startdate").val("${startdate}");
+		$("#enddate").val("${enddate}");
+	});
+	
+		function generalParam() {
+		var param = "type=bank";
+		var start = $("#startdate").val();
+		var end = $("#enddate").val();
+		start = start ? start : "${startdate}";
+		end = end ? end : "${enddate}";
+		return param + (start ? ("&startdate=" + start) : "") + (end ? ("&enddate=" + end) : "");
+	}
+</script>
+

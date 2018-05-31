@@ -1,0 +1,114 @@
+<div class="account-main">	      
+	<div class="simple-titlebar clearfix">
+        <h2 class="title">已发送消息</h2>
+    </div>
+    <div class="container-full">
+    	<div class="tabs-filter" id="accountTabs">
+	        <div class="list-wrap">
+	        	<div id="holden">
+	        		<div class="thefilter">
+						<div class="nav-filter">
+							<div id="orderstatus">
+								<a href="javascript:void(0);" class="btn-start btn-xs btn-orange" id="J_pdel">删除</a>
+							</div>
+						</div>
+					</div>
+					<table class="records-table">
+						<thead>
+							<tr>
+								<th>
+									<input  id="check_all" type="checkbox">
+								</th>
+								<th>收信人</th>
+								<th class="project-name">标题</th>
+								<th>时间</th>
+							</tr>
+						</thead>
+						<tbody id="J-msg-list-content">
+							<#if sendmsglist?exists>
+	            				<#list sendmsglist as ms>
+	            			<tr>
+		            			<td><input type="checkbox" id="checkboxs"  value="${ms.id}"></td>
+								<td>${ms.userid!''}</td>
+								<td style="text-align: left;"><a class="link" href="send_msg_detail.html?type=detail&id=${ms.id!''}&flag=0">${ms.title!''}</a></td>
+								<td>${ms.addtime!''}</td>
+							</tr>
+							</#list>
+           				 </#if>
+						</tbody>
+					</table>
+					<div id="page_area" class="pager-info"></div>
+	        	</div>
+		    </div>
+	    </div>
+	</div>
+</div>
+ <script type="text/javascript">
+   $(function(){
+     $pager = $.kd.kdPager.init({
+					currentPage: '${page!'1'}',
+					totalPage: '${totalPage!'1'}',
+					totalRecords: '${totalCount!'1'}',
+					prefix: 'send_msg.html',
+					suffix: function(page) { 
+						return   "page=" +page; }
+					});
+   });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+       //全选
+        $("#check_all").click(function(){
+             if($("#check_all").attr("checked")){
+             $("#J-msg-list-content :checkbox").attr("checked",true);
+             }else{
+             $("#J-msg-list-content :checkbox").attr("checked",false);
+             }
+        });
+	      //单个点击事件
+	      $("#J-msg-list-content :checkbox").click(function(){
+	          if($("#check_all").attr("checked")){
+      	           $("#check_all").attr("checked",false);
+      	     }
+	      });
+	    //删除
+	    $("#J_pdel").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#J-msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	       if(mglist == ""){
+	          $.kd.kdMsg("请从消息列表中勾选要删除的消息");
+	          return false;
+	       }
+	       zhejiang_confirm("消息","执行删除操作?",function() {
+	            	$.post(
+	            	"mall/bbw_message!deletemsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	zhejiang_alert("消息删除",data.message, function() {  
+								 		window.location.href = "send_msg.html?_="+new Date().getTime(); 
+									 });
+								 } else {
+										zhejiang_alert("消息删除",data.message, function() {  
+									 		window.location.href = "send_msg.html?_="+new Date().getTime(); 
+										 });
+								};
+	               },"json");   
+	            });
+      });
+})
+</script>
+
+
+

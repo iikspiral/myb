@@ -1,0 +1,87 @@
+<div class="account-main clearfix">
+	<div class="simple-titlebar">
+		<h3 class="title">提前还款</h3>
+	</div>
+	<div class="account-board" id="accountTabs">
+	    <form id="addDateForm"  name="addDateForm" method="post">
+			<input type="hidden" id="proid" value="${proid!''}"/>
+			<input type="hidden" id="advanced_repaydate" value="${advanced_repaydate!''}"/> 
+			<div class="floorform">
+				<div class="floor">
+					<label class="property">产品名称</label>
+					<div class="value">${proname!''}</div>
+				</div>
+				<div class="floor">
+					<label class="property">提前还本付息截止日期</label>
+					<div class="value">${advanced_repaydate!''}</div>
+				</div>
+				<div class="floor">
+					<label class="property">应还本金（元）</label>
+					<div class="value">${prodcutmoney.stillprincipal!''}</div>
+				</div>
+				<div class="floor">
+					<label class="property">应还利息（元）</label>
+					<div class="value">${prodcutmoney.stillinterest!''}</div>
+				</div>
+				<div class="floor">
+					<label class="property">应还总金额（元）</label>
+					<div class="value">${prodcutmoney.totalS!''}</div>
+				</div>
+				<div class="actionArea" style="margin: 0; text-align: left; padding-left: 120px;">
+					<input type="button" id="addDateBtn" class="btn-md btn-orange" value="提前还款">
+				</div>
+			</div>
+		</form>
+		<div class="account-tips">
+			<h3 class="title"><i class="iconfont">&#xe628;</i> 温馨提示</h3>
+			<p class="content">
+				1.提前还款请保证您的账户余额大于您要还款产品的"还本付息总金额"。<br>
+				2."一次性还本付息截止日期"为产品的截止计息还本日期。<br>
+				3.申请过程遇到问题，请联系客服，400-8655-056(9:00-17:00)
+			</p>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(function() {
+		$("#addDateBtn").on("click",function(){
+		 
+	 
+		var productid = $("#proid").val();
+		var advanced_repaydate = $("#advanced_repaydate").val();
+		 
+		
+		zhejiang_confirm("提示","确认提前还款?" ,function() { 
+			$("#addDateBtn").attr("disabled", "disabled");
+			$("#addDateForm input").addClass("readonly").attr("readonly", "readonly");
+			$.post("mall/hunan_productrepay!prorepayplanadvanced.do?ajax=yes",
+					{
+					productid:productid,
+					advanced_repaydate:advanced_repaydate
+					},
+					function(data) {		
+						 if ( data.result == 1) {
+							  zhejiang_alert("提示",data.message,function(){
+								window.location.href = "product_repay_plan.html?tab=2&_="+new Date().getTime(); 
+							  });
+						  
+						 } else {
+						 
+								zhejiang_alert("提示",data.message,function(){
+									window.location.reload();
+							  });
+						};
+				},
+				"json"
+				); 
+	 });
+	
+	});
+
+	});
+ 
+	
+
+</script>

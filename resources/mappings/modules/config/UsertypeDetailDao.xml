@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.usertypedetail.dao.UsertypeDetailDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<select id="findList" resultType="UserTypeDetail">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM user_type_detail a
+		WHERE 1 = 1
+		<if test="userType != null and userType != ''">
+			AND a.USER_TYPE = #{userType}
+		</if>
+		<if test="displayName != null and displayName != ''">
+			AND a.DISPLAY_NAME = #{displayName}
+		</if>
+		<if test="failName != null and failName != ''">
+			AND a.FAIL_NAME = #{failName}
+		</if>	
+	</select>
+	
+	<update id="update">
+		UPDATE user_type_detail SET 
+			USER_TYPE = #{userType}, 
+			DISPLAY_NAME = #{displayName}, 
+			FAIL_NAME = #{failName}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

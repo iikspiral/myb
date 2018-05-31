@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="../css/user-account-center.css">
+<div class="rightcontent">
+	<div class="user-content ">
+			<div class="user-box-title-1">
+				<h2>申请成为借款方</h2>
+			</div>
+					 
+		<div class="stepcontent bindcard1" style="height: 250px; text-align: center;">
+ 
+			<div class="form-box-left2">
+				<a id="personalAccount " class="selectbtn" href="javascript:personal();">个人</a>
+				 
+				<a id="organizeAccount" class="selectbtn" style="margin-left:100px;" href="javascript:organize();">企业</a>
+				<span></span>
+			</div>
+	 
+		</div>	
+	</div>
+</div>
+		 
+<script>
+ 
+ function personal(){
+		var params = {};
+		params.type = "0";
+		$.kutil.pageReload("apply_usertype.html",params);
+ 
+ }
+ 
+  function organize(){
+		var params = {};
+		params.type = "1";
+		$.kutil.pageReload("apply_usertype.html",params);
+ 
+ }
+	
+ 
+
+</script>

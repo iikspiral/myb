@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+<!-- 下单冻结  -->
+<bex id="f_web_deal_bankaccount" type="http-bex" httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" >
+</bex>
+<!--份额操作  -->
+<bex id="f_addupdealbal" type="http-bex"  httpserver="kifp" target="dealSvcBean" service="DealBalService"   lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--交易流水  -->
+<bex id="f_add_kifp_deal_order" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="add_kifp_deal_order" operate="insert" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--债权份额操作  -->
+<bex id="f_addrdsdealbalborrow" type="http-bex"  httpserver="kifp" target="dealSvcBean" service="BondsDealBalService"   lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 下单冻结  -->
+<bex id="f_qry_deal_bankaccount" type="http-bex" httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" >
+</bex>
+<!-- 密码校验  -->
+<bex id="f_dealpassword" type="http-bex" httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" parameterType="java.util.HashMap" lparam="false" >
+</bex>
+
+
+<!-- 债权转让 交易 原始 wangwj-->
+<bex id="f_bonddealtransfer_alter" type="http-bex"  httpserver="kifp" target="transfeDealService" service="doTransferDeal"   
+lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 债权转让 交易 单列 wangwj-->
+<bex id="f_bonddealtransfer" type="http-bex"  httpserver="kifp" target="dealInstend" service="doTransferDeals"   
+lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!--删除股权份额  -->
+<bex id="f_del_kifp_bal_project" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="del_kifp_bal_project" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--删除债权份额  -->
+<bex id="f_del_kifp_bal_borrow" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="del_kifp_bal_borrow" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!--删除流水  -->
+<bex id="f_del_kifp_order" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="del_kifp_order" operate="delete" lparam="false" parameterType="java.util.HashMap">
+</bex>
+<!-- 回购 -->
+<bex id="f_del_kifp_buyback" type="http-bex" httpserver="kifp"   target="buybackPaymentServiceOld" service="doBuyback"   parameterType="java.util.HashMap" lparam="false" >
+<request > 
+    <param name ="borrowid" source="borrowid"  type="string" /> 
+    <param name ="investid" source="investid"  type="string" />
+    <param name ="zjlsh" source="zjlsh"   type="string" />
+    <param name ="realamount" source="realamount" type="string" />
+ </request>
+</bex>
+<!-- 客户类型查询  -->
+<bex id="f_get_invest_type" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="get_invest_type" operate="select" lparam="false" parameterType="java.util.HashMap">
+</bex>
+</websuites>

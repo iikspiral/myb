@@ -1,0 +1,300 @@
+<style>
+   .h2{
+    font-size: 18px;
+    color: #565656;
+    width: 900px;
+    margin: 2px auto 2px;
+    padding: 0;
+    border-bottom: 0px solid #e0e0e0;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .item-content{
+    margin: 0 auto;
+    padding: 0;
+    width: 900px;
+    text-align: left;
+  }
+  .invDetails{
+    float: left;
+    width: 560px;
+    margin: 0;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+  }
+  .itemTitles{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .itemName{
+    color: #FF5500;
+    text-decoration: none;
+  }
+  .invNumber{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  } 
+  .invPer{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .invPS{
+    font-size: 14px;
+    color: #6f6f6f;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .buttons{
+    margin: 0 auto;
+    padding: 0;
+  }
+  .myAccount{
+    width: 240px;
+    float: right;
+    margin: 0;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #ddd;
+  }
+  .h3{
+    font-size: 14px;
+    color: #565656;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft Yahei" Simhei Simsun;
+  }
+  .numRest{
+    font-family: Helvetica Arial;
+    font-size: 22px;
+    line-height: 40px;
+    color:#FF5500;
+  }
+  .moneyRest{
+    font-size: 14px;
+    font-family: "Microsoft Yahei" Helvetica Arial;
+    line-height: 18px;
+    color:#565656;
+  }
+  .clearboth{
+    clear: both;
+  }
+.reduce-btn, .plus-btn {
+	display: block;
+	float: left;
+	width: 20px;
+	height: 26px;
+	background: #eee url("${staticserver}/common/images/plus-icons.png") 0 -41px no-repeat;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.reduce-btn:hover {
+	background-color: #ea5404;
+	background-position: 0 -77px;
+}
+
+.plus-btn {
+	background-position: -20px -41px;
+}
+.plus-btn:hover {
+	color: #FFFFFF!important;
+	background-color: #ea5404;
+	background-position: -20px -77px;
+}
+</style> 
+<script type="text/javascript" src="${staticserver}/common/js/libs/kjax.des.js"></script>
+<div id="container">
+	<div class="pageNav">当前位置：<a href="productsale_list.html">产品销售</a>&gt;<span class="current">我要认购</span></div>
+	<div class="item-content" style="margin-top: 10px">
+		<div class="invDetails">
+	  		<#if project_info?exists>
+	    	<#list project_info as pinfo>
+	    		<div class="itemTitles">
+	     			项目名称：
+	     			<a href="#" class="itemName">${pinfo.name!'金交在线项目'}</a>
+	    		</div>
+	    	</#list>
+	    	</#if>
+	    	<form id="myform" method="post" action="/mall/dealorder!DealOrder.do">
+				<#if project_info?exists>
+	    		<#list project_info as pinfo>
+			       	<input type="hidden" name="project_id" value="${pinfo.id}">          
+			 		<input type="hidden" name="annualrate" value="${pinfo.annualrate}">
+			 		<input type="hidden" name="deadline" value="${pinfo.deadline}">
+			 		<input type="hidden" name="paymentmode" value="${pinfo.paymentmode}">
+			 		<input type="hidden" name="excitationsum" value="${pinfo.excitationsum}">
+			 		<input type="hidden" name="managefee" value="${pinfo.managefee}">
+			 		<input type="hidden" name="dealtype" value="10002">
+			 		<input type="hidden" name="cust_id" value="${pinfo.customerno}">
+			 		<input id="mintenderedsum" type="hidden" value="${pinfo.mintenderedsum?number /10000}">
+			 		<input id="hasinvestamount" type="hidden" value="${pinfo.hasinvestamount?number /10000}">
+			 		<input id="borrowamount" type="hidden" value="${pinfo.borrowamount?number /10000}">
+			 		<input id="smallestflowunit" type="hidden" value="${pinfo.smallestflowunit?number /10000}">
+			 		
+				 </#list>
+			     </#if>
+	 
+				<div class="invNumber">
+	     			<div style="float: left">认购金额：</div>
+	     			<a class="reduce-btn" disabled="disabled" onmousedown="reduce()"></a>
+	     			<input type="text" id="amount" name="applicationamount" size="5" class="input-text" onkeyup="$(this).val($(this).val().replace(/[^\d]/g,'').replace(/^0(\d+)$/,'$1'));" datatype="checkMax" nullmsg="请输入金额！" errormsg="请输入不小于认购起点金额不大于可认购的金额" style="float: left" onblur="generateValue($(this));">
+	     			<a class="plus-btn disabled" onmousedown="plus()"></a>
+	     			<div style="float: left">万元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	     			
+	     			<#if project_info?exists>
+					<#list project_info as pinfo>
+						<span>认购起点金额<font style="color: red;">${pinfo.mintenderedsum?number /10000}</font>万</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>认购最小单位<font style="color: red;">${pinfo.smallestflowunit?number /10000}</font>万</span>
+					</#list>
+					</#if>
+	    		</div>
+			    <#if project_info?exists>
+			    <#list project_info as pinfo>
+			    <div class="invPer">年收益率：<span class="itemName">${pinfo.annualrate}%</span></div>
+			    <div class="invPer">已投金额：<span class="itemName">${pinfo.hasinvestamount?number /10000}万</span></div>
+			    <div class="invPer">发行规模：<span class="itemName">${pinfo.borrowamount?number /10000}万</span></div>
+			    </#list>
+			    </#if>
+	    		<input name="crowfundingtype" type="hidden" value="${crowfundingtype}">
+	    		<div class="invPS">投资备注：</div>
+			    <div>
+			    	<textarea id="reason" cols="1" rows="4" class="input-text" style="width:500px;" name="specification" datatype="*" nullmsg="请输入投资备注！" errormsg="请输入投资备注!" onkeyup="$form.check($(this))"></textarea>
+			    	<span class="kdValidform_checktip" style="display: block;"></span>
+			    </div>
+			    <div class="invPer">交易密码：<input type="password" name="dealpassword" id="dealpassword" style="width: 200px"  datatype="*" nullmsg="请输入交易密码！" errormsg="请输入交易密码！"></div>
+			    <#if project_info?exists>
+			    <#list project_info as pinfo>
+			    <div class="invPer"><span><input type="checkbox" name="xieyi" datatype="*" nullmsg="请阅读认购协议！" errormsg="请阅读认购协议！" value="01">遵从<a href="javascript: $.kd.kdWin(635, 450,'${pinfo.name}认购协议', 'bondbuyagreement', null, 1, 'id');">《河北金交在线债权认购协议》</a></span></div>
+			   	</#list>
+			    </#if>
+			    <div class="buttons">
+			    	<input id="dosubmit" type="button" name="dosubmit" value="确定" class="kdmall-btn">
+			      	<input type="reset" name="dosubmit" id="dosubmit" value="重置" class="kdmall-btn" onclick="$form.reset();">
+			    </div>
+	    	</form>
+    	</div>
+  	</div>
+  	<div class="myAccount">
+	    <div class="h3">
+	      	我的账户:
+	      	<#if custinfo?exists>
+	        <#list custinfo as cinfo>
+	        <span class="f_blue2 f_15">${cinfo.NAME!'尊敬的客户'}</span><br>
+	        </#list>
+	        </#if>
+	    </div>
+	    <#setting number_format="currency">
+	    <div class="numRest">${ky?number}元</div>
+	    <div class="moneyRest">可用余额：${ky?number}元<br>冻结余额：${tb?number}元</div>
+	   <a href="/charge.html" class="kdmall-btn">账户充值</a>
+	    <#setting number_format="number">
+  	</div>
+  	<div class="clearboth"></div>
+</div>
+<#include 'bondbuyagreement.html'/>
+<script type="text/javascript">
+	var $form = null;
+	$(function(){ 
+		$('#dealpassword').val("").focus();
+    	$form = $("#myform").kdValidform({
+			datatype: {
+				checkMax: function(gets, obj, curForm, datatype) {
+					var hasinvestamount = $("#hasinvestamount").val();
+					var borrowamount = $("#borrowamount").val();
+					var data = $("#mintenderedsum").val();
+					if(hasinvestamount <= 0 || isNaN(hasinvestamount)) hasinvestamount = 0;
+					if(borrowamount <= 0 || isNaN(borrowamount)) borrowamount = 0;
+					var data1 = borrowamount-hasinvestamount;
+					if(data1 <=data){
+						$.kd.kdAlert("剩余可认购份额小于最小起点认购份额,您需认购已剩的全部份额！", function(){
+					 		$("#amount").val(data1);
+					 	});
+						return true;
+	                }
+	                
+					if(gets=="" || parseFloat(gets) < parseFloat(data)|| parseFloat(gets) > parseFloat(data1)) {
+						if(parseFloat(gets) < parseFloat(data)) $(obj).attr("errormsg", "请输入不小于认购起点金额的数值！")
+						else if(parseFloat(gets) > parseFloat(data1)) $(obj).attr("errormsg", "请输入不大于可认购的金额的数值！")
+						return false;
+					}
+					else return true;
+				}
+				}
+		});
+    	
+    	$("#dosubmit").click(function() {
+    		if($form.check()) {
+    			$("#dosubmit").attr("disabled",true);
+    			$("#dealpassword").val($.des.getDes($("#dealpassword").val(),'kingdom'));
+    			$.kd.kdConfirm("您认购了<font style='color: red'>"+$("#amount").val()+"</font>万元，是否确认?", function() {
+    				$("#myform").submit();
+    			},function(){
+    			 $("#dosubmit").attr("disabled",false);
+    			 $("#dealpassword").val("").focus();
+    			});
+    		}
+    	});
+	});
+	var danwei = parseInt($("#smallestflowunit").val()); //最小认购单位
+	var hasinvestamount = parseInt($("#hasinvestamount").val());
+	var borrowamount = parseInt($("#borrowamount").val());
+	var qidian = parseInt($("#mintenderedsum").val());
+	if(hasinvestamount <= 0 || isNaN(hasinvestamount)) hasinvestamount = 0;
+	if(borrowamount <= 0 || isNaN(borrowamount)) borrowamount = 0;
+	if(danwei <= 0 || isNaN(danwei)) danwei = 0;
+	if(qidian <= 0 || isNaN(qidian)) qidian = 0;
+	$("#amount").val(qidian);
+	
+	
+	function plus() {
+		if(!$("#amount").val()) {
+			$("#amount").val(qidian);
+		}
+		if($("#amount").val() < qidian) {
+			$("#amount").val(qidian);
+		if($("#amount").val() > (borrowamount - hasinvestamount)) {
+			 $("#amount").val((borrowamount - hasinvestamount));
+		 }
+			return;
+		}
+		$("#amount").val(parseInt($("#amount").val()) + danwei);
+		if($("#amount").val() > (borrowamount - hasinvestamount)) {
+			$("#amount").val((borrowamount - hasinvestamount));
+		}
+	}
+	function reduce() {
+		if($("#amount").val() <= qidian) {
+			if($("#amount").val() > (borrowamount - hasinvestamount)) {
+				$("#amount").val((borrowamount - hasinvestamount));
+			}
+			return;
+		}
+		$("#amount").val(parseInt($("#amount").val()) - danwei);
+		
+	}
+	
+	function generateValue($input) {
+		if($input.attr('val') && $input.attr('val') == $input.val()) return;
+		if($input.val() >= qidian){
+			var val = parseInt($input.val());
+			var m = (val - qidian) % danwei;
+			if(m != 0) $input.val(val - m + (m > danwei / 2 ? danwei : 0)).attr(val, $input.val());
+		}
+		if($("#amount").val() > (borrowamount - hasinvestamount)) {
+			$("#amount").val((borrowamount - hasinvestamount));
+		}
+	}	
+	
+	
+	
+</script>  

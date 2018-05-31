@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/common/css/kd.ui.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/common/css/kd.tools.validate.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/common/jcrop/jquery.jcrop.css">
+		<script type="text/javascript" src="${staticserver}/shx/common/js/libs/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/jcrop/jquery.form.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/jcrop/jquery.jcrop.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.ui.plugin.js"></script>
+		
+		<style type="text/css">
+			.file-input {
+				color: #333;
+				width: 205px;
+				height: 26px;
+				padding: 0 5px;
+				font-size: 12px;
+				line-height: 24px;
+				border: 1px solid #DDD;
+			}
+			
+			.file-input:hover {
+				box-shadow: 0 0 10px #A8E5FB;
+			}
+
+			#jc-box {
+				float: left;
+				width: 610px;
+				height: 334px;
+				border: 1px #EEE solid;
+				background-color: white;
+				border-radius: 4px;
+				-moz-border-radius: 4px;
+				-webkit-border-radius: 4px;
+				box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+				-moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+				-webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+			}
+			
+			.preview {
+				float: left;
+				margin-top: 20px;
+				<#if type="user">
+					margin-left: 60px;
+                <#else>
+                	margin-left: 20px;
+                </#if>
+			}
+			
+			.preview-pane {
+				float: left;
+				padding: 2px;
+				display: block;
+				border: 1px #EEE solid;
+				background-color: white;
+				border-radius: 4px;
+				-moz-border-radius: 4px;
+				-webkit-border-radius: 4px;
+				box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+				-moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+				-webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+			}
+			
+			.preview-pane .preview-container {
+				width: ${xw}px;
+				height: ${xh}px;
+				overflow: hidden;
+			}
+			
+			.preview-tip {
+				clear: both;
+				height: 30px;
+				padding-top: 5px;
+				/*margin-left: 20px;*/
+				font-size: 12px;
+				/*text-align: center;*/
+				
+				<#if type="user">
+					height: 60px;
+					padding-top: 15px;
+                <#else>
+                	padding-top: 5px;
+                </#if>
+			}
+			
+			#content {
+				clear: both;
+				width: 880px;
+				height: 40px;
+				padding-top: 10px;
+				padding-left: 10px;
+				padding-right: 5px;
+				font-family: 微软雅黑;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<div id="jc-box">
+				<img id="source" src="${staticserver}/shx/common/images/${type}.gif" />
+			</div>
+			<div class="preview">
+				<div id="preview-pane1" class="preview-pane" style="/*margin-left: 90px;*/">
+			        <div class="preview-container" style="width: ${nw}px;height: ${nh}px;">
+						<img name="preview" src="${staticserver}/shx/common/images/${type}.gif" />
+					</div>
+				</div>
+				<div class="preview-tip">
+					<#if type="user">
+                     	小头像
+                    <#else>
+						列表展示图
+                    </#if>
+					（${nw}*${nh}）
+				</div>
+				<div id="preview-pane2" class="preview-pane">
+			        <div class="preview-container">
+						<img name="preview" src="${staticserver}/shx/common/images/${type}.gif" />
+					</div>
+				</div>
+				<div class="preview-tip">
+					<#if type="user">
+                     	大头像
+                    <#else>
+						详细页展示图
+                    </#if>
+					（${tw}*${th}）
+				</div>
+			</div>
+		</div>
+		
+		<div id="content">
+			<form id="uploadForm" name="uploadForm">
+				<span style="font-size: 14px;">进行适当的剪切，使图片展示达到最佳的效果！</span>
+				<input id="file" type="file" name="upfile" accept=".jpg,.jpeg,.png,.gif" class="file-input" />
+				<input id="savebtn" type="button" class="kdmall-btn" value="保存" onclick="save();" style="line-height: 18px;vertical-align: middle;vertical-align: top\9;" />
+			</form>
+			
+			<form id="imageCutForm" name="imageCutForm">
+				<input id="pointerX" type="hidden" name="pointerX" />
+				<input id="pointerY" type="hidden" name="pointerY" />
+				<input id="destWidth" type="hidden" name="destWidth" />
+				<input id="destHeight" type="hidden" name="destHeight" />
+				<input id="targetWidth" type="hidden" name="targetWidth" value="${tw}"/>
+				<input id="targetHeight" type="hidden" name="targetHeight" value="${th}"/>
+				<input id="srcImageFile" type="hidden" name="srcImageFile" value="/common/images/${type}.gif" />
+			</form>
+		</div>
+		<script>
+			var pw = parseInt("${xw}"), ph = parseInt("${xh}");
+			var boundx, boundy, jcrop_api;
+			
+			$(function() {
+				$("#source").Jcrop({
+			    	dragEdges: true,
+			    	boxWidth: 610,
+			    	boxHeight: 334,
+			    	onChange: updatePreview,
+					onSelect: updatePreview,
+					aspectRatio: pw / ph
+			    }, function() {
+			    	jcrop_api = this;
+			    	var bounds = this.getBounds();
+			      	boundx = bounds[0];
+			      	boundy = bounds[1];
+			      	jcrop_api.setSelect([0, 0, boundx, boundy]);
+			      	if(!"${prev}") {
+				      	var scale = jcrop_api.getScaleFactor()[0];
+				      	$(".jcrop-holder").animate({"marginTop": (boundy / scale > 334 ? 0 : (334 - boundy / scale) / 2) + "px"}, "fast");
+			      	}
+				});
+				
+				$("#file").bind("change", function() {
+					upload();
+				});
+				
+				if("${prev}") reloadImage("${prev}");
+			});
+			
+			function updatePreview(c) {
+		    	if (parseInt(c.w) > 0) {
+		    		var $pimg = $('#preview-pane2 .preview-container img');
+		        	var rx = pw / c.w, ry = ph / c.h;
+			        $pimg.css({
+			        	width: Math.round(rx * boundx) + 'px',
+			          	height: Math.round(ry * boundy) + 'px',
+			          	marginLeft: '-' + Math.round(rx * c.x) + 'px',
+			          	marginTop: '-' + Math.round(ry * c.y) + 'px'
+			        });
+			        
+			        var $pimg = $('#preview-pane1 .preview-container img');
+		        	var rx = parseInt("${nw}") / c.w, ry = parseInt("${nh}") / c.h;
+			        $pimg.css({
+			        	width: Math.round(rx * boundx) + 'px',
+			          	height: Math.round(ry * boundy) + 'px',
+			          	marginLeft: '-' + Math.round(rx * c.x) + 'px',
+			          	marginTop: '-' + Math.round(ry * c.y) + 'px'
+			        });
+				}
+				
+				$('#pointerX').val(parseInt(c.x));
+			    $('#pointerY').val(parseInt(c.y));
+			    $('#destWidth').val(parseInt(c.w));
+			    $('#destHeight').val(parseInt(c.h));
+		    };
+			
+			function upload() {
+				if($('#file').val()) {
+					$.kd.showLoading($("#savebtn"), "正在上传");
+					$("#uploadForm").ajaxSubmit({
+						url : "${fileserver}/file!upload.do",
+						type : "POST",
+						dataType : "json",
+						success : function(json) {
+							document.cookie = parent.umesession;
+			                if(json.result == 1) {
+								$("#srcImageFile").val(json.message);
+								reloadImage(json.message);
+			                }
+						},
+						error : function(json) {
+							document.cookie = parent.umesession;
+							json = eval('(' + $.trim(json.responseText) + ')');
+			                if(json.result == 1) {
+								$("#srcImageFile").val(json.message);
+								reloadImage(json.message);
+			                }
+						}
+					});
+				}
+			}
+			
+			function reloadImage(src) {
+				new $.kd.kdLoadImage($("#loading"), "${fileserver}" + src, "${staticserver}/shx/common/images/${type}.gif", function() {
+					jcrop_api.setImage("fileserver" + src, function() {
+						var bounds = jcrop_api.getBounds();
+				      	boundx = bounds[0];
+				      	boundy = bounds[1];
+						jcrop_api.setSelect([0, 0, boundx, boundy]);
+						$("img[name=preview]").attr("src", "${fileserver}" + src);
+						var scale = jcrop_api.getScaleFactor()[0];
+						$(".jcrop-holder").animate({"marginTop": (boundy / scale > 334 ? 0 : (334 - boundy / scale) / 2) + "px"}, "fast");
+						$.kd.closeLoading();
+					});
+				}).load();
+			}
+			
+			function save() {
+				$.kd.showLoading($("#savebtn"), "正在进行图片裁剪");
+				$("#imageCutForm").ajaxSubmit({
+					url : "${fileserver}/file!cutImage.do",
+					type : "POST",
+					dataType : "json",
+					success : function(json) {
+						document.cookie = parent.umesession;
+		                if(json.result == 1) {
+							parent.addItem(json.message);
+		                }
+						parent.$("#kd-ui-dialog-close").click();
+					},
+					error : function(json) {
+						document.cookie = parent.umesession;
+						json = eval('(' + $.trim(json.responseText) + ')');
+		                if(json.result == 1) {
+							parent.addItem(json.message);
+		                }
+						parent.$("#kd-ui-dialog-close").click();
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

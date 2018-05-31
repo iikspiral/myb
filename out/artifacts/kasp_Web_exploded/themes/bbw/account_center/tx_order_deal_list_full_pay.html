@@ -1,0 +1,25 @@
+			<tr>
+				<th >订单编号</th>
+				<th >产品名称</th>
+				<th >金额(元)</th>
+				<th >已支付金额(元)</th>
+				<th >发生时间</th>	
+				<th >支付状态</th>
+				<th >确认支付</th>
+			</tr>
+			<#if paidorderlist?exists>
+	            <#list paidorderlist as paidorder>
+			<tr>
+				<td><div ><a href="/tx_order_detail.html?orderno=${paidorder.sbbh!''}">${paidorder.sbbh!''}</a></div></td>
+				<td class="center"><div >${paidorder.cpdm!''}</div></td>
+				<td class="center"><div >${paidorder.investamount?default("0.00")?number?string("###,###,###,##0.00")}</div></td>
+				<td >${paidorder.paymoney!''?default("0.00")?number?string("###,###,###,##0.00")}</td>
+				<td class="center"><div >${paidorder.sbrq!''}</div></td>
+				<td class="center"><div >已支付</div></td>
+				<td class="center"><div ><a class="linkButtonOk" >完成</a></div></td>
+			</tr>
+			</#list>
+			</#if>
+
+		
+

@@ -1,0 +1,93 @@
+
+
+<div id="J_select" class="user-type clearfix" style="text-align: center;">
+
+<a id="J_openSfzf" class="personal" >三方支付</a>
+
+<a id="J_openSfcg" class="organized" >三方存管</a>
+
+<a id="J_bindFundAccount" class="account" href="bankmanage.html?s=acct&p=cg"  >绑定资金账户</a>
+
+</div>
+
+
+
+<div id="J_openForm">
+
+<#if sfcg == '${sfcg}'>	
+
+	<div id="J_sczf" style="display:none">	
+
+	<#if alreadyopen?exists>
+
+	<h3>您已开通了资金账户,如需绑定多张银行卡,请进入银行卡管理功能进行相关操作,谢谢!</h3>
+
+	<#else>
+
+		<#include 'register_tp_org.html'>
+
+	</#if>	
+
+	</div>	
+
+</#if>
+
+
+
+<#if sfzf = '${sfzf}'>	
+
+	<div  id="J_sccg" style="display:none">
+
+	<#if alreadyopen?exists>	
+
+	<h3>您已开通了资金账户,如需更换换银行卡,请选择银行卡解绑功能,谢谢!</h3>
+
+	<#else>
+
+		<#include 'register_cg_org.html'>
+
+	</#if>		
+
+	</div>
+
+</#if>
+
+</div>
+
+
+
+<script>
+
+$(function(){
+
+	$("#J_openSfzf").bind("click",function(){
+
+		$("#J_sczf").show();
+
+		$("#J_select").hide();
+
+		}
+
+	)
+
+
+
+	$("#J_openSfcg").bind("click",function(){
+
+		$("#J_sccg").show();
+
+		$("#J_select").hide();
+
+		}
+
+	)
+
+		
+
+});
+
+
+
+
+
+</script>

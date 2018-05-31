@@ -1,0 +1,55 @@
+<div class="account-body">
+	<div class="panel-border">
+		<div class="titlebar border-titlebar clearfix">
+			<h2 class="title">选择披露类型和企业</h2>
+		</div>
+		<div class="panel-form">
+			<form id="form_info_apply" class="awesomeform clearfix">
+				<h3 class="group-title">上传文档[支持格式:DOC,DOCX,PPT,PPTX,XLS,XLSX,PDF,TXT,GIF,JPG,BMP,JPEG,PNG]</h3>
+				<div class="floor full height-auto">
+					<div class="value" >
+						<input type="file" name="doc"/>
+						<input type="hidden" name="businessid" value="${applyid!''}"/>
+						<input type="hidden" name="owner" value="${companyid!''}"/>
+						<input type="hidden" name="docid" value=""/>
+						<input type="hidden" name="typeno" value="${funcid!''}"/>
+						<input type="hidden" name="pagenumber" value="1"/>
+						<input type="hidden" name="funcid" value="${funcid!''}"/>
+						<input type="hidden" name="wsuser" value="${customerno!''}"/>
+					</div>
+				</div>
+				<div class="actionArea" style="text-align: left;">
+					<input style="margin: 0;" type="button" onclick="javascript:doUpload();" class="btn-md btn-red" value="提交">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function doUpload(){
+		var options = {
+			url : "/otcpdoc/file.FileUpload",
+			type : "POST",
+			dataType : "json",
+			success : function(data) {
+				alert(data);
+			},
+			error : function(e) {
+				try {
+					var json = eval('(' + e.responseText + ')');
+					if(json.state == "SUCCESS") {
+						zhejiang_alert("消息","上传成功！",function(){
+							window.location.href = "member_info.html";
+						});
+					} else {
+						zhejiang_alert("消息","上传失败！请确认文件格式是否正确");
+					}
+				} catch(ee) {
+					zhejiang_alert("消息","上传失败！请确认文件格式是否正确");
+				}
+			}
+		};
+		
+		$("#form_info_apply").ajaxSubmit(options);  
+	}
+</script>

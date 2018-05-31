@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="${staticserver}/hunan/css/register.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/usermain.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/charge-withdraw.css">
+<#switch type>
+	<#case "success">
+		<#include 'email_success.html' />
+	<#break>
+	<#case "fail">
+		<#include 'email_fail.html' />
+	<#break> 
+</#switch>

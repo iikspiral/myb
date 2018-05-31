@@ -1,0 +1,346 @@
+<link rel="stylesheet" href="../css/user-account-center.css">
+<script type="text/javascript" src="../js/libs/kjax.des.js"></script>
+<style>
+	.itemWidth {width: 590px;}
+</style>
+<div class="rightcontent">	  
+	<div class="user-content">
+		<span class="user-h">银行卡解绑</span>
+	<div class="user-content-head">
+		<div class="user-content-head-di"></div>
+	</div>    
+	 <div class="user-box-con-1">
+		<#include 'account_safe_bank6ix.html'/>
+	</div>
+	</div>
+	 
+</div>
+
+<script>
+	$(function() {
+	 		 
+		$("span.user-safety-options-state").bind("click", function() {
+			var txt = $(this).text();
+			$(this).text($(this).attr("switchtext")).attr("switchtext", txt);
+
+			var $tmp = $(this).closest("div").next();
+			var $ct = $("div.form-box:visible").not($tmp);
+			if ($ct.size() > 0) {
+				$ct.slideUp();
+				$ct = $(".user-safety-options-state", $ct.parent());
+				txt = $ct.text();
+				$ct.text($ct.attr("switchtext")).attr("switchtext", txt);
+			}
+
+			if ($tmp.is(":visible")) {
+				$tmp.slideUp();
+			} else {
+				$tmp.slideDown();
+			}
+		});
+		var nowtext=$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).text();
+		//var swithtext=$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).attr("switchtext");
+		$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).text($("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).attr("switchtext")).attr("switchtext",nowtext)
+		$("div.form-box", $("a[name=${op!''}]").parent()).toggle();
+	});
+	function prev($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+
+		var $prev = $curstep.prev();
+
+		if ($prev.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").prev()
+					.addClass("options-step-current");
+		}
+
+		$this.next().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.prev().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+
+	function next($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+		var $next = $curstep.next();
+
+		if ($next.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").next()
+					.addClass("options-step-current");
+		}
+
+		$this.prev().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.next().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+</script>
+
+
+<script>
+	var   $tradePWDForm;
+	$(function() {
+		
+		$tradePWDForm = $("#tradePWDForm").kdValidform();
+		$fxcpForm = $("#doEstimateForm33").kdValidform();
+		$("#btnSubmitFXCP").bind('click', fxcpSubmit);
+
+		<#if banklist?exists>
+			<#list banklist as item>
+				<#if item.selected="1">
+					var bankname = "${item.bankname}";
+					var vcard = "${item.vacard}";
+					var vcardpwd = "${item.vacardpwd}";
+					var vtradepwd = "${item.vatradepwd}";
+					var vcardaccount = "${item.vacardaccount}";
+					var vremark = '${item.remark}';
+					//$("input[name='bankcode']").val(bankname);
+					$li_bankaccount = $('#bancodeinput').parent().parent();
+					$li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+					if(vcard == '0' && vcardpwd =='0' && vtradepwd =='0'){
+						$(".bank-list-remark").children("p").html(vremark);
+						$(".bank-list-remark").show();
+					    var $li = $(".kdmall-btn", $(".bank-list-remark").next()).closest("li");
+						$("li", $(".bank-list-remark").next()).not($li).hide();
+					}else{
+						$(".bank-list-remark").hide();
+						$("li", $(".bank-list-remark").next()).show();
+					}
+					if(vcard == '0'){
+						$('#bancodeinput').val("");
+						$li_bankaccount.hide();
+					}
+					if(vcardpwd =='0'){
+						$('#openAccountBankPwd__').val("");
+						$('#openAccountBankPwd').val("");
+						$li_tradepwd.hide();
+					}
+				</#if>
+			</#list>
+		</#if>
+
+		$("li.isBank").live("click", function() {
+			$("li.isBank").removeClass("selected");
+			$(this).addClass("selected");
+			$("input[name='bankcode']").val($(this).attr('title'));
+			
+			var bankcode = $(this).attr("code");
+			var v_cardpwd = $("#v_cardpwd_"+bankcode).val();
+			var v_card = $("#v_card_"+bankcode).val();
+			var v_tradepwd = $("#v_tradepwd_"+bankcode).val();
+			var v_cardaccount = $("#v_cardaccount_"+bankcode).val();
+			var v_remark = $("#bankcode_"+bankcode).html();
+			
+			$li_bankaccount = $('#bancodeinput').parent().parent();
+			$li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+			
+			if(v_card == '0' && v_cardpwd =='0' && v_tradepwd =='0'){
+				$("#bancodeinput, #openAccountBankPwd__, #openAccountBankPwd").val("");
+				$(".bank-list-remark").children("p").html(v_remark);
+				$(".bank-list-remark").show();
+				var $li = $(".kdmall-btn", $(".bank-list-remark").next()).closest("li");
+				$("li", $(".bank-list-remark").next()).not($li).hide();
+			}else{
+				$(".bank-list-remark").hide();
+				$("li", $(".bank-list-remark").next()).show();
+			}
+			
+			if(v_card == '0'){
+				$('#bancodeinput').val("");
+				$li_bankaccount.hide();
+			}
+			if(v_cardpwd =='0'){
+				$('#openAccountBankPwd__').val("");
+				$('#openAccountBankPwd').val("");
+				$li_tradepwd.hide();
+			}
+			$("input[name=channelcode]").val($(this).attr('code'));
+		});
+	});
+
+	function toggleRemark($obj) {
+		var $remark = $obj.next();
+		if ($remark.is(':visible')) {
+			$remark.slideUp();
+		} else {
+			$remark.slideDown();
+		}
+	}
+
+	
+	
+	function setTradePwd() {
+		var dataPWD = {npassword: $.des.getDes($("#tradePWD1").val(),'kingdom')};
+		var options = {
+			type: "POST",
+			dataType: "json",
+			async: true,
+			data: dataPWD,
+			url: "mall/newRegister!addtradePwd.do?ajax=yes",
+			success: function(data) {
+				$.kd.closeLoading();
+					if(data.result == 1){
+						$.kd.kdMsg( "设置交易密码成功!");
+						banknext2();
+						timeOutRelocate(5, 'account_certification_center.html?type=safe','successTPD');
+					}else{
+			 		  	 $.kd.kdMsg( "设置交易密码成功,请重试!");
+			 		  	$("input[type=button]").attr("disabled", false);
+			 		  }
+			},
+			error: function(data) {
+				
+			}
+		};
+		
+		if($tradePWDForm.check()) {
+			$.kd.showLoading($("#tradePWDNext"));
+			$("input[type=button]", $tradePWDForm).attr("disabled", true);
+			$.ajax(options);
+		}
+	}
+		
+	function bankbind() {
+		$(".stepcontent:visible").hide();
+		$(".stepcontent.bind").show();
+	}
+	
+	function banknext() {
+		$(".stepcontent:visible").hide();
+		$(".stepcontent.bindcard").show();
+	}
+	
+	function banknext1() {
+		var $cur = $(".stepcontent:visible");
+		
+		var $bankselect_unit = $.trim($('#bankselect_unit').html());
+		var $bankselect_org = $.trim($('#bankselect_org').html());
+		if($bankselect_org.length > 0 && $bankselect_unit.length ==0){
+			$('#bankselect_org').children().remove();
+			$('#bankselect_unit').append($bankselect_org);
+			$(".bank-list").css("height","100px");
+		}
+		
+		if ($cur.prev(".stepcontent").not(".bindselect").not(".bind").size() == 0)
+			$(".options-step", $cur.parent()).show();
+
+		if ($cur.nextAll(".stepcontent").not(".bind").not(".bindorg").size() == 0) {
+			window.location.href = '/registerorg.html?type=fxcp';
+		} else {
+			$cur.hide().nextAll(".stepcontent").not(".bind").not(".bindorg").first().show()
+		}
+		
+		$("span", ".options-step").removeClass('options-step-current').eq(
+				$cur.prevAll(".stepcontent").not(".bindselect").not(".bind").not(".bindunit").size()).addClass(
+				'options-step-current');
+		
+	}
+	
+	function banknext2() {
+		var $cur = $(".stepcontent:visible");
+		var $bankselect_unit = $.trim($('#bankselect_unit').html());
+		var $bankselect_org = $.trim($('#bankselect_org').html());
+		if($bankselect_org.length == 0 && $bankselect_unit.length > 0){
+			$('#bankselect_unit').children().remove();
+			$('#bankselect_org').append($bankselect_unit);
+			$(".bank-list").css("height","100px");
+		}
+		if ($cur.prev(".stepcontent").not(".bindselect").not(".bind").size() == 0)
+			$(".options-step", $cur.parent()).show();
+
+		if ($cur.nextAll(".stepcontent").not(".bind").size() == 0) {
+			window.location.href = '/registerorg.html?type=fxcp';
+		} else {
+			$cur.hide().nextAll(".stepcontent").not(".bind").not(".bindunit").first().show();
+		}
+
+		$("span", ".options-step").removeClass('options-step-current').eq(
+				$cur.prevAll(".stepcontent").not(".bindselect").not(".bind").not(".bindunit").size()).addClass(
+				'options-step-current');
+	}
+
+	function bankprev() {
+		var $cur = $(".stepcontent:visible");
+		if ($cur.prevAll(".stepcontent:last").not(".bind").size() > 0) {
+			$cur.hide().prevAll(".stepcontent").not(".bind").first().show();
+		}
+		if ($cur.prev(".stepcontent").size() == 0)
+			$(".options-step", $cur.parent()).hide();
+	}
+	
+	function bankprev1() {
+		var $cur = $(".stepcontent:visible");
+		if ($cur.prevAll(".stepcontent:last").not(".bind").size() > 0) {
+			$cur.hide().prevAll(".stepcontent").not(".bind").not(".bindunit").first().show();
+		}
+		if ($cur.prev(".stepcontent").size() == 0)
+			$(".options-step", $cur.parent()).hide();
+	}
+	
+	function changeStatus($obj, flag) {
+		if(flag) {
+			$(".kdmall-btn", $obj).attr("disabled", false);
+			$("input", $obj).removeClass("readonly").attr("readonly", false);
+		} else {
+			$(".kdmall-btn", $obj).attr("disabled", "disabled");
+			$("input", $obj).addClass("readonly").attr("readonly", "readonly");
+		}
+	}
+	
+	 function  fxcpSubmit() {
+			var options = {
+					type: "POST",
+					dataType:"json",
+					async:true,
+					url: "mall/newRiskEstimate!doEstimate.do?ajax=yes",
+					success: function(data){
+						$.kd.closeLoading();
+			 			$("input[type=button]").attr("disabled", false);
+			 			//var data = eval("("+ data +")");
+			 			if (data.result == '1') {
+			 				 $.kd.kdAlert(data.message, function() {
+				 				window.location.href = "/account_certification_center.html?type=safe";
+				 			 });
+			 			}else{
+			 			    $.kd.kdAlert(data.message, function() {
+					 			 window.location.href = "/account_certification_center.html";
+				 			});
+			 			}
+					}
+				};
+			if( $fxcpForm.check()){
+				$.kd.showLoading($("#btnSubmitFXCP"));
+			 	$("input[type=button]").attr("disabled", true);
+			 	$("#doEstimateForm33").ajaxSubmit(options);
+			}
+	  }
+	  
+	function fxcp_unuseful(){
+		$.ajax({
+			  type:"post" ,
+			  async:false,
+			  dataType : "text",
+			  url: "mall/newRiskEstimate!doEstimate.do?ajax=yes",
+			  success: function(redata){
+				var redta = eval("("+redata+")");
+				if(redta.result == 1){
+					$.kd.kdAlert("恭喜您完成注册及绑定", function() {
+					window.location.href='/account_bank_manage.html';
+				},'温馨提示');	
+				}else{
+					$.kd.kdAlert("交易权限申请失败！", function() {
+					window.location.href='/account_bank_manage.html';
+				});
+				}
+			  },
+			  error:function(redata){
+				$.kd.kdAlert("交易权限申请失败！", function() {
+					window.location.href='/account_bank_manage.html';
+				});
+			  }
+		  });  
+	}
+</script>

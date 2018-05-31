@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="springContext" class="com.websuites.core.context.SpringContextHelper"></bean>
+
+
+   <bean id="core" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">    
+    	<property name="transactionManager">
+    		<ref bean="transactionManager"/>
+    	</property>    
+    	<property name="target">
+    		<ref bean="core-target"/>
+    	</property>    
+    	<property name="transactionAttributes">        
+    		<props>            
+    			<prop key="doBex">PROPAGATION_NOT_SUPPORTED</prop>            
+    			<prop key="doBexs">PROPAGATION_NOT_SUPPORTED</prop>             
+    		</props>
+    	</property>
+   </bean>
+    
+	<bean id="core-target" class="com.websuites.esb.core.Entry">
+		<property name="bexs">
+			<ref bean="bexs"/>
+		</property>
+		<property name="cache">
+			<ref bean="cache"/>
+		</property>
+		<property name="listDictBex">
+			<list>
+				<props>
+					<prop key="dict">dictitem</prop>
+					<prop key="bex">spm_queryDictValue</prop>
+				</props>
+			</list>
+		</property>
+	</bean>
+
+</beans>

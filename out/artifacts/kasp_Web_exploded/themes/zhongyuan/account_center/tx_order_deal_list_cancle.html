@@ -1,0 +1,24 @@
+		<tr>
+				<th >订单编号</th>
+				<th >产品名称</th>
+				<th >金额(元)</th>
+				<th >已支付金额(元)</th>
+				<th >发生时间</th>	
+				<th >支付状态</th>
+				<th >确认支付</th>
+			</tr>
+			<#if cancelorderlist?exists>
+	            <#list cancelorderlist as cancelorder>
+			<tr>
+				<td><div ><a href="/tx_order_detail.html?orderno=${cancelorder.sbbh!''}">${cancelorder.sbbh!''}</a></div></td>
+				<td class="center"><div >${cancelorder.cpdm!''}</div></td>
+				<td class="center"><div >${cancelorder.investamount?default("0.00")?number?string("###,###,###,##0.00")}</div></td>
+				<td >${cancelorder.paymoney!''?default("0.00")?number?string("###,###,###,##0.00")}</td>
+				<td class="center"><div >${cancelorder.sbrq!''}</div></td>
+				<td class="center"><div >未支付</div></td>
+				<td class="center"><div ><a class="linkButtonOk"  >已取消</a></div></td>
+			</tr>
+
+			</#list>
+			</#if>
+	

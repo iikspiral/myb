@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="GB2312"?>
+<ws>
+	<bex id="ws_export_excel" type="java-bex" bean="Export" class="com.websuites.toolkit.web.excel.exp" method="exportExcel" />
+</ws>

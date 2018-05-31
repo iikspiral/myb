@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.certCtml.dao.CertStandardExtDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	<select id="get" resultType="CertStandardExt">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_STANDARD_EXT a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="CertStandardExt">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERT_STANDARD_EXT a
+		<include refid="entityJoins"/>
+		WHERE a.del_flag = #{delFlag}
+		<if test="certId != null and certId != ''">
+			AND a.CERT_ID = #{certId}
+		</if>
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO CERT_STANDARD_EXT(
+			ID,
+			REQ_SN,
+			CERT_ID,
+			EXT_NAME,
+			CHILD_NAME,
+			OTHERNAME_OID,
+			EXT_VALUE,
+			CERT_SN,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{reqSn},
+			#{certId},
+			#{extName},
+			#{childName},
+			#{othernameOid},
+			#{extValue},
+			#{certSn},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE CERT_STANDARD_EXT SET 
+			REQ_SN = #{reqSn},
+			CERT_ID = #{certId},
+			EXT_NAME = #{extName},
+			CHILD_NAME = #{childName},
+			OTHERNAME_OID = #{othernameOid},
+			EXT_VALUE = #{extValue},
+			CERT_SN = #{certSn},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE CERT_STANDARD_EXT SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+</mapper>

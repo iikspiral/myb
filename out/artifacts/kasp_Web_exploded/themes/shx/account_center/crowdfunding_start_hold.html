@@ -1,0 +1,213 @@
+<div class="thefilter">
+	<ul class="nav-filter clearfix" id="projecttype">
+		<li><a href="javascript:void(0);" val="" <#if projecttype == "">class="current" </#if>>全部</a></li>
+		<li><a href="javascript:void(0);" val="01" <#if projecttype == "01">class="current" </#if>>股权众筹</a></li><!-- 
+		<li><a href="javascript:void(0);" val="02" <#if projecttype == "02">class="current" </#if>>产品众筹</a></li> -->
+	</ul>
+	<ul class="nav-filter clearfix" id="startstatus">
+		<li><a  href="javascript:void(0);" val="" <#if startstatus == "">class="current" </#if>>全部</a></li>
+		<li><a  href="javascript:void(0);" val="99" <#if startstatus == "99">class="current" </#if>>初始发起中</a></li>
+		<li><a  href="javascript:void(0);" val="2" <#if startstatus == "2">class="current" </#if>>预热中</a></li>
+		<li><a  href="javascript:void(0);" val="1" <#if startstatus == "1">class="current" </#if>>筹资中</a></li>
+		<li><a  href="javascript:void(0);" val="3" <#if startstatus == "3">class="current" </#if>>已成功</a></li>
+		<!-- <li><a  href="javascript:void(0);" val="77" <#if startstatus == "77">class="current" </#if>>已失败</a></li> -->
+	</ul>
+</div>
+<table class="records-list">
+<thead>
+	<tr>
+		<th style="width: 55%;">项目信息</th>
+		<th style="width: 20%;">筹资金额（万元）</th>
+		<th style="width: 10%;">当前状态</th>
+		<th style="width: 15%;">操作</th>
+	</tr>
+</thead>
+<tbody>
+<#if startHold?exists>
+<#list startHold as sh>
+	<tr>
+		<td class="project clearfix">
+			<a target="_blank" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}projectdetail_${sh.project_id}.html?status=${sh.status}" class="avatar">
+				<div class="avatar">
+					<img  src="${fileserver}${sh.cover_image!''}" alt="项目名称">
+				</div>
+			</a>
+			<div class="info">
+				<h4 class="title clearfix">
+					<a target="_blank" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}projectdetail_${sh.project_id}.html?status=${sh.status}">${sh.project_name!''}</a>
+				</h4>
+				<div class="labels">
+					<span class="label">股权众筹</span>
+				</div>
+				<div class="properties clearfix">
+					<dl>
+						<dt>筹资进度</dt>
+						<dd>${sh.percent!''}%</dd>
+					</dl>
+					<dl>
+						<dt>已筹集</dt>
+						<dd>${sh.current_fund?number / 10000}万元</dd>
+					</dl>
+					<dl>
+						<dt>剩余时间</dt>
+						<dd>${sh.leftdays!''}天</dd>
+					</dl>
+				</div>
+			</div>
+		</td>
+		<td class="achieved">
+			<span class="num">${sh.total_fund?number / 10000}</span>
+			<br>
+			<span class="progress">
+				（筹资进度：${sh.percent!''}%）
+			</span>
+		</td>
+		<#if  sh.status == "2">
+		<td class="status"><a href="javascript:void(0);">预热中</a></td>
+		<#elseif  sh.status == "77" >
+		<td class="status"><a href="javascript:void(0);">筹资失败</a></td>
+		<#elseif  sh.status == "3">
+		<td class="status"><a href="javascript:void(0);">筹资成功</a></td>
+		<#elseif  sh.status == "1">
+		<td class="status">
+			<a href="javascript:void(0);">筹资中</a>
+			<#if sh.onselling == "0">
+				   <br/><span>未到开始募集日期</span>
+			</#if>
+		</td>
+		<#elseif sh.status == "99" && sh.checkstatus == "99">
+		<td class="status"><a href="javascript:void(0);">初始发起中</a></td>
+		<#else>
+		<td class="status"><a href="javascript:void(0);">初始发起中</a></td>
+		</#if>
+		<td class="action">
+		    <#if sh.status == "99">
+				<#if sh.checkstatus == "99">
+				   <a href="javascript:void(0);" onclick="updateproject('${sh.project_id!''}')">修改</a>
+				   <a href="javascript:void(0);" onclick="submitaudit('${sh.project_id!''}','${sh.project_name!''}','online')">发起项目审核</a>
+				<#elseif sh.checkstatus == "0">
+				   <span>审核中</span>
+				<#elseif sh.checkstatus == "2"> 
+				   <span>审核不通过</span>
+				<#else>
+					<span></span>
+				</#if>
+			<#else>
+					<a href="javascript:void(0);"  onclick="investinfo('${sh.project_id!''}');">投资信息</a>
+					<a href="javascript:void(0);"  onclick="projecttrends('${sh.project_id!''}');">项目动态</a>
+				<#if sh.status == "2">
+					<#if sh.checkstatus == "0">
+					   <span>开始募集申请审核中</span>
+					<#else>
+					   <a href="javascript:void(0);" onclick="submitaudit('${sh.project_id!''}','${sh.project_name!''}','onsell')">发起开始募集审核</a>
+					</#if>
+				<#elseif sh.status == "1">
+					<#if sh.checkstatus == "0">
+					   <span>申请结束募集审核中</span>
+					<#elseif (sh.checkstatus == "1" || sh.checkstatus == "2") && sh.onselling == "1">
+						<a href="javascript:void(0);" onclick="submitaudit('${sh.project_id!''}','${sh.project_name!''}','offsell')">发起结束募集审核</a>
+					</#if>
+				</#if>
+				
+					<!-- a href="">项目约谈信息</a>
+					<a href="">项目询价信息</a>
+					<a href="">项目动态维护</a>
+					<a href="">放款项目</a -->
+			</#if>
+		</td>
+	</tr>  
+</#list>
+</#if>
+</tbody>
+</table>
+<input id="currentstartstatus" value="${startstatus!''}" type="hidden"/>
+<input id="currentprojecttype" value="${projecttype!''}" type="hidden"/>
+<div id="page_start" class="pager-info"></div>
+<script type="text/javascript">
+$(function(){
+
+
+	$("#startstatus li a").click(function() {				
+			$(this).parent().find(".current").removeClass("current");
+			$(this).addClass("current");
+			var startstatus = $(this).attr("val");
+			var currentprojecttype = $("#currentprojecttype").val();
+			var url = "myCrowdfunding.html?type=start";
+			var data = {startstatus:startstatus,projecttype:currentprojecttype};
+			$.kutil.pageReload(url,data);
+	});
+	
+	$("#projecttype li a").click(function() {				
+			$(this).parent().find(".current").removeClass("current");
+			$(this).addClass("current");
+			var projecttype = $(this).attr("val");
+			var currentstartstatus = $("#currentstartstatus").val();
+			var url = "myCrowdfunding.html?type=start";
+			var data = {startstatus:currentstartstatus,projecttype:projecttype};
+			$.kutil.pageReload(url,data);
+	});
+		
+	
+	//发起的项目
+	$.kd.kdPager.init({
+		pager : 'page_start',
+		currentPage: '${page_start!'1'}',
+		totalPage: '${totalPage_start!'1'}',
+		totalRecords: '${totalCount_start!'0'}',
+		prefix: 'myCrowdfunding.html',
+		suffix: function(n) {
+			return generalParam()+"&page_start=" + n;
+		},
+	});	
+	
+	
+})
+
+function investinfo(project_id, project_name,percent,current_fund,sell_shares,total_fund) {
+	window.open("ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}project_invest_info.html?project_id="+project_id));
+}
+
+function updateproject(project_id) {
+	window.location.href = "ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}project_publish.html?project_id="+project_id);
+}
+
+function projecttrends(project_id) {
+	window.open("ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}project_trends.html?project_id="+project_id));
+}
+
+function submitaudit(project_id, project_name, type) {
+	zhejiang_confirm('确认','您确定要发起审核吗？',function(){
+		var v_url = "mall/submitcrowdfundingaudit!submitOnlineAudit.do?ajax=yes";
+		if(type=='onsell') {
+			v_url = "mall/submitcrowdfundingaudit!submitOnSellAudit.do?ajax=yes";
+		} else if(type=='offsell') {
+			v_url = "mall/submitcrowdfundingaudit!submitOffSellAudit.do?ajax=yes";
+		}
+		var options = {
+			type: "post",
+			dataType:"json",
+			data:{projectid: project_id,projectname: project_name},
+			url:v_url,                   
+			success:function(data) {
+				$.kd.kdAlert(data.kdjson.msg, function() {
+					window.location.reload();
+				});
+		  	},
+		  	error:function(data) {
+				$.kd.kdAlert(data.kdjson.msg, function() {
+					window.location.reload();
+				});
+			}
+		}
+		$.ajax(options);
+	});
+}
+
+function generalParam() {
+			var param = "";
+			param += "type="+$("#currenttype").val()+"&";
+			param += "startstatus="+$("#currentstartstatus").val()+"&";
+			param += "projecttype="+$("#currentprojecttype").val();
+			return param ;
+		}
+</script>

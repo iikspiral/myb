@@ -1,0 +1,58 @@
+<input id="mobiletel" name='mobiletel' type="hidden" value="${mobiletel!''}"/>
+<div class="account-body">
+    <div class="account-investor">
+        <div class="panel-border">
+            <div class="titlebar border-titlebar">
+                <h2 class="title">修改密码</h2>
+            </div>
+            <div class="panel-form">
+                <form class="awesomeform" id="updloginpwd">
+                    <div class="floor full height-auto">
+                        <label class="property" for="captcha">请输入手机验证码</label>
+                        <div class="value">
+                            <input class="xs" type="text" name="phonecode" id="phonecode" data-toggle="tooltip" data-placement="top-left" data-original-title="验证码为6位数字！"   datatype="/^\d{6}$/" class="input" nullmsg="验证码为6位数字！"/>
+							<input id="phonenum" name='phonenum' type="hidden" value="${mobiletel!''}"/>
+							<input id="lgcodetype" name='codetype' type="hidden" value="lgpwd"/> 
+                            <input type="button" id="lgnphonecode" class="btn btn-md btn-grey" value="获取手机验证码" />
+                        </div>
+						<div class="value">
+                            <p class="tips">验证码将发送到您已绑定的尾号为****<#if mobiletel?exists>${mobiletel?substring(7)}<#else>****</#if>的手机上</p>
+						</div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property" for="new_pwd">新密码</label>
+                        <div class="value">
+							<input type="password" class="xs" name="newPassword" id="password" datatype="checkPassword" nullmsg="请设置密码！" errormsg="6-16位数字及字母,不能使用空格！">
+                        </div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property" for="re_new_pwd">确认新密码</label>
+                        <div class="value">
+							<input type="password" class="xs" name="newPassword2" id="password2" class="input" datatype="checkPassword" recheck="newPassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！">
+                        </div>
+                    </div>
+                    <div class="actionArea" style="text-align: left;">
+                        <input style="margin: 0;" type="button" class="btn-md btn-red" value="确认修改" onclick="updLoginPwd('updloginpwd','lpwd3td')">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"	src="${staticserver}/zhongyuan/js/libs/kjax.des.js"></script>
+<script type="text/javascript" src="${staticserver}/zhongyuan/js/selfinfo/acctcenter.js"></script>
+	<!--#include virtual="public/footer.shtm"-->
+<script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+</script>

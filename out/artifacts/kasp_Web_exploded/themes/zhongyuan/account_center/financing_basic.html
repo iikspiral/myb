@@ -1,0 +1,527 @@
+ <div class="account-main">
+                <div class="simple-titlebar clearfix">
+                    <h2 class="title">我的理财</h2>
+                </div>
+
+                <div class="container-full">
+                	<!--  
+                    <div class="actionbar clearfix">
+                       <a class="btn-start btn-sm btn-blue" href="">自动投标</a>
+                    </div>
+                     -->
+                </div>
+
+                <div class="container-full">
+                    <div class="statis-asset clearfix">
+                        <dl class="border-box">
+                            <dt>今日收益</dt>
+                            <dd>${invest?default("0.00")?number?string("###,###,###,###,##0.00")}</dd>
+                            <dd>（单位：元）</dd>
+                        </dl>
+                        <div class="others">
+                            <dl>
+                                <dt>我的理财金额</dt>
+                                <dd>${gdzc?default("0.00")?number?string("###,###,###,###,##0.00")}<span>元</span></dd>
+                            </dl>
+                            <dl>
+                                <dt>应收收益</dt>
+                                <dd>${yssy?default("0.00")?number?string("###,###,###,###,##0.00")}<span>元</span></dd>
+                            </dl>
+                            <dl>
+                                <dt>我的债权金额</dt>
+                                <dd>${gdzc?default("0.00")?number?string("###,###,###,###,##0.00")}<span>元</span></dd>
+                            </dl>
+                            <dl>
+                                <dt>已收收益</dt>
+                                <dd>${yslx?default("0.00")?number?string("###,###,###,###,##0.00")}<span>元</span></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="tabs-filter" id="accountTabs">
+                        <ul class="nav clearfix">
+                            <li class="nav-one"><a class="current" href="#holden" >已持有</a></li>
+                            <li><span>|</span></li>
+                            <li class="nav-two"><a href="#buying">买入中</a></li>
+                            <li><span>|</span></li>
+							<li class="nav-three"><a href="#order">我的订单</a></li>
+                        </ul>
+                        <div class="list-wrap">
+							<div id="holden">
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th class="project-name">项目名称</th>
+											<th>认购日期</th><th>起息日</th>
+											<th>期限</th>
+											<th>年化收益率</th>
+											<th>投资金额（元）</th>
+											<th>实际投资金额（元）</th>
+											<th>操作</th>
+											<th>查看合同</th>
+										</tr>
+									</thead>
+									<tbody>									
+								<#if hasList?exists>
+                                <#if (hasList?size>0)>
+                                    <#assign i = 0>
+								<#list hasList as item>
+                                    <#assign i = i + 1>
+										<tr>
+											<td style="text-align: left;"><a class="link" href="ssologin.html?deal_action=jump&pageto=${kisp_url}bondsdetai_${item.borrowid}.html&pagefrom=${kisp_url}">${item.borrowtitle!""}</a></td>
+											<td>${item.investtime!""}</td>
+											<td>${item.audittime!""}</td>
+											<td>${item.deadline!""}
+											<#if (item.deadlineunit)?exists && (item.deadlineunit) =='M'>
+												个月
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='D'>
+												天
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='Y'>
+												年
+											<#else>
+												个月
+											</#if></td>
+											<td>${item.annualrate!""}%</td>
+											<td>${item.investamount!""}</td>
+											<td>${item.realamount!""}</td>
+											
+											<#if  item.checktag == "1" >
+											 <td><a>募集中</a></td>
+											<#elseif  item.checktag == "2" >
+											 <td><a href="javascript:void(0);">禁止转让</a></td>
+											<#elseif  item.checktag == "3" >
+											<td><a >待成交确认</a></td>
+											<#elseif  item.checktag == "4" >
+											<td><a >转让确认中</a></td>
+											<#elseif  item.israise == "1" && item.newcheck == "1" && item.checktag == "6" >
+											<td><a >锁定期</a></td>
+											<#elseif  item.checktag == "5" >
+											<td><a  href="javascript:void(0);">t+${item.transferlimit!""}转让</a></td>
+											<#elseif  item.checktag == "7" >
+											<td><a  class="btn-xs btn-blue" href="javascript:void(0);" onclick="judge2('${item.borrowid!''}', '${item.onlyid!''}');">
+											转让</a></td>
+											<#elseif  item.checktag == "8" >
+											<td><a class="btn-xs btn-grey" href="javascript:void(0);" onclick="cancel2('${item.borrowid!''}', '${item.onlyid!''}','${item.appsheetserialno!''}');">
+											撤单</a></td>	 
+											<#elseif  item.checktag == "9" >
+											<td><a class="btn-xs btn-grey">已转让</a></td>				
+											<#elseif  item.checktag == "10" >
+											<td><a class="btn-xs btn-grey">转让冻结</a></td>						
+											<#elseif  item.checktag == "11" >
+											<td><a class="btn-xs btn-grey" href="javascript:void(0);">竞拍已发布</a></td>					
+											<#elseif  item.checktag == "12" >
+											<td><a class="btn-xs btn-grey">竞拍已转让</a></td>	
+
+											</#if>
+											<td><a class="btn-xs btn-grey" href="contract_${item.onlyid!''}.html" >合同</a></td>
+										</tr>
+                                 </#list>
+                                 <#else>
+                                 	 <tr>
+                                        <td colspan="9">暂无购买的记录！</td>
+                                    </tr>
+								</#if>
+								</#if>
+									</tbody>
+								</table>
+								<div id="page_has" class="pager-info" style="width:750px;"></div>
+							</div>
+							<div  id="buying" class="hide">
+                            	<table class="records-table">
+	                                <thead>
+	                                    <tr>
+	                                        <th>项目名称</th>
+	                                        <th>期限</th>
+	                                        <th>年化收益率</th>
+	                                        <th>投资金额（元）</th>
+	                                        <th>实际投资金额（元）</th>
+	                                        <th>操作</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>	
+								<#if doingList?exists>
+	                                <#if (doingList?size>0)>
+	                                    <#assign i = 0>
+									<#list doingList as item>
+	                                    <#assign i = i + 1>
+	                                    <tr>
+	                                        <td style="text-align: left;"><a class="link" href="ssologin.html?deal_action=jump&pageto=${kisp_url}bondsdetai_${item.borrowid}.html&pagefrom=${kisp_url}">${item.borrowtitle!""}<a></td>
+	                                        <td>${item.deadline!""}
+											<#if (item.deadlineunit)?exists && (item.deadlineunit) =='M'>
+												个月
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='D'>
+												天
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='Y'>
+												年
+											<#else>
+												个月
+											</#if>
+											</td>
+	                                        <td>${item.annualrate!""}%</td>
+	                                        <td>${item.investamount!""}</td>
+	                                        <td>${item.realamount!""}</td>
+	                                        <td><a>${item.statusname!""}</a></td>
+	                                    </tr>
+	                                 </#list>
+	                                 <#else>
+	                                 	 <tr>
+	                                        <td colspan="7">暂无购买的记录！</td>
+	                                    </tr>
+									</#if>
+									</#if>
+	                                </tbody>
+                            	</table>
+								<div id="page_doing" class="pager-info" style="width:750px;display:none;"></div>
+							</div>
+							<div  id="order" class="hide">
+								<div class="thefilter">
+									<div class="nav-filter">
+										<span class="property">状态：</span>
+										<div class="value" id="orderstatus">
+											<a href="javascript:void(0);" order-status="0" <#if paymethod=="0"> class="chosen" </#if>>未支付订单</a>
+											<a href="javascript:void(0);" order-status="2" <#if paymethod=="2"> class="chosen" </#if>>已完成订单</a>
+											<a href="javascript:void(0);" order-status="3" <#if paymethod=="3"> class="chosen" </#if>>取消的订单</a>
+										</div>
+									</div>
+									<div class="nav-filter">
+										<span class="property">类型：</span>
+										<div class="value" id="ordertype">
+											<a href="javascript:void(0);" dealtype="10002" <#if dealtype=="10002"> class="chosen" </#if>>债权</a>
+											<a href="javascript:void(0);" dealtype="10003" <#if dealtype=="10003"> class="chosen" </#if>>转让</a>
+										</div>
+									</div>
+								</div>
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th>订单编号</th>
+											<th style="width: 20%;">产品名称</th>
+											<th>金额(元)</th>
+											<th>已支付金额(元)</th>
+											<th>下单时间</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+								<#if orderlist?exists>
+                                <#if (orderlist?size>0)>
+                                    <#assign i = 0>
+								<#list orderlist as order>
+                                    <#assign i = i + 1>
+										<tr>
+											<td><a class="link" href="financing.html?op=detail&orderno=${order.sbbh!''}" >${order.sbbh!''}<a></td>
+											<td style="text-align: left;">${order.borrowtitle!''}</td>
+											<td>${order.investamount?default("0.00")?number?string("###,###,###,##0.00")}</td>
+											<td>${order.paymoney!'0.00'}</td>
+											<td>${order.sbrq!''}</td>
+											<#if order.paymethod == '0'>
+											<#if order.dealtype=='10002'>
+											<td>未支付</td>
+											<td>
+												<a class="btn-xs btn-blue" id="order_10002_${order.sbbh!''}"  kd-value="${order.sbbh!''}" href="ssologin.html?deal_action=jump&pageto=${kisp_url}orderpay.html?orderno=${order.sbbh!''}" title="订单到${order.loseefficacy}将失效,自动取消订单">支付</a>
+													<a class="btn-xs btn-grey" href="javascript:void(0);" id="J_cancelbutton1" class="linkButton lasttime" surplusTime="${order.ajs!''}" b-value="${order.sbbh!''}" onclick="bondOrderCancel('${order.sbbh!''}','onclick');">取消</a>						
+											</td>
+											<#elseif order.dealtype=='10003'>
+											<td>未支付</td>
+											<td>
+													<a class="btn-xs btn-blue" id="order_10003_${order.sbbh!''}" kd-value="${order.sbbh!''}" href="ssologin.html?deal_action=jump&pageto=${kisp_url}orderpay.html?orderno=${order.sbbh!''}">支付</a>					
+													<a class="btn-xs btn-grey" id="J_cancelbutton2" class="linkButton losetime" surplusTime="${order.ajs!''}" t-value="${order.sbbh!''}" onclick="transferOrderCancel('${order.sbbh!''}','onclick');">取消</a>
+											</td>
+											</#if>
+											<#elseif  order.paymethod == '2'>
+											<td><span class="btn-xs btn-blue">已支付<span></td>
+											<td><span class="btn-xs btn-grey" >完成</span></td>
+											<#elseif order.paymethod == '3'>
+											<td>未支付</td>
+											<td><span class="btn-xs btn-grey">已取消</span></td>
+											</#if>
+										</tr>
+                                 </#list>
+                                 <#else>
+                                 	 <tr>
+                                        <td colspan="7">暂无购买的记录！</td>
+                                    </tr>
+								</#if>
+								</#if>
+									</tbody>
+								</table>
+								<input id="currentpaymethod" value="${paymethod}" type="hidden"/>
+								<input id="currenttype" value="${dealtype}" type="hidden"/>
+								<div id="page_order" class="pager-info" style="width:750px;display:none;"></div>
+							</div>
+                        </div>	
+                    </div>
+					</div>
+				<div class="recommend">
+                	<div class="vice-titlebar">
+                		<h3>热门推荐</h3>
+                	</div>
+                	<ul class="list">
+					   <#if hotList?exists>
+					       <#assign i=0>
+							<#list hotList as item>
+							<#assign i=i+1>
+							<#if i lt 8>
+                		<li>
+                			<a class="title" href="ssologin.html?deal_action=jump&pageto=${kisp_url}bondsdetai_${item.id!''}.html">${item.borrowtitle!""}</a>
+                		</li>
+						</#if>
+						</#list>
+						</#if>
+                	</ul>
+                </div>
+</div>
+<script>
+        $("#accountTabs").organicTabs({
+            "speed": 100
+        });
+        $(".records-table tbody tr:nth-child(even)").addClass("changebg");
+		//显示哪个标签页
+		<#if tab??>
+		var tab = "${tab}";
+		if(tab != "" && tab != null){
+			$("#accountTabs ul li:eq("+tab+") a").click();
+			if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#holden"){
+			     $("#page_has").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","none");
+			}else if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#buying"){
+			     $("#page_has").css("display","none");
+				 $("#page_doing").css("display","block");
+				 $("#page_order").css("display","none");
+			}else if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#order"){
+			      $("#page_has").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","block");
+			}
+		}
+		</#if>
+		
+		
+		
+		
+		$("#accountTabs ul li a").click(function(){
+		    if($(this).attr("href")=="#holden"){
+			     $("#page_has").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","none");
+			}else if($(this).attr("href")=="#buying"){
+			     $("#page_has").css("display","none");
+				 $("#page_doing").css("display","block");
+				 $("#page_order").css("display","none");
+			}else if($(this).attr("href")=="#order"){
+			      $("#page_has").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","block");
+			}
+		})
+</script>
+<script type="text/javascript">
+$(function(){
+//已持有的
+	$.kd.kdPager.init({
+		pager : 'page_has',
+		currentPage: '${page_has!'1'}',
+		totalPage: '${totalPage_has!'1'}',
+		totalRecords: '${totalCount_has!'0'}',
+		prefix: 'financing.html',
+		suffix: function(n) {
+			return "page_has=" + n+"&tab=0";
+		},
+		tagurl:'financing.html?page_has='
+	});
+	
+	//已买入的
+	$.kd.kdPager.init({
+		pager : 'page_doing',
+		currentPage: '${page_doing!'1'}',
+		totalPage: '${totalPage_doing!'1'}',
+		totalRecords: '${totalCount_doing!'0'}',
+		prefix: 'financing.html',
+		suffix: function(n) {
+			return "page_doing=" + n+"&tab=2";
+		},
+		tagurl:'financing.html?page_doing='
+	});
+	
+	//我的订单
+		$.kd.kdPager.init({
+		    pager : 'page_order',
+			currentPage: '${page_orderlist!'1'}',
+			totalPage: '${totalPage_orderlist!'1'}',
+			totalRecords: '${totalCount_orderlist!'0'}',
+			prefix: 'financing.html',
+			suffix: function(n) {
+				return generalParam() +"&page=" + n+"&tab=4";
+				
+			}
+		});
+})
+//获取参数
+function generalParam() {
+			var currentpaymethod = $("#currentpaymethod").val();
+			var currenttype = $("#currenttype").val();
+			param = "paymethod="+currentpaymethod+"&dealtype="+currenttype;
+			return param ;
+		}
+//转让
+function judge2(id, onlyid) {
+	var datas ={
+		id:id,
+		onlyid:onlyid
+		}
+	window.location.href = "ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kisp_url}bondtransfer.html?id="+id+"&onlyid="+onlyid);
+}
+//买入
+function buy(id){
+   var datas ={
+		id:id
+	}
+	window.location.href =
+	"ssologin.html?deal_action=jump&pageto=${kisp_url}bondorderdeal.html&pagefrom=${kisp_url}&datas="+JSON.stringify(datas);
+}
+//撤单
+function cancel2(id, onlyid,appsheetserialno) {	
+	
+  var options = {
+      type: "POST",
+      dataType:"json",
+      async:true,
+      data:{borrowid: id,onlyid:onlyid,appsheetserialno:appsheetserialno},
+      url:"mall/fitransfer!cancelTransfer.do?ajax=yes",                   
+      success:function(data) {
+        if(!data) return;
+        var ss = data.responseText;
+        var resultJson = eval(ss); 
+		if (resultJson[0].result) { 
+           zhejiang_alert('撤单',resultJson[0].msg,function(){
+							window.location.href = "financing.html?tab=0";
+						});
+          } else {
+			zhejiang_alert('撤单',resultJson[0].msg,function(){
+			   window.location.href = "financing.html?tab=0";
+			});
+          }
+      },
+      error:function(data) {
+        if(!data) return;
+        var ss = data.responseText;
+        var resultJson = eval(ss);
+		if (resultJson[0].result) { 
+             zhejiang_alert('撤单',resultJson[0].msg,function(){
+							window.location.href = "financing.html?tab=0";
+						});
+          } else {
+          zhejiang_alert('撤单',resultJson[0].msg,function(){
+			   window.location.href = "financing.html?tab=0";
+			});
+          }
+      }
+    }
+    $.ajax(options);
+}
+
+$("#orderstatus a").bind("click",function(){
+		var currentpaymethod = $("#currentpaymethod").val();
+		var currenttype = $("#currenttype").val();
+		var cvaltype="";
+		$("#orderstatus a").removeClass("chosen");
+		var paymethod = $(this).addClass("chosen");
+		var current = $(this);
+		cvalstatus = current.attr("order-status");
+		var url = "financing.html";
+		var data = {paymethod:cvalstatus,dealtype:currenttype,tab:"4"};
+		$.kutil.pageReload(url,data);
+	})
+	
+	$("#ordertype a").bind("click",function(){
+		var currentpaymethod = $("#currentpaymethod").val();
+		var currenttype = $("#currenttype").val();
+		var cvalstatus="";
+		$("#ordertype a").removeClass("chosen");
+		var paymethod = $(this).addClass("chosen");
+		var current = $(this);
+	    cvaltype = current.attr("dealtype");
+		var url = "financing.html";
+		var data = {paymethod:currentpaymethod,dealtype:cvaltype,tab:"4"};
+		$.kutil.pageReload(url,data);
+	})
+	
+	
+/**
+		转让订单取消
+	**/	
+	function transferOrderCancel(sbbh,cancelway){
+		var datas ={
+			orderno:sbbh
+	};
+			zhejiang_alert('取消订单','确认取消？',function(){	
+			$("#J_cancelbutton2").attr("disabled",true);
+			$.ajax({
+				url:"mall/ficancelorder!cancelTransferOrder.do?ajax=yes",	
+				dataType:"text",
+				data: datas,								
+				success:function(data) {
+					var json = eval("("+data+")");
+					if(json.result == 1){
+						if(cancelway =='onclick'){
+							zhejiang_alert('取消订单','订单取消成功!',function(){
+							window.location.href = "financing.html?tab=4";
+						});
+						}else{
+							window.location.href = "financing.html?tab=4";
+						}
+						
+					}else{
+						zhejiang_alert('取消订单',json.message,function(){});
+					}
+				},
+				error:function(data) {
+					var json = eval("("+data+")");
+					zhejiang_alert('取消订单',json.data.msg,function(){});					
+					return false;
+				}
+			});		
+		});	
+	}
+	
+	/**
+		认购订单取消
+	**/	
+	function bondOrderCancel(sbbh,cancelway){
+		var datas ={
+			orderno:sbbh
+			};
+			zhejiang_alert('取消订单','确认取消？',function(){	
+			$("#J_cancelbutton1").attr("disabled",true);
+			$.ajax({
+				url:"mall/ficancelorder!cancelBondOrder.do?ajax=yes",	
+				dataType:"text",
+				data: datas,								
+				success:function(data) {
+					var json = eval("("+data+")");
+					if(json.result == 1){
+						if(cancelway =='onclick'){
+							zhejiang_alert('取消订单','订单取消成功！',function(){
+							window.location.href = "financing.html?tab=4";
+						});
+						}else{
+							window.location.href = "financing.html?tab=4";
+						}
+						
+					}else if(json.result == 0){
+						zhejiang_alert('取消订单',json.message,function(){});
+					}
+				},
+				error:function(data) {
+					var json = eval("("+data+")");
+					zhejiang_alert('取消订单',json.message,function(){});					
+					return false;
+				}
+			});		
+		});	
+	}
+
+
+</script>
+				

@@ -1,0 +1,12 @@
+1.widget,action,service使用注解形式写beanid,不用配置文件形式， 如注解  @Controller()+@Scope(), @Service(),  
+
+2.注解对应配置文件位于 WEB-INF\conf\spring-config\kifp\kifp.web.xml(已配置好不用再修改)
+
+3.请求路径与页面总局文件配置文件位于 WEB-INF\classes\config\spring\springCoreDataConfig.xml
+
+4.widgets.xml位于 WebContent\themes\${themeid}\widgets.xml
+
+5.各位在开发过程中，尽量保证自己写独立的代码(java)和相关配置文件(bex,ibatis,xml)，资源文件(html.js,css),以免与其他人共用文件导致后期维护不便
+
+
+6.src-kifpweb-module开头的文件下的代码若重写src-kifpweb-base对应下的功能时，建议beanid加一个固定而唯一的代码标识，避免beanid重复

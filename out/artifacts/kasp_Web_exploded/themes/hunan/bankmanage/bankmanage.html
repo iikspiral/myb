@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="${staticserver}/hunan/css/common.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/normalize.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/account.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/register.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/jquery.bxslider.css">
+
+<link rel="stylesheet" href="${staticserver}/hunan/css/iconfont/iconfont.css">
+<script type="text/javascript" src="${staticserver}/hunan/common/js/libs/kjax.des.js"></script>
+
+<#if '${s}' == "show">
+
+	<#include 'bankshow.html'>
+	
+<#elseif '${s}' == "select">
+
+	<#include 'bankselect.html'>	
+	
+<#elseif '${s}' == "bind">
+
+	<#include 'bankbind.html'>
+	
+<#elseif '${s}' == "drop">
+
+	<#include 'bankdrop.html'>
+<#elseif '${s}' == "acct">
+
+	<#include 'bindacct.html'>	
+</#if>

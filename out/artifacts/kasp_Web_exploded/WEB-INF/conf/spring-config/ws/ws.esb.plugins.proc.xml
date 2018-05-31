@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!--	
+	<bean id="oracleProc" class="com.websuites.esb.plugins.proc.impl.OraclProc">
+		<property name="dataSource">
+			<ref bean="defaultDataSource" />
+		</property>
+		<property name="bexs">
+			<ref bean="bexs"/>
+		</property>
+		<property name="loginInfo">
+			<value>splogininfo</value>
+		</property>
+		<property name="schema">
+			<value>pet</value>
+		</property>
+	</bean>
+-->
+	<bean id="slqServerProc" class="com.websuites.esb.plugins.proc.impl.SqlServerProc">
+		<property name="dataSource">
+			<ref bean="defaultDataSource" />
+		</property>
+		<property name="bexs">
+			<ref bean="bexs"/>
+		</property>
+		<property name="loginInfo">
+			<value>splogininfo</value>
+		</property>
+	</bean>
+	
+	<bean id="procBex" class="com.websuites.esb.plugins.proc.ProcBex">
+		<property name="proc">
+			<ref bean="slqServerProc"/>
+		</property>
+	</bean>
+</beans>

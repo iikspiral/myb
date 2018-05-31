@@ -1,0 +1,201 @@
+<link rel="stylesheet" href="../css/usermain.css">
+<link rel="stylesheet" href="../css/charge-withdraw.css">
+<script type="text/javascript" src="../js/libs/kjax.des.js"></script>
+
+<div class="contentAndSideBar clearfix">
+	<div class="pageNav">当前位置：<a href="/account_base_info.html">账户中心</a>&gt;<span class="current">还款充值</span></div>
+	<div style="border:0px solid #d0d0d0;width:1000px;margin: 10px auto;border: 1px solid #DDD;box-shadow: 0px 0px 3px #DDD;">
+		<div class="user-con user-pay">
+			<div class="user-box-1" style="padding: 10px;">
+				<span class="user-h">还款充值</span>
+				<div class="user-content-head">
+			      	<div class="user-content-head-di"></div>
+			    </div>
+			    <div class="user-box-con-1" style="width:750px;padding-top:10px;">
+			     <form id="repaychargeForm"  method="post">
+			      
+			        <div class="kd-form-style clearfix" style="padding-top:0px;">
+						<div style="height:30px;line-height:30px;"><span class="form-item-title">请选择充值银行</span></div>
+						
+						<span class="form-item-title" style="float:right;padding-right:20px"> <a id="MorLess" href="javascript:void(0)" onclick="showMorBank()" >更多银行&gt;</a></span>
+						<div class="bank-list" style="height:40px;min-height:40px;overflow:hidden;margin-bottom:20px;">
+		            	<ul style="height:40px;">
+								
+								<li style="height:40px;" title="中国农业银行">
+		                            <img src="/themes/hebei/images/nongye.jpg" width="138" height="33"><span class="checked"></span>
+									
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li>	
+								
+								<li style="height:40px;" title="">
+									<img src="/themes/hebei/images/bankofbeijing.jpg" width="138" height="33"><span class=""></span>									
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li>
+								<li style="height:40px;" title="">
+									<img src="/themes/hebei/images/bankofchina.jpg" width="138" height="33"><span class=""></span>
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li>
+								<li style="height:40px;" title="">
+									<img src="/themes/hebei/images/bankofchina.jpg" width="138" height="33"><span class=""></span>
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li>
+								<li style="height:40px;" title="">
+									<img src="/themes/hebei/images/bankofchina.jpg" width="138" height="33"><span class=""></span>
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li>
+								<li style="height:40px;" title="">
+									<img src="/themes/hebei/images/bankofchina.jpg" width="138" height="33"><span class=""></span>
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li><li title="">
+									<img src="/themes/hebei/images/bankofchina.jpg" width="138" height="33"><span class=""></span>
+									<input name="bankcode" value="700" type="hidden"/>
+		                    	</li>
+								
+		            	</ul>
+			        </div>
+			            
+			            <ul class="kd-form-style">
+			                <li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">充值金额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="bankpwd" type="text" class="input" datatype="*" nullmsg="金额不能为空">
+			                    </span>
+			                </li>
+							<li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">银行卡号</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="bankpwd" type="text" class="input" datatype="*" nullmsg="银行卡号不能为空">
+			                    </span>
+			                </li>
+			                <li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">银行卡密码</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="bankpwd" type="password" class="input" datatype="*" nullmsg="密码不能为空">
+			                    </span>
+			                </li>
+							<li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">客户名称</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="bankpwd" type="text" class="input" datatype="*" nullmsg="客户名称不能为空">
+			                    </span>
+			                </li>
+							<li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">证件类型</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <select>
+									<option value="1">身份证</option>
+									<option value="2">驾驶证</option>
+								</select>
+			                    </span>
+			                </li>
+							<li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">证件号码</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="bankpwd" type="text" class="input" datatype="*" nullmsg="证件号码不能为空">
+			                    </span>
+			                </li>
+			                <li class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">开户行名称 </label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input   name="businesscode" type="input" value="" class="input" datatype="*" nullmsg="开户行名称不能为空">
+			                    </span>
+			                </li>
+							<li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">分支行省份</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+								   <select>
+										<option value="1">广东省</option>
+										<option value="2">广西省</option>
+									</select>
+			                    </span>
+			                </li>
+							<li id="liBankPwd" class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">分支行城市</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <select>
+										<option value="1">深圳</option>
+										<option value="2">广州</option>
+									</select>
+			                    </span>
+			                </li>
+							<!--
+			                <li class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="important" type="checkbox" name="importantInfo" datatype="*" nullmsg="请先阅读下方重要提示"  >&nbsp;&nbsp;
+			                    	<label for="important">我已阅读并确认下方重要提示信息</label>
+		                    	</span>
+			                </li>
+							-->
+			                <li class="kd-form-style-item">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="rechargeSubmit" type="button" class="linkButton" onclick="repayChargeIn()" value="确认充值">
+			                    </span>
+			                </li>
+			            </ul>
+			        </div>
+					<!--
+			        <div class="form-warm-prompt-1 clearfix" style="width:auto;">
+			            <span class="form-warm-prompt-title">温馨提示：</span>
+			            <span class="form-warm-prompt-con"> 
+			            1.您的账户资金将由第三方支付平台托管。
+			            <br>2.为了您的资金安全，请您在充值前完成手机绑定，身份认证及交易密码设置。
+			            <br>3.严禁信用卡充值、套现等行为，一经发现将予以处罚，包括但不限于：限制收款、冻结账户、永久停止服务，并会影响银行征信记录。
+			            <br>4.充值过程遇到问题，请联系客服，0931-8735132(9:00-17:00)
+			            </span>
+			        </div>
+					-->
+			        </form>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>	
+
+	var $repaychargeForm;
+	$repaychargeForm = $("#repaychargeForm").kdValidform();
+	function repayChargeIn(){
+		var options = {
+			//data:
+			url:"mall/repayCharge!repayChargeIn.do?ajax=yes",
+			datatype:"post",
+			success: function(data){
+				var data = eval("("+data+")");
+				if(data.result == 1){
+					$.kd.kdConfirm(data.message,function(){
+						window.location.href = "/tx_order_deal_list.html";
+					})
+				}else if(data.result == 0){
+					$.kd.kdAlert(data.message);
+				}
+			}
+			,error: function(data){
+				var data = eval("("+data+")");
+				$.kd.kdAlert(data.message);
+				return false;
+			}
+		};
+		if($repaychargeForm.check()){
+				$("#repaychargeForm").ajaxSubmit(options);
+			}
+	}
+	
+	 //更多银行
+ 	function showMorBank(){
+		var $bank_list = $(".bank-list");
+		$bank_list.css("height","auto");
+		var $moreless = $("#MorLess");
+		$moreless.attr("onclick","closeMorBank()")
+	};
+	function closeMorBank(){
+		var $bank_list = $(".bank-list");
+		var $moreless = $("#MorLess");
+		$bank_list.css("height","40px");
+		$moreless.attr("onclick","showMorBank()")
+	}
+		//if($("").size() > 0) $("#liBankPwd").remove();
+
+</script>

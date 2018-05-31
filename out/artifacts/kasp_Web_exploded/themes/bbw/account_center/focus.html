@@ -1,0 +1,76 @@
+<style>
+#capitalaccount{
+	 font-size:12px;
+
+}
+</style>
+<div class="user-content" >
+	<div class="user-content_left" >
+		
+		<div class="user-content_left_content">
+			<div class="user_content_left_content_info">
+			
+				<ul>
+					<li>固定收益</li>
+					<li>众筹</li>
+					<li>收藏记录</li>
+					<li>浏览历史</li>
+				</ul>
+				
+				<table class="table">
+					<th>序号</th>
+					<th>项目名称</th>
+					<th>期限</th>
+					<th>年华收益率</th>
+					<th>投资金额(元)</th>
+					<th>实际投资金额(元)</th>
+					<th>操作</th>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					
+				</tbody>
+				
+				</table>
+			
+			</div>
+			
+			
+		</div>
+	</div>
+	<div class="user-content_right" ></div>
+</div>
+<script>
+$(function(){
+
+
+	//关注的项目
+	$.kd.kdPager.init({
+		pager : 'page_focus',
+		currentPage: '${page_focus!'1'}',
+		totalPage: '${totalPage_focus!'1'}',
+		totalRecords: '${totalCount_focus!'0'}',
+		prefix: '/account_base_info.html',
+		suffix: function(n) {
+			return "page_focus=" + n;
+		},
+		tagurl:'/account_base_info.html?page_focus='
+	});
+
+	var urlstr = window.location.href;
+
+	if( urlstr.indexOf("?refresh=true") > -1 ){ 
+		 //var parts = urlstr.split("?");
+		window.location.href= "/account_base_info.html?_"+new Date().getTime();	
+
+	}
+
+})
+</script>

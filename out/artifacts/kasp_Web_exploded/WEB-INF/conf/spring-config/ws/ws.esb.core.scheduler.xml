@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="scheduler" class="com.websuites.esb.scheduler.Scheduler" init-method="start">
+    	<property name="schedulerFile">
+    		 <value>WEB-INF\conf\scheduler-config\scheduler.xml</value>
+    	</property>
+	</bean>	
+</beans>

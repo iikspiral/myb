@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>湘众投</title>
+		<meta name="keywords" content="湘众投">
+		<meta name="description" content="湘众投">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+		<link rel="shortcut icon" href="${staticserver}/hunan/ico/favicon.ico">
+		<link rel="stylesheet" href="${staticserver}/hunan/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/hunan/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/hunan/common/css/kd.ui.plugin.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/hunan/css/platform/kd.tools.validate.css">
+		<!--
+		
+		<link href="${staticserver}/hunan/common/js/libs/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet"> 
+		-->
+		<link rel="stylesheet" href="${staticserver}/hunan/css/home.css">
+		<link rel="stylesheet" href="${staticserver}/hunan/css/iconfont/iconfont.css">
+		<link rel="stylesheet" href="${staticserver}/hunan/css/account.css">
+		<link rel="stylesheet" href="${staticserver}/hunan/css/common.css">
+		<link rel="stylesheet" href="${staticserver}/hunan/css/normalize.css">
+		<!-- -->
+		<link rel="stylesheet" href="${staticserver}/hunan/css/jquery.bxslider.css">
+		
+		<link rel="stylesheet" href="${staticserver}/hunan/css/jquery.myslider.css">
+		
+		<script src="${staticserver}/hunan/js/jquery-1.11.1.min.js"></script>
+		<script src="${staticserver}/hunan/js/jquery-migrate-1.2.1.js"></script>
+		<script src="${staticserver}/hunan/js/libs/jquery-form.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/hunan/bootstrap/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="${staticserver}/hunan/standard/js/jquery.autoscroll.js"></script>		
+		
+
+		<script type="text/javascript" src="${staticserver}/hunan/common/js/kd.tools.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/common/js/kd.tools.validate.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/js/pop-up box.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/js/json2.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/js/jquery.bex.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/js/jquery.kutil.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/js/organictabs.jquery.js"></script>
+		<script type="text/javascript" src="${staticserver}/hunan/common/js/kd.ui.plugin.js"></script> 
+
+		<script src="${staticserver}/hunan/js/jquery.bxslider.min.js"></script>
+		<script src="${staticserver}/hunan/js/jquery.myslider.js"></script>
+	</head>
+<body>
+
+<!-- 顶栏 -->
+<div class="topbar-wrap container-full">
+	<ul class="topbar container clearfix">
+	<#if !isLogin><#-- 未登陆 -->
+		<li><a  href="login.html">登录<i class="iconfont">&#xe617;</i></a></li>
+		<li><a 	href="register.html">注册<i class="iconfont">&#xe617;</i></a></li>
+	<#else><#-- 已登陆 -->
+		<li><a id="J_custlogout" href="javascript: void(0);">退出<i class="iconfont">&#xe617;</i></a></li>
+		<li><a href="${kasp_url}account_asset.html">${username!''}<i class="iconfont">&#xe617;</i></a></li>
+	</#if>
+	</ul>
+
+<!-- 头部 -->
+<div class="header-wrap container-full">
+	<div class="header container clearfix">
+		<h1 class="logo">
+			<span>湘众投 - 湖南股权交易所</span>
+		</h1>
+		<ul class="navigation clearfix">
+			<li><a class="active" href="ssologin.html?deal_action=jump&pageto=${kfsp_url!''}&pagefrom=${kasp_url!''}">首页</a></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kisp_url!''}bonds_list.html">固定收益</a></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kisp_url!''}transfer.html">产品转让</a></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url!''}aboutus.html">关于我们</a></li>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	//主导航下拉菜单
+	$(document).ready(function(){
+		$('li.nav').mousemove(function(){
+		$(this).find('ul').slideDown();//you can give it a speed
+		});
+		$('li.nav').mouseleave(function(){
+		$(this).find('ul').slideUp("fast");
+		});
+	});
+
+    setTimeout(function(){
+    	var rightlogin = $("#rightlogin1");
+    	rightlogin.css("display","block").animate({top:0,right:190},600).animate({top:0,right:115},800)},1200);
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+	
+	$(window).scroll(function(){
+	if ($(this).scrollTop() > 200){
+		$('.go-top').slideDown('normal');
+	} else {
+		$('.go-top').slideUp('normal');
+	}
+   });
+	// 返回顶部动画效果
+	$('.go-top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({scrollTop: 0}, 600);
+	}); 
+	   
+});
+
+function guid(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=guide_hunan_kfsp");
+ }  
+
+</script>
+
+<script type="text/javascript">
+	var fileserver = "${fileserver}";
+	var fileaction = "${fileserver}/file!upload.do";
+	window.umesession = document.cookie.replace("undefined; ", "").replace(" undefined;", "");
+	
+	$(function() {
+		$("#J_custlogout").bind("click", function() {
+			zhejiang_confirm("提示","确定要退出吗？", function() {
+				$.post("mall/hunan_login!newlogout.do",
+						{},
+						function(data) {
+							var result = $.parseJSON(data); 
+							if ( result.result == 1) {
+								window.location.href = "login.html";
+							
+							} else {
+								rdmAlert(result.message);
+							}   					
+						}
+					);
+			});    	
+		});
+	});
+	var cookies =  document.cookie.split(";");
+	for (idx in cookies) {
+	if ( cookies[idx].indexOf("JSESSIONID") > -1) {
+		window.umesession = cookies[idx];				 
+	   }
+	}
+</script>
+

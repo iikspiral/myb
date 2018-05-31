@@ -1,0 +1,106 @@
+
+<link rel="stylesheet" href="${staticserver}/common/css/user-account-center.css">
+
+ <div class="container order-page">
+ 	<div class="simple-titlebar">
+ 		<h2 class="title">交易权限申请</h2>
+ 	</div>
+    <div class="order-board qualification">
+	    <div class="floorform">
+			<#if tradelist?exists && tradelist?size gt 0>
+				<#list tradelist as trade>
+					<#if trade.status=="1" && trade.checkstatus=="1">
+						<div class="content">
+							<p>交易权限申请成功</p>
+						</div>
+					<#elseif trade.status=="1" && trade.checkstatus=="0">
+						<div class="content">
+							<p>交易权限申请审核中</p>
+						</div>
+					<#elseif trade.status=="1" && trade.checkstatus=="2">
+						<div class="content">
+							<p>交易权限申请未通过审核</p>
+						</div>
+					</#if>
+					<input id="checkstatus" value="${trade.checkstatus!''}" type="hidden"/>
+				</#list>
+			<#else>
+				<div class="content">
+					<h3>齐鲁众筹平台合格投资者标准：</h3>
+					<br>
+					<p>1.资金来源合法、收入状况真实可信的自然人、法人及其他组织;<br>
+					2.投资单个融资项目最低金额不低于10万元人民币的自然人、法人和其他组织；<br>
+					3.家庭资产不低于100万元人民币或最近三年个人年均收入不低于10万元人民币的个人，本条所指的家庭资产包括但不限于银行存款、土地、房产、汽车等；<br>
+					3.家庭资产不低于100万元人民币或最近三年个人年均收入不低于10万元人民币的个人，本条所指的家庭资产包括但不限于银行存款、土地、房产、汽车等；<br>
+					4.净资产不低于200万元人民币的法人或其他组织；<br>
+					5.参与投资的自然人、法人和其他组织对投资有一定的认知、判断和承担风险的能力；<br>
+					6.经有关金融监管机构批准设立的金融机构，包括商业银行、证券公司、基金管理公司、信托公司和保险公司等;<br>
+					7.社会保障基金、企业年金等养老基金，慈善基金等社会公益基金，以及依法按照金融监管部门要求设立并在中国证券投资基金业协会备案的投资计划；<br>
+					8.经本公司认可的其他投资者。</p>
+				</div>
+				<div class="agreement">
+					<input id="J_agreement" type="checkbox">
+					<label>我已阅读并同意以上内容</label>
+				</div>
+				<div class="actionArea">
+					<input class="btn btn-lg btn-orange" type="button" value="申请" id="J_btn_crowdfund">
+				</div>
+			</#if>
+	    </div>
+	</div>
+</div>
+<script type="text/javascript">
+var Kifpadmin = Kifpadmin || {};
+
+Kifpadmin.priorityapply = {
+		
+	init :  function() {
+				var self = this;
+				$("#J_btn_crowdfund").click(function() {
+					if ( $("#J_agreement").attr("checked")  != "checked") {
+						$.kd.kdMsg("申请前请仔细阅读并勾选同意");
+						return ;
+					}
+					self.tradecrowdfundapply(22);
+				});
+			},
+	tradecrowdfundapply:function(type){
+			$("#J_btn_crowdfund").attr("disabled", "disabled");
+			var v_checkstatus=$('#checkstatus').val()
+			if (v_checkstatus=='1'){
+				zhejiang_alert("提示","您已经拥有交易权限");
+			}else if (v_checkstatus=='0'){
+				zhejiang_alert("提示","您的交易权限已经提交，请耐心等待审核");
+			}else {
+	    		$.post("mall/applyTradeCrowdfund!applyTradeCrowdfund.do?ajax=yes",{type:type},
+	    			function(data) {
+			    		if ( data.kdjson.flag == 1 ) {
+							window.location.href = "message.html";
+						}else{
+							if (data.kdjson.msg == "未获取到当前用户客户代码(请确保操作前已正确绑定银行卡)") {
+								$.kd.kdAlert("用户需先实名认证后才能进行相应操作,点击确定后将跳转至认证中心", function() {       				
+			    				window.location.href = "bankmanage.html";
+								},"交易权限申请");
+							}
+							else if (  data.kdjson.msg == "未查询到当前用户的风险评测结果"   ) {
+								$.kd.kdAlert(data.kdjson.msg, function() {       				
+				    					window.location.href = "myselfinfo.html";
+									},"交易权限申请");
+							}
+							else { 
+								$.kd.kdAlert(data.kdjson.msg, function() {
+									window.location.href = "apply_transaction_rights_crowdfund.html?type=friendapply&id=137&_="+new Date().getTime();  
+								},"交易权限申请");
+							}		
+						}
+	    			},
+	    			"json"
+	    		);	
+			}	    
+						} 
+};
+	
+$(function() {
+	Kifpadmin.priorityapply.init();
+});
+</script>

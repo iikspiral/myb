@@ -1,0 +1,93 @@
+<#include 'common/header.html' />
+<div class="contentAndSideBar clearfix" style="border: 1px red solid ;">
+	<div class="pageNav">当前位置：<a href="/index.html">首页</a>&gt;<span class="current">企业融资</span></div>
+	<div class="enterpriseFinancingFormPage"><!-白色背景块->
+        <div class="termsAndTips"><!-左边黄色版块->
+            <div class="terms">
+                <h3>申请条件</h3>
+                <ul>
+                    <li>1. 年检合格工商局登记企业；</li>
+                    <li>2. 正常经营1年以上</li>
+                    <li>3. 企业及负责人银行征信记录良好；</li>
+                    <li>4. 无现有诉讼记录；</li>
+                    <li>5. 企业流水额度覆盖贷款额。</li>
+                </ul>
+            </div>
+            <div class="tips">
+                <h3>温馨提示</h3>
+                <ul>
+                    <li>1. 请保证您提交内容的真实性；</li>
+                    <li>2. 提交申请后，我们的工作人员会在3个工作日之内跟您取得联系；</li>
+                    <li>3. 如有任何疑问请于工作日9:00-18:00，致电400-888-8888。</li>
+                </ul>
+            </div>
+        </div><!-END 左边黄色版块->
+
+        <form class="enterpriseFinancingForm"><!-企业融资申请->
+            <h3>企业融资申请<span>(每项信息均为必填)</span></h3>
+            <div>
+                <label>企业名称</label>
+                <input type="text" required="required" class="type1">
+            </div>
+            <div>
+                <label>企业注册号</label>
+                <input type="text" required="required" maxlength="15" class="type1">
+            </div>
+            <div>
+                <label>法人/注册人</label>
+                <input type="text" required="required" class="type1">
+            </div>
+            <div>
+                <label>身份证号</label>
+                <input type="text" required="required" maxlength="18" class="type1">
+            </div>
+            <div>
+                <label>联系电话</label>
+                <input type="text" required="required" class="type1">
+            </div>
+            <div>
+                <label>所在城市</label>
+                <input type="text" required="required" class="type1">
+            </div>
+            <div>
+                <label>借款金额</label>
+                <input type="number" required="required" min="1" class="type2">
+                <span>万元</span>
+            </div>
+            <div>
+                <label>周期</label>
+                <input type="number" required="required" min="1"  class="type2">
+                <span>个月</span>
+            </div>
+            <div class="loanUsage">
+                <label>借款用途</label>
+                <textarea></textarea>
+            </div>
+            <div class="returnResource">
+                <label>还款来源</label>
+                <textarea></textarea>
+            </div>
+            <div>
+                <input type="submit"  class="type3">
+            </div>
+        </form><!-END 企业融资申请->
+    </div><!-END 白色背景块->
+
+    <div class="financingProcess">
+        <h3>企业融资流程</h3>
+        <div class="processIteself">
+            <div class="loginPart"><span>登录</span></div>
+                <div class="processArrowPart"></div>
+            <div class="submitPart"><span>提交申请</span></div>
+                <div class="processArrowPart"></div>
+            <div class="auditPart"><span>审核材料</span></div>
+                <div class="processArrowPart"></div>
+            <div class="autopticalPart"><span>实地考察</span></div>
+                <div class="processArrowPart"></div>
+            <div class="signContractPart"><span>签署协议</span></div>
+                <div class="processArrowPart"></div>
+            <div class="financingDonePart"><span>融资成功</span></div>
+        </div>
+    </div>
+</div>
+<#include 'common/footer.html' />

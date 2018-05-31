@@ -1,0 +1,48 @@
+
+
+<script src="${staticserver}/zhongyuan/common/js/libs/jquery.unslider.min.js"></script>
+<!-- 
+<script language="javascript" type="text/javascript" src="${staticserver}/zhongyuan/common/My97DatePicker/WdatePicker.js"></script>
+-->
+	<div class="page-wrap">
+		<ul class="breadcrumb">
+			<li><span>当前位置：</span></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}index.html">首页</a></li>
+			<li><i class="iconfont">&#xe602;</i></li>
+			<li><span><a href="account_asset_investor.html">投资者账户</a></span></li>
+		</ul>
+		<div class="account-page clearfix">
+
+<div class="left-sidebar investor-sidebar">
+		 <#include 'account_head_icons.html' />
+		<ul class="account-sidemenu">
+		    <#if 'account_asset_investor.html'== uritype>
+				<li class="active"><a href="account_asset_investor.html">账户总览</a><i class="iconfont">&#xe609;</i></li>
+				<li><a href="security.html">安全中心</a><i class="iconfont">&#xe609;</i></li>
+				<li><a href="apply_list.html">我的申请单</a><i class="iconfont">&#xe609;</i></li>
+			</#if>
+			<#if 'security.html'== uritype>
+				<li><a href="account_asset_investor.html">账户总览</a><i class="iconfont">&#xe609;</i></li>
+				<li class="active"><a href="security.html">安全中心</a><i class="iconfont">&#xe609;</i></li>
+				<li><a href="apply_list.html">我的申请单</a><i class="iconfont">&#xe609;</i></li>
+			</#if>
+			<#if 'apply_list.html'== uritype>
+			    <li><a href="account_asset_investor.html">账户总览</a><i class="iconfont">&#xe609;</i></li>
+				<li><a href="security.html">安全中心</a><i class="iconfont">&#xe609;</i></li>
+				<li class="active"><a href="apply_list.html">我的申请单</a><i class="iconfont">&#xe609;</i></li>
+			</#if>
+				<li ><a   href="ssologin.html?deal_action=jump&pageto=${kssp_url}exchange_stock.html?fundtype=00">股权交易</a><i class="iconfont">&#xe609;</i></li>
+				<li ><a   href="ssologin.html?deal_action=jump&pageto=${kssp_url}exchange_bonds.html?fundtype=02">私募债交易</a><i class="iconfont">&#xe609;</i></li>
+				<li ><a   href="ssologin.html?deal_action=jump&pageto=${kssp_url}exchange_coltd.html?fundtype=03">有限责任公司交易</a><i class="iconfont">&#xe609;</i></li>
+
+			<!-- <#if menulist?exists>
+				<#list menulist as item>
+					  <li><a href="${item.page!''}" 
+						<#if '${item.page}' == '${uritype}' > class="active"</#if>>${item.menuname!''}
+					  </a><i class="iconfont">&#xe609;</i></li>
+				</#list>
+			<#else>
+				  <li>尚未设置菜单栏</li>
+			</#if> -->
+		</ul>
+</div>		

@@ -1,0 +1,306 @@
+<div class="rightcontent">	      
+	<div class="user-content">
+		<span class="user-h">我的消息</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"></div>
+	    </div>
+	    <div style="margin: 5px 0;">
+	        <a href="my_msg.html?type=send"><input type="button" class="linkButton" style="display: inline;" value="发送消息"></a>
+	        <input type="button" id="yd" class="linkButton" style="display: inline;" value="标记已读">
+	        <input type="button" id="wd" class="linkButton" style="display: inline;" value="标记未读">
+	        <input type="button" id="zy" class="linkButton" style="display: inline;" value="标记重要">
+	        <input type="button" id="qx" class="linkButton" style="display: inline;" value="取消标记重要">
+	        <input type="button" id="del"class="linkButton" style="display: inline;" value="删除">
+	 	</div>	
+        <table class="table">
+           <thead>
+			<tr>					
+				<th style="width:9px;">
+				<input  id="check_all" type="checkbox">
+				</th>
+				<th style="width:45px;">来自</th>
+				<th style="width:45px;">标题</th>
+				<th style="width:76px;">消息状态</th>										
+				<th style="width:70px;">时间</th>										
+			</tr>
+			</thead>
+			<tbody id="msg-list-content">
+            <#if msglist?exists>
+	            <#list msglist as msg>
+	            <tr class="ck">			
+					<td><input type="checkbox" id="checkboxs"  value="${msg.id!''}" data-status="${msg.is_read!''}"></td>
+					<td class="msg-title"><a href="my_msg.html?type=detail&id=${msg.id!''}&flag=0">${msg.name!''}</a></td>
+					<td>
+						<div onmouseover="this.title=this.innerText">${msg.msgtitle!''}</div>
+					</td>
+					 <td><span>
+						    <#switch msg.is_read>
+						        <#case "0">
+						              <span style="color:black;">未读</span>
+						         <#break>
+						         <#case "1">
+						                                                                 已读   
+						         <#break>
+						         <#case "2">
+						             <span style="color:red;"> 重要  
+						         <#break>
+						         <#case "">
+						             <span style="color:black;">系统消息
+						         <#break>
+						     </#switch>                                                                 
+			</span></td>	
+				<td >${msg.addtime!''}</td>							
+				</tr>
+	            </#list>
+            </#if>	
+           </tbody>	
+		</table>
+   
+		
+<div id="page_area" class="pager-info"></div>
+    </div>
+</div>
+ <script type="text/javascript">
+   $(function(){
+     $pager = $.kd.kdPager.init({
+					currentPage: '${page!'1'}',
+					totalPage: '${totalPage!'1'}',
+					totalRecords: '${totalCount!'1'}',
+					prefix: '/my_msg.html',
+					suffix: function(n) { 
+						return   "type=msg&n=" + n; }
+					});
+   });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+       //全选
+        $("#check_all").click(function(){
+              if($("#invert").attr("checked")){
+      	           $("#invert").attr("checked",false);
+      	     }
+             if($("#check_all").attr("checked")){
+             $("#msg-list-content :checkbox").attr("checked",true);
+             }else{
+             $("#msg-list-content :checkbox").attr("checked",false);
+             }
+        });
+        //反选
+      	$("#invert").click(function () {  
+      	     if($("#check_all").attr("checked")){
+      	           $("#check_all").attr("checked",false);
+      	     }
+	         $("#msg-list-content :checkbox").each(function () {  
+	               $(this).attr("checked", !$(this).attr("checked")); 
+	                }); 
+	       });
+	      //单个点击事件
+	      $("#msg-list-content :checkbox").click(function(){
+	          if($("#check_all").attr("checked")){
+      	           $("#check_all").attr("checked",false);
+      	     }
+      	     if($("#invert").attr("checked")){
+      	           $("#invert").attr("checked",false);
+      	     }
+	      });
+	    //标记已读
+	    $("#yd").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				if($(this).attr("data-status")!=1){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				}else{
+				   $.kd.kdMsg("此消息状态已为已读状态 无需标记已读！");
+	               return false;
+				}
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+	          $.kd.kdConfirm("执行标记已读操作?",function() {
+	            	$.post(
+	            	"/mall/message!updMsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	$.kd.kdAlert(data.message, function() {  
+								 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+									 }, "消息标记");
+								 } else {
+										$.kd.kdAlert(data.message, function() {  
+									 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+										 }, "消息标记");
+								};
+	               },"json");   
+	            });
+	       }
+	    });
+	    //标记未读
+	    $("#wd").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				   if($(this).attr("data-status")!=0){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				 }else{
+				    $.kd.kdMsg("此消息状态已为未读 无需标记未读！");
+	                return false;
+				 }
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+	          $.kd.kdConfirm("执行标记未读操作?",function() {
+	            	$.post(
+	            	"/mall/message!wdMsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	$.kd.kdAlert(data.message, function() {  
+								 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+									 }, "消息标记");
+								 } else {
+										$.kd.kdAlert(data.message, function() {  
+									 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+										 }, "消息标记");
+								};
+	               },"json");   
+	            });
+	       }
+	    });
+	    //标记重要
+	    $("#zy").click(function(){
+	        var mglist = "";
+	       var relist = "";
+	       $("#msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				if($(this).attr("data-status")!=2){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				}else{
+				    $.kd.kdMsg("此消息状态已为重要状态，无需标记重要");
+	               return false;
+				}
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+			 $.kd.kdConfirm("执行标记重要操作?",function() {
+	            	$.post(
+	            	"/mall/message!zyMg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	$.kd.kdAlert(data.message, function() {  
+								 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+									 }, "消息标记");
+								 } else {
+										$.kd.kdAlert(data.message, function() {  
+									 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+										 }, "消息标记");
+								};
+	               },"json");   
+	            });
+	       }
+	       
+	       
+	    });
+	    //取消标记
+	    $("#qx").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+				if($(this).attr("data-status")==2){
+				    var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+				}else{
+				   $.kd.kdMsg("此消息不是重要消息，无需取消重要标记！");
+				   return false;
+				}
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	        if(mglist != ""){
+			 $.kd.kdConfirm("执行取消标记操作?",function() {
+	            	$.post(
+	            	"/mall/message!qxMg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	$.kd.kdAlert(data.message, function() {  
+								 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+									 }, "消息标记");
+								 } else {
+										$.kd.kdAlert(data.message, function() {  
+									 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+										 }, "消息标记");
+								};
+	               },"json");   
+	            });
+	       }      
+	    });
+	    //删除
+	    $("#del").click(function(){
+	       var mglist = "";
+	       var relist = "";
+	       $("#msg-list-content :checkbox").each(function(){
+	            if(this.checked){
+	                var ms = $(this).val();
+	                if(mglist.indexOf(ms)==-1){
+	                    mglist +=ms+"&";
+	                }
+	           }else{
+	                   relist +=ms+"&";
+	                } 
+	       });
+	       if(mglist == ""){
+	          $.kd.kdMsg("请从消息列表中勾选要删除的消息");
+	          return false;
+	       }
+	       $.kd.kdConfirm("执行删除操作?",function() {
+	            	$.post(
+	            	"/mall/message!delMsg.do?ajax=yes",
+	            	{msglist: mglist},
+	            	function(data) {
+								 if ( data.result == 1) {
+								  	$.kd.kdAlert(data.message, function() {  
+								 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+									 }, "消息删除");
+								 } else {
+										$.kd.kdAlert(data.message, function() {  
+									 		window.location.href = "/my_msg.html?type=msg&_="+new Date().getTime(); 
+										 }, "消息删除");
+								};
+	               },"json");   
+	            });
+      });
+	  $(".linkMore").click(function(){
+	         window.location.href="/my_msg.html?type=send&_="+new Date().getTime();
+	  });
+	  $("#msg-title").click(function(){
+	       $(".msg-title").css("color","green");
+	  })
+})
+</script>
+
+
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.certCtml.dao.CertCtmlStandardExtDao">
+    
+	<sql id="certCtmlStandardExtColumns">
+		a.*
+	</sql>
+    
+	<select id="get" resultType="CertCtmlStandardExt">
+		SELECT
+			<include refid="certCtmlStandardExtColumns"/>
+		FROM cert_self_ext_ctml a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CertCtmlStandardExt">
+		SELECT
+			<include refid="certCtmlStandardExtColumns"/>
+		FROM cert_standard_ext_ctml a
+		WHERE a.del_flag =  #{DEL_FLAG_NORMAL}
+		<if test="certCtmlId != null and certCtmlId != ''">
+			AND a.CERT_CTML_ID = #{certCtmlId}
+		</if>
+		<if test="extChildName != null and extChildName != ''">
+			AND a.EXT_CHILD_NAME = #{extChildName}
+		</if>
+	</select>
+
+	<select id="findStandardExtsByCtmlId" resultType="CertCtmlStandardExt">
+		SELECT
+		<include refid="certCtmlStandardExtColumns"/>
+		FROM cert_standard_ext_ctml a
+		WHERE a.del_flag =  '0'
+		AND a.cert_ctml_id = #{ctmlId}
+	</select>
+
+	<insert id="insert">
+		INSERT INTO cert_standard_ext_ctml(
+			id,
+			cert_ctml_id,
+			ext_name,
+			ext_child_name,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{certCtmlId},
+			#{extName},
+			#{extChildName},
+			#{createBy.id},
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cert_standard_ext_ctml SET
+			cert_ctml_id = #{certCtmlId},
+			ext_name = #{extName},
+			ext_child_name = #{extChildName},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteData">
+		DELETE FROM cert_standard_ext_ctml
+	</delete>
+</mapper>

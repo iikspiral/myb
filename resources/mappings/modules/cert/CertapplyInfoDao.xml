@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.cert.dao.CertapplyInfoDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	<select id="get" resultType="CertapplyInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERTAPPLY_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CertapplyInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERTAPPLY_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag})
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN = #{certSn}
+		</if>
+		<if test="userInfoId != null and userInfoId != ''">
+			AND a.USER_INFO_ID = #{userInfoId}
+		</if>
+		<if test="projectId != null and projectId != ''">
+			AND a.PROJECT_ID = #{projectId}
+		</if>
+		<if test="corpUserId != null and corpUserId != ''">
+			AND a.CORP_USER_ID = #{corpUserId}
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	
+	<select id="findByCertSn" resultType="CertapplyInfo">
+		SELECT
+			<include refid="entityColumns"/>
+		FROM
+		CERTAPPLY_INFO a
+		LEFT JOIN CERT_INFO b ON a.CERT_SN = b . CERT_SN
+		WHERE (a.del_flag = '0' AND b.del_flag='0')
+		<if test="_parameter != null and _parameter != ''">
+			AND a.CERT_SN = #{certSn}
+		</if> 
+		ORDER BY a.CREATE_DATE
+	</select>
+
+	<select id="findApplyByCertSn" resultType="CertapplyInfo">
+		SELECT
+			<include refid="entityColumns"/>
+		FROM
+		CERTAPPLY_INFO a
+		WHERE a.del_flag = '0'
+		<if test="_parameter != null and _parameter != ''">
+			AND a.CERT_SN = #{certSn}
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO CERTAPPLY_INFO(
+			ID,
+			CERT_ID,
+			CERT_SN,
+			CORP_USER_ID,
+			DEVICE_TYPE,
+			DEVICE_NUM,
+			REQ_SN,
+			PROJECT_ID,
+			SUBJECT_UPPERCASE,
+			CERT_SUBJECT,
+			COMMON_NAME,
+			CTML_NAME,
+			OPT_TYPE,
+			IS_ADMIN,
+			REQ_STATUS,
+			CERT_VALIDITY,
+			NOT_BEFORE,
+			NOT_AFTER,
+			USER_INFO_ID,
+			CERT_TYPE,
+			APPLICANT_UPPERCASE,
+			APPLICANT,
+			OPT_TIME,
+			REFUSE_REASON,
+			EXCLUSIVE_FLAG,
+			ORGAN_ID,
+			IS_RETAIN_KEY,
+			OLD_CERT_SN,
+			DOUBLE_CERT_SN,
+			OLD_DOUBLE_CERT_SN,
+			SIGN_SERVER,
+			REVOKE_REASON,
+			REVOKE_DESC,
+			REVOKE_NAME,
+			APPLY_BUSINESS_ID,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{certId},
+			#{certSn},
+			#{corpUserId},
+			#{deviceType},
+			#{deviceNum},
+			#{reqSn},
+			#{projectId},
+			#{subjectUppercase},
+			#{certSubject},
+			#{commonName},
+			#{ctmlName},
+			#{optType},
+			#{isAdmin},
+			#{reqStatus},
+			#{certValidity},
+			#{notBefore},
+			#{notAfter},
+			#{userInfoId},
+			#{certType},
+			#{applicantUppercase},
+			#{applicant},
+			#{optTime},
+			#{refuseReason},
+			#{exclusiveFlag},
+			#{organId},
+			#{isRetainKey},
+			#{oldCertSn},
+			#{doubleCertSn},
+			#{oldDoubleCertSn},
+			#{signServer},
+			#{revokeReason},
+			#{revokeDesc},
+			#{revokeName},
+			#{applyBusinessId},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE CERTAPPLY_INFO SET 
+			CERT_ID = #{certId},
+			CERT_SN = #{certSn},
+			CORP_USER_ID = #{corpUserId},
+			DEVICE_TYPE = #{deviceType},
+			DEVICE_NUM = #{deviceNum},
+			REQ_SN = #{reqSn},
+			PROJECT_ID = #{projectId},
+			SUBJECT_UPPERCASE = #{subjectUppercase},
+			CERT_SUBJECT = #{certSubject},
+			COMMON_NAME = #{commonName},
+			CTML_NAME = #{ctmlName},
+			OPT_TYPE = #{optType},
+			IS_ADMIN = #{isAdmin},
+			REQ_STATUS = #{reqStatus},
+			CERT_VALIDITY = #{certValidity},
+			NOT_BEFORE = #{notBefore},
+			NOT_AFTER = #{notAfter},
+			USER_INFO_ID = #{userInfoId},
+			CERT_TYPE = #{certType},
+			APPLICANT_UPPERCASE = #{applicantUppercase},
+			APPLICANT = #{applicant},
+			OPT_TIME = #{optTime},
+			REFUSE_REASON = #{refuseReason},
+			EXCLUSIVE_FLAG = #{exclusiveFlag},
+			ORGAN_ID = #{organId},
+			IS_RETAIN_KEY = #{isRetainKey},
+			OLD_CERT_SN = #{oldCertSn},
+			DOUBLE_CERT_SN = #{doubleCertSn},
+			OLD_DOUBLE_CERT_SN = #{oldDoubleCertSn},
+			SIGN_SERVER = #{signServer},
+			REVOKE_REASON = #{revokeReason},
+			REVOKE_DESC = #{revokeDesc},
+			REVOKE_NAME = #{revokeName},
+			APPLY_BUSINESS_ID = #{applyBusinessId},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	
+	
+	<select id="findbyList" resultType="CertapplyInfo">
+		SELECT 
+		a.ID,
+		a.CERT_ID,
+		a.CERT_SN,
+		a.PROJECT_ID,
+		a.CERT_SUBJECT,
+		a.COMMON_NAME,
+		a.CTML_NAME,
+		a.OPT_TYPE,
+		a.REQ_STATUS,
+		a.NOT_BEFORE,
+		a.NOT_AFTER,
+		a.CERT_TYPE,
+		a.CREATE_BY,
+		a.CREATE_DATE,
+		a.DEL_FLAG,
+		a.APPLY_BUSINESS_ID,
+		a.CERT_VALIDITY,
+		(case when a.CERT_TYPE='userinfo' then u.USER_INFO_NAME when a.CERT_TYPE='corporation_info' then c.USER_NAME end) as USER_NAME,
+		b.id as proid,
+		b.PROJECT_NUM,
+		b.PROJECT_NAME
+		FROM CERTAPPLY_INFO a
+		LEFT JOIN PROJECT_INFO b ON a.PROJECT_ID = b . ID
+		LEFT OUTER JOIN USER_INFO u ON a.USER_INFO_ID = u.ID
+		LEFT OUTER JOIN CORPORATION_USER_INFO c ON a.CORP_USER_ID = c.ID
+		WHERE (a.del_flag = '0' and b.del_flag= '0')
+		 <if test="certCtmlName != null and certCtmlName != ''">
+			AND a.CTML_NAME = #{certCtmlName}
+		</if> 
+		 <if test="certSn != null and certSn != ''">
+			AND a.CERT_SN LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSn}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSn}, '%')</if>
+		</if> 
+		<if test="projectName != null and projectName != ''">
+			AND b.id  = #{projectName}
+		</if> 
+		<if test="optType != null and optType != ''">
+			AND a.OPT_TYPE  = #{optType}
+		</if>  
+		<if test="reqStatus != null and reqStatus != ''">
+			AND a.REQ_STATUS = #{reqStatus}
+		</if>
+		<if test="certSubject != null and certSubject != ''">
+			AND a.CERT_SUBJECT LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSubject}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSubject}, '%')</if>
+		</if>
+		<if test="beforeMin1 != null and beforeMin1 != ''">
+			AND a.NOT_BEFORE >= ${beforeMin1}
+		</if> 
+		 <if test="beforeMax1 != null and beforeMax1 != ''">
+			AND a.NOT_BEFORE &lt;= ${beforeMax1}
+		</if> 
+		<if test="applyBusinessId != null and applyBusinessId != ''">
+			AND a.APPLY_BUSINESS_ID = #{applyBusinessId}
+		</if>
+		<if test="userName != null and userName != ''">
+		    AND (case when a.CERT_TYPE='userinfo' then u.USER_INFO_NAME when a.CERT_TYPE='corporation_info' then c.USER_NAME end) LIKE
+			<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{userName}, '%')</if>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+
+	<delete id="deleteData">
+		DELETE FROM CERTAPPLY_INFO
+		WHERE id = #{id}
+	</delete>
+	
+</mapper>

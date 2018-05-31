@@ -1,0 +1,250 @@
+/*鏍峰紡閲嶇疆  娑堥櫎娴忚鍣ㄩ棿鐨勫樊寮�/
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+html{overflow-y: scroll;}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body { /*line-height: 1;*/}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,
+q:before, q:after {    content: '';    content: none;}
+
+/* remember to define focus styles! */
+:focus {outline: 0;}
+
+/* remember to highlight inserts somehow! */
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {     border-collapse: collapse;    border-spacing: 0;}
+
+/*榛樿鏂囧瓧鐩稿叧鏍峰紡*/
+body{font-size: 12px;}
+h1 {font-size: 26px;
+   border-bottom:#dadde1 1px solid;}
+h2 {font-size: 24px;}
+h3 {font-size: 22px;}
+h4 {font-size: 20px;}
+h5 {font-size: 18px;}
+h6 {font-size: 16px;}
+
+/*缃戞牸绯荤粺锛岃嚜宸辫ˉ鍏厀idth鐨勫�*/
+.row{ margin-left: auto;    margin-right: auto;}
+.row .row{  margin: 0;    width: auto;    display: inline-block;}
+.col{  display: inline;    float: left;    margin-left: 0;    margin-right: 0;}
+.push, .pull {position: relative;}
+
+
+/*鍙栨秷input娴忚鍣ㄩ粯璁ゆ牱寮�/
+input[type="button"],input[type="submit"]{
+    -webkit-appearance:none;
+}
+/* http://sonspring.com/journal/clearing-floats */
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+.clearfix:before,
+.clearfix:after {
+    content: "\0020";
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+.clearfix:after {clear: both;}
+/*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
+.clearfix {zoom: 1;}
+
+
+/*椤圭洰鍏叡鏍峰紡*/
+body {
+  line-height: 1;
+    font:12px/1.5 arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif
+}
+a {text-decoration: none;}
+.yahei {font-family: "Microsoft YaHei", "寰蒋闆呴粦" !important;}
+.normal {font-family: Arial, Helvetica, sans-serif;}
+.block{display:block;}
+.inline{ display: inline;}
+.center {text-align: center;}
+.fl{float:left;}
+.fr{float:right;}
+.cursor{cursor: pointer;}
+
+.ellipsis{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+
+.btb{
+    border-top:1px solid #cbcbcb;
+}
+.bbw{
+    border-bottom:1px solid #fff;
+}
+
+.bitbtn {
+    display: inline-block;
+    border-radius: 3px;
+    padding-left: 19px;
+    padding-right: 3px;
+    background-color: #449aa9;
+    color: #FFF;
+}
+/*鍦嗚3px*/
+.rc3 {border-radius: 3px;}
+.rc5 {border-radius: 5px;}
+.rc10 {border-radius: 10px;}
+
+/*.fwn{font-weight: normal;}*/
+.fwb{font-weight:bold;}
+
+.relative{position: relative;}
+.absolute{position: absolute}
+
+.fs12{font-size: 12px;}
+.fs14{font-size: 14px;}
+.fs16{font-size: 16px;}
+.fs18{font-size: 18px;}
+.fs20{font-size: 20px;}
+.fs24{font-size: 24px;}
+.fs26{font-size: 26px;}
+.fs30{font-size: 30px;}
+.fs32{font-size: 32px;}
+.fs36{font-size: 36px;}
+.fs40{font-size: 40px;}
+.fs48{font-size: 48px;}
+
+.lh1{line-height: 1;}
+.lh18{line-height: 18px;}
+.lh20{line-height: 20px;}
+.lh22{line-height: 20px;}
+.lh24{line-height: 24px;}
+.lh26{line-height: 26px;}
+.lh30{line-height: 30px;}
+.lh32{line-height: 32px;}
+.lh36{line-height: 36px;}
+.lh40{line-height: 40px;}
+.lh50{line-height: 50px;}
+.lh60{line-height: 60px;}
+.lh80{line-height: 80px;}
+
+.mr0{margin-right: 0;}
+.ml0{margin-left: 0;}
+.mt2{margin-top: 2px;}
+.mt5{margin-top: 5px;}
+.mt10{margin-top: 10px;}
+.mt12{margin-top: 12px;}
+.mt15{margin-top: 15px;}
+.mt20{margin-top: 20px;}
+.mt25{margin-top: 25px;}
+.mt30{margin-top: 30px;}
+.mt40{margin-top: 40px;}
+.ml5{margin-left: 5px;}
+.ml10{margin-left: 10px;}
+.ml15{margin-left: 15px;}
+.ml20{margin-left: 20px;}
+.ml30{margin-left: 30px;}
+.ml40{margin-left: 40px;}
+.mb20{margin-bottom: 20px}
+.mb25{margin-bottom: 25px}
+.mb40{margin-bottom: 40px}
+.mr10{margin-right: 10px;}
+.mr15{margin-right:15px;}
+.mr20{margin-right:20px;}
+.mr23{margin-right: 23px;}
+.mr25{margin-right: 25px;}
+.mr30{margin-right: 30px;}
+
+.pr0{padding-right: 0;}
+.pr5{padding-right: 5px;}
+.pr35{padding-right:35px}
+.pl0{padding-left: 0;}
+.pt5{padding-top: 5px;}
+.pt10{padding-top: 10px;}
+.pt15{padding-top: 15px;}
+.pt20{padding-top: 20px;}
+.pt30{padding-top: 30px;}
+.pt40{padding-top: 40px;}
+.pl5{padding-left: 5px;}
+.pl10{padding-left: 10px;}
+.pl15{padding-left :15px;}
+.pl20{padding-left: 20px;}
+.pl25{padding-left: 25px;}
+.pl30{padding-left: 30px;}
+.pl40{padding-left: 40px;}
+.pb10{padding-bottom: 10px;}
+.pb20{padding-bottom: 20px;}
+.pb25{padding-bottom: 25px;}
+.pb30{padding-bottom: 30px;}
+.pb40{padding-bottom: 40px;}
+.p_15_15{padding:15px 15px 0 15px;}
+.p_20_20{padding:20px;}
+
+.sq120 {  width: 120px;  height: 120px;  display: block;}
+.sq100 {  width: 100px;  height: 100px;  display: block;}
+.sq80 {width: 80px;height: 80px;display: block;}
+.sq48 {width: 48px;height: 48px;}
+.sq30 {width: 30px;height: 30px;}
+
+.black3{color: #333;}
+.black6{color: #666;}
+.black9{color: #999;}
+.blue{color:#3b70e1}
+.fontblue{color:#3b70e1;}
+.white {color: #ffffff;}
+.Bwhite{background:#fff;}
+
+.img_30_30{height:30px;width:30px;}
+.img_60_60{height:60px;width:60px;}
+.img_80_80{height:80px;width:80px;}
+.img_120_120{height:120px;width:120px;}
+
+
+/*css triangle*/
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-color: #333 transparent transparent transparent;
+    border-width: 5px;
+    border-style: solid;
+}
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-color: transparent transparent transparent #333;
+    border-width: 5px;
+    border-style: solid;
+}
+
+.searchNav .container dl dt, .searchNav .container dl dd {
+display: inline-block;
+float: left;
+line-height: 200% !important;
+margin: 8px 0;
+padding: 0 10px;
+}

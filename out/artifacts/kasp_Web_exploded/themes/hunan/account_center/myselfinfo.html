@@ -1,0 +1,542 @@
+<link rel="stylesheet" href="${staticserver}/hunan/css/selfinfo/index.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/selfinfo/main.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/selfinfo/public.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/selfinfo/reset.css">
+<script type="text/javascript" src="${staticserver}/hunan/js/selfinfo/acctcenter.js"></script>
+<script type="text/javascript"	src="${staticserver}/hunan/js/libs/kjax.des.js"></script>
+<!-- 公用 -->
+	
+
+<!-- 主要内容 -->
+<div class="account"> 
+      <!-- left -->
+   
+      <!-- right -->
+      <div class="accright">
+   
+    <!-- 基本信息 -->
+    <div class="infortxt"> 
+          <!-- 基本信息 -->
+          <dl>
+			<dt>基本信息</dt>
+			<dd>姓名<span>${chinesename!''}</span></dd>
+			<dd>客户代码<span>${custno!''}</span></dd>
+			<dd>资金账号<span>
+			  <#if sfzfcapitalaccount?exists >
+				【${sfzfcapitalaccount!''}】
+			  </#if>
+			  <#if sfcgcapitalaccount?exists >
+				【${sfcgcapitalaccount!''}】
+			  </#if>
+			</span></dd>
+			<dd>营业网点<span>${branchname!''}</span></dd>
+			<dd>证件信息<span>${certificateno!''}</span></dd>
+
+        
+		<#if riskflag == '1'>
+        <dd>风险调查问卷
+          <span>
+            ${riskEstimate!''}
+            <a href="javascript:;" class="carchange1" title='重新评测'>重新评测</a>
+          </span>
+        </dd>
+		</#if>
+         <!-- 风险调查问卷修改 -->
+        <div class="carusult refchange">
+          <form id="doEstimateForm33">
+              <h2>亲爱的投资者：</h2>
+              <p>为了对您的风险承受能力做出评估，请您认真、客观地填写以下问卷。对于您填写的个人信息，本中心将予以严格保密，未经许可，不向任何第三方透露。因监管部门履行监管职责要求或司法部门依法行使调阅查询权除外。</p>
+              <!-- 问卷内容 -->
+              <ul class="reful">
+			  
+			 <#if fxcpList?exists>
+				<#assign i = 0>
+				<#list fxcpList as item>
+				<#assign i = i + 1>
+				
+             <li>
+				<span>${i}.${item.qusname!''}<input type="radio" name="questionnaire${i-1}" style="display: none;" datatype="*" nullmsg="请选择答案!" /></span>
+                  <p>
+                <input type="radio" value="1" name="questionnaire${i-1}" id="questionnaire${i-1}1">
+                A.${item.ans1!''}
+				<br>
+                <input type="radio" value="2" name="questionnaire${i-1}" id="questionnaire${i-1}2">
+                B.${item.ans2!''}
+				<br>
+                <input type="radio" value="3" name="questionnaire${i-1}" id="questionnaire${i-1}3">
+                C.${item.ans3!''}
+				<br>
+				<#if item.ans4 != ''>
+                <input type="radio" value="4" name="questionnaire${i-1}" id="questionnaire${i-1}4">
+                D.${item.ans4!''} 
+				</#if>
+				</p>
+              </li>
+            </#list>
+			</#if>
+          </ul>
+              <!-- 同意协议 -->
+              <p class="aggren">
+            <input type="checkbox" id="pass" nullmsg="请选择！"/>
+            我已阅读并同意<a id="fxs" onclick="windowUp()" href="javascript:void(0);">《风险揭示书》</a>
+            <span></span>
+            </p>
+              <p class="nextstep"><a id="btnSubmitFXCP" href="javascript:void(0);" onclick="dorisk()" >提交测评</a></p>
+              <!-- 温馨提示 -->
+              <p class="fxpro">风险测评温馨提示</p>
+              <ul class="fxul">
+            <li>1、在本平台首次投资前，请您依据自身真实情况填写本问卷。</li>
+            <li>2、平台关心您及您的投资，在此，特向您进行风险揭示：投资有风险，望您谨慎投资。投资可能涉及到包括并不仅限于本金兑付、市场、流动性、汇率、信用、利率、赋税等各类风险。</li>
+            <li>3、使用过程遇到问题，请联系客服。</li>
+          </ul>
+        </form>
+      </div>
+      </dl>
+          <!-- 安全设置 -->
+         <dl>
+			<dt>安全设置</dt>
+			
+			<dd>登录密码
+		   
+			  <span>
+			   设置成功
+				<a href="javascript:;" class="carchange" title="修改">修改</a>
+			  </span>
+			</dd>
+
+        <!-- 登录密码修改 -->
+        <div class="carusult psdchange"> 
+          <form id="updloginpwd">
+
+
+            <!-- 第一步 -->  
+           <div class="psdchcon " id='lpwd1st' style="text-align:left;">
+				<img src="${staticserver}/hunan/images/psdch1.png">
+				<div class="psdchinp">
+					
+					<p class="csinput" style="width:600px;">
+						<span>手机验证码</span>
+						<input name="phonecode" id="phonecode"  type="text" data-toggle="tooltip" data-placement="top-left" data-original-title="验证码为6位数字！"   datatype="/^\d{6}$/" class="input" nullmsg="验证码为6位数字！" placeholder="请输入6位验证码"/> 
+						<input id="lgcodetype" name='codetype' type="hidden" value="lgpwd"/> 
+						<button type="button" id="lgnphonecode" style="width:130px;">获取验证码</button>
+					 </p>
+					<p style="padding-left:70px;color:#a9a8a8;margin-top:-10px;">验证码将发送到你注册尾号为****<#if mobiletel?exists>${mobiletel?substring(7)}<#else>****</#if>的手机上</p>
+					<p class="csinput"><span>设置登录密码</span>
+					 <input type="password" name="newPassword" id="password" datatype="checkPassword" nullmsg="请设置密码！" errormsg="6-16位数字及字母,不能使用空格！" placeholder="请输入新密码">
+					</p>
+					<p class="csinput"><span>再输一次密码</span>
+					  <input type="password" name="newPassword2" id="password2" class="input" datatype="checkPassword" recheck="newPassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！" placeholder="请再次输入新密码">
+					</p>
+					<p class="nextstep"><a href="javascript:void(0);" onclick="updLoginPwd('updloginpwd','lpwd2sc')">确认</a></p>
+				</div>
+			</div> 
+          <!-- 第二步 --> 
+          <div class="psdchcon psdchcon2" id='lpwd2sc' style="display:none">
+							<img src="${staticserver}/hunan/images/psdch2.png">
+							<div class="psdchinp cscon4402">
+								恭喜您，设置登录密码成功！
+							</div>
+              <div>
+                <span id="dropdoTimeConter" style="color: red">3</span>&nbsp;秒后页面将自动跳转到“登录”，如果浏览器不能自动跳转，请
+                <a style="text-decoration: underline" href="javascript:void(0);" onclick="logout();">点击此处</a>
+              </div>
+					</div>  
+          </form>   
+          </div>
+        <dd>交易密码<span>
+        <#if signbank?exists>设置成功</#if>
+        <a id="J_chgtrdpwd" href="javascript:;" class="carchange" title='修改'>修改</a></span></dd>
+        <div class="carusult psdchange"> 
+        <form id='updtrdpwd'>
+
+              <!-- 第一步 --> 
+          <div class="psdchcon " id="tpwd1st" style="text-align:left;">
+				<img src="${staticserver}/hunan/images/checkpm1.png">
+				<div class="psdchinp">
+				 <p class="csinput" style="width:600px;">
+					<span>手机验证码</span>
+					<input name="phonecode" id="phonecode" type="text" datatype="/^\d{6}$/" class="input" nullmsg="验证码为6位数值！" placeholder="请输入6位验证码"/>
+					<input id="tacodetype" name='codetype' type="hidden" value="tapwd"/> 
+					<button type="button" id="trdphonecode" style="width:130px;">获取验证码</button>
+				  </p>
+				  <p style="padding-left:70px;color:#a9a8a8;margin-top:-10px;">验证码将发送到你注册尾号为****<#if mobiletel?exists>${mobiletel?substring(7)}<#else>****</#if>的手机上
+				  </p>
+				  <p class="csinput"><span>设置交易密码</span>
+					<input id="tradePWD11" name="tradePWD1" type="password"  datatype="/^[0-9]{6,6}$/" nullmsg="请输入6位数字交易密码！" errormsg="交易密码输入有误！" placeholder="请输入6位数字" >
+				  </p>
+								<p class="csinput"><span>再输一次密码</span>
+					<input id="tradePWD22" name="tradePWD1" type="password" class="input" datatype="*" recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！"  placeholder="请再次输入6位数字"/>
+				  </p>
+						<p class="nextstep"><a href="javascript:void(0);" onclick="updTradePwd('updtrdpwd','tpwd2sc')">确认</a></p>
+				</div>
+			</div>  
+              <!-- 第二步 --> 
+          <div class="psdchcon psdchcon2" id="tpwd2sc" style="display:none">
+						<img src="${staticserver}/hunan/images/checkpm2.jpg">
+						<div class="psdchinp cscon4402">
+							恭喜您，设置交易密码成功！
+						</div>
+            <div>
+                系统将会在<span id="successTPD" style="color:red">&nbsp;3&nbsp;</span>秒后自动刷新
+					   </div>
+            </div>
+          </form>
+          </div>
+		  
+		  <!-- 密保设置 -->
+            <dd>密保设置<span>
+            <#if safeStatus?exists>
+              <#if safeStatus.safequestion?string == "1">
+                设置成功
+              </#if>
+            </#if>
+            <a id="J_safeq" href="javascript:;" class="carchange" title='修改'>修改</a></span></dd>
+			<div class="carusult psdchange"> 
+                <form id="updsafety">
+              <!-- 第一步 -->
+              <div class="psdchcon" id="safetyQus1st"> 
+              <img src="${staticserver}/hunan/images/pwdsafe1.png">
+             <div class="psdchinp" > 
+                <p class="csinput"><span>密保问题一<i>*</i></span>
+                  <select id='q1' name='q1' onchange="selectedChange('updsafety','q1')">
+                    <option value='-1'>请选择</option>
+                    <#if questions?exists> 
+                        <#list questions as que>
+                        <option value="${que.dict_key}">${que.dict_value!''}</option>
+                        </#list> 
+                      </#if>
+                  </select>
+                <!-- 提示信息在b中 -->
+                <b></b> 
+                </p>
+                <p class="csinput">
+                  <span>密保答案<i>*</i></span>
+                  <input type="text" id='ans1' name='ans1'>
+                  <!-- b添加class不能通过的提示样式-->
+                <b></b>
+                </p>
+                <p class="csinput"><span>密保问题二<i>*</i></span>
+                  <select id='q2' name='q2' onchange="selectedChange('updsafety','q2')">
+                  <option value='-1'>请选择</option>
+                    <#if questions?exists> 
+                        <#list questions as que>
+                        <option value="${que.dict_key}">${que.dict_value!''}</option>
+                        </#list> 
+                      </#if>
+                  </select>
+                <!-- 提示信息在b中 -->
+                <b></b>
+                </p>
+                <p class="csinput">
+                  <span>密保答案<i>*</i></span>
+                  <input type="text" id='ans2' name='ans2'>
+                  <!-- b添加class不能通过的提示样式-->
+                  <b ></b>
+                </p>
+                <p class="csinput"><span>密保问题三<i>*</i></span>
+                  <select id='q3' name='q3' onchange="selectedChange('updsafety','q3')">
+                  <option value='-1'>请选择</option>
+                    <#if questions?exists> 
+                        <#list questions as que>
+                        <option value="${que.dict_key}">${que.dict_value!''}</option>
+                        </#list> 
+                      </#if>
+                  </select>
+                <!-- 提示信息在b中 -->
+                <b></b>
+                </p>
+                <p class="csinput">
+                  <span>密保答案<i>*</i></span>
+                  <input type="text" id='ans3' name='ans3'>
+                  <b></b>
+                </p>
+                <p class="nextstep"><a href="javascript:void(0);" onclick="updSafetyQuestion('updsafety','safetyQus2st')">下一步</a></p>
+            </div>
+            </div>
+            <!-- 第二步 -->
+             <div class="psdchcon psdchcon2" id="safetyQus2st" style="display:none">
+              <img src="${staticserver}/hunan/images/pwdsafe2.png">
+              <div class="psdchinp cscon4402">
+                恭喜您，设置密保成功！
+              </div>
+              <div>
+                系统将会在<span id="relocation" style="color:red">&nbsp;3&nbsp;</span>秒后自动刷新
+             </div>
+            </div> 
+         
+           <!-- 温馨提示 -->
+          <div class="wxts">
+             <p class="fxpro">温馨提示</p>
+            <ul class="fxul">
+            <li>1.请牢记您设置的密码保护问题，密码问题将用于找回密码等重要操作。</li>
+            <li>2.使用过程遇到问题，请联系客服。</li>
+          </ul>
+          </div>
+          </form>
+        </div>
+			
+			
+			
+            <!-- 手机验证 -->
+            <dd>手机验证<span>
+            <#if mobiletel?exists>${mobiletel?substring(0,3)}****${mobiletel?substring(7)}<#else>****</#if>
+            <a id="J_phone" href="javascript:;" class="carchange" title='修改'>修改</a></span></dd>
+			
+            <div class="carusult psdchange1"> 
+            <form id="validphone">
+              <!-- 第一步 -->
+              <div class="psdchcon" id='valid1st'> 
+              <img src="${staticserver}/hunan/images/phoneyz1.jpg">
+            <div class="psdchinp">
+                <p class="csinput"><span>登录密码<i>*</i></span>
+                <input type="password" name="loginpwd" id='loginpwd' datatype="checkPassword" nullmsg="请输入登录密码！" errormsg="登录密码输入有误！">
+                <b></b>
+                  <!-- 提示信息在b中 -->
+                  <!-- <b>通过信息验证</b> -->
+                </p>
+				
+				
+                <p class="csinput">
+				
+				<#if safeStatus.individualorinstitution == "1">
+					<span>证件号码<i>*</i></span>
+					<input input id="phidcard" name="idcard" class="input" type="text" datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证号号码输入有误！">
+                  <!-- b添加class不能通过的提示样式-->
+                  <b></b>
+				<#elseif safeStatus.individualorinstitution == "0">
+					<span>身份证号<i>*</i></span>
+					<input input id="phidcard" name="idcard" class="input" type="text" datatype="idcard" nullmsg="请输入真实的身份证号！" errormsg="身份证号输入有误！">
+                  <!-- b添加class不能通过的提示样式-->
+                  <b></b>
+				</#if>
+
+                </p>
+				
+				
+                <p class="csinput"><span>请选择问题<i>*</i></span>
+                  <select id="question"
+                    name="question">
+                    <#if usrQA?exists>
+                      <#list usrQA as uq>  
+                        <option value="${uq.key}" >${uq.text!''}</option>  
+                      </#list>  
+                    <#else>
+                       <#if questions?exists> 
+                        <#list questions as que>
+                        <option value="${que_index+1}">${que.dict_value!''}</option>
+                      </#list> 
+                      </#if>
+                    </#if> 
+                  </select>
+                  <b></b>
+                </p>
+                <p class="csinput"><span>请输入答案<i>*</i></span><input id="phanswer" name="answer" class="input" type="text" datatype="*" nullmsg="请输入答案!" errormsg="答案不能为空">
+                <b></b>
+                </p>
+                <p class="nextstep"><a href="javascript:void(0);" onclick="validQuestion('validphone','valid2sc')">确认</a></p>
+             </div>
+          </div>
+          <!-- 第二步 --> 
+          <div class="psdchcon psdchcon2" id='valid2sc' style="display:none">
+              <img src="${staticserver}/hunan/images/phoneyz2.jpg">
+            <div class="psdchinp">
+                <p class="csinput"><span>新手机号码</span>
+                <input id="newphone" name="newphone" type="text"  value="" datatype="m" nullmsg="请输入手机号码" errormsg="手机号码不合法" >
+                <button style="background:none;border:none;"></button>
+                <b></b>
+                </p>
+                <p class="csinput"><span>手机验证码</span>
+                <input id="phcodetype" name='codetype' type="hidden" value="phpwd"/> 
+                <input name="newphonecode" id='newphonecode' type="text" class="input" value=""   datatype="/^\d{6}$/" class="input" errormsg="请输入6位数字验证码！" nullmsg="请输入短信验证码！">
+                <button type="button" id="chgphonecode">获取验证码</button>
+                <b></b>
+                </p>
+                <p class="nextstep"><a href="javascript:void(0);" onclick="setphone('validphone','valid3td')">确认</a></p>
+            </div>
+          </div> 
+              <!-- 第三步 --> 
+           <div class="psdchcon psdchcon2" id='valid3td' style="display:none">
+              <img src="${staticserver}/hunan/images/phoneyz3.jpg">
+              <div class="psdchinp cscon4402">
+                恭喜您，手机验证成功！
+              </div>
+              <div>
+                <span id="changephone" style="color: red">3</span>&nbsp;秒后页面将自动跳转到“登录”，如果浏览器不能自动跳转，请
+                <a style="text-decoration: underline"
+                  href="javascript: window.location.href = 'login.html';">点击此处</a>
+              </div>
+          </div> 
+          <!-- 温馨提示 -->
+          <div class="wxts">
+             <p class="fxpro">温馨提示</p>
+            <ul class="fxul">
+            <li>1、请填写真实有效的手机号，手机号将作为验证用户身份的重要手段。</li>
+            <li>2、本平台会对用户的所有资料进行严格保密。</li>
+            <li>3、使用过程遇到问题，请联系客服。</li>
+          </ul>
+          </div>
+        </form>  
+        </div>
+		
+		
+        <!-- 邮箱认证 -->
+        <dd>邮箱认证<span>
+        <#if safeStatus?exists>
+          <#if safeStatus.email?string == "1">
+            认证成功
+          </#if>
+        </#if>
+        <a href="javascript:;" class="carchange2" title='认证'>认证</a></span></dd>
+		
+         <div class="carusult psdchange1"> 
+              <!-- 第一步 -->
+            <form id="emailform">
+              <div class="psdchcon">
+            <div class="psdchinp">
+              <p class="csinput">
+                <span>请输入邮箱</span>
+                <input type="text" id="emailAddress" value="${email!''}" name="emailAddress">
+                <button id="sendemail" type='button' onclick="sendEmail()">发送邮件</button>
+                <b style="margin-left:30px;width:150px;"></b>
+              </p>
+             </div>
+          </div>
+          </form>
+          <!-- 温馨提示 -->
+          <div class="wxts">
+		 
+            <p class="fxpro">温馨提示</p>
+            <ul class="fxul">
+            <li>1、请填写真实有效的邮箱地址。</li>
+            <li>2、本平台会对用户的所有资料进行严格保密。</li>
+            <li>3、使用过程遇到问题，请联系客服。</li>
+		
+	
+          </ul>
+          </div>
+            
+        </div>
+
+      </dl>
+         
+          <!-- 其他信息 -->
+          <dl>
+        <dt>资料完善</dt>
+        <dd>资料完善<span><a href="javascript:;" class="carchange" title='修改'>修改</a></span></dd>
+        <!-- 其它信息修改 -->
+        <div class="carusult otherchange">
+        <form id="otherinfo">
+            <p class="csinput"><span>个人介绍<i>*</i></span>
+            <input  type="text" errormsg="个人信息不能为空！" nullmsg="请输入个人信息" datatype="*" style="width: 379px" value="${m.singinfo!''}" maxlength="100" name="singinfo">
+          </p>
+            <p class="csinput"><span>所在地<i>*</i></span>
+            <select name="province" id="provinceSelect"  data-value="${m.province!'-1'}" >
+                  <option value="-1" >
+                    --请选择--
+                  </option>
+                  <#if provinceDict?exists>
+                  <#list provinceDict as i>
+                  <option value="${i.dict_key!''}">
+                    ${i.dict_value!''}
+                  </option>
+                  </#list>
+                  </#if>
+                </select>
+            <select name="city" id="citySelect" class="short" data-value="${m.city!'-1'}">
+              <option value="-1">
+                  --请选择--
+              </option>
+            </select>
+          </p>
+              <p class="csinput"><span>联系地址<i>*</i></span>
+            <input name="address" type="text" id="address" maxlength="100"  
+                    value="${m.address!''}" datatype="*"  nullmsg="请输入联系地址" errormsg="联系地址不能为空！">
+          </p>
+              <p class="nextstep"><a href="javascript:void(0);" onclick="addCustOtherInfo()">保存修改</a></p>
+            </form>
+          </div>
+      </dl>
+        </div>
+  </div>
+      <div class="clear"></div>
+ 
+
+
+<!-- 同意协议提示屏 -->
+<div id="fxjss" style="display: none">
+		<div class="regist-questionnaire" >
+			<div class="regist-questionnaire_con" style="height: 300px;font-size: 14px;overflow:auto;text-align:justify">
+				 
+				<!-- 
+				 <h3 style="padding: 0;text-indent: 0;">尊敬的投资者：</h3>
+					<h3 style="padding: 0;text-indent:0;">
+					为了使您更好地了解“高新普惠”金融产品的相关风险，根据国家有关法律、法规、规章和其他规范性文件的规定，高新普惠资产管理有限公司（以下简称“本公司”）特向您进行如下风险揭示，请认真阅读并慎重签署。</h3>
+					<dl><dt> 1.本公司所指的金融产品，是指融资项目的发起人发起项目，经本公司审核备案，通过本公司互联网平台进行信息展示，由投资者自主决策，并借助互联网平台实现投资的投融资对接服务。
+					</dt> </dl>	<dl><dt> 2.本公司所指的发起人，是指发行融资项目，并愿意引入其他投资者或债权人，在项目运作中遵公司规定，进行项目管理的企业。
+					</dt> </dl>	<dl><dt>3.您在参与本公司平台展示的金融产品前，应当全面了解本公司各项制度及金融产品业务规则、投资标的或投资项目、融资期限、投资风险、金融产品业务的收费标准和收费方式等信息。
+					</dt> </dl>	<dl><dt>
+					4.您应当进行账户的实名开户，如实接受风险承受能力评估。 
+					</dt> </dl>	<dl><dt>5.您应当提供有效的联系方式和服务获取方式，如有变动须及时向本公司进行说明，如因您自身原因或不可抗力因素导致您未能及时获取相关的信息服务，由此带来的后果将由您自行承担。
+					</dt> </dl>	<dl><dt>
+					6.您参与本公司平台开展的金融产品业务时，须通过本公司进行账户开立、资金划转、相关费用收付等，不得向其他非授权的机构或个人账户支付。
+					</dt> </dl>	<dl><dt>7.作为投资依据的项目募集说明书，可能存在不全面或者被误读的风险，您可以向项目发起人进行广泛了解，以便在进行投资决策时作出理性判断。
+					</dt></dl><dl><dt>  8.金融产品项目募集成功后可能会面临道德、运营、政策等方面的风险。道德风险主要来自项目运营者对资金的使用和资金管理者对资金的管理，可能发生资金管理者疏于管理、资金使用不当的情况，资金未能投入项目运作，导致投资者利益遭受损失；运营风险主要来自项目运营者对项目的运作，运作不当可能导致项目亏损；政策风险则主要指国家的法律、法规、政策以及行业导向发生变化，可能导致项目无法达到预期。
+					</dt></dl><dl><dt>  
+					9.本平台及项目发起人提供的项目投资信息具有针对性和时效性，不能在任何市场环境下长期有效。
+					</dt></dl><dl><dt>  10.本公司对金融产品项目的备案并不表示本公司对发起人融资项目的经营风险、偿债风险、诉讼风险以及金融产品业务投资风险或收益作出判断或保证。您在参与金融产品业务时，须自主作出投资决策，自行承担投资风险，本公司、项目发起人等不以任何方式向您作出不受损失或者取得最低收益的承诺。金融产品项目失败可能会导致本金全额损失。
+					</dt></dl><dl><dt>  11.您应当妥善保管好自己的股东账户、资金账户和相应的密码，不要随便委托其他人员管理自己的股东账户、资金账户、代理买卖权益，否则由此导致的风险将由您自行承担。
+					</dt></dl><dl><dt >12.项目发起人及其他人员也可能存在道德风险，当您发现存在提供虚假信息、进行关联交易等违反相关协议等违法违规行为或利益冲突情形的，您可以向本公司投诉或向有关部门举报。
+					</dt></dl><dl><dt>  13.项目发起人可能存在因停业、解散、撤销、破产，或者被有关职能部门撤销相关业务许可、责令停业整顿等原因导致不能履行职责的风险。
+					</dt></dl><dl><dt>  
+					<h style="padding: 0;text-indent:">
+					本风险揭示书的揭示事项仅为列举性质，未能详尽列明投资者参与金融产品业务所面临的全部风险和可能导致投资者投资损失的所有因素。
+					投资者在参与金融产品业务前，应认真阅读并理解相关业务规则、相关协议及本风险揭示书的全部内容。
+					
+					参与金融产品业务的投资者，自行承担投资风险，本公司、项目发起人等不以任何方式向投资者作出不受损失或者取得最低收益的承诺。
+					特别提示：投资者应签署本风险揭示书，表明投资者已经理解并愿意自行承担接受参与金融产品业务的风险和损失。
+					</h>
+					
+					-->
+					<#if fxjssMapXiyiMap?exists>
+						${fxjssMapXiyiMap.content!''}
+					</#if>
+					
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;">
+  <select id='cachselect' name='cachselect' onchange="">
+    <option value='-1'>请选择</option>
+    <#if questions?exists> 
+      <#list questions as que>
+      <option value="${que.dict_key}">${que.dict_value!''}</option>
+      </#list> 
+    </#if>
+  </select>
+</div>
+<script>
+
+$(function(){
+	var s = "${s!''}";
+	if(s == '1'){
+		$("#J_phone").click();
+	}else if(s == '2'){
+		$("#J_safeq").click();
+	}
+})
+
+	
+$("#fxs").bind("click",function(){
+	$(".modal-dialog").css("width","600");
+})
+
+function  windowUp(){
+	$(".modal-dialog").css("width","600");
+	setTimeout(200);
+	zhejiang_alert('风险揭示书',$('#fxjss').html(),function(){
+		
+	})
+}
+</script>

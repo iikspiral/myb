@@ -1,0 +1,210 @@
+<div class="user-type" id="thirdpayopen">
+<form class="personal-account" id="thirdpayopenForm" method="post">
+
+
+	<!-- 此层为基本信息 -->
+	<#include 'register_basic_org.html'>
+	<!--  end -->
+	
+	<!--  start 此层分为三方支付 -->
+	
+	<#include 'register_tp_bankinfo.html'>
+
+<!-- end -->
+	
+	</form>	
+	
+</div>
+
+<script>
+
+var banktype=1000;
+
+var riskflag = $("#riskflag").val();
+
+var kifpwebregister_tp = kifpwebregister_tp || {};
+
+kifpwebregister_tp.registerbingding = {
+	
+	init:function(){
+		var self = this;
+		$thirdpayopenForm = $("#thirdpayopenForm").kdValidform();
+		//初始化
+		$("#channelcode").val($(".tieonBanks a.selected").attr("_bankid"));
+		$("#tbankcode").val($(".tieonBanks a.selected").attr("_bankcode"));
+		$("#tchannelcode").val($(".tieonBanks a.selected").attr("_bankid"));
+		
+	
+
+		$("a[_bankId]").on("click",function(){
+		    $("#channelcode").val();
+			$("#tbankcode").val();
+			$("#tchannelcode").val();
+			var current = $(this);
+			$(".tieonBanks a").removeClass("selected");
+			current.addClass("selected");
+			var channelcode = current.attr("_bankid");
+			var tbankcode = current.attr("_bankcode")
+			$("#channelcode").val(channelcode);
+			$("#tbankcode").val(tbankcode);
+			$("#tchannelcode").val(channelcode);
+			$("#J_province").val("-1");
+			$("#J_city").val("-1");
+			$("#J_openbankaddr").val("-1");
+		});
+		
+		$("#openthirdpayAccountBtn").on("click",function(){
+			self.openthirdpayaccount();
+		
+		});
+		
+	}
+	,openthirdpayaccount:function(){
+		$("#J_prove").val($("#J_province").find("option:selected").text());
+		$("#tradepassword").val("");
+		var $thirdpayopenForm;
+		$thirdpayopenForm = $("#thirdpayopenForm").kdValidform();
+		var _tradepwd =$("#tradepwd").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd,'kingdom');	
+		$("#tradepassword").val(_tradepwd_);
+		var options = {
+				type:"post",
+				dataType:"json",
+				async:true,
+				url :"${kasp_url}mall/bbw_register!openThirdpayAccount.do?ajax=yes",
+				success : function(data) {
+					
+					if(data.result == 1){
+						if(riskflag == '1'){//根据风险测评参数显示不同页面
+							zhejiang_alert("消息",data.data.msg,function(){
+								window.location.href = "register.html?type=fxcp";
+							});
+						}else{
+							riskEstimate();
+						}
+					}else if(data.result == 0){
+						zhejiang_alert("消息",data.message, function(){
+							//window.location.href = "register.html?type=sfcg&"+new Date().getTime();
+							$.kd.closeLoading($("#openthirdpayAccountBtn"))
+							$("#openthirdpayAccountBtn").attr("disabled",false);
+					});
+					}
+				},
+				error:function(data) {
+					zhejiang_alert("消息","系统异常，请联系管理员！",function(){
+						$.kd.closeLoading($("#openthirdpayAccountBtn"))
+						$("#openthirdpayAccountBtn").attr("disabled",false);
+						
+					});
+				}
+		
+		};
+		if($thirdpayopenForm.check()){
+			$("#openthirdpayAccountBtn").attr("disabled",true);
+			$.kd.showLoading($("#openthirdpayAccountBtn"));
+			$("#thirdpayopenForm").ajaxSubmit(options);
+		}
+	
+	}
+	,bankselected:function(){
+		var current = $(this);
+		$(".tieonBanks a").removeClass("selected");
+		current.addClass("selected");
+	}
+
+}
+
+$(function(){
+	kifpwebregister_tp.registerbingding.init();
+});
+
+//进入风险测评方法，不执行方法
+function riskEstimate(){
+	$.ajax({
+		  type:"post" ,
+		  async:false,
+		  dataType : "text",
+		  url: "${kasp_url}mall/bbw_riskmate!doEstimate.do?ajax=yes",
+		  success: function(redata){
+			var redta = eval("("+redata+")");
+			if(redta.result == 1){
+				$.kd.kdAlert("恭喜您完成注册及绑定", function() {
+				window.location.href='account_asset.html';
+			},'温馨提示');	
+			}else{
+				$.kd.kdAlert("交易权限申请失败！", function() {
+				window.location.href='account_asset.html';
+			});
+			}
+		  },
+		  error:function(redata){
+			$.kd.kdAlert("交易权限申请失败！", function() {
+				window.location.href='account_asset.html';
+			});
+		  }
+	  });  
+}
+
+
+$("#J_province").change(function(){
+		$("#J_city").find("option").remove();
+		$("#openbankaddr").find("option").remove();
+		var cityid = $("#J_province").attr("value");
+		$.post("${kasp_url}mall/newRegister!getPayCity.do?ajax=yes", 
+				{ "cityid": cityid },
+				   function(data){
+					var i = 0;
+					var arr = new Array();
+					$("#J_city").append( "<option value=\"-1\">--选择城市--</option>" );
+					for(i;i < data.kdjson.len;i++){
+						arr[i] = data.kdjson.items[i].areanames;
+						$("#J_city").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+					}
+				   }, "json");
+	});
+
+	$("#J_city").change(function(){
+		turnStatus();
+		$("#J_openbankaddr").find("option").remove();
+		var province = $("#J_province").find("option:selected").text();
+		var city = $("#J_city").attr("value");
+		var bankid = $("#J_bank > a.selected").attr("_bankid");
+		//alert(bankid);
+		$.post("${kasp_url}mall/bbw_register!getPayLocalBank.do?ajax=yes",
+				{ "province": province,
+				  "city": city,
+				  "bankid":bankid
+				},
+				function(data){
+					if(data.kdjson.flag==1){
+						$("#J_openbankaddr").append( "<option value=\"-1\">--选择分支行--</option>" );
+						var i = 0;
+						var arr = new Array();
+						for(i;i<data.kdjson.len;i++){
+							arr[i] = data.kdjson.items[i].paybankname;
+							$("#J_openbankaddr").append( "<option value=\""+ arr[i] +"\">" + arr[i] + "</option>" );
+						}
+					}
+				},
+				"json"
+				);
+	});
+	
+	$("#J_openbankaddr").dblclick(function(){
+		$("#J_openbankaddr").addClass("hide");
+		$("#J_openbankaddr").removeAttr("datatype");
+		$("#J_openbankaddr").removeAttr("name");
+		$("#J_editlocalbank").removeClass("hide");
+		$("#J_editlocalbank").attr("datatype","*");
+		$("#J_editlocalbank").attr("name","openbankaddr");
+	})
+	
+	function turnStatus(){
+		$("#J_openbankaddr").removeClass("hide");
+		$("#J_openbankaddr").attr("datatype","*");
+		$("#J_openbankaddr").attr("name","openbankaddr");
+		$("#J_editlocalbank").addClass("hide");
+		$("#J_editlocalbank").removeAttr("datatype");
+		$("#J_editlocalbank").removeAttr("name");
+	}
+</script>

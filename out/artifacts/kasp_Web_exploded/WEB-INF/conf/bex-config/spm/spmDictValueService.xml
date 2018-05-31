@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+	<bex id="spm_queryDictValue"  type="service-bex"  target="spmDictValueService" service="queryDictValue" parameterType="java.util.HashMap">
+		<dict name="DICTITEM" type="dict" key="SUBITEM" item="SUBITEM,SUBITEMNAME,spellcode"/>
+		<spellcode>
+			<field name='SUBITEMNAME'    target='spellcode'/>
+		</spellcode>
+	</bex>    
+
+</websuites>
+

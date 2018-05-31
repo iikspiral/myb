@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312"?>
+<kjax>
+	<!-- 查询客户资金账户信息 -->
+		<!-- 查询客户资金账户信息 v1.0 get_ua_bal_capital_service -->
+	<bex id="f_web_qry_bal_capital" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+	  
+
+	<!-- 	资金转入转出接口 f_fms_sendReqBankToZz（在fms系统中） -->
+	<bex id="f_bex_mony_in_out" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+		<!-- 	修改交易密码 （在aus系统中） -->
+	<bex id="f_web_ua_updCapPassword" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+	 <!-- 投资者风险测评记录接口    -->
+	<bex id="f_web_remote_kifp_add_riskinfo" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+		
+	
+	  <!-- 查询交易日期 -->
+	  <bex id="f_web_spm_trade_sysdate" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+	 
+	<!--查询资金账户是否存在-->
+	 <bex id="f_web_ua_isExistAcctcapital" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+		
+		<!-- 通用的svc_call -->
+	 <bex id="kifp_svc_call" type="http-bex"
+		httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall"
+		parameterType="java.util.HashMap" lparam="false" />
+
+	<!--银行配置信息 -->
+	<bex id="f_get_bank_config" ibatis="get_bank_config" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  operate="select" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+	
+	<!--证件类型 -->
+	<bex id="f_get_spm_dict" ibatis="get_spm_dict" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  operate="select" lparam="false" parameterType="java.util.HashMap">
+	</bex>
+</kjax>

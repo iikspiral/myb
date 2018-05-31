@@ -1,0 +1,380 @@
+<div class="account-main">
+
+	<!-- 账户类别 -->
+    <div class="account-brief clearfix">
+    	<dl class="yield">
+    		<dt>今日预期收益（元）</dt>
+    		<dd>
+				<#if currentIncome?exists>
+					${currentIncome?default("0.00")?number?string("###,###,###,###,##0.00")}
+				<#else>
+					0.00
+				</#if> 
+			</dd>
+    	</dl>
+    	<dl class="welcome">
+    		<dt>账户类别</dt>
+			<#if safeStatus?exists>
+			
+				<#if safeStatus.individualorinstitution == "1">
+				 <dd>机构用户</dd>
+				<#elseif safeStatus.individualorinstitution == "0">
+					<dd>个人账户</dd>
+				
+				<#else>
+					<dd>游客</dd>
+				</#if>
+			
+			</#if>	
+    	</dl>
+    	<div class="icons">
+    		<a class="active" href=""><i class="identity_active"></i></a>
+    		<a href=""><i class="mobile"></i></a>
+    		<a href="javascript: void(0);" onclick="safeStatus()"><i class="security"></i></a>
+    	</div>
+    </div>
+    <!-- 资产统计 -->
+    <div class="container-full account-statis clearfix">
+		<div class="remain-wrap">
+    		<div class="remain-total">
+    			<dl class="display">
+    				<dt class="title">账户余额（元）</dt>
+    				<dd class="amount"><#if accountinfoMap.ky?exists>${accountinfoMap.ky?default("0.00")?number?string("###,###,###,###,##0.00")}<#else>0</#if></dd>
+    			</dl>
+    			<div class="action clearfix">
+    				<a class="recharge btn-sm btn-orange" href="charge.html">充值</a>
+    				<a class="withdraw btn-sm btn-grey" href="withdraw.html">提现</a>
+					<#if '${opentype}' == 'AL' || '${opentype}' == 'TP'>
+						<a class="transfer btn-sm btn-grey" href="acct_change_no_trade.html">转账</a>
+					</#if>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="remain-accounts clearfix">
+    		<div class="remain-wrap">
+	    		<div class="remain">
+	    			<div class="title"><h3>三方存管</h3></div>
+	    			<dl class="display">
+	    				<dt class="balance">余额（元）</dt>
+	    				<dd class="amount"><#if sfcgAmount?exists> ${sfcgAmount.enablebalance?default("0.00")?number?string("###,###,###,###,##0.00")}<#else>0.00</#if></dd>
+	    			</dl>
+	    			<ul class="account">
+						<li class="bank">
+							<label>签约银行：</label>
+							<span>
+							<#if sfcgMap?exists>
+								<#if sfcgMap.signstatus = '2'>
+								${ sfcgMap.bankname!''}
+								<#else>
+									未签约
+								</#if>
+							<#else>
+								未签约
+							</#if>
+							</span>
+						</li>
+						<li class="num">
+							<label>资金账号：</label>
+							<span><#if sfcgMap?exists>${sfcgMap.capitalaccount!''}</#if></span>
+						</li>
+					</ul>
+	    		</div>
+	    	</div>
+	    	<!-- <div class="remain-wrap">
+	    		<div class="remain">
+	    			<div class="title"><h3>三方支付</h3></div>
+	    			<dl class="display">
+	    				<dt class="balance">余额（元）</dt>
+	    				<dd class="amount"><#if sfzfAmount?exists> ${sfzfAmount.enablebalance?default("0.00")?number?string("###,###,###,###,##0.00")}<#else>0.00</#if></span></dd>
+	    			</dl>
+	    			<ul class="account">
+						<li class="bank">
+							<label>签约银行：</label>
+							<#if sfzflist?exists>
+							<#list sfzflist as item>
+								<span>${item.bankname!''}|</span>
+							</#list>
+							<#else>
+								<span>未签约</span>
+							</#if>
+							
+						</li>
+						<li class="num">
+							<label>资金账号：</label>
+							<span><#if sfzfMap?exists>${sfzfMap.capitalaccount!''}</#if></span>
+						</li>
+					</ul>
+	    		</div>
+	    	</div> -->
+    	</div>
+    	<div class="total-wrap">
+    		<div class="total">
+    			<dl class="display">
+    				<dt class="title">资产总计（元）</dt>
+    				<dd class="amount"><#if accountinfoMap.zczj?exists>${accountinfoMap.zczj?default("0.00")?number?string("###,###,###,###,##0.00")}<#else>0.00</#if></dd>
+    			</dl>
+    			<ul class="manage clearfix">
+    				<li><label>银行卡：</label>${bank_sum !''}张<a href="bankmanage.html" target="_blank">管理</a></li>
+    				<li><label>资金账户：</label>${account_sum!''}个<a id=""></a></li>
+					<!-- 
+    				<li>红包：6个<a href="">管理</a></li>
+					-->
+    			</ul>
+				<!--
+				<ul id="J_account_info" class="manage clearfix" style="display:none">
+					<li>客户代码:<#if custno?exists> ${custno!''}</#if></li>
+    				<li class="separate"> | </li>
+    				<li>资金账号:
+					<#if signBanklist?exists>
+						<#list signBanklist as item>
+							${item.capitalaccount!''}
+						</#list>
+					</#if>
+					</li>
+    				<li class="separate"> | </li>
+    				<li>营业网点:<#if branchMap?exists>${branchMap.BRANCHNAME!''}</#if></li>
+    				
+    			</ul>
+				-->
+    		</div>
+		</div>
+    	<!--
+    	<div class="asset-statis-wrap">
+    		<div class="asset-statis">
+    			<div class="title clearfix">
+    				<h3>资产情况</h3>
+    				<a class="btn btn-xs btn-grey" >查看</a>
+    			</div>
+        		
+        		<dl>
+        			<dt>今日预期收益（元）</dt>
+        			<dd>
+					<#if currentIncome?exists>
+						${currentIncome?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						0.00
+					</#if> 
+					</dd>
+        		</dl>
+        		<dl>
+        			<dt>今日可灵活变现的理财（元）</dt>
+        			<dd>100,000,000</dd>
+        		</dl>
+				
+        	</div>
+    	</div>
+    	-->
+    </div>
+    <!-- 交易记录 -->
+    <div class="panel-info trade-history">
+    	<div class="titlebar">
+    		<h3 class="title">交易记录</h3>
+    	</div>
+    	<ul class="nav">
+			<li class="nav-one">  <a <#if '${b}' == '10002'> class="current"</#if>  href="account_asset.html?b=10002">债权交易</a></li>
+			<li class="nav-two">  <a <#if '${b}' == '10001'> class="current"</#if>  href="account_asset.html?b=10001">股权交易</a></li>
+    		<li class="nav-three"><a <#if '${b}' == '10003'> class="current"</#if>  href="account_asset.html?b=10003">转让交易</a></li>
+    		<li class="nav-four"> <a <#if '${b}' == '12001'> class="current"</#if>  href="account_asset.html?b=12001">充值</a></li>
+    		<li class="nav-five"> <a <#if '${b}' == '12002'> class="current"</#if>  href="account_asset.html?b=12002">提现</a></li>
+			
+			<#if '${opentype}' == 'AL' || '${opentype}' == 'TP'>
+			<li class="nav-five"> <a <#if '${b}' == '11004'> class="current"</#if>  href="account_asset.html?b=11004">转账转入</a></li> 
+			<li class="nav-five"> <a <#if '${b}' == '11005'> class="current"</#if>  href="account_asset.html?b=11005">转账转出</a></li>
+			</#if>
+    	</ul>
+    	<div class="table-wrap">
+    		<table id="recently" class="records-list">
+			<thead>
+				<tr>
+					<th style="width: 20%;">交易时间</th>
+					<th style="width: 35%;">交易描述</th>
+					<th style="width: 10%;">发生金额</th>
+					<th style="width: 10%;">变动前金额</th>
+					<th style="width: 10%;">余额(元)</th>
+					<th style="width: 15%;">状态</th>
+				</tr>
+			</thead>
+			<#if tradelist?exists>
+			<#list tradelist as item>
+			<tr>
+				<td style="width: 20%;" >
+				<#if item.transactiondate?length gt 0>
+					${item.transactiondate?substring(0,4)}-${item.transactiondate?substring(4,6)}-${item.transactiondate?substring(6,8)}
+				</#if >
+				<#if item.transactiontime?length gt 0>
+					${item.transactiontime?substring(0,2)}:${item.transactiontime?substring(2,4)}:${item.transactiontime?substring(4,6)}
+				</#if>
+				</td>
+				<td class="trade-note" style="width: 35%;" title="${item.specification!''}">${item.specification!''}</td>
+				<td class="num" style="width: 10%;" title="${item.lastconfirmedamount!''}">
+					<#if item.lastconfirmedamount?length gt 0>
+						${item.lastconfirmedamount?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						${item.lastconfirmedamount!''}
+					</#if>
+				</td>
+				<td class="num" style="width: 10%;" title="${item.lastamount!''}">
+				<#if item.lastamount != ''>
+					<#if item.lastamount?length gt 0>
+						${item.lastamount?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						${item.lastamount!''}
+					</#if>
+				<#else>
+				</#if>
+				</td>
+				<td class="num" style="width: 10%;" title="${item.lastamount!''}">
+					<#if item.afteramount?length gt 0>
+						${item.afteramount?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						${item.afteramount!''}
+					</#if>
+				</td>
+				<td style="width: 15%;" title="${item.clearname!''}">${item.clearname!''}</td>
+			</#list>	
+			</tr>
+			<#else>
+				<#if b == '10002'>  
+					<tr><td colspan="6" style="text-align:center;">暂无交易记录</td></tr>
+				</#if>
+				<#if b == '10001'>  
+					<tr><td colspan="6" style="text-align:center;">暂无交易记录</td></tr>
+				</#if>
+				<#if b == '10003'>  
+					<tr><td colspan="6" style="text-align:center;">暂无交易记录</td></tr>
+				</#if>
+				<#if b == '12001'>  
+					<tr><td colspan="6" style="text-align:center;">暂无充值记录</td></tr>
+				</#if>
+				<#if b == '12002'>  
+					<tr><td colspan="6" style="text-align:center;">暂无提现记录</td></tr>
+				</#if>
+				<#if b == '11004'>  
+					<tr><td colspan="6" style="text-align:center;">暂无转账转入记录</td></tr>
+				</#if>
+				<#if b == '11005'>  
+					<tr><td colspan="6" style="text-align:center;">暂无转账转出记录</td></tr>
+				</#if>
+			</#if>
+    		</table>
+			<#if tradelist?exists>
+				<div id="page_trade" class="pager-info" style="width:750px;"></div>
+			</#if>
+    	</div>
+    </div>
+	<!-- 融资记录 -->
+	<div class="panel-info trade-history">
+    	<div class="titlebar">
+    		<h3 class="title">融资记录</h3>
+    	</div>
+    	<ul class="nav">
+			<li class="nav-one">  <a <#if '${dealtype}' == '10002'> class="current"</#if>  href="account_asset.html?dealtype=10002">债权融资</a></li>
+			<li class="nav-two">  <a <#if '${dealtype}' == '10001'> class="current"</#if>  href="account_asset.html?dealtype=10001">股权融资</a></li>
+    	</ul>
+    	<div class="table-wrap">
+    		<table id="recently" class="records-list">
+			<thead>
+				<tr>
+					<th style="width: 20%;">交易时间</th>
+					<th style="width: 35%;">交易描述</th>
+					<th style="width: 10%;">发生金额</th>
+					<th style="width: 10%;">变动前金额</th>
+					<th style="width: 10%;">余额(元)</th>
+					<th style="width: 15%;">状态</th>
+				</tr>
+			</thead>
+			<#if salelist?exists>
+			<#list salelist as item>
+			<tr>
+				<td style="width: 20%;" >
+				<#if item.transactiondate?length gt 0>
+					${item.transactiondate?substring(0,4)}-${item.transactiondate?substring(4,6)}-${item.transactiondate?substring(6,8)}
+				</#if >
+				<#if item.transactiontime?length gt 0>
+					${item.transactiontime?substring(0,2)}:${item.transactiontime?substring(2,4)}:${item.transactiontime?substring(4,6)}
+				</#if>
+				</td>
+				<td class="trade-note" style="width: 35%;" title="${item.specification!''}">${item.specification!''}</td>
+				<td class="num" style="width: 10%;" title="${item.lastconfirmedamount!''}">
+					<#if item.lastconfirmedamount?length gt 0>
+						${item.lastconfirmedamount?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						${item.lastconfirmedamount!''}
+					</#if>
+				</td>
+				<td class="num" style="width: 10%;" title="${item.lastamount!''}">
+				<#if item.lastamount != ''>
+					<#if item.lastamount?length gt 0>
+						${item.lastamount?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						${item.lastamount!''}
+					</#if>
+				<#else>
+				</#if>
+				</td>
+				<td class="num" style="width: 10%;" title="${item.lastamount!''}">
+					<#if item.afteramount?length gt 0>
+						${item.afteramount?default("0.00")?number?string("###,###,###,###,##0.00")}
+					<#else>
+						${item.afteramount!''}
+					</#if>
+				</td>
+				<td style="width: 15%;" title="${item.clearname!''}">${item.clearname!''}</td>
+			</tr>
+			</#list>
+			<#else>
+				<#if dealtype == '10002'>  
+					<tr><td colspan="6" style="text-align:center;">暂无债权融资记录</td></tr>
+				</#if>
+				<#if dealtype == '10001'>  
+					<tr><td colspan="6" style="text-align:center;">暂无股权融资记录</td></tr>
+				</#if>
+			</#if>
+    		</table>
+			<#if salelist?exists>
+				<div id="page_sale" class="pager-info" style="width:750px;"></div>
+			</#if>
+    	</div>
+    </div>
+</div>
+
+
+<script>
+$(function(){
+	$.kd.kdPager.init({
+		pager : 'page_sale',
+		currentPage: '${page!'1'}',
+		totalPage: '${totalSalePage!'0'}',
+		totalRecords: '${totalSaleCount!'0'}',
+		prefix: 'account_asset.html',
+		suffix: function(n) {
+			return  "dealtype=${dealtype}&n=" + n;
+		}
+	});
+
+	$.kd.kdPager.init({
+		pager : 'page_trade',
+		currentPage: '${page!'1'}',
+		totalPage: '${totalPage!'0'}',
+		totalRecords: '${totalCount!'0'}',
+		prefix: 'account_asset.html',
+		suffix: function(n) {
+			return  "b=${b}&n=" + n;
+		}
+	});
+	
+	
+		var urlstr = window.location.href;
+
+	if( urlstr.indexOf("?refresh=true") > -1 ){ 
+		setTimeout(800);
+		window.location.href= "account_asset.html?_"+new Date().getTime();	
+
+	}
+})
+
+	function safeStatus(){
+		window.location.href='myselfinfo.html';
+		safeClick();
+	}
+</script>

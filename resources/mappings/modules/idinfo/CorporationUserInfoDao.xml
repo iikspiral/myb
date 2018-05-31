@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.idinfo.dao.CorporationUserInfoDao">
+    
+    <sql id="entityColumns">
+    	a.ID as id,
+    	a.USER_NAME as userName,
+    	a.ID_CARD as idCard,
+    	a.PHONE_NUM as phoneNum,
+    	a.RDM_NUM as rdmNum
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+    
+    <select id="get" resultType="CorporationUserInfo">
+		SELECT 
+			*
+		FROM CORPORATION_USER_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id} AND (a.del_flag = '0')
+	</select>
+    
+    <select id="getByIdCard" resultType="CorporationUserInfo" parameterType="String">
+		SELECT
+			<include refid="entityColumns"/>
+		FROM CORPORATION_USER_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = '0')
+		<if test="_parameter != null and _parameter != ''">
+			AND a.ID_CARD = #{idCard}
+		</if>
+	</select>
+	
+	<select id="findList" resultType="CorporationUserInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CORPORATION_USER_INFO a 
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag}
+		<if test="userid != null and userid.size() > 0">
+			and a.ID not in
+			<foreach collection="userid" item="userid" index="index"
+	            open="(" close=")" separator=",">
+	            #{userid}
+	        </foreach>
+        </if>
+		<if test="phoneNum != null and phoneNum != ''">
+			 AND a.PHONE_NUM LIKE
+			<if test="dbName == 'oracle'">'%'||#{phoneNum}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{phoneNum}, '%')</if>
+		</if>  
+		<if test="idCard != null and idCard != ''">
+			 AND a.ID_CARD LIKE
+			<if test="dbName == 'oracle'">'%'||#{idCard}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{idCard}, '%')</if>
+		</if> 
+		<if test="userName != null and userName != ''">
+			AND a.USER_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{userName}, '%')</if>
+		</if>	
+		<!-- <if test = 'strList != null and strList.size() >0'> 
+			and a.ID not in
+			<foreach collection="strList" item="userids" index="index"
+	            open="(" close=")" separator=",">
+	            #{userids}
+	        </foreach>
+		</if> -->
+		)
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO CORPORATION_USER_INFO(
+			ID,
+			USER_NAME,
+			ID_CARD,
+			PHONE_NUM,
+			RDM_NUM,
+			REMARKS,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{userName}, 
+			#{idCard}, 
+			#{phoneNum}, 
+			#{rdmNum},
+			#{remarks}, 
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE CORPORATION_USER_INFO SET 
+			USER_NAME = #{userName},
+			ID_CARD = #{idCard},
+			PHONE_NUM = #{phoneNum},
+			RDM_NUM = #{rdmNum},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE CORPORATION_USER_INFO SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<select id="findListNotUsers" resultType="CorporationUserInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CORPORATION_USER_INFO a 
+		<include refid="entityJoins"/>
+		WHERE a.del_flag = '0' 
+		<if test="list != null and list.size() > 0">
+			and a.ID not in
+			<foreach collection="list" item="userid" index="index"
+	            open="(" close=")" separator=",">
+	            #{userid}
+	        </foreach>
+        </if>
+		<if test="phoneNum != null and phoneNum != ''">
+			 AND a.PHONE_NUM LIKE
+			<if test="dbName == 'oracle'">'%'||#{phoneNum}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{phoneNum}, '%')</if>
+		</if>  
+		<if test="idCard != null and idCard != ''">
+			 AND a.ID_CARD LIKE
+			<if test="dbName == 'oracle'">'%'||#{idCard}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{idCard}, '%')</if>
+		</if>  
+		 ORDER BY a.CREATE_DATE 
+	</select>
+</mapper>

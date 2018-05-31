@@ -1,0 +1,939 @@
+.asterisk {
+    font-weight: bold;
+    padding: 0 3px;
+}
+
+.ui_grid_yellow .cash {
+    text-align: right;
+    padding-right: 26px;
+}
+
+.contentHead .breadcrumb {
+    float: left;
+}
+
+.contentHead .goBack {
+    float: right;
+}
+
+.productInfo {
+    margin-top: 5px;
+    min-height: 165px;
+    background-color: #F7F7F7;
+}
+
+.productInfo .title {
+   /*  background: url(../images/dialog3.gif) repeat-x 0 0 */;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #F5F5F5 #F5F5F5 #C9C9C9;
+    height: 27px;
+    line-height: 27px;
+}
+
+.jielidai .productInfo .title {
+    background: #fbf8e5;
+    height: 35px;
+    line-height: 35px;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #c6c6c6;
+}
+
+.productInfo .title .name {
+    float: left;
+    margin-left: 20px;
+    padding-left: 100px;
+}
+
+.jielidai .productInfo .title .name {
+    background: url(../images/jielidai_logo_9622.jpg) no-repeat 0 center;
+}
+
+/* .anyidai .productInfo .title .name {
+    background: url(../images/anyidai_icon-9118.png) no-repeat 0 center;
+} */
+.productInfo .title .detail-promotion{
+    margin-left: 10px;
+    color: #E6551D;
+}
+.productInfo .title .time {
+    display: inline;
+    float: right;
+    margin-right: 20px;
+}
+
+.productInfo .title .product-code {
+    vertical-align: middle;
+}
+
+.productInfo .productDetail {
+    background-color: #F7F7F7;
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+
+.projectLogo {
+    height: 72px;
+    width: 71px;
+    float: left;
+    margin: 0 0 0 30px;
+}
+
+.jielidai .projectLogo {
+    background: url(../images/logo_jielidai_7172.jpg) no-repeat 0 0;
+}
+
+.anyidai .projectLogo {
+    background: url(../images/logo_anyidai_7172.png) no-repeat 0 0;
+}
+
+.productInfo .productDetail .info {
+    float: left;
+    width: 483px;
+    margin-left: 10px;
+}
+
+.seperateLineShadow {
+    background-color: #fff;
+    border-top: 1px solid #e9e4ce;
+    height: 1px;
+    width: 460px;
+    margin-left: 10px;
+}
+
+.productInfo .productDetail .introduction {
+    margin: 10px 0 0 10px;
+    width: 478px;
+}
+
+.productInfo .productDetail .itemList,
+.productInfo .productDetail .item {
+    padding-bottom: 6px;
+  /*   background: url(../images/icon_expires.png) no-repeat -294px 6px;
+    */ padding-left: 12px;
+    line-height: 140%;
+}
+
+.anyidai .productInfo .productDetail .item {
+    padding-bottom: 6px;
+    background: none;
+    padding-left: 0;
+}
+
+.productInfo .productDetail .detail {
+    width: 100%;
+}
+
+.productInfo .productDetail .detail .cash {
+    color: #e6551d;
+}
+
+.productInfo .productDetail .cashAmount {
+    float: right;
+    padding-right: 15px;
+}
+
+.productInfo .productDetail .cashAmount .containerBox {
+    background-color: #FFFFFF;
+    border: 1px solid #E9E9E9;
+    width: 310px;
+    border-radius: 4px;
+    height: auto !important;
+    min-height: 100px;
+    padding: 14px 0 0 20px;
+}
+
+/*.productInfo .productDetail .cashAmount .investAmount {*/
+/*font-size: 15px;*/
+/*font-weight: bold;*/
+/*margin-bottom: 20px;*/
+/*}*/
+
+.productInfo .productDetail .cashAmount .stateButton {
+    color: #106f00;
+    display: inline-block;
+    line-height: 22px;
+    text-align: center;
+}
+
+.productInfo .productDetail .cashAmount .tradeSuccess {
+    color: #999;
+}
+
+.progress-wrap{
+    margin-bottom: 10px;
+}
+.progress-wrap .progress-label{
+    float: left;
+    width: 110px;
+    text-align: right;
+    color: #666;
+}
+
+.progress {
+    width: 180px;
+    height: 10px;
+    border: 1px solid #c0c0c0;
+    background: #e4e4e4;
+    float: left;
+    margin: 3px 10px 0 0;
+}
+
+.progress .bar {
+    background-image: url(../images/bg_progress.png);
+    background-repeat: repeat-x;
+    height: 100%;
+    width: 0%;
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -moz-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+}
+/*css3*/
+@-webkit-keyframes progress-bar-stripes{from{background-position:30px 0}to{background-position:0 0}}
+@-moz-keyframes progress-bar-stripes{from{background-position:30px 0}to{background-position:0 0}}
+@-o-keyframes progress-bar-stripes{from{background-position:0 0}to{background-position:30px 0}}
+@keyframes progress-bar-stripes{from{background-position:30px 0}to{background-position:0 0}}
+
+.progressTxt {
+    font-size: 12px;
+    float: left;
+}
+
+.cashAmount .doneStatus {
+    background: url(../images/success_stamp.png) no-repeat 30px 37px #fff;
+}
+
+.cashAmount .containerBox .doneInfo {
+    color: #106f00;
+    float: right;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    margin: 0 20px 0 0;
+}
+
+.cashAmount .containerBox .operate {
+    margin: 2px 0 8px;
+}
+
+.cashAmount .containerBox label {
+    font-size: 14px;
+}
+
+.cashAmount .containerBox .investAmount {
+    float: left;
+    font-size: 18px;
+    line-height: 36px;
+    width: 140px;
+}
+
+.cashAmount .containerBox .investAmount strong {
+    font-size: 20px;
+    font-family: Arial;
+}
+
+.status {
+    margin: 0 0 15px 0;
+    height: 25px;
+    position: relative;
+    width: 100%;
+}
+
+.balanceAmount {
+    position: absolute;
+    right: 25px;
+    top: 4px;
+}
+
+.balanceAmount .balanceAmountToggle {
+    background: url(../images/balanceAmount_icon.png) 0 -34px no-repeat;
+    padding-left: 20px;
+}
+
+.balanceAmount .balanceAmountToggle.balanceHide {
+    background-position: 0 -20px;
+}
+
+.balanceAmountWrap {
+    background: url(../images/has_arrow_bottom.png) 0 bottom no-repeat;
+    padding: 0 0 5px 0;
+    border: none;
+    box-shadow: none;
+    position: absolute;
+    right: -25px;
+    display: none;
+    top: 16px;
+}
+
+.balanceAmountWrap .innerBalanceAmount {
+    background: url(../images/has_arrow_top.png) 0 0 no-repeat;
+    padding: 15px 10px 0;
+    width: 231px;
+}
+
+.amountFormat {
+    font-size: 14px;
+}
+
+.rechargeAmount {
+    color: #E6551D;
+    font-size: 14px;
+}
+
+.contentWrapper .productInfo .productDetail .cashAmount .containerBox .btns span {
+    width: auto; /*fix the ie bug*/
+}
+
+.sellTime {
+    margin: 0 0 10px 0;
+}
+
+.sellTime .sellDate {
+    color: #106f00;
+}
+
+.productInfo .productDetail .cashAmount .btns {
+    float: right;
+    margin-right: 20px;
+}
+
+.productInfo .productDetail .cashAmountBottom {
+   /*  background: url("../images/invest_msgBox_bottom_232x8.png") no-repeat right 0;
+   */  height: 8px;
+    width: 310px;
+}
+
+.productInfo .productDetail .investBtn {
+    float: right;
+    margin-top: 6px;
+}
+
+.productInfo .productDetail .description {
+    text-align: right;
+    color: #666;
+}
+
+.productInfo .productDetail .description,
+.productInfo .productDetail .descriptData {
+    padding-bottom: 10px;
+}
+
+.productInfo .productDetail .dataTitle {
+    border-bottom: 1px dashed #333;
+}
+
+.productInfo .productDetail .dataTitle:hover {
+    cursor: pointer;
+}
+
+.productInfo .productDetail .description.first {
+    width: 95px;
+}
+
+.productInfo .productDetail .descriptData .icon {
+    margin-left: 5px;
+    vertical-align: bottom;
+}
+
+/*new ui*/
+.productInfo .productDetail .descriptData {
+    font-size: 16px
+}
+
+.productInfo .productDetail .descriptData span.investRate {
+    color: #e6551d;
+    font-weight: bold;
+}
+
+/*contentDetail*/
+.contentDetail {
+    margin-top: 20px;
+}
+
+.contentDetail .leftWrap {
+    float: left;
+    height: auto;
+    width: 680px;
+}
+
+.contentDetail .leftWrap .tabsWrap {
+    background-color: #FFF1D4;
+    border: 1px solid #E4E4E4;
+    padding-top: 5px;
+}
+
+.contentDetail .leftWrap .description {
+    min-height: 70px;
+}
+
+.jielidai .contentDetail .leftWrap .tabsWrap {
+    background-color: #eee;
+}
+
+.contentDetail .leftWrap .productTabs {
+    float: left;
+    margin-left: 10px;
+}
+
+.contentDetail .leftWrap .productTabs .normalTab {
+    border: 1px solid #dedede;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    background-color: #f9f9f9;
+    float: left;
+    margin-right: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 135px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.contentDetail .leftWrap .productTabs .selectedTab {
+    background-color: #fff;
+    cursor: default;
+    position: relative;
+    bottom: -1px;
+}
+
+.contentDetail .leftWrap .tabsWrap .more {
+    float: right;
+    margin: 5px 20px 0 0;
+}
+
+.contentDetail .leftWrap .tabContentsWrap {
+    border-color: #E4E4E4;
+    border-style: solid;
+    border-width: 0 1px 1px;
+    padding: 20px;
+}
+
+.contentDetail .leftWrap .description {
+    text-indent: 2em;
+    line-height: 200%;
+}
+
+.contentDetail .leftWrap .ui_grid_yellow {
+    margin-top: 20px;
+}
+
+.contentDetail .leftWrap .ui_grid_yellow th {
+    background-color: #eee;
+}
+
+.contentDetail .leftWrap .ui_grid_yellow .totle {
+    color: #e6551d;
+    font-weight: bold;
+}
+
+.contentDetail .leftWrap .ui_grid_yellow .caption {
+    height: 20px;
+    line-height: 20px;
+    padding: 10px 0;
+    text-align: left;
+}
+
+.contentDetail .leftWrap .ui_grid_yellow .unit {
+    padding-left: 10px;
+    font-weight: normal;
+}
+
+.contentDetail .leftWrap .ui_grid_yellow .even td {
+    background-color: #F5F5F5;
+}
+.contentDetail .leftWrap .ui_grid_yellow th {
+    width: 100px;
+}
+.contentDetail .leftWrap .ui_grid_yellow td {
+    width: 80px;
+}
+.contentDetail .leftWrap .ui_grid_yellow td:first-child,
+.contentDetail .leftWrap .ui_grid_yellow th:first-child {
+    width: 30px
+}
+.contentDetail .leftWrap .ui_grid_yellow .repaymentDate {
+    width: 120px;
+}
+.contentDetail .leftWrap .ui_grid_yellow th.last-col {
+    width: 110px;
+}
+.contentDetail .leftWrap .ui_grid_yellow td.last-col {
+    width: 90px;
+}
+.contentDetail .leftWrap .table-fixed{
+    position:fixed;
+    top:0;
+    margin:0;
+    width:638px;
+    z-index:100 ;
+    background: #fff;
+}
+
+.contentDetail .leftWrap .comments {
+    margin-top: 20px;
+    line-height: 20px;
+}
+
+.contentDetail .leftWrap .comments .item {
+   /*  background: url(../images/icon_expires.png) no-repeat -294px 8px;
+    */ padding-left: 12px;
+}
+
+.common_wrap .content_wrap .content .creditNotEnoughPanel tr td {
+    padding: 0;
+    height: 20px;
+}
+
+.creditNotEnoughPanel tr td.firstCol {
+    text-align: right;
+    width: 110px;
+}
+
+/*contentDetail rightWrap*/
+.contentDetail .rightWrap {
+    float: left;
+    margin-left: 20px;
+    width: 260px;
+}
+
+.rightWrap .noticeProduct img {
+    border: 1px solid #F5F5F5;
+}
+
+.countIt {
+    background: #f5f5f5;
+    font-size: 18px;
+    color: #666;
+    float: right;
+    height: 60px;
+    text-align: center;
+    width: 160px;
+    line-height: 27px;
+    margin: -24px 8px 0 0;
+}
+
+.countIt p {
+    font-size: 14px;
+    color: #333;
+}
+
+.countIt span {
+    color: #106f00;
+}
+
+.userStatusError {
+    height: 38px;
+    line-height: 38px;
+    background: #fbeee8;
+    border: 1px solid #e96937;
+    padding: 0 0 0 20px;
+    display: none;
+    width: 310px;
+}
+
+.userStatusError i.icon {
+    margin: 0 5px 0 0;
+}
+
+.userStatusError .divider {
+    color: #e6551d;
+    margin-left: 5px;
+}
+
+.itemTitle {
+    margin: 0 0 6px 0;
+    float: left;
+    font-weight: bold;
+}
+
+.itemMore {
+    float: right;
+}
+
+.auctionBox {
+    float: right;
+    margin: 0 20px 0 0;
+    width: 330px;
+   /*  background: url("../images/invest_msgBox_bottom_232x8.png") no-repeat right bottom;
+    */ padding-bottom: 8px;
+}
+
+.auctionInner {
+    border: 1px solid #e7e7e7;
+    border-bottom: none;
+    padding: 5px 25px 15px 25px;
+    background: #fff url("../images/auction_icon.png") no-repeat right top;
+}
+
+.currentStatus {
+    font-size: 20px;
+    float: left;
+}
+
+.currentStatus .currentInfo {
+    font-size: 14px;
+}
+
+.currentPrice {
+    color: #e6551d;
+}
+
+.auctionBox .btns {
+    float: right;
+    margin: 22px 0 0;
+}
+
+.auctionBox .status {
+    margin: 0;
+}
+
+.auctionBox .status .balanceAmount {
+    right: 0;
+}
+
+.countDownStatus {
+    background: #f5f8ff;
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid #e6f0d2;
+    text-align: center;
+    font-size: 14px;
+}
+
+.countDownStatus span {
+    color: #e6551d;
+}
+
+.auctionRecord {
+    border: 1px solid #e4e4e4;
+    margin: 0 0 10px 0;
+    max-height: 190px;
+}
+
+.auctionRecord .auctionRecordTitle {
+    height: 30px;
+    line-height: 30px;
+    background: #fff1d4;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 0 0 25px;
+}
+
+.auctionRecord .auctionRecordTitle span {
+    color: #699dd7;
+}
+
+.auctionRecordList {
+    width: 100%;
+}
+
+.auctionRecordList td,
+.auctionRecordList th {
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+    padding: 0 0 0 10px;
+    width: 33%;
+}
+
+.auctionRecordList th {
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    background: #f7f7f7;
+    height: 30px;
+    line-height: 30px;
+}
+
+.auctionRecordList tr.highest td {
+    color: #e6551d;
+}
+
+.auctionRecordList td:first-child,
+.auctionRecordList th:first-child {
+    padding: 0 0 0 25px;
+}
+
+.auctionRecordListWrap {
+    height: 103px;
+    overflow: hidden;
+}
+
+.auctionRecordListWrapAutoHeight {
+    height: auto;
+}
+
+.raisingRecord {
+    border: 1px solid #e4e4e4;
+    margin: 0 0 10px 0;
+    max-height: 190px;
+}
+
+.raisingRecord .raisingRecordTitle {
+    height: 30px;
+    line-height: 30px;
+    background: #fff1d4;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 0 0 25px;
+}
+
+.raisingRecord .raisingRecordTitle span {
+    color: #699dd7;
+}
+
+.raisingRecordList {
+    width: 100%;
+}
+
+.raisingRecordList td,
+.raisingRecordList th {
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+    padding: 0 0 0 10px;
+    width: 33%;
+}
+
+.raisingRecordList th {
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    background: #f7f7f7;
+    height: 30px;
+    line-height: 30px;
+}
+
+.raisingRecordList tr.highest td {
+    color: #e6551d;
+}
+
+.raisingRecordList td:first-child,
+.raisingRecordList th:first-child {
+    padding: 0 0 0 25px;
+}
+
+.raisingRecordListWrap {
+    height: 103px;
+    overflow: hidden;
+}
+
+.raisingRecordListWrapAutoHeight {
+    height: auto;
+}
+
+
+.emptyRecord td {
+    padding: 0 0 0 20px;
+}
+
+#bidHistory {
+    min-height: 25px;
+}
+.calculator-wrap {
+    margin: 20px 0 0 0;
+    height: 22px;
+    line-height: 22px;
+}
+.calculator-wrap .calculator-link {
+    float: right;
+   /*  background: url("../images/calculator-icon.png") no-repeat 0 center;
+    */ padding-left: 20px;
+}
+
+.calculator-wrap .calculator-info {
+    margin: 0 0 0 10px;
+}
+
+.productInfo .productDetail .descriptData .can-transfer-min-holding {
+    font-size: 12px;
+    color: #E6551D;
+    cursor: pointer
+}
+
+.productInfo .productDetail .descriptData .can-transfer-min-holding .mouseTips {
+    color: #333;
+}
+
+.productInfo .productDetail .descriptData .can-transfer-min-holding .mouseTips span {
+    display: block;
+}
+
+.productInfo .productDetail .descriptData .can-transfer-min-holding .mouseTips a {
+    color: #2438CD;
+}
+
+.mark-up-info {
+    color: #666;
+    margin: 10px 0 5px 0;
+}
+
+.mobile-only-error {
+    height: 38px;
+    line-height: 38px;
+    background: #fbeee8;
+    border: 1px solid #e96937;
+    padding: 0 0 0 5px;
+}
+.mobile-only-error .divider {
+    color: #e6551d;
+    margin-left: 5px;
+}
+.mobile-only-error a {
+    font-size: 14px;
+}
+.mobile-only {
+    background: url("../images/mobile_label.png") right top no-repeat;
+}
+
+.contentDetail .leftWrap .collection-list {
+    margin-top: -1px;
+}
+
+.productInfo .productDetail .raise-detail .description.first {
+    width: 65px;
+    padding-left: 18px;
+    text-align: left;
+}
+
+.raiseLineShadow {
+    margin-bottom: 10px;
+}
+
+.raise-inner {
+    background-image: none;
+    padding: 5px 15px 15px 20px;
+    border: 1px solid #e7e7e7;
+}
+
+.productInfo .productDetail  .raise-inner .btns {
+    margin-top: 2px;
+    margin-right: 0;
+}
+
+.raise-inner label {
+    display: block;
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+.reduce-btn,
+.plus-btn {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 36px;
+   /*  background: #eee url("../images/plus-icons.png") 0 -36px no-repeat; */
+    cursor: pointer;
+}
+
+.plus-btn {
+    background-position: -20px -36px;
+}
+
+.reduce-btn.disabled:hover,
+.reduce-btn.disabled {
+    cursor: default;
+    background-color: #eee;
+    background-position: 0 0;
+}
+
+.plus-btn.disabled:hover,
+.plus-btn.disabled {
+    cursor: default;
+    background-color: #eee;
+    background-position: -20px 0;
+}
+
+.reduce-btn:hover {
+    background-color: #ea5404;
+    background-position: 0 -72px;
+}
+
+.plus-btn:hover {
+    background-color: #ea5404;
+    background-position: -20px -72px;
+}
+
+.inputs-gather {
+    float: left;
+}
+
+.raise-operate {
+    margin: 0 0 10px;
+    width: 290px;
+}
+
+.raise-input {
+    width: 93px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 16px;
+    border: 1px solid #999;
+    float: left;
+    box-shadow: 1px 1px 1px #ccc inset;
+    padding: 0 0 0 5px;
+}
+
+.raise-inner {
+    border-radius: 4px;
+}
+
+.raise-inner .status {
+    margin-bottom: 0;
+}
+
+.raise-inner label.error {
+    background: #FBEEE8 url(../images/error.gif) 5px center no-repeat;
+    font-size: 12px;
+    padding: 0 0 0 20px;
+    display: block;
+    line-height: 34px;
+    height: 34px;
+}
+
+.raise-info {
+    margin: 0 0 5px;
+}
+
+.raise-info span {
+    color: #666;
+    margin: 0 10px 0 0;
+}
+
+.productDetailRaiseTable {
+    float: left;
+}
+
+.raise-input.error {
+    border: 1px solid #ab3f0e;
+}
+
+.calculator-raise {
+    margin: 10px 0 0 0;
+    height: 25px;
+    line-height: 25px;
+}
+
+.contentDetail .leftWrap .raise-collection {
+    margin-top: 10px;
+}
+
+.calculator-raise .calculator-info {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+.showStatus {
+    width: 290px;
+}
+.raise-inner .status {
+    *float: right;
+    *width: 290px;
+}
+.raise-data {
+    width: 38%;
+}

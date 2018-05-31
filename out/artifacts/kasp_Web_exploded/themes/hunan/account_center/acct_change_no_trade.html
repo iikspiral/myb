@@ -1,0 +1,263 @@
+<script type="text/javascript" src="${staticserver}/hunan/common/js/libs/kjax.des.js"></script>
+<link rel="stylesheet" href="${staticserver}/hunan/css/floorform.css">
+<style type="text/css">
+	body{
+		background-color: #FAFAFA;
+	}
+	.order-page .order-board{
+		background-color: #FFFFFF;
+	}
+	.floorform .floor .property{
+		width: 100px;
+	}
+</style>
+
+ <div class="container order-page">
+        <div class="border-titlebar">
+            <h2 class="title">转账</h2>
+        </div>
+        <div class="order-board transfer-board">
+            <#if sfzfinfo?exists>
+			<form class="floorform" name="accttradeForm" id="accttradeForm">
+				
+                <div class="floor">
+                    <label class="property">账户余额</label>
+                    <div class="value">
+                        <span class="num">${sfzfinfo.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}</span>
+                        <span class="unit">元</span>
+                    </div>
+                </div>
+                <div class="floor">
+                    <label class="property">资金账户</label>
+                    <div class="value">
+                        <span >${sfzfinfo.capitalaccount!''}</span>
+                    </div>
+                </div>
+
+				<div class="floor">
+                    <label class="property">转入方用户名</label>
+                    <div class="value">
+                        <input type="text" id="name" name="name" value="" datatype="*" nullmsg="转入方用户名不能为空" errormsg="请输入用户名!">
+                    </div>
+                </div>
+                <div class="floor">
+                    <label class="property">转入方姓名</label>
+                    <div class="value">
+                        <input type="text" id="incustname" name="incustname" value="" datatype="zh2-24" nullmsg="转入方客户姓名不能为空" errormsg="请输入中文名字!">
+                    </div>
+                </div>
+                <div class="floor">
+                    <label class="property">转出金额</label>
+                    <div class="value">
+                        <input type="text" id="applicationamount" name="applicationamount" value=""  datatype="/^[0-9]\d*(\.\d+)?$/" nullmsg="金额不能为空" errormsg="金额输入有误!">
+                        <span class="unit">元</span>
+                    </div>
+                </div>
+                <div class="floor">
+                    <label class="property">手机验证码</label>
+                    <div class="value" style="width:350px;">
+                        <input type="text" id="txt_validatecode" name="txt_validatecode" datatype="n6-6"  errormsg="请输入6位数字验证码！">
+                        <a class="getCaptcha btn-lg btn-whiteblue" id="get_captcha" class="linkButton" value="获取验证码" name="button" >获取验证码</a>
+						<label id="valitecodetip"  value="" class="property"  style="width:400px;display:none;">
+							验证码已发送到您尾号为****
+							<#if mobiletel?exists>
+								${mobiletel!''}	
+							</#if>
+							的手机上
+						</label>
+						
+                    </div>
+                </div>
+                <div class="floor">
+                    <label class="property">交易密码</label>
+                    <div class="value">
+                        <input id="trdpwd"  value="" type="password"  datatype="n6-6" nullmsg="交易密码不能为空!" errormsg="请输入6位数字密码">
+						<input id="outcapitalpwd" name="outcapitalpwd" value="" type="hidden">
+                    </div>
+                </div>
+                <div class="actionArea" style="padding-left: 90px;">
+                    <input type="button" class="btn btn-md btn-orange" id="acct_change_no_trade"  value="确认转账">
+                </div>
+            </form>
+			<#else>
+				<li class="kd-form-style-item" style="width:550px;">
+					<label class="kd-form-style-label">&nbsp;</label>
+					<span class="kd-form-style-value" >
+						<strong>转账只支持三方支付资金账户之间的资金变动。</strong>
+					</span>
+			    </li>
+			</#if>	
+            <div class="kind-tips">
+                <h3 class="title">温馨提示</h3>
+                <ol class="tips">
+                    <li>您的账户资金将由第三方平台托管。</li>
+                    <li>转账过程遇到问题，请联系客服，0771-5716611。</li>
+                    
+                </ol>
+            </div>
+        </div>
+    </div>
+
+<!--验证码-->
+ <div id="codeimgdiv" style="display:none">
+ <div style="">
+	<li  style="width: 380px;">
+	<label class="kd-form-style-label" style="width:60px">验证码</label>
+		<span class="kd-form-style-value">
+		<input name="validcode" style="width:60px;height:30px;float:left;vertical-align:middle;border: 1px solid #EFEFEF;" type="text" value='' id="validcode" datatype="*" class="input" errormsg="请输入右侧的验证码！"/>
+		<img id="codeimg" style="width: 100px;height: 30px;float:left;margin: 4px;vertical-align: middle;cursor: pointer;border: 1px solid #EFEFEF;" title="看不清楚？" src="${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime();" onclick="$(this).attr('src', '${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime())"></img>
+		<span class="kdValidform_checktip" style="vertical-align:middle;">请输入验证码！</span>
+		</span>
+	</li>
+	<input type="hidden" id='hiddencode' />
+ </div>
+ </div>
+<script>
+var $accttradeForm;
+$(function(){
+	$accttradeForm = $("#accttradeForm").kdValidform();
+})
+
+$("#acct_change_no_trade").bind("click",function(){
+	acct_change_no_trade();
+})
+
+
+
+
+function acct_change_no_trade(){
+	$accttradeForm = $("#accttradeForm").kdValidform();
+	var _tradepwd = $("#trdpwd").val();
+	var _tradepwd_ = $.des.getDes(_tradepwd);	
+	$("#outcapitalpwd").val(_tradepwd_);
+	var options = {
+		type:"post",
+		async:true,
+		url:"mall/hunan_accttrade!accttrade.do?ajax=yes",
+		success:function(redata){
+			var data = eval("("+redata+")")
+			if(data.result == '1'){
+				zhejiang_alert('消息',"转账成功!",function(){
+					window.location.href = "acct_change_no_trade.html?_="+ (new Date()).getTime();
+				
+				},'消息')
+			}else if(data.result == '0'){
+				if(data.message == '转入方支付渠道不正确!'){
+					zhejiang_alert('消息','转入账户非三方支付账户!',function(){	
+					$("#acct_change_no_trade").attr("disabled", false);
+					$.kd.closeLoading($("#acct_change_no_trade"));
+					$("#trdpwd").val("");
+				})
+				}
+				
+				zhejiang_alert('消息','转账失败,'+data.message,function(){	
+					$("#acct_change_no_trade").attr("disabled", false);
+					$.kd.closeLoading($("#acct_change_no_trade"));
+					$("#trdpwd").val("");
+				})
+			
+				}
+		
+		},
+		error:function(redata){
+			zhejiang_alert('消息',"转账过程中发生网络异常,请确认您的账户资金!",function(){
+				window.location.href = "account_asset.html?_N"+ (new Date()).getTime();
+			});
+		}
+	
+	}
+	if($accttradeForm.check()){
+		$("#acct_change_no_trade").css("disabled",true)
+		zhejiang_alert('消息',"转账前请确认您的信息,如信息无误，请点击确定",function(){
+			$("#acct_change_no_trade").attr("disabled", true);
+			$.kd.showLoading($("#acct_change_no_trade"), "正在转账处理中");
+			$("#accttradeForm").ajaxSubmit(options)
+		},function(){},'提示')
+		
+	}
+
+}
+
+	$("#get_captcha").bind('click',function(){
+			var wa = $("#get_captcha").val();
+			var array = wa.match(/\d+/);
+			if(!(array==null)){
+				wa = array[0];
+			}
+			if( wa && wa >0 && wa < 300){
+				return ;
+			}
+			checkcode(60,$("#get_captcha"));
+	
+		});
+
+	
+	function checkcode(wait,$btn){
+    	$("#codeimg").attr('src','${kasp_url}validcode.do?vtype=admin&rmd=' + new Date().getTime());
+    	
+    	zhejiang_confirm('消息',$('#codeimgdiv').html(), function(){
+			$("#hiddencode").val($("#validcode",$("#confirmWindow")).val());
+    		sendcode(wait,$btn);
+    	});
+    }
+
+	function sendcode(wait,$btn){
+   		
+   		var code = $("#hiddencode").val();
+   		$.post(
+			'mall/hunan_accttrade!sendMsg.do', 
+			{validcode:code}, 
+				function(data) {
+				if(data.result==0){
+					zhejiang_alert('消息',data.message,null);
+					return false;
+				}else{
+					$("#valitecodetip").css("display","block");
+					$.kd.kdMsg('验证码已发送!');  
+					timeCounter(wait,$btn);
+				};
+   		},"json");
+   	}
+	
+		function timeCounter(wait,$btn) {  
+        if (wait == 0) {  
+			$("#valitecodetip").css("display","none");
+        	$btn.attr("disabled", false).val("获取验证码");            
+            wait = 60;  
+        } else {  
+			
+        	$btn.attr("disabled", "disabled").val("重新发送(" + wait + ")");  
+            wait--;  
+            setTimeout(function() {  
+                timeCounter(wait,$btn)  
+            },  
+            1000)  
+        }  
+    }
+	
+	function valitecode(){
+		var code = $("#txt_validatecode").val();
+		var mobiletel = $("#mobiletel").val();
+		var $accttradeForm;
+		$accttradeForm = $("#accttradeForm")
+		datas = {
+			txt_validatecode:code
+		}
+		
+		$.post(
+			'mall/hunan_phoneSend!isValidatCodeMatch.do?ajax=yes"', 
+			{txt_validatecode:code}, 
+				function(data) {
+				if(data.result=='1'){
+					acct_change_no_trade();
+				}else{
+					zhejiang_alert('消息',data.message,function(){
+						window.location.href = 'acct_change_no_trade.html';
+					});
+						return;
+				};
+   		},"json");
+
+	}
+
+</script>

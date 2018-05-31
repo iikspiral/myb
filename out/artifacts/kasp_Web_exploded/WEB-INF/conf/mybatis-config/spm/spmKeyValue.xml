@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.szkingdom.spm.entity.SpmKeyValueEntity">
+ 
+	<select id="querySpmKeyValue" parameterClass="com.szkingdom.spm.key.SpmKeyValueKey" resultClass="java.lang.String">
+		<![CDATA[
+		    select value from spm.spm_keyvalue where serverid = #serverId# and exchangeid = #exchangeId# and key = #key#
+		]]>
+	</select>
+	
+</sqlMap>  

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<forwards>
+
+	<global-forward>
+
+		<forward name="failure" code="1" path="/page/failure.jsp"/>
+
+		<forward name="success" code="0" path="/page/success.htm"/>
+
+		<forward name="default" code="default" path="/welcome.jsp"/>
+
+	</global-forward>
+
+</forwards>
+

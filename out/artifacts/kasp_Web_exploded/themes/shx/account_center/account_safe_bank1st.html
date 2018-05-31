@@ -1,0 +1,332 @@
+<!--  1st    -->
+			<div id="openform" class="form-box" style="display: none;overflow: hidden;">
+				<div id="openAndBind" class="form-box-content" >
+					<div class="options-step" style="display: none">
+						<div class="options-step-con">
+							<span>选择账户<strong>1</strong></span>
+							<span>选择银行<strong>2</strong></span>
+							<!--<span >设置交易密码<strong>3</strong></span>-->
+							<span>成功<strong>3</strong></span>
+						</div>
+					</div>
+					<div class="stepcontent" style="margin-left: 100px;padding-top: 20px; text-align: center; display: block">
+						<div class="form-box-left3" style="border:none">
+							
+							<dl id="latestWithdraw" class="user-drawings-bank clearfix" style="display: block;">
+							<#if signBanklist?exists>
+								<#list signBanklist as signBank>
+								
+	                			<dd id="latestCard" class="current">
+									<span class="user-drawings-bank-num" style="display:block">
+										<#assign leng=signBank.bankaccount?length>
+										<#if signBank.bankaccount?length gte 10>
+										${signBank.bankaccount?substring(0,3)}**********${signBank.bankaccount?substring(leng-4)}
+										<#else>
+											${signBank.bankaccount}
+										</#if>
+									</span>
+									<img src="${signBank.banklogo!''}" width="143" height="38"> 
+									<div class="dropbankcard">
+									
+									<span><a id="dropcard_${signBank.channelno}" _channeltype="${signBank.channeltype}" bankaccount="${signBank.bankcode}">解绑</a></span>
+									</div>
+									<input name="capitalaccount" value="${signBank.capitalaccount!''}" type="text" class="input" readonly="" style="display:none">
+				                    <input name="channelno" value="${signBank.channelno!''}" type="text" class="input" readonly="" style="display:none">
+				                    <input name="channelname" value="${signBank.channelname!''}" type="text" class="input" readonly="" style="display:none">
+				                    <input name="custname" value="${signBank.custname!''}" type="text" class="input" readonly="" style="display:none">
+								</dd>
+							
+							</#list>
+							</#if>
+							<dd id="latestCard" >
+									<a  href="javascript: banknext1()">
+										<div class="addbankcard">添加银行卡</div>
+									</a>									
+							</dd>
+						
+	                </dl>		
+						</div>
+					</div>
+					
+					
+		<div class="stepcontent bindcard1" style="height: 250px; text-align: center;">
+		<!------------------------个人账户、机构账户只可以选择对应的账户类型--------------------------------------------------->
+		<#if safeStatus?exists>
+			<#if safeStatus.individualorinstitution == "0">
+			<div class="form-box-left2" style="display:block">
+				<a id="personalAccount " class="selectbtn" href="javascript: banknext1()">个人账户</a>
+				<span></span>
+			</div>
+			<#elseif safeStatus.individualorinstitution == "1">
+			<div class="form-box-right2" style="display:block">
+				<a id="organizeAccount" class="selectbtn" href="javascript: banknext2()">机构账户</a>
+				<span></span>
+			</div>
+			<#else>
+			<div class="form-box-left2">
+				<a id="personalAccount " class="selectbtn" href="javascript: banknext1()">个人账户</a>
+				<span></span>
+			</div>
+			<div class="form-box-right2">
+				<a id="organizeAccount" class="selectbtn" href="javascript: banknext2()">机构账户</a>
+				<span></span>
+			</div>
+			</#if>
+		</#if>	
+		</div>	
+		<!-----------------------------------------------个人开户 ------------------------------------------------------------------>	
+		
+					<div class="stepcontent bindunit" style="height:auto!important;height:530px;min-height:530px;overflow:hidden">
+						<div class="form-box-left1">
+							<form id="openAccountForm" method="post">
+							<input class="accounttype" name="personalaccount" value="0" type="hidden"/>
+							<span class="form-item-title">身份信息</span>
+							<ul id="userinfo" class="kd-form-style" style="height: 180px">
+							<li class="kd-form-style-item need itemWidth">
+		                    <label class="kd-form-style-label">营业部<em>*</em></label>
+		                    <span class="kd-form-style-value">
+		                    
+		                    <select id="yyb" name="branchcode" class="select"  >
+					
+							 <#if yywd?exists>
+							 <#list yywd as yyb >
+							 	 <option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+							 </#list>
+							 </#if>
+						 	 </select>	
+		                    </span>
+							<input name="branchcodeflag" value="1" style="display:none" type="text">
+		                </li>						
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">真实姓名<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" value="${chineseName!''}" type="text" class="input" datatype="zh2-4" nullmsg="请输入真实姓名！" errormsg="请输入2-4个中文的真实姓名！" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">身份证号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" value="${certificateno!''}" type="text" class="input" datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" />
+									</span>
+								</li>					
+										
+							</ul>
+						
+						<!--------------------------------------三方支付开户--------------------------------------------------->
+						
+						<div id="thirdpayopen" class="thirdpayopen" >
+						<div id="bankselect_unit"  >
+						<span class="form-item-title" style="padding-left:20px">选择银行</span>
+							<#if thirdpaybanklist?exists && (thirdpaybanklist?size>3)>
+							<span class="form-item-title" style="float:right;padding-right:48px"> <a href="javascript:void(0)" onclick="showMorBank(this)" >更多&gt;</a></span>
+							</#if>
+							<div class="bank-list" style="height:100px;min-height:60px;width:500px;overflow:hidden">
+								<ul>
+									<#if thirdpaybanklist?exists>
+										<#list thirdpaybanklist as item> 
+										<#if item.bankcode?exists && item.bankcode == "701">
+										<#else>
+										<li class='isBank1 <#if item.selected="1">selected</#if>' title="${item.bankname!''}" code="${item.bankcode!''}">
+											<label>
+												<img src="${item.banklogo!''}" width="143" height="38">
+												<span class="checked"></span>
+												<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd}"/>
+												<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard}"/>
+												<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd}"/>
+												<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+											</label>
+										</li>
+										</#if>
+									    </#list> 
+ 	  								</#if> 
+								</ul>
+							</div>
+						</div>
+							<div class="bank-list-remark" style="display: none">
+								<span class="bank-list-remark-title">温馨提示：</span>
+								<p>
+									请确保您已开通中国工商银行网银业务，此步骤完成后须到工行网上银行进行三方存管指定操作后才可进行投资交易。 
+									<br><a href="/getmore.html?type=icbc">工行指定三方存管操作指引</a>
+								</p>
+							</div>
+							<!------------三方支付开户页面--------------->
+							<#include 'account_safe_bank5ve.html'>
+						</div>
+					</form>
+					</div>
+					<div class="form-box-right1">
+						<span>请确保输入的姓名与身份证号码跟银行卡的姓名、身份证号一致，否则将无法绑定成功。<br>不想绑定了，先去<a href="/index.html">逛逛吧</a>！</span>
+					</div>
+					</div>
+				
+		<!------------------------------------------------------机构开户---------------------------------------------------------->			
+		<div class="stepcontent bindorg"  style="height:auto!important;height:530px;min-height:530px;overflow:hidden">
+			<div class="form-box-left1">
+				<form id="openOrgAccountForm" method="post">
+				<input class="accounttype" name="organizeaccount" value="1" type="hidden"/>
+				<span class="form-item-title">机构信息</span>
+				<ul id="orginfo" class="kd-form-style" style="height: 180px">
+					<li class="kd-form-style-item need itemWidth">
+		                    <label class="kd-form-style-label">营业部<em>*</em></label>
+		                    <span class="kd-form-style-value">
+		                    
+		                    <select id="yyb" name="branchcode" class="select" >
+							 <!--  <option value="1110">河北金交在线直属网点</option> -->
+							 <#if yywd?exists>
+							 <#list yywd as yyb >
+							 	 <option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+							 </#list>
+							 </#if>
+						 	 </select>	
+		                    </span>
+							<input name="branchcodeflag" value="1" style="display:none" type="text">
+		                </li>
+					<li class="kd-form-style-item need itemWidth">
+						<label class="kd-form-style-label">企业名称<em>*</em></label>
+						<span class="kd-form-style-value">
+							<input name="certificateName" value="${chineseName!''}" type="text" class="input" datatype="*" nullmsg="请输入真实企业名称！" errormsg="请输入真实企业名称！" />
+					
+						</span>
+					</li>
+					<li class="kd-form-style-item need itemWidth">
+						<label class="kd-form-style-label">证件类型<em>*</em></label>
+						<span class="kd-form-style-value">
+							<select id="certificatetype" name="certificatetype" class="select" >
+							 	<#if certTypeList?exists>
+							 	<#list certTypeList as item >
+							 		<option value="${item.subitem}">${item.subitemname}</option>
+							 	</#list>
+							 	</#if>
+						 	 </select>	
+						</span>
+					</li>
+					<li class="kd-form-style-item need itemWidth">
+						<label class="kd-form-style-label">证件号码<em>*</em></label>
+						<span class="kd-form-style-value">
+							<input name="certificateNo" value="${certificateno!''}" type="text" class="input" datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" />
+						</span>
+					</li>
+				</ul>
+	
+				
+				<div id="thirdpayOrgopen" name="thirdpayOrgopen" >
+				<div id="bankselect_unit"  >
+						<span class="form-item-title" style="padding-left:20px">选择银行</span>
+							<#if thirdpaybanklist?exists && (thirdpaybanklist?size>3)>
+							<span class="form-item-title" style="float:right;padding-right:48px"> <a href="javascript:void(0)" onclick="showMorBank(this)" >更多&gt;</a></span>
+							</#if>
+							<div class="bank-list" style="height:100px;min-height:60px;overflow:hidden;width:500px;">
+								<ul>
+									<#if thirdpaybanklist?exists>
+										<#list thirdpaybanklist as item> 
+										<#if item.bankcode?exists && item.bankcode == "701">
+										<#else>
+										<li class='isBank1 <#if item.selected="1">selected</#if>' title="${item.bankname!''}" code="${item.bankcode!''}">
+											<label>
+												<img src="${item.banklogo!''}" width="143" height="38">
+												<span class="checked"></span>
+												<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd}"/>
+												<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard}"/>
+												<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd}"/>
+												<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+											</label>
+										</li>
+										</#if>
+									    </#list> 
+ 	  								</#if> 
+								</ul>
+							</div>
+						</div>
+				<div class="bank-list-remark" style="display: none">
+					<span class="bank-list-remark-title">温馨提示：</span>
+					<p>
+						很抱歉!本中心暂未开通河北金交在线业务,请选择河北金交在线。 
+						<!--<br><a href="/getmore.html?type=icbc">中行指定三方存管操作指引</a>-->
+					</p>
+				</div>
+				<#include 'account_safe_bank7se.html'>
+				</div>
+				</form>
+			</div>
+			<div class="form-box-right1">
+				<span>请确保输入的姓名与身份证号码跟银行卡的姓名、身份证号一致，否则将无法绑定成功。
+				<br>不想绑定了，先去<a>逛逛吧</a>！</span>
+			</div>
+		</div>
+					
+					
+					<div class="stepcontent" style="height: 250px">
+						<div class="form-box-left1">
+							<div style="text-align: center; padding-top: 60px;">恭喜你，绑定成功！</div>
+						</div>
+						<div class="form-box-right1">
+							<span>您的账户资金将由第三方支付平台托管,为了您的资金安全，请您在充值前完成邮箱、手机绑定及密码保护，我要<a>设置密码保护</a>！</span>
+						</div>
+					</div>
+				
+				</div>
+				
+				<div class="link-trigger" onclick="toggleRemark($(this))" style="display:none">绑定三方支付前你需要了解<span> </span></div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">
+							1.您的账户资金将由第三方支付平台托管。
+						</li>
+						<li class="list-rule-item">
+							2.为了您的资金安全，请您在充值前完成手机绑定，身份认证及交易密码设置。
+						</li>
+						<li class="list-rule-item">
+							3.绑定三方支付过程遇到问题，请联系客服，400-8655-056（09：00 - 17：00）
+						</li>
+					</ul>
+				</div>
+			</div>
+			<#include 'account_safe_bank3rd.html' /> 
+			
+			<!--  1st    -->
+<script>
+var $openAccountForm,$openOrgAccountForm;
+$(function(){
+
+	$openAccountForm = $("#openAccountForm").kdValidform();
+	$openOrgAccountForm = $("#openOrgAccountForm").kdValidform();
+})
+
+
+function showMorBank(self){
+	$this = $(self);
+	//var text= $this.attr("text");
+	//var html = $this.text();
+	//$this.css("color","gray").attr("text",html).text(text);
+	/**
+	if(text == "<<less"){
+		$(".bank-list").css("height","auto");
+	}else{
+		$(".bank-list").css("height","100px");
+		$this.css("color","blue");
+	}*/
+	$(".bank-list").css("height","auto");	
+}
+
+	
+$(function(){
+	$("#latestCard span a").bind("click",function(){
+		var self = $(this);
+		var channelno = self.attr("_channeltype");
+		var bankaccount = self.attr("bankaccount");
+			var params = {};
+			params.bankaccount = bankaccount;
+			if(channelno == '06'){
+				$("#openform").css("display","none");
+				$("#dropform").css("display","block");
+			}else if(channelno == '01'){
+				$("#openform").css("display","none");
+				$("#dropthirdform").css("display","block");
+				$.kutil.pageReload("account_unbindingbank.html",params);
+			}
+			
+	
+	})
+})
+
+</script>

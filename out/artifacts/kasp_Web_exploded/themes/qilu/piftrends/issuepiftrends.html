@@ -1,0 +1,42 @@
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/addborrow.css">
+<div id="container" class="contentAndSideBar clearfix" style="width: 1045px;background: white;">
+<div class="pageNav">当前位置：<a href="/index.html">首页</a>&gt;<span class="current">发布项目动态</span></div>	
+<div id="leftnav" class="addproject left">
+			<div id="step" class="step" style="margin-bottom: 5px;">
+				<ul>
+		            <li <#if type="basic">class="cur"</#if>>
+		            	<span class="nav1">&nbsp;</span>
+		            	<span class="text">
+		            		<a href="javascript: void(0);" onclick="changeTab('basic');">信息动态</a>
+		            	</span>
+		            	<span class="backend">&nbsp;</span>
+		            </li>
+		             <li <#if type ="extend">class="cur"</#if>>
+		            	<span class="nav2">&nbsp;</span>
+		            	<span class="text">
+		            		<a href="javascript: void(0);" onclick="changeTab('extend');">文档型信息动态</a>
+		            	</span>
+		            	<span class="backend">&nbsp;</span>
+		            </li>
+		            <li class="save clearfix">
+		                <a href="javascript: save();" class="save"><span></span>保存</a>                
+		                <a href="javascript: void(0);" onclick="preview();" class="preview"><span></span>预览</a>
+		            </li>
+		        </ul>
+	        </div>
+</div>
+<div id="rightcontent" class="addproject right">
+			<#include 'issuetrend_${type!""}.html'/>
+</div>
+</div>	
+<script>
+ function changeTab(type){
+ 		if("${type}" == type) return;
+		if(true) {
+			window.location.href = '/issuetrends.html?type=' + type + '&pifid=${pifid}&productid=${productid}';	
+		} else {
+			$.kd.kdAlert("请先填写项目基本信息！");
+		}
+  }
+
+</script>

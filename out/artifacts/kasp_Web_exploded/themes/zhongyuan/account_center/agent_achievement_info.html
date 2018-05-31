@@ -1,0 +1,45 @@
+
+		<table class="table">
+			<tr>				
+				<th style="width:40px;">序号</th>
+				<th style="width:200px;">投资者用户名</th>
+				<th style="width:150px;">姓名</th>
+				<th style="width:150px;">投资额度</th>	
+			</tr>
+			<#if jjrlist?exists>
+  			<#list jjrlist as item>
+			<input id="invitorcustid" value="${item.invitorcustid}" type="hidden">
+			<tr style="font-size:12px;">							
+			<td>${item.ROWNUM_!""}</td>												
+			<td>${item.username!""}</td>	
+			<td>${item.chinesename!''}</td>			
+			<td>${item.confirmedamount?default("0.00")?number?string("###,###,###,###,##0.00")}</td>
+			</tr>			
+			</#list>
+			<#else>
+			<td colspan="4" style="text-align:center;">暂无投资记录</td>
+			</#if>
+		</table>
+		
+		<div id="page_agent" class="pager-info"></div>
+
+	
+	</div>
+
+		<script type="text/javascript">
+			$(function() {
+				var invitorcustid = $("#invitorcustid").val()
+				$.kd.kdPager.init({
+					pager:'page_agent',
+					currentPage: '${currentPage_achievement!"1"}',
+					totalPage: '${totalPage_achievement!"0"}',
+					totalRecords: '${totalCount_achievement!"0"}',
+					prefix: '/recommend_records.html',
+					suffix: function(n) {
+						return 'type=agentdetail&invitorcustid='+invitorcustid+'&page=' + n;
+					},
+					tagurl:'/recommend_records.html?type=agentdetail&invitorcustid='+invitorcustid+'&page='
+				});
+			});
+		</script>
+</div>

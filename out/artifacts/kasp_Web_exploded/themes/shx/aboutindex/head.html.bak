@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>高新普惠</title>
+		<meta name="Keywords" content="高新普惠,普惠投资,普惠众筹,众筹平台,山西,综合金融服务">
+		<meta name="description" content="高新普惠是山西最大的众筹平台。专注于中小微企业众筹融资项目，为创业者和投资人提供公平、透明、安全、高效的众筹服务。好项目，上高新普惠!">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+		<link rel="shortcut icon" href="${staticserver}/shx/standard/ico/favicon.ico">
+		<link rel="stylesheet" href="${staticserver}/shx/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/common/css/kd.ui.plugin.css">	
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/css/platform/kd.ui.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/shx/css/platform/kd.tools.validate.css">
+		<!--
+		
+		<link href="${staticserver}/shx/common/js/libs/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet"> 
+		-->
+		<link rel="stylesheet" href="${staticserver}/shx/css/common.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/iconfont/iconfont.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/home.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/account.css">
+		
+		<link rel="stylesheet" href="${staticserver}/shx/css/jquery.bxslider.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/jquery.myslider.css">
+		<link rel="stylesheet" href="${staticserver}/shx/css/tooltip-classic.css">
+		
+		<script src="${staticserver}/shx/js/jquery-1.11.1.min.js"></script>
+		<script src="${staticserver}/shx/js/jquery-migrate-1.2.1.js"></script>
+		<script src="${staticserver}/shx/js/libs/jquery-form.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/shx/bootstrap/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="${staticserver}/shx/standard/js/jquery.autoscroll.js"></script>		
+		
+
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.tools.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.tools.validate.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/pop-up box.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/json2.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/jquery.bex.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/jquery.kutil.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/js/organictabs.jquery.js"></script>
+		<script type="text/javascript" src="${staticserver}/shx/common/js/kd.ui.plugin.js"></script> 
+
+		<script src="${staticserver}/shx/js/jquery.bxslider.min.js"></script>
+		<script src="${staticserver}/shx/js/jquery.myslider.js"></script>
+
+
+		<script  type="text/javascript" >
+				var  tmp_href = window.location.href ; 
+				if ( tmp_href.indexOf("gaoxinzb.com") > -1 || tmp_href.indexOf("phzc88.com") > -1 || tmp_href.indexOf("phtz88.com") > -1 ) {  
+						if ( window.location.hostname.toLowerCase().indexOf("www.") == -1  ) {
+						window.location.href = window.location.protocol +"//www."+ window.location.hostname +window.location.pathname+window.location.search ;
+					}
+				}
+				if( tmp_href.indexOf("gaoxinzb.cn") > -1 ) {
+					window.location.href = window.location.protocol +"//www.gaozinzb.com"  +window.location.pathname+window.location.search ;
+				}
+
+		</script>
+		
+		<!--<script src="http://s95.cnzz.com/z_stat.php?id=1255742469&web_id=1255742469" language="JavaScript"></script>-->
+
+
+	</head>
+<body>
+
+<div class="shx_nav">
+	<div class="nav_con">
+    	<ul class="nav_l">
+        	<li class="app tooltip tooltip-effect-1">
+        		<a class="tooltip-item" href="javascript:void(0);">
+        			<i class="iconfont">&#xe636;</i><span>移动客户端</span>
+        		</a>
+        		<div class="tooltip-content clearfix">
+        			<img src="${staticserver}/shx/images/tooltip_coming_soon.png">
+        		</div>
+        	</li>
+        	<li><a href="javascript: void(0);" onclick="guid()">新手指引</a></li>
+        	<li class="hotline">服务电话：<b>400-078-4888</b></li>
+        </ul>
+        <div class="nav_r">
+            <#if isLogin>
+	        	<ul>
+	                <li class="username">
+	                	<a href="${kasp_url}account_asset.html"><i class="iconfont">&#xe626;</i>${username!''}</a>
+	                </li>
+	                <li><a href="account_asset.html">我的账户</a></li>
+	                <li><a href="financing.html">我的理财</a></li>
+	                <li><a href="myCrowdfunding.html">我的众筹</a></li>
+	                <li><a href="charge.html">我要充值</a></li>
+	                <li class="last"><a  id="J_custlogout" href="javascript: void(0);">退出</a></li>
+	            </ul>
+        	<#else>
+        		<ul>
+	                <li><a href="login.html">登录</a></li>
+	                <li><a href="register.html">个人注册</a></li>
+	                <li class="last"><a href="registerorg.html" style="background:none;">机构注册</a></li>
+	            </ul>	
+        	</#if>
+        </div>
+    </div>
+</div>
+<div class="header">
+	<div class="container">
+		<h1 class="logo">
+			<a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}index.html">高新普惠众筹平台</a>
+	    </h1>
+	    <div class="txt"><img src="${staticserver}/shx/imagesshx/slogan.png" width="221" height="33"></div>
+		<ul>
+			<li class="current"><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}index.html">首页</a></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kisp_url}">债权众筹</a></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kcsp_url}">股权众筹</a></li>
+	    	<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}news.html">最新动态</a></li>
+	    	<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}research.html">行业研究</a></li>
+	    	<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}notice.html">平台公告</a></li>
+	    	<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}aboutus.html">关于我们</a></li>
+	    </ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	//主导航下拉菜单
+	$(document).ready(function(){
+		$('li.nav').mousemove(function(){
+		$(this).find('ul').slideDown();//you can give it a speed
+		});
+		$('li.nav').mouseleave(function(){
+		$(this).find('ul').slideUp("fast");
+		});
+	});
+
+    setTimeout(function(){
+    	var rightlogin = $("#rightlogin1");
+    	rightlogin.css("display","block").animate({top:0,right:190},600).animate({top:0,right:115},800)},1200);
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+	
+	$(window).scroll(function(){
+	if ($(this).scrollTop() > 200){
+		$('.go-top').slideDown('normal');
+	} else {
+		$('.go-top').slideUp('normal');
+	}
+   });
+	// 返回顶部动画效果
+	$('.go-top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({scrollTop: 0}, 600);
+	}); 
+	   
+});
+
+function guid(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=guide_shx_kfsp");
+ }  
+
+</script>
+
+<script type="text/javascript">
+	var fileserver = "${fileserver}";
+	var fileaction = "${fileserver}/file!upload.do";
+	window.umesession = document.cookie.replace("undefined; ", "").replace(" undefined;", "");
+	
+	$(function() {
+		$("#J_custlogout").bind("click", function() {
+			zhejiang_confirm("提示","确定要退出吗？", function() {
+				$.post("mall/newlogin!newlogout.do",
+						{},
+						function(data) {
+							var result = $.parseJSON(data); 
+							if ( result.result == 1) {
+								window.location.href = "login.html";
+							
+							} else {
+								rdmAlert(result.message);
+							}   					
+						}
+					);
+			});    	
+		});
+	});
+	var cookies =  document.cookie.split(";");
+	for (idx in cookies) {
+	if ( cookies[idx].indexOf("JSESSIONID") > -1) {
+		window.umesession = cookies[idx];				 
+	   }
+	}
+	
+
+</script>
+

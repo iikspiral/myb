@@ -1,0 +1,278 @@
+@charset "UTF-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.shadow-inset {
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+.transition {
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.scalease {
+  -webkit-transition: -webkit-transform 0.6s ease;
+  transition: transform .6s ease;
+}
+.scalease:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.statis-home {
+  height: 32px;
+  margin-top: 10px;
+}
+.statis-home .amount,
+.statis-home .time {
+  float: left;
+  margin-right: 40px;
+  font-size: 18px;
+  line-height: 32px;
+  color: #666666;
+}
+.statis-home .amount em,
+.statis-home .time em {
+  color: #f85a2a;
+  font-size: 26px;
+}
+.statis-home .amount:before {
+  float: left;
+  content: '';
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  background: url(../images/home_icons.png) no-repeat 0 0;
+}
+.statis-home .time:before {
+  float: left;
+  content: '';
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  background: url(../images/home_icons.png) no-repeat -32px 0;
+}
+.statis-home .guidelines {
+  float: right;
+}
+.statis-home .guidelines a {
+  font-size: 14px;
+  line-height: 32px;
+  color: #333333;
+}
+.statis-home .guidelines a:hover {
+  color: #1a1a1a;
+}
+.for-newbie {
+  margin-bottom: 10px;
+}
+.for-newbie .title {
+  padding: 0 20px !important;
+  text-align: center;
+}
+.products-recommended {
+  margin-bottom: 10px;
+}
+.for-vip {
+  margin-bottom: 20px;
+}
+.advans-sub {
+  margin: 30px 0;
+}
+.advans-sub .slogan {
+  font-size: 24px;
+  line-height: 60px;
+  height: 60px;
+  text-align: center;
+  color: #000;
+  position: relative;
+}
+.advans-sub .slogan p {
+  display: inline-block;
+}
+.advans-sub .slogan p .en {
+  display: inline-block;
+  font-size: 30px;
+  color: #ff4902;
+  font-weight: bold;
+}
+.advans-sub .slogan p em {
+  color: #3a9bfc;
+}
+.advans-sub .slogan:before {
+  position: absolute;
+  top: -14px;
+  left: 212px;
+  display: inline-block;
+  content: '';
+  width: 24px;
+  height: 55px;
+  margin-top: 20px;
+  background: url(../images/icons_invest.png) no-repeat -520px 0;
+}
+.advans-sub .slogan:after {
+  position: absolute;
+  top: -14px;
+  right: 212px;
+  display: inline-block;
+  content: '';
+  width: 24px;
+  height: 55px;
+  margin-top: 20px;
+  background: url(../images/icons_invest.png) no-repeat -541px 0;
+}
+.advans-sub .advans-four .rate {
+  width: 96px;
+  height: 96px;
+  background: url(../images/icons_invest.png) no-repeat 0 0;
+}
+.advans-sub .advans-four .guarantee {
+  width: 96px;
+  height: 96px;
+  background: url(../images/icons_invest.png) no-repeat -96px 0;
+}
+.advans-sub .advans-four .yield {
+  width: 96px;
+  height: 96px;
+  background: url(../images/icons_invest.png) no-repeat -192px 0;
+}
+.advans-sub .advans-four .liquidity {
+  width: 96px;
+  height: 96px;
+  background: url(../images/icons_invest.png) no-repeat -288px 0;
+}
+.advans-sub .actionArea {
+  text-align: center;
+  height: 50px;
+}
+.advans-sub .actionArea .btn {
+  width: 456px;
+  height: 48px;
+  line-height: 48px;
+  border-bottom: 3px solid #0881fb;
+}
+.advans-sub .actionArea .btn:active {
+  border-bottom-color: transparent;
+}
+.advans-crowdfund .slogan p .en {
+  font-size: 34px;
+  font-weight: bold;
+  color: #000;
+}
+.advans-crowdfund .slogan p .triangle {
+  display: inline-block;
+  margin: 0 0 -5px 12px;
+  width: 43px;
+  height: 27px;
+  background: url(../images/icons_crowdfund.png) no-repeat -508px -126px;
+}
+.advans-crowdfund .slogan:before {
+  position: absolute;
+  top: -14px;
+  left: 365px;
+  display: inline-block;
+  content: '';
+  width: 24px;
+  height: 55px;
+  margin-top: 20px;
+  background: url(../images/icons_crowdfund.png) no-repeat -919px -58px;
+}
+.advans-crowdfund .slogan:after {
+  position: absolute;
+  top: -14px;
+  right: 365px;
+  display: inline-block;
+  content: '';
+  width: 24px;
+  height: 55px;
+  margin-top: 20px;
+  background: url(../images/icons_crowdfund.png) no-repeat -941px -58px;
+}
+.advans-crowdfund .advans-seven .select {
+  background: url(../images/icons_crowdfund.png) no-repeat 0 0;
+}
+.advans-crowdfund .advans-seven .invest {
+  background: url(../images/icons_crowdfund.png) no-repeat -263px 0;
+}
+.advans-crowdfund .advans-seven .getshares {
+  background: url(../images/icons_crowdfund.png) no-repeat -527px 0;
+}
+.advans-crowdfund .advans-seven .tobeholder {
+  background: url(../images/icons_crowdfund.png) no-repeat -790px 0;
+}
+.advans-crowdfund .advans-seven .arrow {
+  background: url(../images/icons_crowdfund.png) no-repeat -134px -55px;
+  height: 12px;
+  margin-top: 60px;
+}
+.lastest-recommend .products-new {
+  float: left;
+  width: 835px;
+  height: 270px;
+  margin-bottom: 20px;
+}
+.lastest-recommend .products-new .product .thumbnail,
+.lastest-recommend .products-new .product .thumbnail a,
+.lastest-recommend .products-new .product .thumbnail a img {
+  width: 480px;
+  height: 270px;
+}
+.lastest-recommend .products-new .product .content {
+  width: 310px;
+}
+.lastest-recommend .shortcuts {
+  float: right;
+  width: 230px;
+}
+.lastest-recommend .shortcuts a {
+  display: block;
+  width: 200px;
+  height: 80px;
+  margin-bottom: 12px;
+  padding: 25px 15px;
+}
+.lastest-recommend .shortcuts a h3 {
+  font-size: 22px;
+  line-height: 36px;
+  color: #ffffff;
+}
+.lastest-recommend .shortcuts a span {
+  margin-top: 5px;
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  color: #ffffff;
+}
+.lastest-recommend .shortcuts > a + a {
+  margin-bottom: 0;
+}
+.lastest-recommend .shortcuts .investment {
+  background-color: #f46322;
+}
+.lastest-recommend .shortcuts .financing {
+  background-color: #05c471;
+}
+.lastest-recommend .shortcuts .financing span {
+  margin-top: 20px;
+}
+.products-index .crowdfund-cards .card {
+  margin-bottom: 10px;
+}

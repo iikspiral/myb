@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="../css/user-account-center.css">
+<script type="text/javascript" src="../js/libs/kjax.des.js"></script>
+
+<div class="rightcontent">	      
+	<div class="user-content">
+		  <#include 'account_safe_verify.html' />
+	</div>
+</div>
+
+<script>
+	$(function() {
+	 		 
+		$("span.user-safety-options-state").bind("click", function() {
+			var txt = $(this).text();
+			$(this).text($(this).attr("switchtext")).attr("switchtext", txt);
+
+			var $tmp = $(this).closest("div").next();
+			var $ct = $("div.form-box:visible").not($tmp);
+			if ($ct.size() > 0) {
+				$ct.slideUp();
+				$ct = $(".user-safety-options-state", $ct.parent());
+				txt = $ct.text();
+				$ct.text($ct.attr("switchtext")).attr("switchtext", txt);
+			}
+
+			if ($tmp.is(":visible")) {
+				$tmp.slideUp();
+			} else {
+				$tmp.slideDown();
+			}
+		});
+		var nowtext=$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).text();
+		//var swithtext=$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).attr("switchtext");
+		$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).text($("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).attr("switchtext")).attr("switchtext",nowtext)
+		$("div.form-box", $("a[name=${op!''}]").parent()).toggle();
+	});
+	function prev($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+
+		var $prev = $curstep.prev();
+
+		if ($prev.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").prev()
+					.addClass("options-step-current");
+		}
+
+		$this.next().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.prev().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+
+	function next($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+		var $next = $curstep.next();
+
+		if ($next.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").next()
+					.addClass("options-step-current");
+		}
+
+		$this.prev().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.next().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+</script>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.mobile.dao.MobileVerifyDao">
+    
+	<sql id="mobileVerifyColumns">
+    	a.*
+    </sql>
+    
+	<select id="get" resultType="MobileVerify">
+		SELECT
+			<include refid="mobileVerifyColumns"/>
+		FROM mobile_verify a
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="findList" resultType="MobileVerify">
+		SELECT
+			<include refid="mobileVerifyColumns"/>
+		FROM mobile_verify a
+		WHERE a.del_flag = #{delFlag}
+		<if test="phoneNum != null and phoneNum != ''">
+			AND a.phone_num = #{phoneNum}
+		</if>
+	</select>
+
+	<select id="unquieVerifyCode" resultType="MobileVerify" parameterType="String">
+		SELECT
+		<include refid="mobileVerifyColumns"/>
+		FROM mobile_verify a
+		WHERE a.del_flag = '0'
+		<!--<if test="verifyCode != null and verifyCode != ''">-->
+		<if test="_parameter != null and _parameter != ''">
+			AND a.verify_code = #{verifyCode}
+		</if>
+	</select>
+	
+	<select id="findAllList" resultType="MobileVerify">
+		SELECT
+			<include refid="mobileVerifyColumns"/>
+		FROM mobile_verify a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mobile_verify(
+			id,
+			device_type,
+			device_num,
+			phone_num,
+			verify_code,
+			send_date,
+			create_by, 
+			create_date, 
+			update_by, 
+			update_date, 
+			remarks, 
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{deviceType},
+			#{deviceNum},
+			#{phoneNum},
+			#{verifyCode},
+			#{sendDate},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mobile_verify SET
+			device_type = #{deviceType},
+			device_num = #{deviceNum},
+			phone_num = #{phoneNum},
+			verify_code = #{verifyCode},
+			send_date = #{sendDate},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	
+	<update id="delete">
+		UPDATE mobile_verify SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

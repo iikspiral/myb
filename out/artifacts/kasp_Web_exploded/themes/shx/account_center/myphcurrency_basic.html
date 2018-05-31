@@ -1,0 +1,488 @@
+ <style type="text/css">
+ select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 1px #000;
+
+  /*很关键：将默认的select选择框样式清除*/
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+
+
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px;
+}
+
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; }
+ </style>
+ 
+ <div class="account-main">
+                <div class="simple-titlebar clearfix">
+                    <h2 class="title">我的普惠币</h2>
+                </div>
+
+                <div class="container-full">
+                </div>
+
+                <div class="container-full">
+                    <div class="statis-asset clearfix">
+                        <dl class="border-box" style="width:140px">
+                            <dt>可用普惠币</dt>
+                            <dd>${phcurrencyTotal!'0'}</dd>
+                            <dd>（单位：个）</dd>
+                        </dl>
+                        <dl class="border-box" style="width:140px">
+                            <dt>累积收到普惠币</dt>
+                            <dd>${receivedsum!'0'}</dd>
+                            <dd>（单位：个）</dd>
+                        </dl>
+                        <dl class="border-box" style="width:140px">
+                            <dt>累积使用普惠币</dt>
+                            <dd>${usedsum!'0'}</dd>
+                            <dd>（单位：个）</dd>
+                        </dl>
+                    </div>
+                    <div class="tabs-filter" id="accountTabs">
+                        <ul class="nav clearfix">
+                            <li class="nav-one"><a id="buy" href="#buying" class="current" >普惠币发放明细</a></li>
+                            <li><span>|</span></li>
+                            <li class="nav-two"><a id="con" href="#consume"  >普惠币消费记录</a></li>
+                        </ul>
+                        <div class="list-wrap" id="buying">
+                        <form style="width:101% !important" class="account-records-filter floorform" >
+    		<div class="floor date">
+    			<label class="property">发放日期</label>
+    			<div class="value">	    			
+					<input name="startdate" id="J_startdate" readonly="readonly" type="text" onfocus="WdatePicker({dateFmt:'yyyyMMdd'})" value="${sendDate!''}">
+	    			<span>至</span>
+	    			<input name="enddate"  id="J_enddate"  readonly="readonly" type="text" onfocus="WdatePicker({dateFmt:'yyyyMMdd'})" value="${deadlineDate!''}">
+	    		</div>
+    		</div>
+    		<div class="floor category">
+    			<label class="property">来源</label>
+    			<div class="value">
+    				<select id="J_source" name="b" >
+						<option value="${sourceid!''}">${sourcename!'全部'}</option>
+						<#if sourcelist?exists>
+	                                <#if (sourcelist?size>0)>
+	                                    <#assign i = 0>
+									<#list sourcelist as item>
+	                                    <#assign i = i + 1>
+    					<option value="${item.sourceid}" >${item.sourcename}</option>
+    					</#list>
+    					</#if>
+						</#if>
+    				</select>
+    			</div>
+    		</div>
+    		<input class="btn-action btn-orange btn-lg" type="button" value="查询" onclick="query();">
+    	</form>
+							<div>
+                            	<table class="records-table">
+	                                <thead>
+	                                    <tr>
+	                                        <th>发放时间</th>
+	                                        <th>使用规则</th>
+	                                        <th>发放数量（个）</th>
+	                                        <th>可用数量（个）</th>
+	                                        <th>普惠币来源</th>
+	                                        <th>失效时间</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>	
+								 
+								 		<#if phlist?exists>
+	                                <#if (phlist?size>0)>
+	                                    <#assign i = 0>
+									<#list phlist as item>
+	                                    <#assign i = i + 1>
+	                                    <tr>
+	                                        <td>${item.sendDate}</td>
+	                                        <td>${item.useName}</td>
+	                                        <td>${item.phAmount}</td>
+	                                        <td>${item.leftAmount}</td>
+	                                        <td>${item.sourceName}</td>
+	                                        <td>${item.deadlineDate!''}</td>
+	                                    </tr>
+	                                 	 </#list>
+	                                 <#else>
+	                                 	 <tr>
+	                                        <td colspan="7">暂无记录</td>
+	                                    </tr>
+									</#if>
+									</#if>
+									
+	                                </tbody>
+                            	</table>
+                            	
+                            	<div id="page_has" class="pager-info" style="width: 750px; display: block;"><div class="page_nav"><span style="cursor:pointer;" class="prev"  id="lastPage" onclick="lastPage();">上一页</span><span class="curr">${currentPage!'1'}</span><span style="cursor:pointer;" class=" next" id="nextPage" onclick="nextPage();">下一页</span><span class="normalsize">共${totalPage!'0'}页&nbsp;/&nbsp;${count!'0'}条记录</span></div></div>
+                            	
+								<!-- <div id="page_doing" class="pager-info" style="width:750px;display:none;"></div> -->
+							</div>					
+                        
+                        
+                        
+                        
+                        </div>	
+                    
+                    	 <div id="consume" class="hide">
+                    	 
+                    	 
+                    	 <div>
+                            	<table class="records-table">
+	                                <thead>
+	                                    <tr>
+	                                        <th>消费时间</th>
+	                                        <th>消费用途</th>
+	                                        <th>消费数量（个）</th>
+	                                        <th>消费状态</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>	
+								 
+								 		<#if listConsume?exists>
+	                                <#if (listConsume?size>0)>
+	                                    <#assign i = 0>
+									<#list listConsume as item>
+	                                    <#assign i = i + 1>
+	                                    <tr>
+	                                        <td>${item.useDate}</td>
+	                                        <td>${item.useName}</td>            
+	                                        <td>${item.useAmount}</td>
+	                                         <td>已消费</td>
+	                                    </tr>
+	                                 	 </#list>
+	                                 <#else>
+	                                 	 <tr>
+	                                        <td colspan="7">暂无消费记录</td>
+	                                    </tr>
+									</#if>
+									</#if>
+									
+	                                </tbody>
+                            	</table>
+                            	
+                            	<div id="page_has" class="pager-info" style="width: 750px; display: block;"><div class="page_nav"><span style="cursor:pointer;" class="prev"  id="lastPage" onclick="lastPageConsume();">上一页</span><span class="curr">${currentPageConsume!'1'}</span><span style="cursor:pointer;" class=" next" id="nextPage" onclick="nextPageConsume();">下一页</span><span class="normalsize">共${totalPageConsume!'0'}页&nbsp;/&nbsp;${countConsume!'0'}条记录</span></div></div>
+                            	
+								<div id="page_doing" class="pager-info" style="width:750px;display:none;"></div>
+							</div>	
+                    	 
+                    	 
+                    	 </div>
+                    
+                    
+                    </div>
+					</div>
+</div>
+<script>
+function nextPage(){
+//alert("hehe");
+	var cu = ${currentPage!'0'};
+//	alert(cu);
+//	alert(parseInt(cu)+1);
+	var tot=${totalPage!'0'};
+	var sendate = $("#J_startdate").val();
+	var deadlinedate = $("#J_enddate").val();
+	var sourceid = $("#J_source").val();
+	var url="";
+	if(cu==tot){
+	 url="javascript:void(0);"
+	}else{
+	var curr= parseInt(cu)+1;
+
+	url =  "myphcurrency.html?sendDate="+sendate+"&&deadlineDate="+deadlinedate+"&&sourceId="+sourceid+"&&currentPage="+curr;
+	}
+	window.location.href=url;
+
+}
+
+function lastPage(){
+var cu = ${currentPage!'0'};
+var tot=${totalPage!'0'};
+	var sendate = $("#J_startdate").val();
+	var deadlinedate = $("#J_enddate").val();
+	var sourceid = $("#J_source").val();
+var url="";
+ if(cu=='1'){
+  url="javascript:void(0);"
+ }else{
+ var cur = parseInt(cu)-1;
+ url = "myphcurrency.html?sendDate="+sendate+"&&deadlineDate="+deadlinedate+"&&sourceId="+sourceid+"&&currentPage="+cur;
+ }
+ window.location.href=url;
+}
+
+
+function nextPageConsume(){
+//alert("hehe");
+	var cu = ${currentPageConsume!'0'};
+//	alert(cu);
+//	alert(parseInt(cu)+1);
+	var tot=${totalPageConsume!'0'};
+	var url="";
+	if(cu==tot){
+	 url="javascript:void(0);"
+	}else{
+	var curr= parseInt(cu)+1;
+
+	url =  "myphcurrency.html?currentPageConsume="+curr+"&tab=2";
+	}
+	window.location.href=url;
+	// $("#con").css("class","current");
+	 $("#con").addClass("current"); 
+	 $("#buy").deleteClass("current");
+	 // $("#buy").css("class","");
+	 // $("#buying").css("class","hide");
+	 
+}
+
+function lastPageConsume(){
+var cu = ${currentPageConsume!'0'};
+var url="";
+ if(cu=='1'){
+  url="javascript:void(0);"
+ }else{
+ var cur = parseInt(cu)-1;
+ url = "myphcurrency.html?currentPageConsume="+cur+"&tab=2";
+ }
+ window.location.href=url;
+}
+
+function query(){
+		var sendate = $("#J_startdate").val();
+	//	alert(sendate);
+		var deadlinedate = $("#J_enddate").val();
+//		alert(sendate);
+		var sourceid = $("#J_source").val();
+//		alert(sendate);
+		var url = "myphcurrency.html?sendDate="+sendate+"&&deadlineDate="+deadlinedate+"&&sourceId="+sourceid;
+//		alert(url);
+		//var url = "myphcurrency.html";
+		//var data = {sendDate:sendate,deadlineDate:deadlinedate,sourceId:sourceid};
+		//$.kutil.pageReload(url,data);
+		window.location.href=url;
+	}	
+
+
+        $("#accountTabs").organicTabs({
+            "speed": 100
+        });
+        $(".records-table tbody tr:nth-child(even)").addClass("changebg");
+		//显示哪个标签页
+		<#if tab??>
+		var tab = "${tab}";
+		if(tab != "" && tab != null){
+			$("#accountTabs ul li:eq("+tab+") a").click();
+			if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#holden"){
+			     $("#page_has").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","none");
+			}else if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#buying"){
+			     /* $("#page_has").css("display","none"); */
+				 $("#page_doing").css("display","block");
+				 /* $("#page_order").css("display","none"); */
+			}else if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#order"){
+			      $("#page_has").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","block");
+			}
+		}
+		</#if>
+		
+		
+		
+		
+		$("#accountTabs ul li a").click(function(){
+		    if($(this).attr("href")=="#holden"){
+			     $("#page_has").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","none");
+			}else if($(this).attr("href")=="#buying"){
+			     /* $("#page_has").css("display","none"); */
+				 $("#page_doing").css("display","block");
+				/*  $("#page_order").css("display","none"); */
+			}else if($(this).attr("href")=="#order"){
+			      $("#page_has").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_order").css("display","block");
+			}
+		})
+</script>
+<script type="text/javascript">
+$(function(){
+//已持有的
+	$.kd.kdPager.init({
+		pager : 'page_has',
+		currentPage: 'aaapage_has!'1'}',
+		totalPage: 'aaatotalPage_has!'1'}',
+		totalRecords: 'aaatotalCount_has!'0'}',
+		prefix: 'financing.html',
+		suffix: function(n) {
+			return "page_has=" + n+"&tab=0";
+		},
+		tagurl:'financing.html?page_has='
+	});
+	
+	//已买入的
+	$.kd.kdPager.init({
+		pager : 'page_doing',
+		currentPage: 'aaapage_doing!'1'}',
+		totalPage: 'aaatotalPage_doing!'1'}',
+		totalRecords: 'aaatotalCount_doing!'0'}',
+		prefix: 'financing.html',
+		suffix: function(n) {
+			return "page_doing=" + n+"&tab=2";
+		},
+		tagurl:'financing.html?page_doing='
+	});
+	
+	//我的订单
+		$.kd.kdPager.init({
+		    pager : 'page_order',
+			currentPage: 'aaapage_orderlist!'1'}',
+			totalPage: 'aaatotalPage_orderlist!'1'}',
+			totalRecords: 'aaatotalCount_orderlist!'0'}',
+			prefix: 'financing.html',
+			suffix: function(n) {
+				return generalParam() +"&page=" + n+"&tab=4";
+				
+			}
+		});
+})
+//获取参数
+function generalParam() {
+			var currentpaymethod = $("#currentpaymethod").val();
+			var currenttype = $("#currenttype").val();
+			param = "paymethod="+currentpaymethod+"&dealtype="+currenttype;
+			return param ;
+		}
+//转让
+function judge2(id, onlyid) {
+	var datas ={
+		id:id,
+		onlyid:onlyid
+		}
+	window.location.href = "ssologin.html?deal_action=jump&pageto="+encodeURIComponent("aaakisp_url}bondtransfer.html?id="+id+"&onlyid="+onlyid);
+}
+//买入
+function buy(id){
+   var datas ={
+		id:id
+	}
+	window.location.href =
+	"ssologin.html?deal_action=jump&pageto=aaakisp_url}bondorderdeal.html&pagefrom=aaakisp_url}&datas="+JSON.stringify(datas);
+}
+//撤单
+function cancel2(id, onlyid,appsheetserialno) {	
+	
+  var options = {
+      type: "POST",
+      dataType:"json",
+      async:true,
+      data:{borrowid: id,onlyid:onlyid,appsheetserialno:appsheetserialno},
+      url:"mall/fitransfer!cancelTransfer.do?ajax=yes",                   
+      success:function(data) {
+        if(!data) return;
+        var ss = data.responseText;
+        var resultJson = eval(ss); 
+		if (resultJson[0].result) { 
+           zhejiang_alert('撤单',resultJson[0].msg,function(){
+							window.location.href = "financing.html?tab=0";
+						});
+          } else {
+			zhejiang_alert('撤单',resultJson[0].msg,function(){
+			   window.location.href = "financing.html?tab=0";
+			});
+          }
+      },
+      error:function(data) {
+        if(!data) return;
+        var ss = data.responseText;
+        var resultJson = eval(ss);
+		if (resultJson[0].result) { 
+             zhejiang_alert('撤单',resultJson[0].msg,function(){
+							window.location.href = "financing.html?tab=0";
+						});
+          } else {
+          zhejiang_alert('撤单',resultJson[0].msg,function(){
+			   window.location.href = "financing.html?tab=0";
+			});
+          }
+      }
+    }
+    $.ajax(options);
+}
+
+$("#orderstatus a").bind("click",function(){
+		var currentpaymethod = $("#currentpaymethod").val();
+		var currenttype = $("#currenttype").val();
+		var cvaltype="";
+		$("#orderstatus a").removeClass("chosen");
+		var paymethod = $(this).addClass("chosen");
+		var current = $(this);
+		cvalstatus = current.attr("order-status");
+		var url = "financing.html";
+		var data = {paymethod:cvalstatus,dealtype:currenttype,tab:"4"};
+		$.kutil.pageReload(url,data);
+	})
+
+	
+	
+	$("#ordertype a").bind("click",function(){
+		var currentpaymethod = $("#currentpaymethod").val();
+		var currenttype = $("#currenttype").val();
+		var cvalstatus="";
+		$("#ordertype a").removeClass("chosen");
+		var paymethod = $(this).addClass("chosen");
+		var current = $(this);
+	    cvaltype = current.attr("dealtype");
+		var url = "financing.html";
+		var data = {paymethod:currentpaymethod,dealtype:cvaltype,tab:"4"};
+		$.kutil.pageReload(url,data);
+	})
+	
+	
+/**
+		转让订单取消
+	**/	
+	function transferOrderCancel(sbbh,cancelway){
+		var datas ={
+			orderno:sbbh
+	};
+			zhejiang_alert('取消订单','确认取消？',function(){	
+			$("#J_cancelbutton2").attr("disabled",true);
+			$.ajax({
+				url:"mall/ficancelorder!cancelTransferOrder.do?ajax=yes",	
+				dataType:"text",
+				data: datas,								
+				success:function(data) {
+					var json = eval("("+data+")");
+					if(json.result == 1){
+						if(cancelway =='onclick'){
+							zhejiang_alert('取消订单','订单取消成功!',function(){
+							window.location.href = "financing.html?tab=4";
+						});
+						}else{
+							window.location.href = "financing.html?tab=4";
+						}
+						
+					}else{
+						zhejiang_alert('取消订单',json.message,function(){});
+					}
+				},
+				error:function(data) {
+					var json = eval("("+data+")");
+					zhejiang_alert('取消订单',json.data.msg,function(){});					
+					return false;
+				}
+			});		
+		});	
+	}
+	
+</script>
+				

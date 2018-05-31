@@ -1,0 +1,474 @@
+<style>
+#capitalaccount{
+	 font-size:12px;
+
+}
+.tipclass{
+	margin:10px;
+}
+</style>
+<script src="${staticserver}/common/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript"  src="js/auto_invest.js"></script>
+<style>
+*文字排版*/.f12 { font-size: 12px; }
+.f13 { font-size: 13px; }
+.f14 { font-size: 14px; }
+.f16 { font-size: 16px; }
+.f18 { font-size: 18px; }
+.f20 { font-size: 20px; }
+.f32 { font-size: 32px; }
+.fb { font-weight: bold; }
+.fn { font-weight: normal; }
+.fyahei { font-family: "微软雅黑"; }
+.fheiti { font-family: "黑体"; }
+.farial { font-family: "Arial"; }
+/*用于非文字*/
+.fc333 { color: #333333; }
+.fc444 { color: #444444; }
+.fc666 { color: #666666; }
+.fc999 { color: #999999; }
+.fred { color: red; }
+.t15 { text-indent: 15px; }
+.lh15 { line-height: 15px; }
+.lh18 { line-height: 18px; }
+.lh20 { line-height: 20px; }
+.lh30 { line-height: 30px; }
+.unl { text-decoration: underline; }
+.no_unl { text-decoration: none; }
+.no_ol { outline: none; }
+.cur { cursor: pointer; }
+.bnone { border: 0 none; }
+/*定位*/
+.tl { text-align: left; }
+.tc { text-align: center; }
+.tr { text-align: right; }
+.vm { vertical-align: middle; }
+.bc { margin: 0 auto; }
+.fl { float: left; display: inline; }
+.fr { float: right; display: inline; }
+.clearl { clear: left; }
+.clearr { clear: right; }
+.clear { clear: both; }
+.liclear { font-size: 0 !important; float: none !important; width: 0px !important; height: 0px !important; padding: 0 !important; margin: 0 !important; line-height: 0 !important; font-size: 1px !important; overflow: hidden !important; display: block !important; clear: both !important; }
+.opac { filter: alpha(opacity=0); -moz-opacity: 0; -khtml-opacity: 0; opacity: 0; }
+.bopac { filter: alpha(opacity=50); -moz-opacity: 0.5; -khtml-opacity: 0.5; opacity: 0.5; }
+.shengl { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.ohidden { overflow: hidden; }
+.pr { position: relative; }
+.pa { position: absolute; }
+.pf { position: fixed; }
+.zoom { _zoom: 1; }
+.vhidden { visibility: hidden; }
+.none { display: none; }
+.d_i { display: inline; }
+.d_b { display: block; }
+.d_ib { display: inline-block; }
+.bred { border: 1px solid #F00; }
+/*定位调试*/ /*宽高*/
+.w { width: 100%; }
+.h { height: 100%; }
+/*边距*/ /*==========m============*/
+.m10 { margin: 10px; }
+.m15 { margin: 15px; }
+.m30 { margin: 30px; }
+/*==========mt============*/
+.mt5 { margin-top: 5px; }
+.mt10 { margin-top: 10px; }
+.mt15 { margin-top: 15px; }
+.mt20 { margin-top: 20px; }
+.mt30 { margin-top: 30px; }
+.mt50 { margin-top: 50px; }
+.mt100 { margin-top: 100px; }
+/*==========mb============*/
+.mb5 { margin-bottom: 5px; }
+.mb10 { margin-bottom: 10px; }
+.mb15 { margin-bottom: 15px; }
+.mb20 { margin-bottom: 20px; }
+.mb30 { margin-bottom: 30px; }
+.mb50 { margin-bottom: 50px; }
+.mb100 { margin-bottom: 100px; }
+/*==========ml============*/
+.ml5 { margin-left: 5px; }
+.ml10 { margin-left: 10px; }
+.ml15 { margin-left: 15px; }
+.ml20 { margin-left: 20px; }
+.ml30 { margin-left: 30px; }
+.ml50 { margin-left: 50px; }
+.ml100 { margin-left: 100px; }
+/*==========mr============*/
+.mr5 { margin-right: 5px; }
+.mr10 { margin-right: 10px; }
+.mr15 { margin-right: 15px; }
+.mr20 { margin-right: 20px; }
+.mr30 { margin-right: 30px; }
+.mr50 { margin-right: 50px; }
+.mr100 { margin-right: 100px; }
+/*===========p===========*/
+.p10 { padding: 10px; }
+.p15 { padding: 15px; }
+.p30 { padding: 30px; }
+/*=========pt=============*/
+.pt5 { padding-top: 5px; }
+.pt10 { padding-top: 10px; }
+.pt15 { padding-top: 15px; }
+.pt20 { padding-top: 20px; }
+.pt30 { padding-top: 30px; }
+.pt50 { padding-top: 50px; }
+.pt100 { padding-top: 100px; }
+/*==========pb============*/
+.pb5 { padding-bottom: 5px; }
+.pb10 { padding-bottom: 10px; }
+.pb15 { padding-bottom: 15px; }
+.pb20 { padding-bottom: 20px; }
+.pb30 { padding-bottom: 30px; }
+.pb50 { padding-bottom: 50px; }
+.pb100 { padding-bottom: 100px; }
+/*=========pl=============*/
+.pl5 { padding-left: 5px; }
+.pl10 { padding-left: 10px; }
+.pl15 { padding-left: 15px; }
+.pl20 { padding-left: 20px; }
+.pl30 { padding-left: 30px; }
+.pl50 { padding-left: 50px; }
+.pl100 { padding-left: 100px; }
+/*=========pr=============*/
+.pr5 { padding-right: 5px; }
+.pr10 { padding-right: 10px; }
+.pr15 { padding-right: 15px; }
+.pr20 { padding-right: 20px; }
+.pr30 { padding-right: 30px; }
+.pr50 { padding-right: 50px; }
+.pr100 { padding-right: 100px; }
+ .member_center_main_r { width: 716px; }
+.fr { float: right; display: inline; }
+/**@Description: 会员中心-自动投标页面*@Author: wuyongyong(rz修改过)*@Update: 2013-08-30*/
+.automatic_bid_main .div1 { height: 42px; border-bottom: 2px solid #808080; }
+.automatic_bid_main .div1 .span-tit { font-size: 16px; font-weight: bold; color: #666; position: absolute; left: 0; top: 12px; }
+.automatic_bid_main .div1 .a1 { left: 75px; top: 15px; }
+.automatic_bid_main .div1 .span1 { right: 10px; top: 15px; }
+.automatic_bid_main .div1 .span2 { color: #CE1F27; }
+.automatic_bid_main .div1 .pr_t5 { *position: relative; *top: 5px; }
+.automatic_bid_main .div-tsk { line-height: 22px; background-color: #E8DEDE; color: #C00204; position: relative; padding-left: 25px; padding-top: 3px; padding-bottom: 3px; margin-top: 10px; *margin-top: 7px; }
+.automatic_bid_main .div-tsk .png1 { width: 15px; height: 14px; background-position: -272px -58px; top: 5px; left: 5px; }
+.automatic_bid_main .div2 .table1 { height: 378px; }
+.automatic_bid_main .div2 .table1 td { border: 1px solid #C1E6F8; padding: 20px 0; }
+.automatic_bid_main .div2 .tr_bg { height: 71px; background-color: #F4F9FE; }
+.automatic_bid_main .div2 .td_w147 { width: 147px; position: relative; line-height: 20px; text-align: center; }
+.automatic_bid_main .div2 .tr_h114 { height: 114px; }
+.automatic_bid_main .div2 .span1 { top: 23px; left: 25px; }
+.automatic_bid_main .div2 .png1 { width: 20px; height: 17px; background-position: -153px -295px; width: 19px; height: 20px; background-position: -153px -296px; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; margin-right: 4px; }
+.automatic_bid_main .div2 .span2 { top: 45px; left: 51px; }
+.automatic_bid_main .div2 .png2 { width: 20px; height: 20px; width: 19px; height: 20px; background-position: -176px -296px; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; margin-right: 4px; }
+.automatic_bid_main .div2 .span3 { top: 23px; left: 51px; }
+.automatic_bid_main .div2 .png3 { width: 19px; height: 20px; background-position: -199px -296px; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; margin-right: 4px; }
+.automatic_bid_main .div2 .span4 { top: 45px; left: 51px; }
+.automatic_bid_main .div2 .png4 { width: 20px; height: 20px; background-position: -222px -294px; width: 19px; height: 20px; background-position: -222px -296px; display: inline-block; *display: inline; *zoom: 1; vertical-align: middle; margin-right: 4px; }
+.automatic_bid_main .div2 .p1 { height: 22px; line-height: 22px; }
+.automatic_bid_main .div2 .mt47 { }
+.automatic_bid_main .div2 .png5 { width: 15px; height: 16px; background-position: -248px -294px; left: 180px; *left: 186px; top: 2px; *top: 5px; }
+.automatic_bid_main .div2 .left338 { left: 338px; *left: 344px; }
+.automatic_bid_main .div2 .rad1 { top: 2px; *top: 3px; left: 0; }
+.automatic_bid_main .div2 .sel1 { width: 56px; height: 20px; margin-right: 25px; border: 1px solid #ABADB3; }
+.automatic_bid_main .div2 .sel2 { width: 78px; height: 20px; border: 1px solid #ABADB3; }
+.automatic_bid_main .div2 .inp1 { width: 88px; height: 20px; }
+.automatic_bid_main .div2 .cb1 { top: 2px; *top: 3px; left: 0; }
+.automatic_bid_main .div2 .span_xt1 { top: 5px; *top: 12px; }
+.automatic_bid_main .div2 .pr_t3 { *position: relative; *top: 3px; }
+.automatic_bid_main .div2 .pr_t10 { *position: relative; *top: 10px; }
+.automatic_bid_main .div2 .p2 { height: 38px; }
+.automatic_bid_main .div2 .btn_1 { width: 92px; height: 30px; left: 252px; top: 0; background-position: -267px -190px; }
+.automatic_bid_main .div2 .btn_1:hover { background-position: -267px -220px; }
+.automatic_bid_main .div2 .btn_2 { width: 29px; height: 14px; left: 382px; top: 8px; background-position: -807px -168px; }
+.automatic_bid_main .div2 .btn_3 { width: 29px; height: 14px; left: 457px; top: 8px; background-position: -849px -168px; }
+
+.automatic_bid_lmain .div1 { height: 42px; border-bottom: 2px solid #808080; }
+.automatic_bid_lmain .div1 .span-tit { font-size: 16px; font-weight: bold; color: #666; position: absolute; left: 0; top: 12px; }
+.automatic_bid_lmain .div1 .a1 { right: 10px; top: 15px; color: #c20000; }
+.automatic_bid_lmain .div1 .a2 { left: 110px; top: 15px; }
+.automatic_bid_lmain .div2 td { height: 48px; line-height: 48px; border: 1px solid #DDDDDD; }
+.automatic_bid_lmain .div2 .tdh32 { height: 32px; line-height: 32px; background-color: #F4F9FE; }
+.automatic_bid_lmain .div2 .tr_bg { background-color: #FFFFF7; }
+
+
+</style>
+<div class="rightcontent">
+	
+	
+	<div class="user-content" id='firststep'>
+		<span class="user-h">自动投标列表</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"> </div>
+	    </div>
+		<table id="capitalaccount" class="table">
+			
+			<tr>
+				<th width="100">
+					状态
+				</th>
+			 
+				<th width="200">
+					有效期
+				</th>
+				<th width="100">
+					投标金额
+				</th>
+		 
+				<th width="100">
+					投资期限
+				</th>
+				<th width="100">
+					标的收益率
+				</th>
+				<th width="100">
+					排名
+				</th>
+				<th width="100">
+					修改
+				</th>
+				<th width="100">
+					删除
+				</th>
+			</tr>
+			 <#if recordslist?exists> 
+			 <#list recordslist as item>
+			<tr>
+				 <td>
+					<#if item.bidstatus=="1">
+						停用
+					<#elseif item.bidstatus=="2">
+						启用
+					</#if>
+					 
+				</td>
+			 
+				<td  >
+					<#if item.validdatestart=="">
+						不限制
+					<#else>
+					 ${item.validdatestart}-${item.validdateend}
+					</#if>
+					
+				</td>
+				<td  >
+					 ${item.bidamount}
+				</td>
+			 
+				<td  >
+					<#if item.deadlinestart=="-1">
+						不限制
+					<#elseif item.deadlinestart=="-2">
+						未选中
+					<#else>
+					 ${item.deadlinestart}-${item.deadlineend}${item.deadlineunit}
+					</#if>
+					
+				</td>
+				<td  >
+					<#if item.ratestart=="-1">
+						不限制
+					<#else>
+					 	${item.ratestart}%-${item.rateend}%
+					</#if>
+			
+				</td>
+				<td  >
+					 ${item.bidsort}
+				</td>
+				<td  >
+					 <a class="user-content-do-button" id='update_auto_invest_btn' onclick="updateAutoInvest('${item.auto_id}')" href="javascript:void(0)" auto_id=${item.auto_id} style='margin-top:15px'>修改</a>
+				</td>
+				<td  >
+					 <a class="user-content-do-button" id='delete_auto_invest_btn' onclick="deleteAutoInvest('${item.auto_id}')" href="javascript:void(0)" auto_id=${item.auto_id} style='margin-top:15px'>删除</a>
+				</td>
+			</tr>
+			</#list>
+			</#if>
+		</table>
+		<center>
+			<a class="user-content-do-button" id='add_auto_invest_btn' href="javascrip:void(0)" style='margin-top:15px'>添加</a>
+		</center>
+		<div>
+			<span class='tipclass' style='margin-top:15px'>温馨提示</span>
+			<p class='tipclass'>
+				>> 自动投标最多允许添加1个规则,2个备用。
+			</p> 
+			<p class='tipclass'>
+			>> 当判断到有符合条件的规则时即为您自动投标，而后续的规则则不予采用。
+			</p>
+			<p class='tipclass'>
+			>> 失效定义：如果设定的条件符合某一项目，但用户金额不够，则该值会加1，表明您错失了这次机会。当该值超过3次，您的排名会在凌晨调整到当前队列最后一名。
+			</p>
+		</div>
+	</div>
+	<div class="user-content" id='secondstep' style='display:none'>
+		<span class="user-h">
+			自动投标 
+			<a href='javascrip:void(0)'  id='auto_invest_list_btn' style='font-size: 70%;'>自动投标列表</a>
+			 <span class="span1 pa fb fc666"  align='right' style='margin-left:440px'><span class="pr_t5">账户余额：</span><span class="span2 f18 farial fn">${ky!'0.00'}</span>&nbsp;元</span>
+		
+		</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"> </div>
+	    </div>
+		<div  class="fr member_center_main_r" >
+		
+		<div class='automatic_bid_main w'>
+	
+		    <div class="div2 w mt10">
+				<input type="hidden" id="autoid" >
+                <table class="table1 w">
+                    <tbody><tr class="tr_bg">
+                        <td class="td_w147"><span class="fb fc666 span1"><span class="icon_png png1 png_tm"></span>每次投标金额：</span></td>
+                        <td>
+                            <p class="p1 pr ml15">
+
+                                <input name="percentOrCash" id='investPercent' checked="checked" type="radio"   class="rad1 pr mr10">按账户金额比例投标 
+									<select id="InvestPercentType" name="InvestPercentType" style='width: 126px;'> 
+									</select>
+                                <input name="percentOrCash" id='investCash' type="radio"   class="rad1 pr mr10">按金额投标 
+								<input class="inp1 pr_t3 pl5 ml10 b_ddd no_ol" id="InvestCashType" name="InvestCashType" type="text" value="0"  ><span class="fc999 ml15 pr_t10">元(最少100元)</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_w147"><span class="fb fc666 span2"><span class="icon_png png2 png_tm"></span>投资期限：</span></td>
+                        <td>
+                            <p class="p1 pr ml15">
+
+                                <input  checked='checked' class="cb1 pr mr10" id="monthType" name="monthType" type="checkbox" value="true">
+								<input name="monthType" type="hidden" value="false">
+									投月标&nbsp;范围在
+									<select class="sel2 pr_t3 fc666 ml15 no_ol" id="InvestMonthLimitType" name="InvestMonthLimitType"> 
+									</select>
+                                <span class="ml30 mr20 fc999 span_xt1 pr">————</span>
+									<select class="sel2 pr_t3 fc666 ml10 no_ol" id="InvestMonthMaxType" name="InvestMonthMaxType">
+						 
+									</select><span class="fc999 ml15 pr_t10">(不选中则不投月标)</span>
+                            </p>
+                            <p class="p1 pr ml15">
+
+                                <input  checked='checked' class="cb1 pr mr10" id="dayType" name="dayType" type="checkbox" value="true"><input name="dayType" type="hidden" value="false">
+								投天标&nbsp;范围在 
+								<select class="sel2 pr_t3 fc666 ml15 no_ol" id="InvestDayLimitType" name="InvestDayLimitType"><option value="-1">不限制</option>
+								 
+									</select>
+                                <span class="ml30 mr20 fc999 span_xt1 pr">————</span><select class="sel2 pr_t3 fc666 ml10 no_ol" id="InvestDayMaxType" name="InvestDayMaxType"><option value="-1">不限制</option>
+ 
+								</select><span class="fc999 ml15 pr_t10">(不选中则不投天标)</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="tr_bg">
+                        <td class="td_w147"><span class="fb fc666 span3 mr10"><span class="icon_png png3 png_tm"></span>收益率选项：</span></td>
+                        <td>
+                            <p class="p1 pr ml15">
+
+                                <input checked="checked" class="cb1 pr mr10" disabled="disabled" id="rateType" name="rateType" type="checkbox" value="true"><input name="rateType" type="hidden" value="false">收益率范围必须在 <select class="sel2 pr_t3 fc666 ml10 no_ol" id="RateLimitType" name="RateLimitType"><option value="-1">不限制</option>
+ 
+</select><span class="ml30 mr20 fc999 span_xt1 pr">————</span><select class="sel2 pr_t3 fc666 ml10 no_ol" id="RateMaxType" name="RateMaxType"><option value="-1">不限制</option>
+
+</select><span class="fc999 ml15 pr_t10" style="display:none">(不选中则没有此项限制)</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="tr_h114">
+                        <td class="td_w147"><span class="fb fc666 span4"><span class="icon_png png4 png_tm"></span>有效日期：</span></td>
+                        <td>
+                            <p class="p1 pr ml15 mt47">
+                                <input name="timeType" id="timeType" type="checkbox"  class="cb1 pr mr10">日期范围必须在 <input name="beginTime" style='width: 90px;'   id="beginTime" type="text"  readonly='readonly' class="sel2 pr_t3 fc666 ml10 no_ol Wdate search-text2" onfocus="WdatePicker()" ><span class="ml30 mr20 fc999 span_xt1 pr">————</span><input name="endTime" id="endTime" readonly='readonly' style='width: 90px;'  type="text" class="sel2 pr_t3 fc666 ml10 no_ol Wdate search-text2" onfocus="WdatePicker()" ><span class="fc999 ml15 pr_t10" style="display:none">(不选中则没有此项限制)</span>
+                            </p>
+                        </td>
+                    </tr>
+					
+					<tr class="tr_h114">
+                        <td class="td_w147"><span class="fb fc666 span4"><span class="icon_png png4 png_tm"></span>还款方式：</span></td>
+                        <td>
+                            <p class="p1 pr ml15 mt47">
+									<input name="repayOrCash" id="repaydefault" type="radio" value="0" class="rad1 pr mr10" checked='checked'>全部
+									<input name="repayOrCash" type="radio" value="1" class="rad1 pr mr10">先息后本
+									<input name="repayOrCash" type="radio" value="2" class="rad1 pr mr10">等额本金
+									<input name="repayOrCash" type="radio" value="3" class="rad1 pr mr10">等额本息
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="tr_bg" style="height:120px;">
+                        <td class="td_w147"><span class="fb fc666 span3 mr10"><span class="icon_png png3 png_tm"></span>项目类型：</span></td>
+                        <td>
+                            <p class="p1 pr ml15" style="top:-20px;">
+                                        <label><input name="allowPrjType" type="checkbox" checked="checked" class="cb1 pr mr10" allowtype="1">直投宝</label><br>
+                                        <label><input name="allowPrjType" type="checkbox" class="cb1 pr mr10" allowtype="8">小贷宝</label><br>
+                                        <label><input name="allowPrjType" type="checkbox" class="cb1 pr mr10" allowtype="4">安稳盈</label><br>
+                                            <span class="fc999 ml15 pr_t10" style="display:none">(不选中则没有不投)</span>
+
+                            </p>
+                        </td>
+                    </tr>
+					
+					<tr class="tr_h114">
+                        <td class="td_w147"><span class="fb fc666 span4"><span class="icon_png png4 png_tm"></span>保留金额：</span></td>
+                        <td>
+                            <p class="p1 pr ml15 mt47">
+								 <input type='text' id="remainmoney" name='remainmoney' />
+                            </p>
+                        </td>
+                    </tr>
+					<tr class="tr_h114">
+                        <td class="td_w147"><span class="fb fc666 span4"><span class="icon_png png4 png_tm"></span>回款渠道：</span></td>
+                        <td>
+                            <p class="p1 pr ml15 mt47">
+								<select class="sel2 pr_t3 fc666 ml10 no_ol" id="channelno" name="channelno"></select>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody></table>
+                <p class="p2 w mt20 pr">
+                    <input data-val="true" data-val-required="&#39;Status&#39; must not be empty." id="Status" name="Status" type="hidden" value="False">
+                    <input data-val="true" data-val-number="The field Id must be a number." data-val-required="&#39;Id&#39; must not be empty." id="Id" name="Id" type="hidden" value="-1">
+					<center style='margin-bottom: 30px;'>
+						 
+						<a class="user-content-do-button" id='save_invest' href="javascrip:void(0)" style='margin-top:15px;display:inline-block'>保存</a>
+						<a class="user-content-do-button" id='delete_invest' href="javascrip:void(0)" style='margin-top:15px;display:inline-block'>禁用</a>
+					 
+					</center>
+                </p>
+     
+               		<div>
+						<span class='tipclass' style='margin-top:15px'>温馨提示</span>
+                    <p class='tipclass'>&gt;&gt;&nbsp;当前规则满足时系统将为您自动投标，标的额度，投标金额和比例都只能为大于0的正整数。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;当按比例投标时，根据所设定的比例算得金额少于100元时，以100元进行投标。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;当按比例投标时，根据所设定的比例算得金额大于标的最大投标金额时，以最大投标金额进行投标。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;当按比例投标时，根据所设定的比例算得金额大于项目可投余额时，以项目可投余额进行投标。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;当按比例投标时，根据所设定的比例算得金额取整数位进行投标。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;自动投标排队规则：用户开启设定后，系统会分配排队号。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;用户设定规则投标成功后，则重新排队。</p>
+                    <p class='tipclass'>&gt;&gt;&nbsp;规则从禁用到开启后会重新排队。</p>
+					<div id="testOne" name="test">标签一</div>
+					<div id="testTwo" name="test">标签二</div>
+					<div id="testThree" name="one">标签三</div>
+					<div id="testFour" name="one">标签四</div>
+					<p id='test'> </p>
+					<p id='testfive'> </p>
+				</div>
+            </div>
+        <div>
+        </div>
+	</div>
+		
+	 
+	
+	
+</div>
+<script>
+
+	
+$(function(){
+	var urlstr = window.location.href;
+
+	if( urlstr.indexOf("?refresh=true") > -1 ){ 
+		 //var parts = urlstr.split("?");
+		window.location.href= "/account_base_info.html?_"+new Date().getTime();	
+
+	}
+
+})
+</script>

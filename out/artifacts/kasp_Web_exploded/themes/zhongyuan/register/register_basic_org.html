@@ -1,0 +1,122 @@
+	<!-- 此层为基本信息---------------------------->
+	  <!--#include virtual="public/header.shtm"-->
+	
+    <div class="account_register">
+      <table class="process-cells step-two">
+            <tr>
+                <td style="width: 33.3%">注册</td>
+                <td class="current" style="width: 33.3%">绑定银行卡</td>
+                <td style="width: 33.3%">风险测评</td>
+            </tr>
+        </table>
+      <div class="user-type">
+        <form class="personal-account awesomeform" action="register/trade_pwd_setting.shtm">
+          <div class="identity">
+		  <input name="organizeaccount" value="1" type="hidden"/>
+            <h3>机构信息</h3>
+            <div class="floor full">
+              <label class="property" for="realname">企业名称</label>
+              <div class="value">
+                <input class="xs" id="certificateName" name="certificateName" type="text" datatype="zh2-999" nullmsg="请输入名称！" errormsg="请输入中文名称！"/>
+              </div>
+            </div>
+            <div class="floor full">
+
+	            <label class="property">证件类型</label>
+	            <div class="value">
+		            <select id="certificatetype" name="certificatetype" style="height: auto;">
+
+						<#if certTypeList?exists>
+
+								<#list certTypeList as item >
+
+							<option value="${item.subitem}">${item.subitemname}</option>
+
+						</#list>
+
+						</#if>
+
+					</select>
+	            </div>
+            </div>
+            <div class="floor full">
+              <label class="property" for="idnum">证件号码</label>
+              <div class="value">
+                <input class="sm" id="certificateNo" name="certificateNo" type="text" datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" />
+              </div>
+            </div>
+            <div class="floor full">
+            <label class="property">营业部</label>
+
+            <div class="value">
+            <select id="yyb" name="branchcode" style="height: auto;">
+				<#if yywd?exists>
+				<#list yywd as yyb >
+					<option value="${yyb.BRANCHID}">${yyb.BRANCHNAME}</option>
+				</#list>
+				</#if>
+			</select>
+               
+              </div>
+            </div>
+          </div>
+          <div class="banks">
+            <h3>选择银行</h3>
+            <ul>
+              <li class="tieonBanks clearfix">
+                <#if banklist?exists>
+					<#list banklist as item>
+					<#if item.bankcode?exists >
+						<a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" code="${item.bankcode!''}" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+							<img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}" />
+							<i class="iconfont">&#xe620;</i>
+							<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd!''}"/>
+							<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard!''}"/>
+							<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd!''}"/>
+							<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"/>
+							<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"/>
+							<div class="hide">
+								<input type="hidden" id="v_remark_${item.bankcode}" value="${item.remark!''}"/>
+							</div>
+						</a>
+					</#if>
+					</#list>
+				</#if>	
+              </li>
+            </ul>
+            <div class="container-full clearfix">
+              <div class="floor full">
+                <label class="property" for="cardNum">银行卡号</label>
+                <div class="value">
+                  <input class="sm" id="bankaccount" name="bankaccount" type="text"  datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+			<input name="branchcodeflag" value="1" style="display:none" type="text">
+          <div class="actionArea clearfix">
+            <input class="continue btn-md btn-red" type="button" value="下一步" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+	<!--#include virtual="public/footer.shtm"-->
+	
+	<script src="js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+    </script>
+
+	<!--  end -------------------------------------------------------------------------------------------------------------->

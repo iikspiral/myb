@@ -1,0 +1,115 @@
+<style>
+.linkButtonOk {
+	width: 60px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	border-radius: 3px;
+	color: #FFF!important;
+	text-decoration: none!important;
+	padding: 0 5px;
+	cursor: pointer;
+	background: #9EABC2;
+
+}
+</style>
+<script type="text/javascript" src="js/myproject.flow.js"></script>
+<div class="rightcontent">
+	<div class="user-content">
+		<span class="user-h">订单详情</span>
+		<div class="user-content-head">
+	      	<div class="user-content-head-di"></div>
+	    </div>
+		<#if orderlist?exists>
+					<#list orderlist as order>
+		<#if order.paymethod == "2">	
+		<div class="ordertitle"><span>订单状态  ——<span class="orderstatus">已完成付款</span></span></div>
+		<#elseif order.paymethod == "0">
+		<div class="ordertitle"><span>订单状态  ——<span class="orderstatus">未完成付款</span></span>
+		<span>您的订单还需支付<b>${((order.smrjg?default("0.00")?number)-(order.paymoney?default("0.00")?number))?string("###,###,###,##0.00")}</b>元</span>
+		</div>
+		<#elseif order.paymethod == "3">
+		<div class="ordertitle"><span>订单状态  ——<span class="orderstatus">已取消</span></span>
+		
+		</div>
+		</#if>	
+		<div class="orderdetailinfo">
+					<ul>
+						<li >订单编号：${order.sbbh!''}</li>
+						<input name="orderNo" value="${order.sbbh!''}" type="hidden"/>	 
+						<input name="bankcode" value="700" type="hidden"/>	
+					</ul>
+					<#if bond?exists>
+					<#list bond as bond>
+					<ul>
+						<li name="" value="${order.cpbm!''}">产品编号：${bond.id!''}</li>
+						<li name="" value="">产品名称：${bond.name!''}</li>
+						<li name="" value="">年化收益率：${bond.annualrate}%</li>
+						<li name="" value="">还款方式：${bond.paymentmodevalue}</li>
+					</ul>
+					<ul>
+						<li name="" value="">融资期限：${bond.deadline}个月</li>
+						<li name="" value="">投资人：${bankCard.chineseName}</li>
+						<li >认购金额：${order.smrjg?default("0.00")?number?string("###,###,###,##0.00")}元</li>
+						<input name="amount" value="${order.smrjg!''}" type="hidden"/>
+						<li name="" value="">订单时间：${order.yxrq!''}${order.sbsj!''}</li>
+						
+					</ul>
+					<#if order.paymethod == "2">
+					<ul>
+						<li>
+							<div style="margin-top:20px;padding-left:40px;">
+								<a class="linkButtonOk" style="font-size:14px;" >完成</a>
+								<a class="linkButtonOk"  style="font-size:14px;" href="/tx_order_deal_list.html">返回</a>
+							</div>
+						</li>
+					</ul>
+						<#elseif order.paymethod == "3">
+					<ul>	
+						<li>
+							<div style="margin-top:20px;padding-left:40px;">
+								<a class="linkButtonOk" style="font-size:14px;">已取消</a>
+								<a class="linkButtonOk" style="font-size:14px;" href="/tx_order_deal_list.html">返回</a>
+							</div>
+						</li>
+					</ul>	
+						<#elseif order.paymethod == "0">
+					<ul>
+						<li>
+							<div style="margin-top:20px;padding-left:40px;">
+							<a class="linkButton" style="font-size:14px;" href="/order_payment.html?orderno=${order.sbbh!''}">立即支付</a>
+							<a class="linkButtonOk" style="font-size:14px;" href="/tx_order_deal_list.html">返回</a>
+							</div>
+						</li>
+					</ul>
+						</#if>
+					</#list>
+  				</#if>
+					
+			</#list>
+  				</#if>
+		</div>
+	</div>
+		
+
+</div>
+<script>
+function orderLostTime()
+	{
+		$(".endtime").each(function(i){
+			var surplusTime = this.getAttribute("surplusTime");
+			this.setAttribute("surplusTime",--surplusTime);
+			if(surplusTime > 0)
+			{
+				var second = Math.floor(surplusTime % 60);     
+				var minite = Math.floor((surplusTime / 60) % 60);
+				var hour = Math.floor((surplusTime / 3600) % 24);
+				var day = Math.floor((surplusTime / 3600) / 24);
+				$(this).html(day+"天"+hour+"小时"+minite+"分"+second+"秒");
+			}else{
+				//window.location.href = "/index.html";
+			}
+	 });
+	 setTimeout("updateEndTime()",1000);
+	};
+</script>

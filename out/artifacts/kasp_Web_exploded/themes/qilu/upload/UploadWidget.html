@@ -1,0 +1,85 @@
+ <div>
+<style>
+a.btn {
+	background-color: #FF9000;
+	border-radius: 3px 3px 3px 3px;
+	color: #FFFFFF;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	width: 70px;
+	margin: 0 5px;
+	float: left;
+	text-decoration: none;
+}
+
+a.btn:hover {
+	background-color: #FF9000;
+}
+
+a.btn2 {
+	background-color: #666;
+	border-radius: 3px 3px 3px 3px;
+	color: #FFFFFF;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	width: 70px;
+	margin: 0 5px;
+	float: left;
+	text-decoration: none;
+}
+
+.error {
+	color: red;
+	height: 30px;
+	font-size: 12px;
+}
+
+.tip {
+	color: #666;
+	height: 30px;
+	font-size: 12px;
+	clear: both;
+}
+
+.loading {
+	display: none;
+	float: left;
+	height: 16px;
+	margin-top: 7px;
+	vertical-align: middle;
+	width: 16px;
+}
+</style>
+<script>
+        function ShowLoading() {
+            $("#uploadImageing").show();
+            $("#loadingImg").show();
+            $(".error").removeClass("error").addClass("tip").html("支持GIF、JPG、JPEG、PNG格式上传,最大2M");
+            $("#uploadImage").hide();
+        }
+    </script>
+ 
+	<form enctype="multipart/form-data" id="uploadForm"
+		action=" "
+		method="post" name="uploadForm">
+ 
+		<script type="text/javascript">
+//<![CDATA[
+ 
+//]]>
+</script>
+
+ 
+		<div style="height: 40px; background: none;">
+			<input type="file" style="border: 1px solid #ccc; width: 380px; height: 30px; float: left;" id="fu_Image" name="fu_Image"> 
+			<a id="uploadImage"     href="javascript:void(0);" class="btn fl"   >上传</a> 
+			<a id="uploadImageing"  href="javascript:void(0);" class="btn2 fl" style="display:none;">上传中</a> 
+			<img id="loadingImg" class="loading" src="/statics/common/images/loading-s.gif">
+		</div>
+		<div class="tip">支持GIF、JPG、JPEG、PNG格式上传,最大4M</div>
+	</form>
+ </div>

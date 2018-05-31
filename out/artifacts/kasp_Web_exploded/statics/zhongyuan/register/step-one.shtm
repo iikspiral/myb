@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>注册 - 中原股权交易中心</title>
+    <base href="../">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/awesomeform.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+    <style type="text/css">
+        body{
+            background-color: #fafafa;
+        }
+        .process-cells tr td{
+            background-color: #fff;
+        }
+    </style>
+    <script src="js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+
+    <!--#include virtual="public/header.shtm"-->
+	<div class="container">
+        <div class="account_register">
+            <table class="process-cells step-one">
+                <tr>
+                    <td class="current" style="width: 33.3%">注册</td>
+                    <td style="width: 33.3%">绑定银行卡</td>
+                    <td style="width: 33.3%">风险测评</td>
+                </tr>
+            </table>
+            <div class="account-board">
+                <p class="tips"><i class="iconfont">&#xe60d;</i> 开户前请准备好您的身份证，银行借记卡。</p>
+                <form class="awesomeform" action="register/step_two.shtm">
+                    <div class="floor full">
+                        <label class="property">用户名</label>
+                        <div class="value">
+                            <input class="xs" type="text" id="username" name="username" />
+                        </div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property" for="login_pwd">登录密码</label>
+                        <div class="value">
+                            <input class="xs" type="password" id="login_pwd" name="login_pwd" />
+                        </div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property" for="login_cfm">确认密码</label>
+                        <div class="value">
+                            <input class="xs" type="password" id="login_cfm" name="login_cfm" />
+                        </div>
+                    </div>
+                    <div class="floor full">
+                        <label class="property" for="cell_num">手机号码</label>
+                        <div class="value">
+                            <input class="xs" type="text" id="cell_num" name="cell_num" />
+                        </div>
+                    </div>
+                    <div class="floor full height-auto">
+                        <label class="property" for="captcha">验证码</label>
+                        <div class="value">
+                            <input class="xs" type="text" id="captcha" name="captcha" />
+                            <input type="button" id="get_captcha" class="btn btn-md btn-grey" value="获取验证码" />
+                        </div>
+                    </div>
+                    <div class="agreement" style="text-align: left;">
+                        <input type="checkbox" id="terms" name="terms" />
+                        <label for="terms">我已阅读并同意 <a href="#">《开户协议》</a></label>
+                    </div>
+                    <div class="actionArea" style="text-align: left;">
+                        <input style="margin: 0;" type="button" class="btn-md btn-red" value="注册">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<!--#include virtual="public/footer.shtm"-->
+	
+	<script src="js/jquery.bxslider.min.js"></script>
+    <script>
+        $('.adsBG').bxSlider({
+          mode: 'fade',
+          captions: false,
+          responsive: true,
+          auto: true,
+          speed: 800,
+          autoHover: false,
+          controls: false,
+          adaptiveHeight: false,
+          pager: false
+        });
+    </script>
+</body>
+
+</html>

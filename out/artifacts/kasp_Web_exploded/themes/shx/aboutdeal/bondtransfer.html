@@ -1,0 +1,198 @@
+<script type="text/javascript" src="js/kifp.transfer.js"></script>
+<script type="text/javascript" src="${staticserver}/common/js/libs/kjax.des.js"></script>
+<style>
+	.weightColor {
+		color: #C73838;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	reprice{
+		background: white;
+		border: solid;1px;
+	}
+	
+</style>
+<div class="contentAndSideBar clearfix">
+	<div class="pageNav">当前位置：<a href="/account_base_info.html">账户中心</a>&gt;<a href="/product_bonds.html">固定收益</a>&gt;<span class="current">产品转让</span></div>
+		<div align="center">
+			<div class="kd-outer-box" style="height:550px;margin-top: 10px">
+				<form id="addTransferForm"  name="addTransferForm" method="post" >
+				<div class="kd-outer-box-title">
+					<h>项目信息</h>
+				</div>
+					<table class="table" style="margin:0 0 20px 0">
+						<tr style="text-align:center;">
+							<th width="130">项目名称</th>
+							<th width="60">到期日</th>
+							<#if bondslist?exists>
+			    		   <#list bondslist as item>
+			    		   				<#if  item.newview == "0"  >	
+											<th width="120">已还期限/总期限</th>
+											<#elseif item.newview == "1">
+											<th width="120">已持有期限/总期限(天)</th>
+										</#if>
+							<th width="100">投资金额（元）</th>
+							<th width="70">已收本金（元）</th>
+							<th width="70">已收利息（元）</th>
+						</tr>
+						<tr style="text-align:center;">
+							<td><span><a href="#">${item.borrowtitle!''}</a></span></td>							
+							<td>${duedate!'0'}</td>
+							   			<#if  item.newview == "0"  >	
+											<td>${item.hasdeadline!'0'}/${item.deadline!'0'}</td>
+											<#elseif item.newview == "1">
+											<td>${item.hasbuyback!'0'}/${item.buyback!'0'}</td>
+										</#if>
+							
+							<td>${item.investamount!'0'}</td>
+							<td>${item.hasprincipal!'0'}</td>
+							<td>${item.hasinterest!'0'}</td>							
+						</tr>
+						 <li style="display: none">						 	
+						 	<input type="text" name="paramTransfer.onlyid" value="${item.onlyid!''}"/>	
+				         	<input id="project_borrowid" type="text" name="paramTransfer.borrowid" value="${item.borrowid!''}"/>
+				         	<input type="text" name="paramTransfer.borrowtitle" value="${item.borrowtitle!''}"/>				         	
+				         	<input type="text" name="paramTransfer.deadline" value="${deadline!'0'}"/>				        	
+				         	<input type="text" name="paramTransfer.hasdeadline" value="${hasdeadline!'0'}" />
+				         	<input type="text" name="paramTransfer.publishlimit" value="${item.publishlimit!''}"/>
+				         	<input type="text" name="paramTransfer.newtotal" value="${investamount!'0'}"/>					         		         	
+				         	<input type="text" name="paramTransfer.newdeadline" value="${item.remaindays!''}"/>
+					    </li>
+						</#list>
+					    </#if>
+					</table>
+				<div class="kd-outer-box-title" >
+					<h>转让信息</h>
+				</div>	
+				<ul class="kd-form-style clearfix" style="margin-top: 30px">
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让有效时间：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="auctionendtime">48</span>&nbsp;小时<span class="kdValidform_checktip">48小时未成交将被系统下架</span></i>
+						</span>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">投资总金额：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="newtotal">${investamount!'0'}</span>&nbsp;元<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+					<#if paymentlist?exists>
+			    		<#list paymentlist as i>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">剩余应得利息：</label>
+						<span class="kd-form-style-value">
+							<#setting number_format="0.00"> 
+							<#assign str_num = i.ydlx!'0'>
+							
+							<i><span class="weightColor" id="realinterest" >${str_num?number}</span>&nbsp;元<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+						<input type="text" style="display:none" name="paramTransfer.remaindeadline" value="${i.remaindeadline!'0'}"/>
+						<input type="text" style="display:none" name="paramTransfer.yqannualrate" value="${i.yqannualrate!'0'}"/>
+						<input type="text" style="display:none" name="paramTransfer.remainannualrate" value="${i.sylx!'0'}"/>
+						<input type="text" style="display:none" id="insfees" name="paramTransfer.insfees" value="0" />
+					<li style="display:none">						 	
+				        <input type="text" id="price" title="转让参考价格" value="${i.zrjg!'0'}"/>
+				        <input type="text" id="limitpricepo" title="限制参考价格(大于)" value="${limitpricepo!'0'}"/>
+				        <input type="text" id="limitpricemin" title="限制参考价格（小于）" value="${limitpricemin!'0'}"/>
+				        <input type="text" id="floatrate" title="浮动比率" value="${floatrate!'0'}"/>
+				        <input type="text" id="rootrate" title="手续费比例" value="0"/>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让参考价格：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" title="转让参考价格" id="referprice" >${i.zrjg!'0'}</span>&nbsp;元<span class="kdValidform_checktip">等额剩余本金</span></i>
+						</span> 
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让价格：</label>
+						<span class="kd-form-style-value">
+							<i><input id="reprice" style="background: white;border:1px inset #DDD;" onblur="genFeeFromServer();" nullmsg="请输入转让价格！" onkeyup="getTotal();" errormsg="不能超过浮动比率${floatrate!'0'}！" name="paramTransfer.reprice" datatype="*">
+							<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+					</#list>
+					</#if>					
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">转让手续费：</label>
+						<span class="kd-form-style-value">
+							<i><span class="weightColor" id="fees" value="0">0</span>&nbsp;元<span class="kdValidform_checktip"></span></i>
+						</span>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label">交易密码：</label>
+						<span class="kd-form-style-value">
+							<i><input id="tradepass" style="background: white;border:1px inset #DDD;" type="password" nullmsg="请输入交易密码！" errormsg="请输入正确的6位数交易密码！" name="paramTransfer.tradepass" datatype="p">
+							<span class="kdValidform_checktip"> </span></i>
+						</span>
+					</li>
+					<li class="kd-form-style-itemnew" >
+						<label class="kd-form-style-label"></label>
+						<span class="kd-form-style-value">
+							<input id="addTransferBtn" type="button" class="kdmall-btn" value="提交">
+						</span>
+					</li>			
+				</ul>		
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<SCRIPT LANGUAGE="JavaScript">
+$(function(){
+	 
+})
+function getTotal(){
+    var a = document.getElementById("reprice").value;
+    var b = document.getElementById("rootrate").value;	
+	try{
+	document.getElementById("fees").innerHTML = a*b;
+	}catch(e){
+	alert("输入的数值有误");
+	}
+}
+
+function genFeeFromServer(){
+	var amount = $("#reprice").val();
+	if(!amount){
+		 $("#reprice").focus();
+		return ;
+	}
+	var projectid =$("#project_borrowid").val() ;
+	if(!projectid){
+		return ;
+	}
+	var datass ={
+			amount:amount,
+			feetype:1,
+			typeid:'99',
+			feeflag:'S',
+			projectid:projectid
+	};
+	$.ajax({
+		type: "POST",
+		dataType:"json",
+		async:true,
+		url: "mall/getCharge!getCharge.do?ajax=yes",
+		data: datass,
+		success: function(data){
+			genResult(data);
+		},
+		error: function(data) {
+			genResult(data);
+		}
+	});
+	function genResult(data){
+		 if(data.result == 1){
+			 var feeback = data.feeback ;
+			 if(feeback){
+				 $("#fees").text(feeback);
+				 $("#insfees").val(feeback); 
+			 }
+		 }
+	};
+	
+}
+</SCRIPT>

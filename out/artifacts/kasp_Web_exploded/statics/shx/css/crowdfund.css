@@ -1,0 +1,781 @@
+@charset "UTF-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.shadow-inset {
+  -webkit-box-shadow: 1px 1px 3px #ececec inset;
+  -moz-box-shadow: 1px 1px 3px #ececec inset;
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #e9e9e9;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+a[href],
+input[type=submit],
+input[type=button],
+textarea {
+  -webkit-transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -o-transition: opacity 3s ease-in-out;
+  transition: opacity 3s ease-in-out;
+}
+/* 众筹首页 */
+h1.logo-crowdfund a {
+  background: url(../images/logo_crowdfund.png) no-repeat 50% 50% !important;
+}
+.details-page {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+.crowdfund-adv .advans-four i {
+  color: rgba(192, 192, 192, 0.5);
+  font-size: 110px;
+}
+.crowdfund-adv .advans-four dt {
+  font-weight: normal;
+  color: #655641;
+}
+.crowdfund-adv .advans-four dd {
+  color: #747474;
+}
+.products-new {
+  margin-bottom: 30px;
+}
+.products-new .titlebar {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
+}
+.products-new .titlebar h2 {
+  float: left;
+  font-size: 24px;
+  line-height: 60px;
+  margin-left: 0;
+  color: #655641;
+}
+.products-new .titlebar .btn-more {
+  float: right;
+  margin-right: 0;
+  margin-top: 17px;
+}
+.products-new .product {
+  border: 1px solid #dadada;
+}
+.products-new .product .thumbnail {
+  float: left;
+  width: 720px;
+  height: 260px;
+  overflow: hidden;
+}
+.products-new .product .thumbnail img {
+  width: 100%;
+  height: 100%;
+}
+.products-new .product .content {
+  float: right;
+  width: 318px;
+  height: 220px;
+  padding: 20px;
+  overflow: hidden;
+}
+.products-new .product .content h3 {
+  margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  color: #655641;
+}
+.products-new .product .content h3 a {
+  font-size: 18px;
+  color: #655641;
+  line-height: 20px;
+}
+.products-new .product .content h3 a:hover {
+  color: #000;
+}
+.products-new .product .content .desc {
+  font-size: 13px;
+  line-height: 24px;
+  color: #747474;
+  width: 100%;
+  height: 72px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.products-new .product .content .location {
+  font-size: 13px;
+  line-height: 28px;
+  color: #747474;
+}
+.products-new .product .content .location i {
+  font-size: 16px;
+}
+.products-new .product .content .progress {
+  width: 100%;
+  height: 16px;
+  padding-right: 0;
+}
+.products-new .product .content .btn-lg {
+  width: 100%;
+  font-size: 16px;
+  background-color: #d56a1a;
+}
+.products-hot .titlebar {
+  margin-bottom: 10px;
+  width: 100%;
+  height: 60px;
+}
+.products-hot .titlebar h2 {
+  float: left;
+  font-size: 24px;
+  line-height: 60px;
+  margin-left: 0;
+  color: #655641;
+}
+.products-hot .titlebar .btn-more {
+  float: right;
+  margin-right: 0;
+  margin-top: 17px;
+}
+.reports {
+  padding-top: 50px;
+  margin-bottom: 30px;
+}
+.reports li {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+.reports li img {
+  width: 440px;
+  margin: 0 auto;
+}
+.reports > li + li {
+  float: right;
+}
+.partners {
+  margin-bottom: 60px;
+}
+.partners .titlebar {
+  width: 100%;
+  height: 60px;
+}
+.partners .titlebar h2 {
+  float: left;
+  font-size: 24px;
+  line-height: 60px;
+  margin-left: 0;
+  color: #655641;
+}
+.partners .titlebar .btn-more {
+  float: right;
+  margin-right: 0;
+  margin-top: 17px;
+}
+.partners li {
+  float: left;
+  width: 160px;
+  margin: 0 10px 20px;
+}
+/* 众筹项目列表页面 */
+.crowducts .filter dl dt {
+  width: 70px !important;
+}
+.crowducts .filter dl dd {
+  width: 690px !important;
+}
+.crowducts .card {
+  width: 248px;
+  margin: 0 10px 20px;
+}
+.crowducts .card .content {
+  padding: 0 10px 10px 10px;
+}
+.crowducts .card .content h3 a {
+  font-size: 16px;
+}
+/* 众筹项目详情 */
+.crowdfund-details .details-section {
+  margin-bottom: 30px;
+}
+.crowdfund-details .details-section .titlebar {
+  margin: 10px 0 20px;
+}
+.crowdfund-details .details-section .titlebar h2 {
+  font-size: 30px;
+  line-height: 48px;
+  color: #655641;
+}
+.crowdfund-details .details-section .titlebar span {
+  font-size: 14px;
+  color: #747474;
+}
+.crowdfund-details .details-section .content img {
+  float: left;
+  width: 500px;
+  height: 400px;
+}
+.crowdfund-details .details-section .content .details {
+  float: right;
+  width: 560px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+.crowdfund-details .details-section .content .details .data dl {
+  float: left;
+  margin-bottom: 15px;
+}
+.crowdfund-details .details-section .content .details .data dl dt {
+  font-size: 18px;
+  line-height: 24px;
+  color: #666;
+}
+.crowdfund-details .details-section .content .details .data dl dd {
+  font-size: 26px;
+  line-height: 36px;
+  color: #333;
+}
+.crowdfund-details .details-section .content .details .data dl dd em {
+  font-weight: bold;
+  font-size: 30px;
+}
+.crowdfund-details .details-section .content .details .data .long {
+  width: 60%;
+}
+.crowdfund-details .details-section .content .details .data .short {
+  width: 40%;
+}
+.crowdfund-details .details-section .content .details .actionArea {
+  height: 40px;
+  margin: 10px 0 30px;
+}
+.crowdfund-details .details-section .content .details .actionArea a {
+  display: inline-block;
+  margin-right: 20px;
+}
+.crowdfund-details .details-section .content .details .more {
+  height: 90px;
+}
+.crowdfund-details .details-section .content .details .more ul {
+  float: left;
+}
+.crowdfund-details .details-section .content .details .more ul li {
+  line-height: 30px;
+  font-size: 13px;
+  color: #655641;
+}
+.crowdfund-details .details-section .content .details .more ul .tags span {
+  display: inline-block;
+  margin-right: 20px;
+}
+.crowdfund-details .details-section .content .details .more .about {
+  width: 60%;
+}
+.crowdfund-details .details-section .content .details .more .about .mail {
+  margin-left: 5px;
+}
+.crowdfund-details .details-section .content .details .more .action {
+  width: 40%;
+}
+.crowdfund-details .details-section .content .details .more .action a {
+  margin: 2px 5px 0 0;
+}
+.crowdfund-details .invest-leader {
+  margin-bottom: 30px;
+  border: 1px solid #e9e9e9;
+  background-color: #fafafa;
+}
+.crowdfund-details .invest-leader > li {
+  float: left;
+  font-size: 13px;
+}
+.crowdfund-details .invest-leader .titlebar {
+  width: 40px;
+  height: 190px;
+  font-size: 14px;
+  background-color: #3498db;
+  text-align: center;
+}
+.crowdfund-details .invest-leader .titlebar h3 {
+  padding-top: 60px;
+  color: #ffffff;
+}
+.crowdfund-details .invest-leader .profile {
+  padding: 20px 0;
+  width: 485px;
+}
+.crowdfund-details .invest-leader .profile img {
+  float: left;
+  width: 150px;
+  height: 150px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+.crowdfund-details .invest-leader .profile .about {
+  width: 305px;
+  float: left;
+}
+.crowdfund-details .invest-leader .profile .about li {
+  font-size: 13px;
+  line-height: 30px;
+  height: 30px;
+  margin-bottom: 5px;
+  color: #747474;
+}
+.crowdfund-details .invest-leader .profile .about .username {
+  margin-bottom: 10px;
+}
+.crowdfund-details .invest-leader .profile .about .username span {
+  float: left;
+  font-size: 14px;
+  color: #333;
+}
+.crowdfund-details .invest-leader .profile .about .username .mail {
+  float: left;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+.crowdfund-details .invest-leader .profile .about .title {
+  color: #747474;
+  line-height: 20px;
+  height: 40px;
+}
+.crowdfund-details .invest-leader .profile .about .title a {
+  display: inline-block;
+  color: #3498db;
+}
+.crowdfund-details .invest-leader .profile .about .title a:hover {
+  text-decoration: underline;
+  color: #217dbb;
+}
+.crowdfund-details .invest-leader .profile .about .date {
+  margin-bottom: 0;
+}
+.crowdfund-details .invest-leader .comment {
+  width: 496px;
+  padding: 20px 0;
+  float: right;
+  margin-right: 40px;
+}
+.crowdfund-details .invest-leader .comment h4 {
+  font-size: 14px;
+  line-height: 30px;
+  color: #333;
+  margin-bottom: 5px;
+}
+.crowdfund-details .invest-leader .comment p {
+  font-size: 13px;
+  line-height: 28px;
+  color: #747474;
+  height: 112px;
+  overflow: hidden;
+}
+#details_tabs {
+  border: 1px solid #e9e9e9;
+  margin-bottom: 30px;
+}
+#details_tabs .nav {
+  height: 60px;
+  border-bottom: 1px solid #e9e9e9;
+}
+#details_tabs .nav li {
+  float: left;
+}
+#details_tabs .nav li a {
+  display: block;
+  width: 160px;
+  font-size: 18px;
+  line-height: 58px;
+  color: #655641;
+  text-align: center;
+  border-right: 1px solid #e9e9e9;
+  border-top: 2px solid transparent;
+  background-color: #fafafa;
+}
+#details_tabs .nav li a.current {
+  color: #333;
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  border-top: 2px solid #d56a1a;
+}
+#details_tabs .list-wrap {
+  padding: 30px;
+}
+#details_tabs .list-wrap .section {
+  margin-bottom: 40px;
+}
+#details_tabs .list-wrap .section h3 {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 5px 10px;
+  color: #655641;
+  background-color: #F5F5F5;
+  margin-bottom: 5px;
+}
+#details_tabs .list-wrap .section p {
+  font-size: 14px;
+  line-height: 30px;
+  color: #666;
+}
+#team li {
+  margin-bottom: 30px;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  *zoom: 1;
+}
+#team li:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+#team li .pic {
+  float: left;
+  width: 180px;
+  height: 200px;
+}
+#team li .intro {
+  float: left;
+  margin-left: 18px;
+  width: 820px;
+}
+#team li .intro dt {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 30px;
+}
+#team li .intro dt span {
+  font-size: 14px;
+  color: #747474;
+}
+#team li .intro dd {
+  font-size: 13px;
+  line-height: 24px;
+  color: #747474;
+}
+#document li i {
+  font-size: 16px;
+  line-height: 30px;
+  color: #999;
+}
+#document li a {
+  font-size: 14px;
+  line-height: 30px;
+  color: #00b7bb;
+}
+#document li a:hover {
+  text-decoration: underline;
+}
+#yield span {
+  font-size: 14px;
+  line-height: 40px;
+  color: #999;
+}
+#yield table {
+  width: 100%;
+}
+#yield table th,
+#yield table td {
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #d6d6d6;
+}
+#yield table th {
+  color: #333;
+  background-color: #f2f2f2;
+}
+#yield table td {
+  color: #666;
+}
+@media (min-width: 640px) {
+  #timeline > li {
+    overflow: hidden;
+    position: relative;
+  }
+  .timeline-date {
+    width: 140px;
+    float: left;
+    font-size: 16px;
+    color: #655641;
+    margin-top: 1px;
+  }
+  .timeline-content {
+    width: 75%;
+    float: left;
+    font-size: 14px;
+    color: #747474;
+    line-height: 30px;
+    border-left: 3px #e9e9e9 solid;
+    padding-left: 30px;
+    padding-bottom: 60px;
+  }
+  .timeline-content:before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #00b7bb;
+    position: absolute;
+    left: 136px;
+    top: 8px;
+    border-radius: 100%;
+  }
+}
+.invest-records h2 {
+  font-size: 18px;
+  line-height: 40px;
+  color: #333;
+  margin-bottom: 10px;
+}
+.invest-records ul li {
+  float: left;
+  width: 528px;
+  height: 118px;
+  border: 1px solid #e9e9e9;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.invest-records ul li img {
+  float: left;
+  width: 118px;
+  height: 118px;
+}
+.invest-records ul li dl {
+  float: left;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 24px;
+  color: #747474;
+}
+.invest-records ul li dl dt {
+  height: 40px;
+  font-size: 16px;
+  line-height: 40px;
+}
+.invest-records ul li dl dt .mail {
+  margin-left: 10px;
+}
+/* 项目动态 */
+.projects-news li {
+  width: 100%;
+  height: 185px;
+  margin-bottom: 20px;
+}
+.projects-news li > a {
+  float: left;
+  width: 260px;
+  height: 185px;
+  overflow: hidden;
+}
+.projects-news li > a img {
+  width: 260px;
+  height: 185px;
+}
+.projects-news li .content {
+  float: right;
+  width: 535px;
+}
+.projects-news li .content .title {
+  margin-bottom: 10px;
+}
+.projects-news li .content .title h3 {
+  width: 100%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.projects-news li .content .title h3 a {
+  font-size: 24px;
+  line-height: 36px;
+  color: #655641;
+}
+.projects-news li .content .title h3 a:hover {
+  color: #080705;
+}
+.projects-news li .content .title span {
+  display: inline-block;
+  font-size: 12px;
+  color: #a7a7a7;
+  margin-right: 20px;
+}
+.projects-news li .content .title .date {
+  font-size: 13px;
+}
+.projects-news li .content .article {
+  font-size: 14px;
+  line-height: 24px;
+  color: #747474;
+  height: 96px;
+  overflow: hidden;
+}
+.projects-news li .content .more a {
+  font-size: 12px;
+  line-height: 24px;
+  color: #d56a1a;
+}
+.projects-news li .content .more a i {
+  font-size: 12px;
+}
+/* 投资人页面 */
+.investor-cards li {
+  height: 140px;
+}
+.investor-cards li .photo {
+  height: 140px;
+}
+.investor-cards li .desc {
+  padding: 15px;
+}
+.investor-cards li .desc h3 {
+  line-height: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+.investor-cards li .desc span {
+  line-height: 20px;
+  font-size: 13px;
+}
+.investor-cards li .desc > a {
+  margin-top: 10px;
+}
+.crowdfund-publish {
+  min-height: 400px;
+}
+.entrances {
+  padding: 200px 0;
+}
+.entrances > div {
+  padding: 2%;
+  width: 30%;
+  height: 150px;
+  border: 1px solid #c0c0c0;
+  text-align: center;
+}
+.entrances > div .brief {
+  font-size: 16px;
+  color: #000;
+  line-height: 30px;
+  height: 60px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.entrances .products {
+  float: left;
+  margin-left: 10%;
+}
+.entrances .shares {
+  float: right;
+  margin-right: 10%;
+}
+.publish-start {
+  padding: 100px 0;
+  text-align: center;
+}
+.publish-start h2 {
+  font-size: 36px;
+  line-height: 60px;
+  color: #3498db;
+  margin-bottom: 40px;
+}
+.publish-start .why-u-need-us {
+  font-size: 14px;
+  width: 50%;
+  margin: 0 auto;
+  line-height: 2;
+  margin-bottom: 100px;
+}
+.publish-start .agreement {
+  font-size: 12px;
+}
+.publish-start .agreement label {
+  display: inline-block;
+  vertical-align: top;
+}
+.publish-start .agreement label a {
+  display: inline-block;
+  vertical-align: top;
+  color: #3498db;
+}
+.publish-start .actionArea {
+  padding: 30px 0;
+}
+.publish-start .actionArea .btn {
+  width: auto;
+  padding: 0 30px;
+}
+.guideline-steps {
+  width: 100%;
+  height: 60px;
+  margin: 30px 0 20px;
+}
+.guideline-steps li {
+  float: left;
+  width: 148px;
+  line-height: 58px;
+  border: 1px solid #e9e9e9;
+  background-color: #fafafa;
+  font-size: 14px;
+  margin-right: 5px;
+  color: #655641;
+  text-align: center;
+  cursor: default;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+.guideline-steps .current {
+  background-color: #eaf4fb;
+  border-color: #b6daf2;
+  color: #3498db;
+}
+.crowdfund-publish .publishment {
+  margin-bottom: 60px;
+  border: 1px solid #e9e9e9;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+.crowdfund-publish .publishment .titlebar {
+  height: 50px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #e9e9e9;
+}
+.crowdfund-publish .publishment .titlebar h2 {
+  font-size: 20px;
+  line-height: 50px;
+  padding-left: 15px;
+  color: #655641;
+}
+.crowdfund-publish .publishment .content {
+  padding: 40px;
+}
+.crowdfund-publish .publishment .content h3 {
+  font-size: 18px;
+  color: #655641;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+/*# sourceMappingURL=crowdfund.css.map */

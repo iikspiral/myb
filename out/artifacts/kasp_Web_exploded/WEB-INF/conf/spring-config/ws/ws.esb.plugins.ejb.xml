@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!--
+    	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+		<property name="environment">
+			<props>
+				<prop key="java.naming.provider.url">127.0.0.1:1099</prop>
+				<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+				<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jpn.interfaces</prop>
+				<prop key="deploy.server">jboss</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="serviceInvoker" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate" ref="jndiTemplate"/>
+		<property name="jndiName" value="EjbServiceInvokeBean/remote"></property>
+	</bean> 
+	
+	<bean id="serviceInvoker02" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate" ref="jndiTemplate"/>
+		<property name="jndiName" value="EjbServiceInvokeBean/remote"></property>
+	</bean> 
+	<bean id="ejbBex" class="com.websuites.esb.plugins.ejb.EjbBex">
+		<property name="bexs">
+			<ref bean="Bexs"/>
+		</property>
+		<property name="defaultNode">
+			<value>ejbNode01</value>
+		</property>			
+		<property name="ejbNode">
+			<map>
+				<entry key="ejbNode01" value-ref="serviceInvoker" />
+				<entry key="ejbNode02" value-ref="serviceInvoker02" />
+			</map>
+		</property>
+    </bean>
+-->
+</beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<websuites>
+ 
+<bex id="f_kifp_common_call" type="http-bex"  httpserver="kifp" target="kifpService" service="kifpServiceCommonCall" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="kifpbexid"  	            type="string" />	<!-- f_kifpsvc_bex_for_otcpsvc_common_call -->  
+		</request>
+</bex>
+
+<bex id="f_kifp_ibatis_common_call" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+ 
+ 
+</websuites>

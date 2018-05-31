@@ -1,0 +1,21 @@
+<div class="container-full topbar">
+	<ul class="contact">
+		<!--<li class="addFav"><i class="iconfont">&#xe602;</i> 收藏</li>-->
+		<!--<li><i class="iconfont">&#xe601;</i></li>-->
+		<!--<li><i class="iconfont">&#xe603;</i></li>-->
+		<li class="hotline">服务热线：<em>400-820-8820</em></li>
+		<li class="search-field">
+			<form>
+				<input type="text" placeholder="搜索理财产品">
+				<i class="iconfont">&#xe600;</i>
+			</form>
+		</li>
+	</ul>
+	<ul class="guide">
+		<li><a href="login.html">登录</a></li>
+		<li class="register"><a href="register_org.html">机构注册</a></li>
+		<li class="register"><a href="register_psn.html">个人注册</a></li>
+		<li><a href="help.html">帮助中心</a></li>
+		<li><a href="guideline.html">新手上路</a></li>
+	</ul>
+</div>

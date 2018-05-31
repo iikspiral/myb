@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="sequence" class="com.szkingdom.otcp.utils.Sequence">
+		<property name="dataSource" ref="defaultDataSource" />  	
+	</bean>
+	<bean id="codeSeq" class="com.szkingdom.otcp.utils.Code">
+		<property name="dataSource" ref="defaultDataSource" />  	
+	</bean>
+</beans>

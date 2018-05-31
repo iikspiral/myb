@@ -1,0 +1,116 @@
+<script type="text/javascript" src="js/apply.js"></script>
+<link rel="stylesheet" href="${staticserver}/common/css/user-account-center.css">
+
+ <div class="container order-page">
+       <div class="simple-titlebar">
+        <h2 class="title">交易权限申请</h2>
+	   </div>
+        <div class="order-board qualification">
+		   <#if limitedstatus == "1"  && limitedtype == "1">
+					<#if limitedcheckstatus == "1">
+					<div class="content">
+						<p class="status">申请成功</p>
+					</div>
+				    </#if>
+			<#else>
+
+					<#if limitedstatus=="0">
+					<!-- 资料审核中 -->
+					<#if limitedcheckstatus =="0">
+					<div class="content">
+						<p class="status">审核中.....</p>
+					</div>
+					<#elseif limitedcheckstatus =="2">
+            <div class="content">
+            	<p>资质申请类型是指申请资质的形式和种类。包括：首次申请（一般指第一次办理）、升级申请（在原有资质等级的基础上升到高一级别）、增项申请（增加不同的行业或专业）、增补申请（增加副本或遗失补办）、变更申请（企业名称、地址、法定代表人等变更）、延续申请（证书到期未换证，需继续使用）、注销申请（企业倒闭、资质吊销）、重新核定（企业改制、合并、重组）。</p>
+            	<p>资质申请类型是指申请资质的形式和种类。包括：首次申请（一般指第一次办理）、升级申请（在原有资质等级的基础上升到高一级别）、增项申请（增加不同的行业或专业）、增补申请（增加副本或遗失补办）、变更申请（企业名称、地址、法定代表人等变更）、延续申请（证书到期未换证，需继续使用）、注销申请（企业倒闭、资质吊销）、重新核定（企业改制、合并、重组）。</p>
+            	<p>资质申请类型是指申请资质的形式和种类。包括：首次申请（一般指第一次办理）、升级申请（在原有资质等级的基础上升到高一级别）、增项申请（增加不同的行业或专业）、增补申请（增加副本或遗失补办）、变更申请（企业名称、地址、法定代表人等变更）、延续申请（证书到期未换证，需继续使用）、注销申请（企业倒闭、资质吊销）、重新核定（企业改制、合并、重组）。</p>
+            </div>
+            <div class="agreement">
+            	<input id="J_agreement" type="checkbox">
+            	<label>我同意</label>
+            </div>
+            <div class="actionArea">
+            	<input class="btn btn-lg btn-orange" type="button" value="申请" id="J_btn_limitlesscrowdfunding">
+            </div>
+			</#if>
+		</#if>
+		</#if>
+		<#if limitedstatus=="" || limitedtype=="" || limitedcheckstatus=="">
+		<div class="content">
+            	<p>您还未进行风险测评，请先进行<a href="myselfinfo.html">风险测评</a></p>
+            	
+            </div>
+		</#if>
+        </div>
+    </div>
+<script type="text/javascript">
+var Kifpadmin = Kifpadmin || {};
+
+Kifpadmin.priorityapply = {
+		
+	init : function() {
+		var self = this;
+		$("#J_btn_limitlesscrowdfunding").click(function() {
+			if ( $("#J_agreement").attr("checked")  != "checked") {
+				$.kd.kdMsg("申请前请仔细阅读并勾选同意");
+				return ;
+		}
+			self.transpriorityapply(20);
+		});
+	},
+	transpriorityapply:function(type){
+			$("#J_btn_limitlesscrowdfunding").attr("disabled", "disabled");
+			$("#J_btn_limitlesscrowdfunding").attr("disabled", "disabled");
+	    	$.post(
+	    			"mall/qilu_finapply!transpriorityapplyWorkFlow.do?ajax=yes"	,
+	    	{type:type},
+	    	function(data) {
+				var result = data.result;
+				var message = data.data.msg;
+				if ( $.type(result) != "undefined")
+				{
+					data.data.flag =  parseInt(result);
+				}
+				if ( $.type(message) != "undefined")
+				{
+					data.data.msg =  message;
+				}
+	    		if ( data.data.flag == 1 ) {
+	    			$.kd.kdAlert(data.data.msg, function() {
+	    				window.location.href = "account_asset.html";
+					},"交易权限申请");
+					//alert("ok: "+data.message);
+				}else{
+					if (  data.data.msg == "err_goto_myproject_safe"  
+						||  data.data.msg == "未获取到当前用户的customerno(请确保操作前已正确绑定银行卡)"
+						) {
+						$.kd.kdAlert("用户需先实名认证后才能进行相应操作,点击确定后将跳转至认证中心", function() {       				
+	    				window.location.href = "bankmanage.html";
+						},"交易权限申请");
+					}
+					else if (  data.data.msg == "未查询到当前用户的风险评测结果"   ) {
+						$.kd.kdAlert(data.data.msg, function() {       				
+		    					window.location.href = "myselfinfo.html?menu=910";
+							},"交易权限申请");
+					}
+					else { 
+						$.kd.kdAlert(data.data.msg, function() {
+							window.location.href = "apply_transaction_rights.html?_"+new Date().getTime();  
+						},"交易权限申请");
+					}
+					
+				}
+	    	},
+	    	"json"
+	    	);		
+	    
+		} 
+};
+	
+
+
+$(function() {
+	Kifpadmin.priorityapply.init();
+});
+</script>

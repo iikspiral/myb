@@ -1,0 +1,32 @@
+
+<link rel="stylesheet" href="${staticserver}/bbw/css/common.css">
+<link rel="stylesheet" href="${staticserver}/bbw/css/floorform.css">
+<link rel="stylesheet" href="${staticserver}/bbw/css/main.css">
+<link rel="stylesheet" href="${staticserver}/bbw/css/iconfont/iconfont.css">
+
+<script src="${staticserver}/bbw/common/js/libs/jquery.unslider.min.js"></script>
+<!-- 
+<script language="javascript" type="text/javascript" src="${staticserver}/bbw/common/My97DatePicker/WdatePicker.js"></script>
+-->
+<div class="account-sidebar">
+		 <#include 'account_head_icons.html' />
+		<ul class="sidemenu">
+			<#if menulist?exists>
+				<#list menulist as item>
+					  <li><a href="${item.page!''}" 
+						<#if '${item.page}' == '${uritype}' > class="current"</#if>>${item.menuname!''}
+					  </a><b></b></li>
+				</#list>
+			<#else>
+				  <li>尚未设置菜单栏</li>
+			</#if>
+		</ul>
+		<div class="brief-security">
+			<span>账户安全级别：<em>较高</em></span>
+			<div class="progress">
+				<div class="per-bar">
+					<span class="per" style="width: 34%;"></span>
+				</div>
+			</div>
+		</div>
+</div>		

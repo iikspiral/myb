@@ -1,0 +1,131 @@
+<div class="container order-page">
+	<div class="simple-titlebar">
+        <h2 class="title">身份资质申请</h2>
+    </div>
+    <div class="order-board qualification">
+
+		<#if invstatus=="0">
+		<#if invtype == "1" && invcheckstatus == "0">
+		<div class="content">
+	    	<p class="status">审核中......</p>
+	    </div>
+		<!-- 审核未通过 -->
+		<#elseif invtype == "1" && invcheckstatus == "2">
+			<div class="floorform">
+				<div class="content">
+					<p> 发起人，是指发起小额融资项目，并愿意引入其他投资人或债权人，在项目运作中遵守本规则规定，进行项目管理的企业法人或创业创新的自然人。</p>
+					<p>发起人在向推荐人提出众投融资意愿时，须制作项目融资说明书，对融资项目进行详细的说明，包括项目融资总额、融资期限、资金用途、运作模式、决策机制、风险因素及控制方式、发起人的声明和承诺等要素。</p>
+					<p> 发起人在本中心平台上发布众投融资意向的，须获得本中心认可的推荐人推荐，与推荐人签订财务顾问协议。 </p>
+					<p>项目融资成功后，发起人应会同推荐人到本中心进行项目备案，按照项目融资说明书及相关协议约定，负责项目运作及管理，并接受推荐人的督导。</p>
+			    </div>
+			    <div class="agreement">
+			    	<input id="J_agreement" type="checkbox">
+			    	<label for="agreement">我已阅读并同意<a href="">发起人资质申请协议</a></label>
+			    </div>
+			    <div class="actionArea">
+			    	<input class="btn btn-lg btn-orange" type="button" value="重新申请" id="J_btn_investor">
+			    </div>
+			</div>
+		</#if>
+		</#if> 
+						
+		<#if invtype != "1" >
+			<div class="floorform">
+		        <div class="content">
+		        	<p> 发起人，是指发起小额融资项目，并愿意引入其他投资人或债权人，在项目运作中遵守本规则规定，进行项目管理的企业法人或创业创新的自然人。</p>
+					<p>发起人在向推荐人提出众投融资意愿时，须制作项目融资说明书，对融资项目进行详细的说明，包括项目融资总额、融资期限、资金用途、运作模式、决策机制、风险因素及控制方式、发起人的声明和承诺等要素。</p>
+					<p> 发起人在本中心平台上发布众投融资意向的，须获得本中心认可的推荐人推荐，与推荐人签订财务顾问协议。 </p>
+					<p>项目融资成功后，发起人应会同推荐人到本中心进行项目备案，按照项目融资说明书及相关协议约定，负责项目运作及管理，并接受推荐人的督导。</p>
+		        </div>
+		        <div class="agreement">
+		        	<input id="J_agreement" type="checkbox">
+		        	<label for="agreement">我已阅读并同意以上内容</label>
+		        </div>
+		        <div class="actionArea">
+		        	<input class="btn btn-lg btn-orange" type="button" value="申请" id="J_btn_investor">
+		        </div>
+		    </div>
+		</#if>
+		<#if invstatus == "1" >
+			<#if invtype == "1" && invcheckstatus == "1" >
+					
+			<div class="content">
+	        	<p class="status">申请成功</p>
+	        </div>
+		</#if> 
+		</#if>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+var Kifpadmin = Kifpadmin || {};
+
+Kifpadmin.priorityapply = {
+		
+	init : function() {
+		var self = this;
+		$("#J_btn_investor").click(function() {
+			if ( $("#J_agreement").attr("checked")  != "checked") {
+				$.kd.kdMsg("申请前请仔细阅读并勾选同意");
+				return ;
+		}
+			self.identityapply(11);
+		});
+	},
+	identityapply:function(type){
+		$("#J_btn_investor").attr("disabled", "disabled");
+    	$.post(
+    			"mall/finapply!identityapplyWorkFlow.do?ajax=yes"	,
+    	{type:type},
+    	function(data) {
+				     
+				var result = data.result;
+				var message = data.message;
+				if ( $.type(result) != "undefined")
+				{
+					data.flag =  parseInt(result);
+				}
+				if ( $.type(message) != "undefined")
+				{
+					data.msg =  message;
+				}
+    		if ( data.flag == 1 ) {
+    			$.kd.kdAlert(data.msg, function() {
+    				window.location.href = "account_asset.html?_"+new Date().getTime();
+				},"身份资质申请");
+			}else{
+				
+				if (  data.msg == "err_goto_myproject_safe"  
+					||  data.msg == "申请失败，请确保已绑定银行卡"
+					) {
+					$.kd.kdAlert("用户需先实名认证后才能进行相应操作,点击确定后将跳转至实名认证", function() {       				
+    				window.location.href = "myselfinfo.html?_"+new Date().getTime();
+					},"身份资质申请");
+				}
+				else if (  data.msg == "未查询到当前用户的风险评测结果"   ) {
+					$.kd.kdAlert("用户需先风险评测后才能进行相应操作,点击确定后将跳转至认证中心", function() {       				
+	    					window.location.href = "myselfinfo.html?_"+new Date().getTime();
+						},"身份资质申请");
+				}
+				else {
+					$.kd.kdAlert(data.msg, function() {
+						window.location.href = "account_asset.html?_"+new Date().getTime();  
+					},"身份资质申请");
+				}
+				
+			}
+    	},
+    	"json"
+    	);
+    	
+
+	} ,
+};
+	
+
+
+$(function() {
+	Kifpadmin.priorityapply.init();
+});
+</script>

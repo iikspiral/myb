@@ -1,0 +1,269 @@
+<div>
+	<div class="risk_assessment">
+		<p class="description">
+			<i class="iconfont">&#xe617;</i> 
+			亲爱的投资者，为了对您的风险承受能力做出评估，请您认真、客观地填写以下问卷。对于您填写的个人信息，本中心将予以严格保密，不会向任何第三方透露。因监管部门履行监管职责要求或司法部门依法行使调阅查询权除外。
+		</p>
+		<form id="doEstimateForm" class="assess-survey">
+			<dl>
+				<dt>1. 您的年龄
+					<input type="radio" name="questionnaire0" style="display: none;" datatype="*" nullmsg="请选择答案!" />
+				</dt>
+				<dd>
+					<input type="radio" value="4" name="questionnaire0" id="questionnaire04" />
+					<label for="questionnaire04">25岁及以下</label>
+				</dd>
+				<dd>
+					<input type="radio" value="3" name="questionnaire0" id="questionnaire03"/>
+					<label for="questionnaire03">26岁~44岁</label>
+				</dd>
+				<dd>
+					<input type="radio" value="2" name="questionnaire0" id="questionnaire02" />
+					<label for="questionnaire02">45岁~59岁</label>
+				</dd>
+				<dd>
+					<input type="radio" value="1" name="questionnaire0" id="questionnaire01" />
+					<label for="questionnaire01">60岁及以上</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt>2. 您的家庭年收入状况
+				<input type="radio" name="questionnaire1" style="display: none;" datatype="*" nullmsg="请选择答案!" />
+				</dt>
+				<dd>
+					<input type="radio" value="1" name="questionnaire1" id="questionnaire11" />
+					<label for="questionnaire11">5万元以下</label>
+				</dd>
+				<dd>
+					<input type="radio" value="2" name="questionnaire1" id="questionnaire12" />
+					<label for="questionnaire12">5万元(含)~10万元</label>
+				</dd>
+				<dd>
+					<input type="radio" value="3" name="questionnaire1" id="questionnaire13" />
+					<label for="questionnaire13">10万元(含)~30万元</label>
+				</dd>
+				<dd>
+					<input type="radio" value="4" name="questionnaire1" id="questionnaire14" />
+					<label for="questionnaire14">30万元(含)以上</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt>3. 除了您自住的房产外，您拥有的金融资产(包括存款、股票及第二套房产的价值等资产)总额情况
+				<input type="radio" name="questionnaire2" style="display: none;" datatype="*" nullmsg="请选择答案!" />
+				</dt>
+				<dd>
+					<input type="radio" value="1" name="questionnaire2" id="questionnaire21" />
+					<label for="questionnaire21">10万元以下</label>
+				</dd>
+				<dd>
+					<input type="radio" value="2" name="questionnaire2" id="questionnaire22" />
+					<label for="questionnaire22">10万元(含)~50万元</label>
+				</dd>
+				<dd>
+					<input type="radio" value="3" name="questionnaire2" id="questionnaire23" />
+					<label for="questionnaire23">50万元(含)~200万元</label>
+				</dd>
+				<dd>
+					<input type="radio" value="4" name="questionnaire2" id="questionnaire24" />
+					<label for="questionnaire24">200万元(含)以上</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt>4. 您参与证券、基金、外汇或期货投资的年限
+				<input type="radio" name="questionnaire3" style="display: none;" datatype="*" nullmsg="请选择答案!" />
+				</dt>
+				<dd>
+					<input type="radio" value="1" name="questionnaire3" id="questionnaire31" />
+					<label for="questionnaire31">2年以下</label>
+				</dd>
+				<dd>
+					<input type="radio" value="2" name="questionnaire3" id="questionnaire32" />
+					<label for="questionnaire32">2年(含)~5年</label>
+				</dd>
+				<dd>
+					<input type="radio" value="3" name="questionnaire3" id="questionnaire33" />
+					<label for="questionnaire33">5年(含)~10年</label>
+				</dd>
+				<dd>
+					<input type="radio" value="4" name="questionnaire3" id="questionnaire34" />
+					<label for="questionnaire34">10年(含)及以上</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt>5. 您准备投资区域性股权市场的资金，占您拥有的金融资产的比例是多少
+					<input type="radio" name="questionnaire4" style="display: none;" datatype="*" nullmsg="请选择答案!" />
+				</dt>
+				<dd>
+					<input type="radio" value="4" name="questionnaire4" id="questionnaire44" />
+					<label for="questionnaire44">20%以下</label>
+				</dd>
+				<dd>
+					<input type="radio" value="3" name="questionnaire4" id="questionnaire43" />
+					<label for="questionnaire43">20%(含)~30%</label>
+				</dd>
+				<dd>
+					<input type="radio" value="2" name="questionnaire4" id="questionnaire42" />
+					<label for="questionnaire42">30%(含)~50%</label>
+				</dd>
+				<dd>
+					<input type="radio" value="1" name="questionnaire4" id="questionnaire41" />
+					<label for="questionnaire41">50%(含)以上</label>
+				</dd>
+			</dl>
+		</form>
+		<form id="checkForm" class="agreement-form">
+		 <div class="agreement">
+         <input id="serviceAgreement" name="serviceAgreement" datatype="*" type="checkbox"> 
+          <label for="serviceAgreement">我已阅读并同意<a id="fxs" onclick="windowUp()" href="javascript:void(0);" >《风险揭示书》</a></label>
+        </div>
+        <div class="actionArea">
+          <input id="doEstimate"  class="btn btn-lg btn-orange" type="button" value="下一步">
+        </div>
+		</form>
+
+	</div>	
+</div>
+ 
+	
+<div id="fxjss" style="display: none">
+		<div class="regist-questionnaire" >
+			<div class="regist-questionnaire_con" style="height: 300px;font-size: 14px;overflow:auto;text-align:justify">
+				
+
+
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">尊敬的投资者：</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;"><br />
+</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">为了使您更好地了解“高新普惠”金融产品的相关风险，根据国家有关法律、法规、规章和其他规范性文件的规定，高新普惠资产管理有限公司（以下简称“本公司”）特向您进行如下风险揭示，请认真阅读并慎重签署。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;"><br />
+</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">1. 本公司所指的金融产品，是指融资项目的发起人发起项目，经本公司审核备案，通过本公司互联网平台进行信息展示，由投资者自主决策，并借助互联网平台实现投资的投融资对接服务。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">2. 本公司所指的发起人，是指发行融资项目，并愿意引入其他投资者或债权人，在项目运作中遵公司规定，进行项目管理的企业。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">3. 您在参与本公司平台展示的金融产品前，应当全面了解本公司各项制度及金融产品业务规则、投资标的或投资项目、融资期限、投资风险、金融产品业务的收费标准和收费方式等信息。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">4. 您应当进行账户的实名开户，如实接受风险承受能力评估。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">5. 您应当提供有效的联系方式和服务获取方式，如有变动须及时向本公司进行说明，如因您自身原因或不可抗力因素导致您未能及时获取相关的信息服务，由此带来的后果将由您自行承担。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">6. 您参与本公司平台开展的金融产品业务时，须通过本公司进行账户开立、资金划转、相关费用收付等，不得向其他非授权的机构或个人账户支付。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">7. 作为投资依据的项目募集说明书，可能存在不全面或者被误读的风险，您可以向项目发起人进行广泛了解，以便在进行投资决策时作出理性判断。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">8. 金融产品项目募集成功后可能会面临道德、运营、政策等方面的风险。道德风险主要来自项目运营者对资金的使用和资金管理者对资金的管理，可能发生资金管理者疏于管理、资金使用不当的情况，资金未能投入项目运作，导致投资者利益遭受损失；运营风险主要来自项目运营者对项目的运作，运作不当可能导致项目亏损；政策风险则主要指国家的法律、法规、政策以及行业导向发生变化，可能导致项目无法达到预期。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">9. 本平台及项目发起人提供的项目投资信息具有针对性和时效性，不能在任何市场环境下长期有效。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">10. 本公司对金融产品项目的备案并不表示本公司对发起人融资项目的经营风险、偿债风险、诉讼风险以及金融产品业务投资风险或收益作出判断或保证。您在参与金融产品业务时，须自主作出投资决策，自行承担投资风险，本公司、项目发起人等不以任何方式向您作出不受损失或者取得最低收益的承诺。金融产品项目失败可能会导致本金全额损失。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">11. 您应当妥善保管好自己的股东账户、资金账户和相应的密码，不要随便委托其他人员管理自己的股东账户、资金账户、代理买卖权益，否则由此导致的风险将由您自行承担。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">12. 项目发起人及其他人员也可能存在道德风险，当您发现存在提供虚假信息、进行关联交易等违反相关协议等违法违规行为或利益冲突情形的，您可以向本公司投诉或向有关部门举报。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">13. 项目发起人可能存在因停业、解散、撤销、破产，或者被有关职能部门撤销相关业务许可、责令停业整顿等原因导致不能履行职责的风险。</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;"><br />
+</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;">本风险揭示书的揭示事项仅为列举性质，未能详尽列明投资者参与金融产品业务所面临的全部风险和可能导致投资者投资损失的所有因素。
+					投资者在参与金融产品业务前，应认真阅读并理解相关业务规则、相关协议及本风险揭示书的全部内容。
+					参与金融产品业务的投资者，自行承担投资风险，本公司、项目发起人等不以任何方式向投资者作出不受损失或者取得最低收益的承诺。&nbsp;</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;"><br />
+</span>
+</p>
+<p>
+	<span style="font-family:'Microsoft YaHei';font-size:14px;line-height:1.5;"><strong>&nbsp;特别提示：</strong>投资者应签署本风险揭示书，表明投资者已经理解并愿意自行承担接受参与金融产品业务的风险和损失。</span>
+</p>
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var $riskForm;
+	var banktype='${banktype}';
+	var $doEstimateFormValidate;
+	$(function(){
+		$doEstimateFormValidate = $("#doEstimateForm").kdValidform();
+		  $riskForm = $("#checkForm");
+		$riskForm = $riskForm.kdValidform();
+		$("#doEstimate").bind('click',function(){
+			var options = {
+					type: "POST",
+					dataType:"json",
+					async:true,
+					url: "${kasp_url}mall/hunan_riskmate!doEstimate.do?ajax=yes",
+					success: function(data){
+						$.kd.closeLoading();
+			 			$("input[type=button]").attr("disabled", false);
+			 			if (data.result == '1') {
+			 				 zhejiang_alert('消息',data.message, function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+			 			}else{
+							zhejiang_alert('消息',data.message, function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+						}
+						
+					},
+					error: function(data) {
+						  zhejiang_alert('消息',"系统异常", function() {
+								window.location.href='${kasp_url}account_asset.html';
+				 			 });
+					}
+				};
+			if( $riskForm.check()&&$doEstimateFormValidate.check()){
+				$.kd.showLoading($("#doEstimate"));
+			 	$("input[type=button]").attr("disabled", true);
+			 	$("#doEstimateForm").ajaxSubmit(options);
+			}
+			
+		});
+	});
+	function next() {
+		zhejiang_alert('消息',"完成注册及绑定", function() {
+				window.location.href='${kasp_url}account_asset.html';
+		});	
+	}
+$("#fxs").bind("click",function(){
+	$(".modal-dialog").css("width","800");
+})	
+function windowUp(){
+	
+	zhejiang_alert('风险揭示书',$('#fxjss').html(),function(){
+		
+	})
+}	
+	
+</script>
+

@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="../css/user-account-center.css">
+<script type="text/javascript" src="../js/libs/kjax.des.js"></script>
+
+<div class="rightcontent">	      
+	<div class="user-content">
+		  <#include 'account_safe_safe.html' />
+	</div>
+</div>
+
+<div id="fxjss" style="display: none">
+	<div class="regist-questionnaire">
+		<form>
+			<div class="regist-questionnaire_con" style="height: 300px; font-size: 14px; width: 572px;overflow:auto">
+				<h style="padding: 0;text-indent: 0;">尊敬的投资者：</h><br>
+				<h style="padding: 0;text-indent:0;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				为了使您更好地了解“金交在线”金融产品的相关风险，根据国家有关法律、法规、规章和其他规范性文件的规定，金交在线资产管理有限公司（以下简称“本公司”）特向您进行如下风险揭示，请认真阅读并慎重签署。</h>
+				<dl><dt> 1.本公司所指的金融产品，是指融资项目的发起人发起项目，经本公司审核备案，通过本公司互联网平台进行信息展示，由投资者自主决策，并借助互联网平台实现投资的投融资对接服务。
+				</dt> </dl>	<dl><dt> 2.本公司所指的发起人，是指发行融资项目，并愿意引入其他投资者或债权人，在项目运作中遵公司规定，进行项目管理的企业。
+				</dt> </dl>	<dl><dt>3.您在参与本公司平台展示的金融产品前，应当全面了解本公司各项制度及金融产品业务规则、投资标的或投资项目、融资期限、投资风险、金融产品业务的收费标准和收费方式等信息。
+				</dt> </dl>	<dl><dt>
+				4.您应当进行账户的实名开户，如实接受风险承受能力评估。
+				</dt> </dl>	<dl><dt>5.您应当提供有效的联系方式和服务获取方式，如有变动须及时向本公司进行说明，如因您自身原因或不可抗力因素导致您未能及时获取相关的信息服务，由此带来的后果将由您自行承担。
+				</dt> </dl>	<dl><dt>6.您参与本公司平台开展的金融产品业务时，须通过本公司进行账户开立、资金划转、相关费用收付等，不得向其他非授权的机构或个人账户支付。
+				</dt> </dl>	<dl><dt>7.作为投资依据的项目募集说明书，可能存在不全面或者被误读的风险，您可以向项目发起人进行广泛了解，以便在进行投资决策时作出理性判断。
+				</dt></dl><dl><dt>  8.金融产品项目募集成功后可能会面临道德、运营、政策等方面的风险。道德风险主要来自项目运营者对资金的使用和资金管理者对资金的管理，可能发生资金管理者疏于管理、资金使用不当的情况，资金未能投入项目运作，导致投资者利益遭受损失；运营风险主要来自项目运营者对项目的运作，运作不当可能导致项目亏损；政策风险则主要指国家的法律、法规、政策以及行业导向发生变化，可能导致项目无法达到预期。
+				</dt></dl><dl><dt>  
+				9.本平台及项目发起人提供的项目投资信息具有针对性和时效性，不能在任何市场环境下长期有效。
+				</dt></dl><dl><dt>  10.本公司对金融产品项目的备案并不表示本公司对发起人融资项目的经营风险、偿债风险、诉讼风险以及金融产品业务投资风险或收益作出判断或保证。您在参与金融产品业务时，须自主作出投资决策，自行承担投资风险，本公司、项目发起人等不以任何方式向您作出不受损失或者取得最低收益的承诺。金融产品项目失败可能会导致本金全额损失。
+				</dt></dl><dl><dt>  11.您应当妥善保管好自己的股东账户、资金账户和相应的密码，不要随便委托其他人员管理自己的股东账户、资金账户、代理买卖权益，否则由此导致的风险将由您自行承担。
+				</dt></dl><dl><dt>  12.项目发起人及其他人员也可能存在道德风险，当您发现存在提供虚假信息、进行关联交易等违反相关协议等违法违规行为或利益冲突情形的，您可以向本公司投诉或向有关部门举报。
+				</dt></dl><dl><dt>  13.项目发起人可能存在因停业、解散、撤销、破产，或者被有关职能部门撤销相关业务许可、责令停业整顿等原因导致不能履行职责的风险。
+				</dt></dl>
+				<h style="padding: 0;text-indent:0;float:left;margin-top:12px;">
+				本风险揭示书的揭示事项仅为列举性质，未能详尽列明投资者参与金融产品业务所面临的全部风险和可能导致投资者投资损失的所有因素。
+				投资者在参与金融产品业务前，应认真阅读并理解相关业务规则、相关协议及本风险揭示书的全部内容。
+				参与金融产品业务的投资者，自行承担投资风险，本公司、项目发起人等不以任何方式向投资者作出不受损失或者取得最低收益的承诺。
+				特别提示：投资者应签署本风险揭示书，表明投资者已经理解并愿意自行承担接受参与金融产品业务的风险和损失。
+				</h>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$(function() {
+	 		 
+		$("span.user-safety-options-state").bind("click", function() {
+			var txt = $(this).text();
+			$(this).text($(this).attr("switchtext")).attr("switchtext", txt);
+
+			var $tmp = $(this).closest("div").next();
+			var $ct = $("div.form-box:visible").not($tmp);
+			if ($ct.size() > 0) {
+				$ct.slideUp();
+				$ct = $(".user-safety-options-state", $ct.parent());
+				txt = $ct.text();
+				$ct.text($ct.attr("switchtext")).attr("switchtext", txt);
+			}
+
+			if ($tmp.is(":visible")) {
+				$tmp.slideUp();
+			} else {
+				$tmp.slideDown();
+			}
+		});
+		var nowtext=$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).text();
+		//var swithtext=$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).attr("switchtext");
+		$("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).text($("li.user-safety-options-item a[name=${op!''}]").parent().find($(".user-safety-options-state")).attr("switchtext")).attr("switchtext",nowtext)
+		$("div.form-box", $("a[name=${op!''}]").parent()).toggle();
+	});
+	function prev($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+
+		var $prev = $curstep.prev();
+
+		if ($prev.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").prev()
+					.addClass("options-step-current");
+		}
+
+		$this.next().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.prev().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+
+	function next($this) {
+		var $content = $this.closest("div").parent();
+		var $step = $("div.options-step", $content);
+		var $curstep = $("span.options-step-current", $step);
+		var $next = $curstep.next();
+
+		if ($next.size() > 0) {
+			$curstep = $curstep.removeClass("options-step-current").next()
+					.addClass("options-step-current");
+		}
+
+		$this.prev().attr("disabled", false).removeClass("disabled");
+		$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+		if ($curstep.next().size() == 0)
+			$this.attr("disabled", true).addClass("disabled");
+	}
+</script>

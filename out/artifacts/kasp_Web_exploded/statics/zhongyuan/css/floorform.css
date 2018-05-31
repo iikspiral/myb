@@ -1,0 +1,264 @@
+@charset "utf-8";
+.ellipsis {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.shadow-inset {
+  box-shadow: 1px 1px 3px #ececec inset;
+}
+.bg-grey {
+  background-color: #fafafa;
+}
+.bg-grey-bd {
+  background-color: #fafafa;
+  border: 1px solid #dadada;
+}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.transition {
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.scalease {
+  -webkit-transition: -webkit-transform 0.6s ease;
+  transition: transform .6s ease;
+}
+.scalease:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.floorform {
+  width: 100%;
+  *zoom: 1;
+}
+.floorform:before,
+.floorform:after {
+  content: " ";
+  display: table;
+}
+.floorform:after {
+  clear: both;
+}
+.floorform .floor {
+  line-height: 40px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  *zoom: 1;
+}
+.floorform .floor:before,
+.floorform .floor:after {
+  content: " ";
+  display: table;
+}
+.floorform .floor:after {
+  clear: both;
+}
+.floorform .floor .property {
+  float: left;
+  width: 132px;
+  line-height: 40px;
+  font-weight: normal;
+  padding-right: 30px;
+  color: #333333;
+}
+.floorform .floor label {
+  margin: 0;
+  font-weight: normal;
+  text-align: left;
+}
+.floorform .floor label.adjust {
+  width: auto;
+}
+.floorform .floor label.required:after {
+  content: "*";
+  font-family: "Microsoft Yahei", Simhei, sans-serif;
+  font-size: 16px;
+  display: inline-block;
+  padding: 0 3px;
+  vertical-align: baseline;
+  color: red;
+}
+.floorform .floor .value {
+  float: left;
+  color: #666666;
+  line-height: 40px;
+}
+.floorform .floor .value select {
+  float: left;
+  font-size: 14px;
+  line-height: 40px;
+  height: 40px;
+  padding: 0 8px;
+  color: #666;
+  border: 1px solid #dadada;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+.floorform .floor .value input[type=text],
+.floorform .floor .value input[type=password],
+.floorform .floor .value input[type=date] {
+  float: left;
+  font-size: 14px;
+  line-height: 38px;
+  height: 38px;
+  padding: 0 8px;
+  color: #666;
+  border: 1px solid #cdcdcd;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+.floorform .floor .value input[type=text].xs,
+.floorform .floor .value input[type=password].xs,
+.floorform .floor .value input[type=date].xs {
+  width: 120px;
+}
+.floorform .floor .value input[type=text].sh,
+.floorform .floor .value input[type=password].sh,
+.floorform .floor .value input[type=date].sh {
+  width: 200px;
+}
+.floorform .floor .value input[type=text].md,
+.floorform .floor .value input[type=password].md,
+.floorform .floor .value input[type=date].md {
+  width: 400px;
+}
+.floorform .floor .value input[type=text].lo,
+.floorform .floor .value input[type=password].lo,
+.floorform .floor .value input[type=date].lo {
+  width: 600px;
+}
+.floorform .floor .value input[type=text].xl,
+.floorform .floor .value input[type=password].xl,
+.floorform .floor .value input[type=date].xl {
+  width: 100%;
+}
+.floorform .floor .value input[type=radio] {
+  margin: 0;
+}
+.floorform .floor .value input[type=file] {
+  float: left;
+  margin-top: 9px;
+}
+.floorform .floor .value textarea {
+  float: left;
+  width: 600px;
+  padding: 4px 8px;
+  font-size: 14px;
+  line-height: 24px;
+  height: 152px;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+}
+.floorform .floor .value .kdValidform_checktip {
+  float: left;
+  margin-top: 10px;
+}
+.floorform .floor .value .tips {
+  float: left;
+  clear: left;
+  font-size: 12px;
+  line-height: auto;
+  color: #a7a7a7;
+  padding: 0 0 0 8px;
+}
+.floorform .floor .value .radio-option {
+  float: left;
+  margin-right: 30px;
+}
+.floorform .floor .value .radio-option input,
+.floorform .floor .value .radio-option label {
+  vertical-align: middle;
+}
+.floorform .floor .value .radio-option input a,
+.floorform .floor .value .radio-option label a {
+  color: #3a9bfc;
+}
+.floorform .floor .value .radio-option input a:hover,
+.floorform .floor .value .radio-option label a:hover {
+  color: #0881fb;
+}
+.floorform .floor .value .steps-input {
+  float: left;
+  margin-right: 5px;
+}
+.floorform .floor .value .steps-input .control {
+  float: left;
+  width: 38px;
+  font-size: 16px;
+  color: #655641;
+  line-height: 38px;
+  height: 38px;
+  text-align: center;
+  border: 1px solid #cdcdcd;
+}
+.floorform .floor .value .steps-input .enter {
+  margin-right: 0;
+  z-index: 1;
+  border-radius: 0 0 0 0;
+}
+.floorform .floor .value .steps-input .reduce {
+  border-right: none;
+  z-index: 0;
+  border-radius: 3px 0 0 3px;
+}
+.floorform .floor .value .steps-input .add {
+  border-left: none;
+  z-index: 0;
+  border-radius: 0 3px 3px 0;
+}
+.floorform .floor .value span {
+  float: left;
+}
+.floorform .floor .value .unit {
+  float: left;
+  margin-left: 0;
+  padding: 0 5px;
+}
+.floorform .floor .value .num {
+  font-size: 22px;
+  color: #000;
+}
+.floorform .agreement {
+  margin: 60px 0 0;
+  font-size: 13px;
+  color: #747474;
+  text-align: center;
+}
+.floorform .agreement label {
+  vertical-align: middle;
+  margin: 0;
+  font-weight: normal;
+  color: #747474;
+}
+.floorform .agreement label a {
+  color: #3a9bfc;
+}
+.floorform .agreement input {
+  vertical-align: middle;
+}
+.floorform .actionArea {
+  text-align: center;
+  margin: 40px 0;
+}
+.floorform .actionArea a,
+.floorform .actionArea input {
+  margin: 0 40px;
+}
+.floorform .actionArea .btn-prev {
+  border-color: #c0c0c0;
+}

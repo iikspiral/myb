@@ -1,0 +1,302 @@
+<div class="container">
+		<div class="page-wrap">
+			<ul class="breadcrumb border-bottom">
+				<li><span>当前位置：</span></li>
+				<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}index.html">首页</a></li>
+				<li><i class="iconfont">&#xe602;</i></li>
+				<li><span><a href="account_asset_publisher.html">账户中心企业版</span></li>
+			</ul>
+			<div class="account-page clearfix">
+				<div class="page-title clearfix">
+					<i class="iconfont">&#xe608;</i>
+					<h2>企业服务</h2>
+				</div>
+				<div class="left-sidebar">
+					<ul class="account-sidemenu">
+						<li class="active"><a href="">我的申请</a><i class="iconfont">&#xe609;</i></li>
+						<!--
+						<li><a target= "_blank" href="${kssp_url}apply_add_listing.html" >企业挂牌</a><i class="iconfont">&#xe609;</i></li>
+						<li><a target= "_blank" href="${kssp_url}apply_add_addpublish.html">定向增资</a><i class="iconfont">&#xe609;</i></li>
+						<li><a target= "_blank" href="${kssp_url}apply_add_pledge.html">股权质押融资</a><i class="iconfont">&#xe609;</i></li>
+						<li><a target= "_blank" href="${kssp_url}apply_add_bonds.html">私募债融资</a><i class="iconfont">&#xe609;</i></li>
+						-->
+					</ul>
+				</div>
+				<div class="account-body">
+					<div id="organicTabs" class="organicTabs accountTabs">
+						<ul class="nav">
+							<li class="nav-one"><a <#if apptype == "">class="current"</#if> href="#one" data-val="">全部</a></li>
+							<li class="nav-two"><a  <#if apptype == "1"> class="current"</#if>href="#two" data-val="1">企业挂牌</a></li>
+							<li class="nav-three"><a  <#if apptype == "2"> class="current"</#if> href="#three" data-val="2">定向增资</a></li>
+							<li class="nav-four"><a  <#if apptype == "4"> class="current"</#if> href="#four" data-val="4">股权质押融资</a></li>
+							<li class="nav-five"><a  <#if apptype == "3"> class="current"</#if> href="#five" data-val="3">私募债融资</a></li>
+						</ul>
+						<div class="list-wrap">
+							<div id="one">
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th>申请信息</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<#if applylist ? exists>
+						        <#list applylist as alist>
+										<tr>
+											<td class="info">
+												<ul>
+													<li><h4 class="title">${alist.appname}</h4></li>
+													<li class="category">
+														<i class="iconfont">&#xe607;</i>
+														<span>${alist.apptypename}</span>
+													</li>
+													<li class="date">
+														<i class="iconfont">&#xe60a;</i>
+														<span>${alist.appdate}</span>
+													</li>
+												</ul>
+											</td>
+											<td class="status">${alist.appstatusname}</td>
+											<td class="action">
+												
+					<a <#if alist.apptype=='1'>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_listing_detail.html?appsheetserialno=${alist.appsheetserialno!''}"
+					<#elseif alist.apptype=='2'>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_addpublish_detail.html?appsheetserialno=${alist.appsheetserialno!''}"
+					<#elseif alist.apptype=='4'>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_pledge_detail.html?appsheetserialno=${alist.appsheetserialno!''}"
+					<#else>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_bonds_detail.html?appsheetserialno=${alist.appsheetserialno!''}"
+					</#if>>查看详情</a>&nbsp;&nbsp
+					<a <#if alist.apptype=='1'>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_upd_listing.html?appsheetserialno=${alist.appsheetserialno!''}"
+					<#elseif alist.apptype=='2'>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_upd_addpublish.html?appsheetserialno=${alist.appsheetserialno!''}"
+					<#elseif alist.apptype=='4'>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_upd_pledge.html?appsheetserialno=${alist.appsheetserialno!''}"
+					<#else>href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_upd_bonds.html?appsheetserialno=${alist.appsheetserialno!''}"
+					</#if>>修改申请单</a>
+											</td>
+										</tr>
+									</#list>
+			            </#if>
+									</tbody>
+								</table>
+								<div id="page_area" class="pager-info"></div>
+							</div>
+							<div id="two" class="hide">
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th>申请信息</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<#if applylist ? exists>
+						        <#list applylist as alist>
+										<tr>
+											<td class="info">
+												<ul>
+													<li><h4 class="title">${alist.appname}</h4></li>
+													<li class="category">
+														<i class="iconfont">&#xe607;</i>
+														<span>${alist.apptypename}</span>
+													</li>
+													<li class="date">
+														<i class="iconfont">&#xe60a;</i>
+														<span>${alist.appdate}</span>
+													</li>
+												</ul>
+											</td>
+											<td class="status">${alist.appstatusname}</td>
+											<td class="action">
+												<a  href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_listing_detail.html?appsheetserialno=${alist.appsheetserialno!''}" >查看详情</a>
+											</td>
+										</tr>
+									</#list>
+			            </#if>
+									</tbody>
+								</table>
+								<div id="page_area" class="pager-info"></div>
+							</div>
+							<div id="three" class="hide">
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th>申请信息</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<#if applylist ? exists>
+						        <#list applylist as alist>
+										<tr>
+											<td class="info">
+												<ul>
+													<li><h4 class="title">${alist.appname}</h4></li>
+													<li class="category">
+														<i class="iconfont">&#xe607;</i>
+														<span>${alist.apptypename}</span>
+													</li>
+													<li class="date">
+														<i class="iconfont">&#xe60a;</i>
+														<span>${alist.appdate}</span>
+													</li>
+												</ul>
+											</td>
+											<td class="status">${alist.appstatusname}</td>
+											<td class="action">
+												<a  href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_addpublish_detail.html?appsheetserialno=${alist.appsheetserialno!''}" target= "_blank">查看详情</a>
+											</td>
+										</tr>
+									</#list>
+			            </#if>
+									</tbody>
+								</table>
+								<div id="page_area" class="pager-info"></div>
+							</div>
+							<div id="four" class="hide">
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th>申请信息</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<#if applylist ? exists>
+						        <#list applylist as alist>
+										<tr>
+											<td class="info">
+												<ul>
+													<li><h4 class="title">${alist.appname}</h4></li>
+													<li class="category">
+														<i class="iconfont">&#xe607;</i>
+														<span>${alist.apptypename}</span>
+													</li>
+													<li class="date">
+														<i class="iconfont">&#xe60a;</i>
+														<span>${alist.appdate}</span>
+													</li>
+												</ul>
+											</td>
+											<td class="status">${alist.appstatusname}</td>
+											<td class="action">
+												<a  href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_pledge_detail.html?appsheetserialno=${alist.appsheetserialno!''}" target= "_blank">查看详情</a>
+											</td>
+										</tr>
+									</#list>
+			            </#if>
+									</tbody>
+								</table>
+								<div id="page_area" class="pager-info"></div>
+							</div>
+							<div id="five" class="hide">
+								<table class="records-table">
+									<thead>
+										<tr>
+											<th>申请信息</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<#if applylist ? exists>
+						        <#list applylist as alist>
+										<tr>
+											<td class="info">
+												<ul>
+													<li><h4 class="title">${alist.appname}</h4></li>
+													<li class="category">
+														<i class="iconfont">&#xe607;</i>
+														<span>${alist.apptypename}</span>
+													</li>
+													<li class="date">
+														<i class="iconfont">&#xe60a;</i>
+														<span>${alist.appdate}</span>
+													</li>
+												</ul>
+											</td>
+											<td class="status">${alist.appstatusname}</td>
+											<td class="action">
+												<a  href="ssologin.html?deal_action=jump&pageto=${kssp_url}/apply_bonds_detail.html?appsheetserialno=${alist.appsheetserialno!''}" target= "_blank">查看详情</a>
+											</td>
+										</tr>
+									</#list>
+			            </#if>
+									</tbody>
+								</table>
+								<div id="page_area" class="pager-info"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+<script>
+	//企业挂牌:apptype=1; 定向增资:apptype=2; 私募债融资apptype=3; 股权质押融资apptype=4
+	var param = '';
+	$(function() {
+				//全部
+		    $(".nav-one a").bind('click',function(){
+        	$(this).parent().parent().find(".current").removeClass("current");
+			    $(this).addClass("current");
+			  	param = 'apptype='+$("a.current", ".nav").attr("data-val");
+			    generalUrl();
+				});
+				
+				//企业挂牌
+        $(".nav-two a").bind('click',function(){
+        	$(this).parent().parent().find(".current").removeClass("current");
+			    $(this).addClass("current");
+			  	
+			  	param = 'apptype='+$("a.current", ".nav").attr("data-val");
+			  	generalUrl();
+				});
+				
+				//定向增资
+				$(".nav-three a").bind('click',function(){
+        	$(this).parent().parent().find(".current").removeClass("current");
+			    $(this).addClass("current");
+			  	param = 'apptype='+$("a.current", ".nav").attr("data-val");
+			  	generalUrl();
+				});
+				
+				//股权质押融资
+				$(".nav-four a").bind('click',function(){
+        	$(this).parent().parent().find(".current").removeClass("current");
+			    $(this).addClass("current");
+			  	param = 'apptype='+$("a.current", ".nav").attr("data-val");
+			  	generalUrl();
+				});
+				
+				//私募债融资
+				$(".nav-five a").bind('click',function(){
+        	$(this).parent().parent().find(".current").removeClass("current");
+			    $(this).addClass("current");
+			  	param = 'apptype='+$("a.current", ".nav").attr("data-val");
+			  	generalUrl();
+				});
+		
+		$pager = $.kd.kdPager.init({
+			currentPage: '${page!'1'}',
+			totalPage: '${totalPage!''}',
+			totalRecords: '${totalCount}',
+			prefix: 'account_asset_publisher.html',
+			suffix: function(n) {
+				return  param + '&page=' + n;
+			}
+	  });	
+  });
+
+	//我的申请
+  function generalUrl() { 
+		window.location.href = "account_asset_publisher.html" + (param ? "?" + param : "");
+  }
+  
+
+	
+
+
+</script>

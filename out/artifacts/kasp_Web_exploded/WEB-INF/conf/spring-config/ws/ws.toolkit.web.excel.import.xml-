@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="Import" class="com.websuites.toolkit.web.excel.imp.Import">
+		<property name="importFile">
+			<value>xml\import.xml</value>
+		</property>
+	</bean>
+</beans>

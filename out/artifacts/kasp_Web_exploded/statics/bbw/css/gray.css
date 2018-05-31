@@ -1,0 +1,19 @@
+.grayscale{  
+    -webkit-filter: grayscale(100%);            /* CSS3 filter方式，webkit内核方式，firefox外的绝大部分的现代浏览器*/  
+       -moz-filter: grayscale(100%);            /* 目前没有实现 */  
+        -ms-filter: grayscale(100%);  
+         -o-filter: grayscale(100%);  
+            filter: grayscale(100%);            /* CSS3 filter方式，标准写法*/  
+            filter: url(gray.svg#grayscale); /* Firefox 4+ */  
+            filter: gray;                       /* IE 6-9 */  
+}  
+.grayscale:hover{  
+    -webkit-filter: grayscale(0%);  
+       -moz-filter: grayscale(0%);  
+        -ms-filter: grayscale(0%);  
+         -o-filter: grayscale(0%);  
+            filter: grayscale(0%);  
+            filter: none; /* Firefox 4+, IE 6-9 */  
+}
+
+/* IE10、IE11只能调用JS来实现了 */

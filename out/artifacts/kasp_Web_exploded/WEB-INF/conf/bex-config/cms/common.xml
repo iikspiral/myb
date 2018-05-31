@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+
+<bex id="f_get_cms_article_cat" ibatis="get_cms_article_cat" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+ 
+<bex id="f_get_cms_article" ibatis="get_cms_article" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 首页轮播广告位 -->
+<bex id="f_get_cms_adv_adpng" ibatis="get_cms_adv_adpng" operate="select" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+<!-- 更新新闻浏览次数 -->
+<bex id="f_modify_cms_article_view_count" type="http-bex"  httpserver="kifp" target="sysMybatisServiceBean" service="doCommonIbatis" ibatis="modify_cms_article_view_count" operate="update" lparam="false" parameterType="java.util.HashMap">
+</bex>
+
+
+<bex id="f_check_user_login_status" ibatis="check_user_login_status" operate="select" type="http-bex"  httpserver="kifpsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="custid"     type="string" />
+	</request>
+</bex>
+
+<!-- 企业展示 start -->
+<bex id="f_get_mall_fundshow_info" ibatis="get_mall_fundshow_info" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="fundname"     type="string" />
+		<param name="fundcode"     type="string" />
+		<param name="sx_comtype"     type="string" />
+		<param name="industry"     type="string" />
+		<param name="region"     type="string" />
+		<param name="special_recommendation"     type="string" />
+		<param name="registeredcptlmin"     type="String" />
+		<param name="registeredcptlmax"     type="String" />
+		<param name="totalincomemin"     type="String" />
+		<param name="totalincomemax"     type="String" />
+		<param name="totalnetmarginmin"     type="String" />
+		<param name="totalnetmarginmax"     type="String" />
+	</request>	
+</bex>
+
+<bex id="f_get_mall_fundshow_info_f0" ibatis="get_mall_fundshow_info" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="fundname"     type="string" />
+		<param name="fundcode"     type="string" />		
+	</request>
+</bex>
+
+<bex id="f_gettomall_pif_cif_senior" ibatis="gettomall_pif_cif_senior" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="scustomerno"     type="string" />		
+	</request>
+</bex>
+
+<bex id="f_gettomall__allIMG_showfund" ibatis="gettomall__allIMG_showfund" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="typeno"     type="string" />
+		<param name="scustomerno"     type="string" />		
+	</request>
+</bex>
+
+<bex id="f_gettomall__project_sharestructure_gfxx" ibatis="gettomall__project_sharestructure_gfxx" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="fundcode"     type="string" />		
+	</request>
+</bex>
+
+<bex id="f_gettomall_pif_rds_gfxx" ibatis="gettomall_pif_rds_gfxx" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="fundcode"     type="string" />		
+	</request>
+</bex>
+
+<bex id="f_gettomall_fundshow_sponsor" ibatis="gettomall_fundshow_sponsor" operate="select" type="http-bex"  httpserver="excsvc" target="sysMybatisServiceBean" service="doCommonIbatis"  lparam="false" parameterType="java.util.HashMap">
+	<request>
+		<param name="fundcode"     type="string" />		
+	</request>
+</bex>
+<!-- 企业展示 end -->
+
+</websuites>

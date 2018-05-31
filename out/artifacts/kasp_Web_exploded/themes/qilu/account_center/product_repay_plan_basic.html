@@ -1,0 +1,436 @@
+
+            <div class="account-main my-financing">
+                <div class="simple-titlebar clearfix">
+                    <h2 class="title">我的融资</h2>
+                </div>
+
+                <div class="container-full">
+                    <div class="actionbar clearfix">
+                    </div>
+                </div>
+
+                <div class="container-full">
+                    <div class="my-financing clearfix">
+                        <div class="border-box">
+                            <dl class="num">
+                                <dt>未还款总额（元）</dt>
+                                <dd>${stillvol?default("0.00")?number?string("###,###,###,###,##0.00")}</dd>
+                            </dl>
+                            <ul class="details">
+                                <li>
+                                    <label>下次应还本息（元）：</label>
+                                    <span>${amount?default("0.00")?number?string("###,###,###,###,##0.00")}</span>
+                                </li>
+                                <li>
+                                    <label>下次还款日：</label>
+                                    <span>${nextdate!"0"}</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="border-box">
+                            <dl class="num">
+                                <dt>融资总额（元）</dt>
+                                <dd>${totalamount?default("0.00")?number?string("###,###,###,###,##0.00")}</dd>
+
+                            </dl>
+                            <ul class="details">
+                                <li>
+                                    <label>融资本金（元）：</label>
+                                    <span>${stillprincipal?default("0.00")?number?string("###,###,###,###,##0.00")}</span>
+                                </li>
+                                <li>
+                                    <label>融资利息（元）：</label>
+                                    <span>${stillinterest?default("0.00")?number?string("###,###,###,###,##0.00")}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tabs-filter" id="accountTabs">
+                        <ul class="nav clearfix">
+                            <li class="nav-one"><a class="current" href="#holden">发起的项目</a></li>
+                            <li><span>|</span></li>
+                           <!--  <li class="nav-two"><a href="#repay">还款中</a></li>
+                            <li><span>|</span></li> -->
+							<li class="nav-two"><a href="#hasrepay">已还款</a></li>
+                        </ul>
+                        <div class="list-wrap">
+						   <div id="holden">
+						    <div class="actionbar clearfix">
+						     <a class="btn-start btn-sm btn-orange" id="J_restartSubmit" href="javascript:void(0);">发起项目</a>
+							</div>
+                            <table class="records-table">
+                                <thead>
+                                    <tr>
+									    <!--<th>行号</th>-->
+                                        <th style="width: 30%;">项目名称</th>
+                                        <th>期限</th>
+                                        <th>年化收益率</th>
+                                        <th>募集总额(万)</th>
+                                        <th>已募集金额(万)</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+								<#if startBond?exists>
+                                <#if (startBond?size>0)>
+                                    <#assign i = 0>
+								<#list startBond as item>
+                                    <#assign i = i + 1>
+                                    <tr>
+                                        <!--<td>${item.id!""}</td>-->
+										<td style="text-align: left;">
+										<#if item.status=="99">
+										<a class="link" href="javascript:void(0);" onclick="jump('basic','${item.project_id!""}')"  target="_blank"><span title="${item.borrowtitle!""}" class="msg-title">${item.borrowtitle!""}</span></a>
+										<#else>
+										<a class="link" href="ssologin.html?deal_action=jump&pageto=${kisp_url}bondsdetai_${item.project_id!''}.html&pagefrom=${kisp_url}" target="_blank"><span title="${item.borrowtitle!""}" class="msg-title">${item.borrowtitle!""}</span></a>
+										</#if>
+										</td>
+										<#if  item.newview == "0"  >	
+											<td>
+											${item.deadline!""}
+											<#if (item.deadlineunit)?exists && (item.deadlineunit) =='M'>
+												个月
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='D'>
+												天
+											<#elseif (item.deadlineunit)?exists && (item.deadlineunit) =='Y'>
+												年
+											<#else>
+												个月
+											</#if>
+											</td>
+											<#elseif item.newview == "1">
+											<td>${item.buyback!""}天</td>
+										</#if>
+                                        <td>${item.annualrate!""}%</td>
+                                        <td><#assign borrowamount=item.borrowamount!"0">
+											<#assign borrowamount1=borrowamount?number>
+											${borrowamount1/10000}
+										</td>
+                                        <td><#assign hasinvestamount=item.hasinvestamount!"0">
+											<#assign hasinvestamount1=hasinvestamount?number>
+											${hasinvestamount1/10000}
+										</td>
+                                        <td>
+										<#assign checkstatus=item.checkstatus!''>
+										<#assign status=item.status!''>
+										<#if checkstatus == "0">
+											<span>项目审核中</span>
+										<#elseif checkstatus == "2">
+											<span>未通过审核</span>	
+										<#elseif status == "5">
+											<span>完成</span>			  	
+										<#elseif status == "4">
+											<span>完成</span>
+										<#elseif status == "3">
+											<a class="btn-xs btn-blue btn_beginflow"  target="_blank"  kifp-action="bpm" data-value="${item.project_id!''}" data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">结束募集</a>
+										<#elseif status == "2">
+											<a class="btn-xs btn-orange btn_beginflow"  target="_blank"  kifp-action="bpm"   data-value="${item.project_id!''}" data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">发起募集</a>
+										<#elseif  status == "99">
+											<a id="bondpublish" class="btn-xs btn-blue btn_beginflow" target="_blank"  kifp-action="bpm"  data-value="${item.project_id!''}"data-value-title="${item.borrowtitle!''}" data-value-status="${item.status!''}">申请审核</a>
+										<#elseif status == "77">
+											<span class="btn-xs btn-grey">已下架</span>
+										</#if>
+										</td>
+                                    </tr>
+                                 </#list>
+                                 <#else>
+                                 	 <tr>
+                                        <td colspan="7">暂无发起的项目记录</td>
+                                    </tr>
+								</#if>
+								</#if>
+                                </tbody>
+                            </table>
+							<div id="page_start" class="pager-info" style="width:750px;"></div>
+							</div>
+							<div id="repay" class="hide">
+                            <table class="records-table">
+                                <thead>
+                                    <tr>
+                                        <!--<th>行号</th>-->
+                                        <th>项目名称</th>
+                                        <th>待还总金额(元)</th>
+                                        <th>待还总本金(元)</th>
+                                        <th>待还总利息(元)</th>
+                                        <th>下一还款日</th>
+										<th>操作1</th>
+										<th>操作2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>	
+								<#if repayplan?exists>
+                                <#if (repayplan?size>0)>
+                                    <#assign i = 0>
+								<#list repayplan as item>
+                                    <#assign i = i + 1>
+                                    <tr>
+									    <!--<td>${i}</td>-->
+                                        <td style="text-align: left;">${item.borrowtitle!""}</td>
+                                        <td>${item.stillvol?default("0.00")?number?string("###,###,###,##0.00")}</td>
+                                        <td>${item.stillprincipal?default("0.00")?number?string("###,###,###,##0.00")}</td>
+                                        <td>${item.stillinterest?default("0.00")?number?string("###,###,###,##0.00")}</td>
+                                        <td>${item.repaydate!""}</td>
+										<td class="action">
+											<#if ((item.checkstatus)?exists) && (item.checkstatus)=="0"&& ((item.status)?exists) && (item.status) == "0">
+											<a  disabled="disabled">提前还款审核中</a>
+											<#elseif ((item.checkstatus)?exists) && (item.checkstatus)=="1" && ((item.status)?exists) && (item.status) == "1" && ((item.hasfrozenstatus)?exists) && (item.hasfrozenstatus)=="2" && ((item.repaystatus)?exists) && (item.repaystatus)=="1">
+											<a class="btn-xs btn-grey btn-adjust" disabled="disabled">提前还款资金冻结</a>
+											<#elseif ((item.checkstatus)?exists) && (item.checkstatus)=="1" &&((item.status)?exists) && (item.status) == "1">
+											<a href="product_repay_plan.html?type=advance&menu=300&proid=${item.id!''}&proname=${item.borrowtitle!''}&&advanced_repaydate=${item.advanced_repaydate!''}"> <input type="button" class="btn-xs btn-orange btn-adjust" value="提前还款"></a>
+											<#else>
+											<a href="product_repay_plan.html?type=apply&menu=300&proid=${item.id!''}&paymentmode=${item.paymentmode!''}"> <input type="button" class="btn-xs btn-blue btn-adjust" value="申请提前还款"></a>
+											</#if>
+											</td>	
+											
+											<td> 
+											<#if ((item.checkstatus)?exists) && (item.checkstatus)=="1" &&((item.status)?exists) && (item.status) == "1">
+											<a disabled="disabled">已申请提前还款</a>
+											<#else>
+											<a href="product_repay_plan.html?type=repayplandetail&menu=300&proid=${item.id!''}&startdate1=${startdate1!''}&enddate1=${enddate1!''}"> <input type="button" class="btn-xs btn-orange btn-adjust" value="还款"></a>
+											</#if>
+											</td>								
+                                    </tr>
+                                 </#list>
+                                 <#else>
+                                 	 <tr>
+                                        <td colspan="8">暂无还款中的记录</td>
+                                    </tr>
+								</#if>
+								</#if>
+                                </tbody>
+                            </table>
+							<div id="page_doing" class="pager-info" style="width:750px;"></div>
+							</div>
+							<div id="hasrepay" class="hide">
+							<table class="records-table">
+                                <thead>
+                                    <tr>
+									    <th>行号</th>
+                                        <th style="width: 30%;">项目名称</th>
+                                        <th>应还利息(元)</th>
+										<th>已还利息(元)</th>
+										<th>应还本金(元)</th>
+                                        <th>已还本金(元)</th>
+										<th>应还本息总和(元)</th>
+										<th>已还本息总和(元)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+								<#if hasrepayBold?exists>
+                                <#if (hasrepayBold?size>0)>
+                                    <#assign i = 0>
+								<#list hasrepayBold as item>
+                                    <#assign i = i + 1>
+                                    <tr>
+									    <td>${i}</td>
+                                        <td style="text-align: left;">${item.borrowtitle!""}</td>
+                                        <td>${item.stillinterest!""}</td>
+                                        <td>${item.hasinterest!""}</td>
+                                        <td>${item.stillprincipal!""}</td>
+                                        <td>${item.hasprincipal!""}</td>
+										<td>${item.stillvol!""}</td>
+										<td>${item.hasvol!""}</td>
+                                    </tr>
+                                 </#list>
+                                 <#else>
+                                 	 <tr>
+                                        <td colspan="8">暂无已还款的记录</td>
+                                    </tr>
+								</#if>
+								</#if>
+                                </tbody>
+                            </table>
+							<div id="page_made" class="pager-info" style="width:750px;"></div>
+                        </div>
+						</div>
+                    </div>
+                </div>
+            </div>
+<script>
+        $("#accountTabs").organicTabs({
+            "speed": 100
+        });
+        $(".records-table tbody tr:nth-child(even)").addClass("changebg");
+		$("#accountTabs ul li a").click(function(){
+		    if($(this).attr("href")=="#holden"){
+			     $("#page_start").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_made").css("display","none");
+			}else if($(this).attr("href")=="#repay"){
+			     $("#page_start").css("display","none");
+				 $("#page_doing").css("display","block");
+				 $("#page_made").css("display","none");
+			}else{
+			      $("#page_start").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_made").css("display","block");
+			}
+		})
+		//显示哪个标签页
+		<#if tab??>
+		var tab = "${tab}";
+		if(tab != "" && tab != null){
+			$("#accountTabs ul li:eq("+tab+") a").click();
+			if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#holden"){
+			     $("#page_start").css("display","block");
+				 $("#page_doing").css("display","none");
+				 $("#page_made").css("display","none");
+			}else if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#buying"){
+			     $("#page_start").css("display","none");
+				 $("#page_doing").css("display","block");
+				 $("#page_made").css("display","none");
+			}else if($("#accountTabs ul li:eq("+tab+") a").attr("href")=="#order"){
+			     $("#page_start").css("display","none");
+				 $("#page_doing").css("display","none");
+				 $("#page_made").css("display","block");
+			}
+		}
+		</#if>
+</script>
+
+<script type="text/javascript">
+$(function(){
+//发起的
+	$.kd.kdPager.init({
+		pager : 'page_start',
+		currentPage: '${page_start!'1'}',
+		totalPage: '${totalPage_publish!'1'}',
+		totalRecords: '${totalCount_publish!'0'}',
+		prefix: 'product_repay_plan.html',
+		suffix: function(n) {
+			return "page_start=" + n+"&tab=0&menu=300";
+		},
+	});
+	
+	//还款中的
+	$.kd.kdPager.init({
+		pager : 'page_doing',
+		currentPage: '${page_repayplan!'1'}',
+		totalPage: '${totalPage_repayplan!'1'}',
+		totalRecords: '${totalCount_repayplan!'0'}',
+		prefix: 'product_repay_plan.html',
+		suffix: function(n) {
+			return "page_doing=" + n+"&tab=1&menu=300";
+		},
+	});
+	
+	//已还的
+		$.kd.kdPager.init({
+		    pager : 'page_made',
+			currentPage: '${page_made!'1'}',
+			totalPage: '${totalPage_hasrepay!'1'}',
+			totalRecords: '${totalCount_hasrepay!'0'}',
+			prefix: 'product_repay_plan.html',
+			suffix: function(n) {
+				return generalParam() +"&page_made=" + n+"&tab=2&menu=300";
+				
+			}
+		});
+		
+	
+
+$("#J_restartSubmit").bind('click',function() {			
+		var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data:{},
+			url:"mall/qilu_judge!restart.do?ajax=yes",										
+			success:function(data) {
+				//alert("11111");
+			},
+			error:function(data) {
+								if(!data) return;
+				var ss = data.responseText;
+				var resultJson = eval(ss);
+			    var remessage = resultJson[0].message
+				var matchmsg1 = remessage.match("您暂时还没有权限，请先成为发起人");
+				var matchmsg2 = remessage.match("您暂时还没有权限，请先绑定银行卡");
+				if (matchmsg1 != null && matchmsg1.length > 0) {
+					zhejiang_alert("消息","请先成为发起人!", function() {       				
+			    		window.location.href ="apply_usertype.html";  
+					},"确定");
+					return;
+				}
+				if (matchmsg2 != null && matchmsg2.length > 0) {
+					zhejiang_alert("消息","请先绑定银行卡!", function() {       				
+				    	window.location.href = "bankmanage.html";
+					},"确定");
+					return;
+					}
+
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href ="ssologin.html?deal_action=jump&pageto=${kisp_url}addborrow.html";
+					} else {						
+						window.location.href ="apply_usertype.html";
+					}
+				})	
+			}
+		}
+		$.ajax(options);
+	});	
+		
+		
+})
+function jump(type,id){
+	window.location.href = "ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kisp_url}addborrow.html?type="+type+"&id="+id);
+}
+//发起材料审核
+var Kifpadmin = Kifpadmin || {};
+
+Kifpadmin.projectflow = {
+		
+	init : function() {
+		var self = this;
+		$(".btn_beginflow").click(function() {
+			var project_id = $(this).attr("data-value");
+			var title = $(this).attr("data-value-title");
+			var status = $(this).attr("data-value-status");
+			
+			if ( $(this).attr("disabled") == "disabled" ) {
+				return ;
+			}
+			
+			$(this).attr("disabled", "disabled");
+			self.bondrightflow('01',project_id,title,status);
+		});
+		
+	},
+	bondrightflow:function(type,project_id,title,status){
+    	$.post(
+			"mall/fincmyprojectflow!productrightWorkFlow.do?ajax=yes"	,
+			{type:type, project_id:project_id,title:title, status:status},
+    	function(data) {
+    		if ( data.result == 1 ) {
+        			$.kd.kdAlert(data.message, function() {
+        				window.location.href = "product_repay_plan.html?menu=300&_="+new Date().getTime();
+    				},"项目");
+			}else{
+				if (  data.message == "err_goto_myproject_safe" ) {
+					$.kd.kdAlert("用户需先实名认证后才能进行相应操作,点击确定后将跳转至认证中心","项目");
+				} else {
+					$.kd.kdAlert(data.message, function() {
+	    				window.location.href = "product_repay_plan.html?menu=300&_="+new Date().getTime();
+					},"项目");	
+				}
+	    			
+			}
+    	},
+    	"json"
+    	);		
+
+	} 
+	
+};
+
+
+$(function() {
+	Kifpadmin.projectflow.init();
+});
+
+
+
+
+</script>

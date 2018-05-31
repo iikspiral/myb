@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.logman.dao.CertAppLogDao">
+    
+    <sql id="entityColumns">
+    	a.ID,
+ 		a.CERT_SN, 
+		a.SYSTEM_FLAG, 
+ 		a.OPERATION_NAME, 
+ 		a.OPERATION_DATE, 
+		a.CREATE_BY, 
+ 		a.CREATE_DATE, 
+		a.UPDATE_BY, 
+		a.UPDATE_DATE, 
+ 		a.REMARKS, 
+ 		a.DEL_FLAG,
+ 		a.BUS_DES,
+ 		a.OPT_TYPE,
+ 		b.SYSTEM_NAME_ENG
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+	<select id="get" resultType="CertAppLog">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERTAPP_LOGS a
+		LEFT OUTER JOIN APPLICATION_SYSTEM b on a.SYSTEM_FLAG =b.SYSTEM_FLAG
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="CertAppLog">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM CERTAPP_LOGS a
+		LEFT OUTER JOIN APPLICATION_SYSTEM b on a.SYSTEM_FLAG =b.SYSTEM_FLAG
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag}) 
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN LIKE
+			<if test="dbName == 'oracle'">'%'||#{certSn}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{certSn}, '%')</if>
+		</if>
+		<if test="systemFlag != null and systemFlag != ''">
+			AND a.SYSTEM_FLAG LIKE
+			<if test="dbName == 'oracle'">'%'||#{systemFlag}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{systemFlag}, '%')</if>
+		</if>
+		<if test="operationName != null and operationName != ''">
+			AND a.OPERATION_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{operationName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{operationName}, '%')</if>
+		</if>
+		 ORDER BY a.OPERATION_DATE desc
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO CERTAPP_LOGS(
+			ID,
+			CERT_SN,
+			SYSTEM_FLAG,
+			OPERATION_NAME,
+			OPERATION_DATE,
+			BUS_DES,
+			OPT_TYPE,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{certSn}, 
+			#{systemFlag}, 
+			#{operationName}, 
+			#{operationDate}, 
+			#{busDes},
+			#{optType},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE CERTAPP_LOGS SET 
+			CERT_SN = #{certSn}, 
+			SYSTEM_FLAG = #{systemFlag}, 
+			OPERATION_NAME = #{operationName}, 
+			OPERATION_DATE = #{operationDate}, 
+			BUS_DES = #{busDes}, 
+			OPT_TYPE = #{optType}, 
+			UPDATE_BY = #{updateBy.id}, 
+			UPDATE_DATE = #{updateDate}, 
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE CERTAPP_LOGS SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="getCertAppLogs" resultType="CertAppLog">
+		SELECT
+			<include refid="entityColumns"/>
+		FROM CERTAPP_LOGS a
+		LEFT OUTER JOIN APPLICATION_SYSTEM b on a.SYSTEM_FLAG =b.SYSTEM_FLAG
+		WHERE a.del_flag = '0'
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN = #{certSn}
+		</if>
+		<if test="systemFlag != null and systemFlag != ''">
+			AND a.SYSTEM_FLAG = #{systemFlag}
+		</if>
+		<if test="operationName != null and operationName != ''">
+			AND a.OPERATION_NAME = #{operationName}
+		</if>
+		ORDER BY a.CREATE_DATE desc
+	</select>
+	
+</mapper>

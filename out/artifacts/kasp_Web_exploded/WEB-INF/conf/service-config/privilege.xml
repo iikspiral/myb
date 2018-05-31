@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<privileges> 
+	<privilege username="pif" password="pif">
+		<bex>pif_fund_query</bex>
+		<bex>pif_fund_publish_query</bex>
+		<bex>pif_fund_register_query</bex>
+		<bex>pif_fund_listing_query</bex>
+		<bex>pif_alldata_query</bex>
+	</privilege>
+
+</privileges>

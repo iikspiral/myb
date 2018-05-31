@@ -1,0 +1,100 @@
+<div class="out-container">
+	<div class="navi-container">
+		<ol class="ui-step">
+			<li class="ui-step-done">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">1</i>
+		            <span class="ui-step-text">注册</span>
+		        </div>
+		    </li>		
+		    
+			<li class="ui-step-done">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">2</i>
+		            <span class="ui-step-text">绑定银行卡</span>
+		        </div>
+		    </li>		
+			
+			<li class="ui-step-active">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">3</i>
+		            <span class="ui-step-text">影像上传</span>
+		        </div>
+		    </li>
+			
+			<li>
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">4</i>
+		            <span class="ui-step-text">资料完善</span>
+		        </div>
+		    </li>
+						
+			<li class="ui-step-end">
+		        <div class="ui-step-line"></div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont successnever"></i>
+		            <span class="ui-step-text">成功</span>
+		        </div>
+		    </li>	
+		</ol>
+	</div>
+    
+    <div class="form-box">
+	    <form action="">
+	    	<object type="application/x-shockwave-flash" id="CMSViedoPicture" name="CMSViedoPicture" align="middle" data="${staticserver}/common/swf/CMSViedoPicture.swf" width="910" height="300">
+	    		<param name="quality" value="high">
+	    		<param name="bgcolor" value="#ffffff">
+	    		<param name="allowscriptaccess" value="sameDomain">
+	    		<param name="allowfullscreen" value="true">
+	    		<param name="wmode" value="transparent">
+	    		<param name="flashvars" value="openType=0&amp;uniqueID=1394443405295">
+	    	</object>
+			<ul class="form-style" style="padding-left: 270px;height: 120px">
+                <li class="form-style-item clear-left">
+					<label class="form-style-label">&nbsp;</label>
+					<span class="form-style-value">
+						<input id="serviceAgreement" name="serviceAgreement" type="checkbox">
+						<label for="serviceAgreement">我同意金交在线<a href="#" target="_blank" class="service-agreement">服务协议</a></label>
+					</span>
+				</li>
+                <li class="form-style-item clear-left">
+                	<label class="form-style-label">&nbsp;&nbsp;</label>
+                    <span class="form-style-value">
+                    	<input class="kdmall-btn cancel" value="下一步" type="button" onclick="window.location.href='/register.html?type=zlws'" />
+                    </span>
+                </li>
+            </ul>
+	    </form>
+	    
+	    <div class="link-trigger"><a onclick="if($('.list-info').is(':visible')) $('.list-info').slideUp(); else  $('.list-info').slideDown();">上传影像前你需要了解</a></div>
+	    <div class="list-info">
+	        <ul class="list-rule">
+	            <li class="list-rule-item">1.您的影像我们将进行人工审核。</li>
+	            <li class="list-rule-item">2.我们会妥善保管好您的影像资料，保证您的信息安全。</li>
+	            <li class="list-rule-item">3.上传影像过程中遇到问题，请联系客服，400-888-8888</li>
+	        </ul>
+	    </div>
+	</div>
+</div>
+
+<script>
+$(function() {
+	$("li.tab-choose-item").bind("click", function() {
+		if(!$(this).hasClass("choosed")) $("li.tab-choose-item").toggleClass("choosed");
+	});
+	
+	$("li.isBank").bind("click", function() {
+		$("li.isBank.selected").removeClass("selected");
+		$(this).addClass("selected");
+		$("input[name='bankcode']").val($(this).attr('title'));
+	});
+});
+</script>

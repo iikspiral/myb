@@ -1,0 +1,313 @@
+<!--   修改预指定   --> 
+		<div class="form-box" style="display: none;">
+				<div id="openAndBind" class="form-box-content">
+					<div class="options-step" >
+						<div class="options-step-con">
+							<span class="options-step-current">撤销三方存管 <strong>1</strong></span>
+							<span>选择新银行<strong>2</strong></span>
+							<span>成功<strong>3</strong></span>
+						</div>
+					</div>
+					<div class="step form-style" style="height: 430px;">
+						<div class="form-box-left1">
+							<form id="openAccountForm1" method="post">
+							<div class="tttt">
+									<div class="bank-list">
+								<ul>
+									<li class="isBank selected" title="河北金交在线" code="4028">
+										<label>
+											<img src="${staticserver}/common/images/bank/bank_42.png" width="143" height="38">
+											<span class="checked"></span>
+										</label>
+									</li>
+									 
+								</ul>
+							</div>
+								<ul>
+									
+									<li class="kd-form-style-item need itemWidth">
+										<label class="kd-form-style-label">交易密码<em>*</em></label>
+										<span class="kd-form-style-value">
+											<input id="originPwd1" name="orgpwd" type="password" class="input" datatype="n6-6" 
+											 nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！"  />
+										</span>
+									</li>
+								</ul>
+							</div>
+							<span class="form-item-title">身份信息</span>
+							<ul id="userinfo" class="kd-form-style" style="height: 90px">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">真实姓名<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" type="text" class="input readonly" 
+										datatype="zh2-18" nullmsg="请输入真实姓名！" errormsg="请输入2-18个中文的真实姓名！"
+										value="${chineseName!''}" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">身份证号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" type="text" class="readonly input" datatype="*" 
+										nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" value="${certificateno!''}"/>
+									</span>
+								</li>
+							</ul>
+							 
+					 
+							<ul class="kd-form-style">
+							 
+								 
+								<li class="kd-form-style-item" style="margin-top: 20px">
+									<label class="kd-form-style-label" style="width: 50px"></label>
+									<span class="kd-form-style-value">
+										<!-- <input class="kdmall-btn" value="上一步" type="button" 
+										onclick="bankprev()" /> -->
+										<input id="openAccountBtn1" class="kdmall-btn" value="下一步" type="button" 
+										onclick="step1AlterSfcg($(this))" />
+									</span>
+								</li>
+							</ul>
+							</form>
+						</div>
+						<div class="form-box-right1">
+							<span>请确保输入的姓名与身份证号码跟银行卡的姓名、身份证号一致，否则将无法绑定成功。<br>不想绑定了，先去<a>逛逛吧</a>！<br>温馨提示：请在工作日的交易时间绑定银行卡，交易时间为9:00-15:30。</span>
+						</div>
+					</div>
+					
+					<div class="step form-style"  style="display:none; height: 430px">
+						<div class="form-box-left1">
+						
+							<form id="openAccountForm" method="post">
+							<div class="tttt">
+								<ul style="display:none;">
+									 
+									<li class="kd-form-style-item need itemWidth" >
+										<label class="kd-form-style-label">原银行卡密码（20140703改为交易密码了）<em>*</em></label>
+										<span class="kd-form-style-value">
+											<input id="originPwd" name="orgpwd" type="password" class="input" 
+											 value=""
+											   />
+										</span>
+									</li>
+								</ul>
+							</div>
+							<span class="form-item-title">身份信息</span>
+							<ul id="userinfo" class="kd-form-style" style="height: 90px">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">真实姓名<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" type="text" class="readonly input" datatype="zh2-18" nullmsg="请输入真实姓名！" 
+										value="${chineseName!''}" errormsg="请输入2-18个中文的真实姓名！" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">身份证号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" type="text" class="readonly input" datatype="*" nullmsg="请输入真实的证件号码！" 
+										value="${certificateno!''}" errormsg="证件号码输入有误！" />
+									</span>
+								</li>
+							</ul>
+							<span class="form-item-title">选择银行</span>
+							<div class="bank-list">
+								<ul>
+									<li class="isBank selected" title="河北金交在线" code="1028">
+										<label>
+											<img src="${staticserver}/common/images/bank/bank_42.png" width="143" height="38">
+											<span class="checked"></span>
+										</label>
+									</li>
+									<li class="isBank" title="中国工商银行" code="1002" style="display:none">
+										<label>
+											<img src="${staticserver}/common/images/rg_bk11.png" width="143" height="38">
+											<span class="checked"></span>
+										</label>
+									</li>
+									 
+								</ul>
+							</div>
+							<div class="bank-list-remark" style="display: none">
+								<span class="bank-list-remark-title">温馨提示：</span>
+								<p>
+									请确保您已开通中国工商银行网银业务，此步骤完成后须到工行网上银行进行三方存管指定操作后才可进行投资交易。 
+									<br><a href="/getmore.html?type=icbc">工行指定三方存管操作指引</a>
+								</p>
+							</div>
+							<ul class="kd-form-style">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">所选银行<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="bankcode" type="text" class="input readonly" value="河北金交在线" readonly />
+										<input name="channelcode" type="hidden" class="input readonly" value="1028" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">银行卡号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input id="bancodeinput" name="bankaccount" type="text" datatype="checkBankNo" class="input" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth" style="display:none">
+									<label class="kd-form-style-label">银行密码<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input id="openAccountBankPwd__" name="bankpwd__" type="password" value="111111"
+										class="input" nullmsg="请输入6位银行卡密码！" errormsg="银行卡密码输入有误！"  />
+		                    			<input id="openAccountBankPwd" name="bankpwd" type="password" value="111111"
+		                    			class="input" nullmsg="请输入6位银行卡密码！" errormsg="银行卡密码输入有误！" style="display:none" />
+									</span>
+								</li>
+								<li class="kd-form-style-item" style="margin-top: 20px">
+									<label class="kd-form-style-label" style="width: 50px"></label>
+									<span class="kd-form-style-value">
+										<!-- <input class="kdmall-btn" value="上一步" type="button" onclick="bankprev()" /> -->
+										<input id="openAccountBtn" class="kdmall-btn" value="下一步" type="button" onclick="doopenaccount($(this))" />
+									</span>
+								</li>
+							</ul>
+							</form>
+						</div>
+						<div class="form-box-right1">
+							<span> 交易密码只支持6位数,最好同邮箱、QQ等的密码不同。<br>不想绑定了，先去<a href="/index.html">逛逛吧</a> ！</span>
+						</div>
+					</div>
+					
+					<div class="step form-style" style="display:none; height: 250px">
+						<div class="form-box-left1">
+							<div style="text-align: center; padding-top: 60px;">恭喜你，绑定成功！</div>
+						</div>
+						<div class="form-box-right1">
+							<span>您的账户资金将由第三方支付平台托管,为了您的资金安全，请您在充值前完成邮箱、手机绑定及密码保护，我要<a>设置密码保护</a>！</span>
+						</div>
+					</div>
+				</div>
+				<div class="link-trigger" onclick="toggleRemark($(this))">绑定三方存管前你需要了解<span> </span></div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">
+							1.您的账户资金将由第三方支付平台托管。
+						</li>
+						<li class="list-rule-item">
+							2.为了您的资金安全，请您在充值前完成手机绑定，身份认证及交易密码设置。
+						</li>
+						<li class="list-rule-item">
+							3.绑定三方存管过程遇到问题，请联系客服，0931-8735132（09：00 - 17：00）
+						</li>
+					</ul>
+				</div>
+			</div>
+
+<script>
+var $bindAccountForm, $openAccountForm,$openAccountForm1;
+$(function(){
+	$bindAccountForm = $("#bindAccountForm").kdValidform();
+	$openAccountForm = $("#openAccountForm").kdValidform();
+	$openAccountForm1 = $("#openAccountForm1").kdValidform();
+})
+
+
+function step1AlterSfcg($btn){
+	if($openAccountForm1.check()) {
+	var orgpwd = $("#originPwd1").val();
+	var _bankpwd_ = orgpwd;
+	if(   $.trim(_bankpwd_).length>6){
+		_bankpwd_ =$.trim(_bankpwd_).substring(0,6);
+		orgpwd = _bankpwd_;
+	}
+	var _orgpwdtradepwd_ = $.des.getDes(orgpwd,'kingdom');
+	$("#originPwd").val(_orgpwdtradepwd_);//
+	$("#originPwd1").val(_orgpwdtradepwd_);
+	//banknext();
+	nextBYD($btn);
+	}
+} 
+function doopenaccount($btn) {
+	if($openAccountForm.check()) {
+		var generalResult = function(data) {
+			changeStatus($("#openAccountForm"), true);
+			if(!data) {
+				$.kd.kdAlert("修改银行卡失败!!!", function() {
+					window.location.href = "/account_bank_manage.html?type=safe&op=bankCard#bankCard";
+				});
+			}
+	 		
+	 		try {
+	 		  	var res = eval(data)[0];
+	 		  	if(res.success) {
+	 		  		nextBYD($btn);
+	 		  	} else {
+	 		  		if(res.msg == "1") {
+	 		  			$.kd.kdAlert("你已经在河北金交在线开过户，请直接绑定账户！", function() {
+	 		  				$("#openAndBind").children().hide();
+	 		  				$(".stepcontent.bind").show();
+						});
+	 		  		}  else {
+		 			 	$.kd.kdAlert(res.msg, function() {
+		 			 		window.location.href = "/account_bank_manage.html?type=safe&op=bankCard#bankCard";
+						});
+	 		  		}
+	 		  	}
+ 		  	} catch(e) {
+ 		  		$.kd.kdAlert(" 修改银行卡失败!!", function() {
+ 		  			window.location.href = "/account_bank_manage.html?type=safe&op=bankCard#bankCard";
+ 		  		});
+ 		  	}
+		}
+		
+		var _bankpwd_ =$("#openAccountBankPwd__").val();
+		
+		if(  typeof(_bankpwd_)== "undefined" || _bankpwd_.length == 0){
+			 _bankpwd_ ="111111";
+		 }
+		 
+		if(   $.trim(_bankpwd_).length>6){
+			_bankpwd_ =$.trim(_bankpwd_).substring(0,6);
+		}
+		var _bankpwd_ = $.des.getDes(_bankpwd_,'kingdom');
+		if(   $.trim(_bankpwd_).length>6){
+			_bankpwd_ =$.trim(_bankpwd_).substring(0,6);
+		}
+		$("#openAccountBankPwd").val(_bankpwd_);
+		/* var orgpwd = $("#originPwd").val();
+		var _orgpwdtradepwd_ = $.des.getDes(orgpwd,'kingdom');
+		$("#originPwd ").val(_orgpwdtradepwd_); */
+		changeStatus($("#openAccountForm"));
+		$.kd.showLoading($("#openAccountBtn"));
+		$("#openAccountForm").ajaxSubmit({
+			async: true,
+			type: "POST",
+			dataType: "text",
+			url: "mall/register!closeAcctDeposit.do?ajax=yes",
+			success: function(data){
+				$.kd.closeLoading();
+				generalResult(data);
+			},
+			error: function(data) {
+				$.kd.closeLoading();
+				try {
+					data = $.trim(data.responseText);
+				} catch(e) {
+					data = null;
+				}
+				generalResult(data);
+			}
+		});
+	}
+}
+
+function nextBYD($this) {
+	var $content = $this.closest("div").parent().parent();
+	var $step = $("div.options-step", $content);
+	var $curstep = $("span.options-step-current", $step);
+	var $next = $curstep.next();
+
+	if ($next.size() > 0) {
+		$curstep = $curstep.removeClass("options-step-current").next()
+				.addClass("options-step-current");
+	}
+
+	$this.prev().attr("disabled", false).removeClass("disabled");
+	$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+	if ($curstep.next().size() == 0)
+		$this.attr("disabled", true).addClass("disabled");
+}
+</script>	 

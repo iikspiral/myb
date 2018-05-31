@@ -1,0 +1,252 @@
+<script type="text/javascript" src="js/myproject.flow.js"></script>
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/account-new.css">
+
+<style type="text/css">
+.btn_beginwarmup  {}
+.btn_beginfinancing {}
+.btn_endfinancing {}
+.btn_beginflow {}
+.btn_modifyinfo {}
+</style>
+
+<div class="rightcontent formdiv ">
+		<div class="tab-content-wrap-account">
+	        <div class="head-content">
+				<h1 class="content-title">关注的项目</h1>				
+			</div>
+			<table class="list-table">
+				<thead>
+				<tr>
+					<th style="border-right:#e0e0e0 1px solid;width:40px;">行号</th>
+					<th style="border-right:#e0e0e0 1px solid;width:200px;">项目名称</th>
+					<th style="border-right:#e0e0e0 1px solid;width:100px;">区域</th>
+					<th style="border-right:#e0e0e0 1px solid;width:100px;">行业</th>
+					<th style="border-right:#e0e0e0 1px solid;width:100px;">融资总额(万)</th>	
+					<th style="width:100px;">当前融资(万)</th>				
+				</tr>
+				</thead>
+				<tbody>
+				<#if focusProjectList?exists>
+				<#assign i = 0>
+				<#list focusProjectList as focus>
+				<#assign i = i + 1>
+				<tr style="border-top:#e0e0e0 1px solid;">
+					<td style="text-align: center;padding-left: 0;border-right:#e0e0e0 1px solid;">${i}</td>
+					<td style="border-right:#e0e0e0 1px solid;"><a href="/projectdetail_${focus.id!''}.html?status=${focus.status!''}" >${focus.name!''}</a></td>
+					<td style="border-right:#e0e0e0 1px solid;">${focus.province!''}&bull;${focus.city!''}</td>
+					<td style="border-right:#e0e0e0 1px solid;">${focus.industry!''}</td>
+					<td style="border-right:#e0e0e0 1px solid;">${focus.total_fund?number/10000!''}</td>
+					<td>${focus.current_fund?number/10000!''}</td>
+				</tr>
+				</#list>
+				</#if>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="tab-content-wrap-account">
+	        <div class="head-content">
+				<h1 class="content-title">投资的项目</h1>				
+			</div>	    
+	        <table class="list-table hidden" style="display: table;" >
+	            <thead>
+					<tr>
+						<th style="border-right:#e0e0e0 1px solid;width:40px;">行号</th>
+						<th style="border-right:#e0e0e0 1px solid;min-width: 200px">项目名称</th>
+						<th style="border-right:#e0e0e0 1px solid;min-width: 100px">区域</th>
+						<th style="border-right:#e0e0e0 1px solid;min-width: 100px">行业</th>
+						<th style="border-right:#e0e0e0 1px solid;min-width: 100px">投资金额</th>	
+						<th style="min-width: 80px">是否领投</th>				
+					</tr>
+	            </thead>
+	            <tbody id="msg-list-content"> 
+				<tr class="unRead" >
+					<td></td>
+					<td></td>
+					<td></td>					
+					<td><a><span class="msg-title">投资金额总计</span></a></td>
+					<td>			
+					<#assign stocktotal=stocktotal!"0">
+					<#assign stocktotal1= stocktotal?number>
+					${stocktotal1/10000}				
+					万元</td>
+					<td></td>
+				</tr>
+				<#if stock?exists>
+    			<#list stock as item>
+				<tr class="unRead" style="border-top:#e0e0e0 1px solid;">
+					<td style="border-right:#e0e0e0 1px solid;">${item.id!""}</span></td>
+					<td style="border-right:#e0e0e0 1px solid;">
+						<a><span class="msg-title">${item.project_name!""}</span></a>
+					</td>
+					<td style="border-right:#e0e0e0 1px solid;">${item.qy!""}</td>
+					<td style="border-right:#e0e0e0 1px solid;">${item.hy!""}</td>					
+					<td style="border-right:#e0e0e0 1px solid;">
+					<#assign realamount=item.realamount!"0">
+					<#assign realamount1= realamount?number>
+					${realamount1/10000}
+					万元</td>
+					<td>${item.INVESTTYPE!""}</td>				
+				</tr>
+				</#list>
+				</#if> 				
+				</tbody>
+			</table>
+		</div>
+	    <!-- -   -----------------发起的项目-------------------- -->
+		<div class="tab-content-wrap-account">
+        <div class="head-content">
+			<h1 class="content-title">发起的项目</h1>			
+			<input id="restartSubmit" class="linkMore" type="button"  value="发起项目" style="cursor: pointer;">
+		</div>    
+        <table class="list-table hidden" style="display: table;" >
+            <thead>
+				<tr>
+					<th style="border-right:#e0e0e0 1px solid;width:40px;">行号</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width: 200px">项目名称</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width: 60px">区域</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width: 100px">行业</th>						
+					<th style="border-right:#e0e0e0 1px solid;min-width: 100px">筹资金额</th>
+					
+					<th style="border-right:#e0e0e0 1px solid;min-width: 100px">已筹资金额</th>
+					<th style="min-width: 80px">操作</th>						
+				</tr>
+            </thead>
+            <tbody id="msg-list-content"> 
+			<tr class="unRead" >				
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><a><span class="msg-title">金额总计</span></a></td>
+				<td>
+				<#assign cztotal=cztotal!"0">
+					<#assign cztotal1= cztotal?number>
+					${cztotal1/10000}
+				万元</td>
+				<td>
+				<#assign ycztotal=ycztotal!"0">
+					<#assign ycztotal1= ycztotal?number>
+					${ycztotal1/10000}万元</td>
+				<td></td>
+			</tr>
+			<#if start?exists>
+			<#assign i = 0>
+    		<#list start as item>
+			<#assign i = i+1>
+    		<input type="hidden" id="${item.project_id!''}" value="${item.project_id!''}"/>
+			<tr class="unRead" style="border-top:#e0e0e0 1px solid;">
+				<td style="border-right:#e0e0e0 1px solid;">${i}</span></td>
+				<td style="border-right:#e0e0e0 1px solid;">
+					<#if item.status=="99">
+					<a href="/edit_project.html?id=${item.project_id}"><span class="msg-title">${item.project_name!""}</span></a>
+					<#else>
+					<a href="projectdetail_${item.project_id}.html?status=${item.status}"><span class="msg-title">${item.project_name!""}</span></a>
+					</#if>
+				</td>
+				<td style="border-right:#e0e0e0 1px solid;">${item.qy!""}</td>
+				<td style="border-right:#e0e0e0 1px solid;">${item.hy!""}</td>
+				<td style="border-right:#e0e0e0 1px solid;">			
+				<#assign total_fund=item.total_fund!"0">
+					<#assign total_fund1= total_fund?number>
+					${total_fund1/10000}
+				万元</td>
+				<td style="border-right:#e0e0e0 1px solid;">
+				<#assign current_fund=item.current_fund!"0">
+					<#assign current_fund1= current_fund?number>
+					${current_fund1/10000}
+				万元</td>
+				<td>  <!-- kifp-log-checkstatus:[${item.checkstatus!''}] status:[${item.status!''}]-->
+					<#if item.checkstatus=="0">
+						<input class="linkButton" type="Button"  disabled="disabled" value="申请审核中">
+					
+					<#elseif item.checkstatus=="2">
+					  <a class="linkButton btn_modifyinfo" href=""    data-value="${item.project_id!''}">修改资料</a>
+					<#else>
+					    <#if item.status=="99">
+						<a class="linkButton btn_beginwarmup"    data-value-title="${item.project_name!''}" data-value-status="材料审核" data-value="${item.project_id!''}">发起材料审核</a>
+						<#elseif item.status=="0">
+						<a class="linkButton btn_beginwarmup"    data-value-title="${item.project_name!''}" data-value-status="发起预热" data-value="${item.project_id!''}">发起预热</a>
+						<#elseif item.status=="2">
+				     	<a class="linkButton btn_beginfinancing"   data-value-title="${item.project_name!''}" data-value-status="发起筹资" data-value="${item.project_id!''}">发起筹资</a>
+						<#elseif item.status=="1">
+				     	<a class="linkButton btn_endfinancing"   data-value-title="${item.project_name!''}" data-value-status="结束筹资"  data-value="${item.project_id!''}">结束筹资</a>
+						<#else>
+				     	<span><strong>完成</strong></span>
+				     	</#if>
+					</#if>
+					
+					
+				
+				</td>				
+			</tr>
+			</#list>
+			</#if>			
+			</tbody>
+			</table>
+		</div>
+    <!-- -   -----------------推荐的项目-------------------- -->
+		<div class="tab-content-wrap-account">
+        <div class="head-content">
+			<h1 class="content-title">推荐的项目</h1>			
+		</div>    
+        <table class="list-table hidden" style="display: table;" >
+            <thead>
+				<tr>
+					<th style="border-right:#e0e0e0 1px solid;width:40px;">行号</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width: 200px">项目名称</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width: 100px">区域</th>
+					<th style="border-right:#e0e0e0 1px solid;min-width: 100px">行业</th>						
+					<th style="min-width: 80px">筹资金额</th>						
+				</tr>
+            </thead>
+            <tbody id="msg-list-content"> 
+			<tr class="unRead" ><td></td><td>暂无推荐的项目!</td>
+				<!--<td></td>
+				<td></td>
+				<td></td>
+				<td><a><span class="msg-title">金额总计</span></a></td>				
+				<td>18万元</td>
+			</tr>
+			<tr class="unRead" style="border-top:#e0e0e0 1px solid;">
+				<td style="border-right:#e0e0e0 1px solid;">1</span></td>
+				<td style="border-right:#e0e0e0 1px solid;">
+					<a><span class="msg-title">金证万利宝一期</span></a>
+				</td>
+				<td style="border-right:#e0e0e0 1px solid;">广东省深圳市</td>
+				<td style="border-right:#e0e0e0 1px solid;">金融软件</td>
+				<td>400万元</td>				
+			--></tr>
+			</tbody>
+			</table>
+		</div>
+</div>
+<script>
+$(function() {	
+	$("#restartSubmit").bind('click',function() {			
+		var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data:{},
+			url:"mall/judge!restart.do?ajax=yes",										
+			success:function(data) {
+				//alert("11111");
+			},
+			error:function(data) {
+				if(!data) return;
+				var ss = $.trim(data.responseText);
+				var resultJson = eval(ss);
+				$.kd.kdConfirm(resultJson[0].message,function(){
+					if (resultJson[0].result) {	
+						window.location.href ="/edit_project.html";
+					} else {
+					window.location.href ="/myproject.html?type=friendlist";
+					}
+				})
+						
+			}
+		}
+		$.ajax(options);
+	});
+});
+</script>

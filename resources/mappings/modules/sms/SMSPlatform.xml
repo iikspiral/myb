@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.sms.dao.SMSPlatformDao">
+    
+	<sql id="smsPlatformColumns">
+    	a.id,
+		a.sms_name,
+		a.sms_code,
+		a.account_id,
+		a.token_id,
+		a.app_id,
+		a.state,
+		a.create_by AS "createBy.id",
+		a.create_date,
+		a.update_by AS "updateBy.id",
+		a.update_date,
+		a.del_flag
+    </sql>
+    
+	<select id="get" resultType="SMSPlatform">
+		SELECT
+			<include refid="smsPlatformColumns"/>
+		FROM sms_platform a
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="findList" resultType="SMSPlatform">
+		SELECT
+		<include refid="smsPlatformColumns"/>
+		FROM sms_platform a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		<if test="smsCode != null and smsCode != ''">
+			AND a.sms_code = #{smsCode}
+		</if>
+		<if test="smsName != null and smsName != ''">
+			AND a.sms_name = #{smsName}
+		</if>
+		<if test="state != null and state != ''">
+			AND a.state = #{state}
+		</if>
+	</select>
+	
+	<select id="findAllList" resultType="SMSPlatform">
+		SELECT
+			<include refid="smsPlatformColumns"/>
+		FROM sms_platform a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sms_platform(
+			id,
+			sms_name,
+			sms_code,
+			account_id,
+			token_id,
+			app_id,
+			state,
+			create_by,
+			create_date, 
+			update_by, 
+			update_date, 
+			remarks, 
+			del_flag
+		) VALUES (
+			#{id}, 
+			#{smsName},
+			#{smsCode},
+			#{accountId},
+			#{tokenId},
+			#{appId},
+			#{state},
+			#{createBy.id},
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sms_platform SET
+			sms_name = #{smsName},
+			sms_code = #{smsCode},
+			account_id = #{accountId},
+			token_id = #{tokenId},
+			app_id = #{appId},
+			state = #{state},
+			update_by = #{updateBy.id}, 
+			update_date = #{updateDate}, 
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+	
+	<update id="delete">
+		UPDATE sms_platform SET
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

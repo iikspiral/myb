@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<widgets>
+	<page id="common"> 
+		<widget id="headermenu">
+			<type>zhongyuan_headermenu</type>
+			<folder>aboutindex</folder>
+			<custom_page>head</custom_page>
+			<!--<mustcache>yes</mustcache>  -->
+		</widget>
+		<widget id="aboutfooter">
+			<type>zhongyuan_aboutfooter</type>
+			<folder>aboutindex</folder>
+			<custom_page>footer</custom_page>
+		<!--	<mustcache>yes</mustcache>  -->
+		</widget>
+	</page>
+		
+	<!-- 单点登录  -->
+	<page id="/ssologin.html">
+ 		<widget id="ssologin">
+			<type>zhongyuan_ssologin</type>
+			<folder>login</folder>
+			<custom_page>ssologin</custom_page>
+		</widget>
+	</page>	
+
+	<!-- 个人注册  -->
+	<page id="/register.html">
+		<widget id="register">
+			<type>zhongyuan_register</type>
+			<folder>register</folder>
+			<custom_page>register</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 机构注册  -->
+	<page id="/registerorg.html">
+		<widget id="registerorg">
+			<type>zhongyuan_register</type>
+			<folder>register</folder>
+			<custom_page>registerorg</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 登录  -->
+	<page id="/login.html">
+		<widget id="login">
+			<type>zhongyuan_login</type>
+			<folder>login</folder>
+			<custom_page>login</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 忘记密码 -->
+	<page id="/resetpwd.html">
+		<widget id="resetpwd">
+			<type>zhongyuan_resetpwd</type>
+			<folder>resetpwd</folder>
+			<custom_page>resetpwd</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 充值  -->
+	<page id="/charge.html">
+		<widget id="charge">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_charge</type>
+			<folder>account_center</folder>
+			<custom_page>charge</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 提现  -->
+	<page id="/withdraw.html">
+		<widget id="withdraw">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_withdraw</type>
+			<folder>account_center</folder>
+			<custom_page>withdraw</custom_page>
+		</widget>
+	</page>
+	 
+	<!-- 图片剪切  -->	
+    <!--<page id="/imagecut.html">
+		<widget id="imagecut">
+			<type>zhongyuan_imagecut</type>
+			<folder>upload</folder>
+			<custom_page>ImageCutWidget</custom_page>
+		</widget>
+	</page> -->
+	
+	<!-- 邮箱验证  -->
+	<page id="/email.html">
+		<widget id="email">
+			<type>zhongyuan_email</type>
+			<folder>email</folder>
+			<custom_page>email</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 账户总览 -->
+	<page id="/account_asset.html">
+	</page>	
+	
+	<!-- 账户总览 -->
+	<page id="/account_asset_investor.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="account_asset">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_asset</type>
+			<folder>account_center</folder>
+			<custom_page>account_asset</custom_page>
+		</widget>
+	</page>
+	
+	<!--会员登录-->
+	<page id="/account_asset_member.html">
+		<!--  widget id="account_asset_member_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>account_asset_member_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_asset_member_menu</custom_page>
+		</widget-->	
+		<widget id="account_asset_member">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_asset_member</type>
+			<folder>account_center</folder>
+			<custom_page>account_asset_member</custom_page>
+		</widget>
+		
+	</page>	
+	<page id="/account_asset_member_download.html">	
+	</page>	
+	<page id="/member_info.html">
+		<widget id="member_info">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_member_info_list</type>
+			<folder>account_center</folder>
+			<custom_page>member_info</custom_page>
+		</widget>
+	</page>	
+	<page id="/member_info_apply.html">
+		<widget id="member_info_apply">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_member_info_apply</type>
+			<folder>account_center</folder>
+			<custom_page>member_info_apply</custom_page>
+		</widget>
+	</page>	
+	
+	<!-- 我的融资 -->
+	<page id="/fund_raising.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="fund_raising">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_fund_raising</type>
+			<folder>account_center</folder>
+			<custom_page>fund_raising</custom_page>
+		</widget>
+	</page>	
+	<!-- 电子合同 -->
+	<page id="/contract.html">
+		<widget id="contract">
+			<type>zhongyuan_signcontract</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>contract</custom_page>
+		</widget>
+	</page>
+	<!-- 我的理财 -->
+	<page id="/financing.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="financing">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_financing</type>
+			<folder>account_center</folder>
+			<custom_page>financing</custom_page>
+		</widget>
+	</page>	
+	
+	<!-- 我的众筹 -->
+	<page id="/myCrowdfunding.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="myCrowdfunding">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myCrowdfunding</type>
+			<folder>account_center</folder>
+			<custom_page>myCrowdfunding</custom_page>
+		</widget>
+	</page>	
+	
+	<page id="/crowdfund_leader_due_diligence.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="leader_report">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_crowdfundleaderreport</type>
+			<folder>account_center</folder>
+			<custom_page>crowdfund_leader_due_diligence</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 特殊资产 -->
+	<page id="/special_assets.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="special_assets">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_special_assets</type>
+			<folder>account_center</folder>
+			<custom_page>special_assets</custom_page>
+		</widget>
+	</page>	
+	
+		<!-- 安全中心 -->
+	<page id="/security.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="security">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>security</custom_page>
+		</widget>
+	</page>	
+	
+	<page id="/reset_pwd.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="reset_pwd">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>reset_pwd</custom_page>
+		</widget>
+	</page>	
+	
+	<page id="/reset_pwd_trade.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="reset_pwd_trade">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>reset_pwd_trade</custom_page>
+		</widget>
+	</page>
+	
+	<page id="/secret_questions.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="secret_questions">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>secret_questions</custom_page>
+		</widget>
+	</page>
+	
+	<page id="/risk_evaluation.html">	
+		<widget id="risk_evaluation">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>risk_evaluation</custom_page>
+		</widget>
+	</page>
+	
+	<page id="/rebind_cellphone.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="rebind_cellphone">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>rebind_cellphone</custom_page>
+		</widget>
+	</page>
+	
+	<page id="/email_veify.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="email_veify">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_myselfinfo</type>
+			<folder>account_center</folder>
+			<custom_page>email_veify</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 银行卡管理 -->
+	<page id="/bankmanage.html">
+		<widget id="bankmanage">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_bankmanage</type>
+			<folder>bankmanage</folder>
+			<custom_page>bankmanage</custom_page>
+		</widget>
+	</page>	
+	
+	<!-- 银行卡重新绑定 -->
+	<page id="/bank_drop_bind.html">
+		<widget id="bank_drop_bind">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_bank_drop_bind</type>
+			<folder>bankmanage</folder>
+			<custom_page>bank_drop_bind</custom_page>
+		</widget>
+	</page>	
+	
+	<!-- 我的关注 -->
+	<page id="/focus.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="focus">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_focus</type>
+			<folder>account_center</folder>
+			<custom_page>focus</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 股权交易 -->
+	<page id="/equity_trade.html">
+		<widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="equity_trade">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_equity_trade</type>
+			<folder>account_center</folder>
+			<custom_page>equity_trade</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 我的订单 -->
+	<page id="/tx_order_deal_list.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="tx_order_deal_list">
+				<type>zhongyuan_tx_order_deal_list</type>
+				<mustbelogin>yes</mustbelogin>
+				<folder>account_center</folder>
+				<custom_page>tx_order_deal_list</custom_page>
+		</widget>
+	</page>	
+	
+	<!-- 订单详情 -->
+	<page id="/tx_order_detail.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>
+		<widget id="tx_order_detail">
+				<type>zhongyuan_tx_order_detail</type>
+				<mustbelogin>yes</mustbelogin>
+				<folder>account_center</folder>
+				<custom_page>tx_order_detail</custom_page>
+		</widget>
+	</page>		
+	
+	<!-- 自动投标首页 -->
+	<page id="/subscribe.html">
+		<widget id="subscribe">
+			<type>zhongyuan_subscribe</type>
+			<folder>autoinvest</folder>
+			<custom_page>subscribe</custom_page>
+		</widget>	
+	</page>	
+	
+	<!-- 自动投标 -->
+	<page id="/auto_invest_list.html">
+		<widget id="auto_invest_list">
+			<type>zhongyuan_auto_invest_list</type>
+			<folder>account_center</folder>
+			<custom_page>auto_invest_list</custom_page>
+		</widget>	
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+	</page>	
+
+	<!--交易权限申请-->
+	<page id="/apply_transaction_rights.html">
+		<widget id="apply_transaction_rights">
+			<type>zhongyuan_finac_apply_transaction_rights</type>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>apply_transaction_rights</custom_page>
+		</widget>
+	</page>	 
+	
+	<!--身份资质申请-->
+	<page id="/apply_usertype.html">
+		<widget id="apply_usertype">
+			<type>zhongyuan_fincApplyUsertype</type>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>apply_usertype</custom_page>
+		</widget>
+	</page>
+	
+	<!--我的推广-->
+	<page id="/recommend_users.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="recommend_users">
+			<type>zhongyuan_recommend</type>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>recommend_users</custom_page>
+		</widget>
+	</page>
+	<page id="/recommend_records.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="recommend_records">
+			<type>zhongyuan_recommend</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>recommend_records</custom_page>
+		</widget>
+	</page>
+	
+	<!--我的消息-->
+	<page id="/my_msg.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="my_msg">
+			<type>zhongyuan_my_msg</type>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>my_msg</custom_page>
+		</widget>
+	</page>
+		<page id="/send_msg_detail.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="my_msg">
+			<type>zhongyuan_my_msg</type>
+			<folder>account_center</folder>
+			<custom_page>send_msg_detail</custom_page>
+		</widget>
+	</page>
+	
+	<!--发送消息-->
+	<page id="/send_msg.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="send_msg">
+			<type>zhongyuan_sendMsgWidget</type>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>send_msg</custom_page>
+		</widget>
+	</page>
+
+	<!--还款计划-->
+	<page id="/product_repay_plan.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="product_repay_plan">
+			<type>zhongyuan_product_repay_plan</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>product_repay_plan</custom_page>
+		</widget>
+	</page>
+	
+	<!--还款详情-->
+	<page id="/product_repay_plan_detail.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="product_repay_plan_detail">
+			<type>zhongyuan_product_repay_plan</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>product_repay_plan_detail</custom_page>
+		</widget>
+	</page>
+	
+	<!--推荐记录-->
+	<page id="/recommend_records.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="recommend_records">
+			<type>zhongyuan_recommend_records</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>recommend_records</custom_page>
+		</widget>
+	</page>
+	
+	<!--推荐用户-->
+	<page id="/recommend_users.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="recommend_users">
+			<type>zhongyuan_recommend_users</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>recommend_users</custom_page>
+		</widget>
+	</page>
+	
+	<page id="/repay_charge.html">
+		<widget id="repay_charge">
+			<type>zhongyuan_repayCharge</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>repaycharge</custom_page>
+		</widget>
+	</page>
+	
+	<!-- 转账 -->
+	<page id="/acct_change_no_trade.html">
+			<widget id="shx_accttrade">
+					<type>zhongyuan_accttrade</type>
+					<mustbelogin>yes</mustbelogin>
+					<folder>account_center</folder>
+					<custom_page>acct_change_no_trade</custom_page>
+			</widget>
+	</page>	
+	
+	<!-- 申请成为借款方 -->
+	<page id="/apply_loan.html">
+		<widget id="account_center_menu">
+			<type>zhongyuan_account_center_menu</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>	
+		<widget id="apply_loan">
+			<type>zhongyuan_apply_loan</type>
+			<mustbelogin>yes</mustbelogin>
+			<folder>account_center</folder>
+			<custom_page>apply_loan</custom_page>
+		</widget>
+	</page>
+
+	<!--交易权限申请  股权众筹-->
+	<page id="/apply_transaction_rights_crowdfund.html">
+		<widget id="apply_transaction_rights_crowdfund">
+			<type>zhongyuan_apply_trade_crowdfund</type>
+			<folder>account_center</folder>
+			<mustbelogin>yes</mustbelogin>
+			<custom_page>apply_transaction_rights_crowdfund</custom_page>
+		</widget>
+	</page>	
+
+	<page id="/message.html">
+		<widget id="pro_publish_message">
+			<type>zhongyuan_pro_publish_message</type>
+			<folder>account_center</folder>
+			<custom_page>message</custom_page>
+		</widget>
+	</page>
+	
+		<page id="/account_asset_publisher.html">
+		<widget id="account_asset_publisher">
+			<mustbelogin>yes</mustbelogin>
+			<type>account_asset_publisher</type>
+			<folder>account_center</folder>
+			<custom_page>account_asset_publisher</custom_page>
+		</widget>
+	</page>	
+	<!--申请单列表-->
+	<page id="/apply_list.html">
+	    <widget id="account_center_menu">
+			<mustbelogin>yes</mustbelogin>
+			<type>zhongyuan_account_center_menu</type>
+			<folder>account_center</folder>
+			<custom_page>account_center_menu</custom_page>
+		</widget>
+		<widget id="apply_list">
+			<mustbelogin>yes</mustbelogin>
+			<type>account_asset_publisher</type>
+			<folder>account_center</folder>
+			<custom_page>apply_list</custom_page>
+		</widget>
+	</page>
+	<!--会员申请单列表-->
+	<page id="/account_asset_member_applylist.html">
+	    <widget id="account_asset_member_applylist">
+			<mustbelogin>yes</mustbelogin>
+			<type>account_asset_publisher</type>
+			<folder>account_center</folder>
+			<custom_page>account_asset_member_applylist</custom_page>
+		</widget>
+	</page>
+	
+</widgets>

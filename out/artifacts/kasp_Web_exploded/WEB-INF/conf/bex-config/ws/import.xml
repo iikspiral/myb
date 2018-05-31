@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="GB2312"?>
+<ws>
+	<bex id="ws_import_excel" type="java-bex" bean="Import" class="com.websuites.toolkit.web.excel.imp" method="importExcel">
+	   <request>
+			<param name="XLSID"	type="string" />	
+	   </request>
+	</bex>
+</ws>

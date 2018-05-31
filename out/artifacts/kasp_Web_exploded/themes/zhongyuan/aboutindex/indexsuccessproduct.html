@@ -1,0 +1,158 @@
+<!-- 已交易成功产品 -->
+<div class="products-list">
+	<div class="titlebar clearfix">
+		<h2><i class="iconfont">&#xe604;</i> 已交易成功产品</h2>
+		<a href="/successproduct.html" title="更多产品">更多</a>
+		<i class="iconfont">&#xe60d;</i>
+	</div>
+	<div class="sold-products clearfix" id="successproduct">
+		<!--
+		<table class="thead">
+			<thead>
+				<tr>
+					<th style="width: 44%;">项目名称</th>
+					<th style="width: 12%;">融资期限</th>
+					<th style="width: 12%;">年化利率</th>
+					<th style="width: 12%;">发行规模</th>
+					<th style="width: 20%;">操作</th>
+				</tr>
+			</thead>
+		</table>
+		-->
+		<#if successproductlist?exists>
+			<#if (successproductlist?size>0)>
+				<#assign i = 0>
+				<#list successproductlist as successproduct>
+				<#if i lt 5>
+				<#assign i = i + 1>
+				<#setting number_format="currency"/>
+				<ul class="product">
+					<li class="name"><a href="bondsdetai_${successproduct.borrowid!''}.html">${successproduct.borrowtitle!''}</a></li>
+					<li class="monthes">${successproduct.deadline!'0'}
+						<#if (successproduct.deadlineunit)?exists && (successproduct.deadlineunit) =='M'>
+							个月
+						<#elseif (successproduct.deadlineunit)?exists && (successproduct.deadlineunit) =='D'>
+							天
+						<#elseif (successproduct.deadlineunit)?exists && (successproduct.deadlineunit) =='Y'>
+							年
+						<#else>
+							个月
+						</#if>
+					</li>
+					<li class="rate"><em>${successproduct.annualrate!''}%</em></li>
+					<li class="total">${successproduct.borrowamount?number / 10000}万元</li>
+					<li class="btn"><a class="X-Btn infoBtn" href="bondsdetai_${successproduct.borrowid!''}.html">详情</a></li>
+				</ul>
+				</#if>
+				</#list>
+			</#if>
+		</#if>
+	</div>
+</div>
+
+<script>
+//倒计时函数
+function updateEndTime(){
+	$(".endtime").each(function(i){
+		var surplusTime = this.getAttribute("surplusTime");
+		this.setAttribute("surplusTime",--surplusTime);
+		
+		if(surplusTime > 0)
+		{
+			var second = Math.floor(surplusTime % 60);     
+			var minite = Math.floor((surplusTime / 60) % 60);
+			var hour = Math.floor((surplusTime / 3600) % 24);
+			var day = Math.floor((surplusTime / 3600) / 24);
+			$(this).html(hour+"小时"+minite+"分"+second+"秒");
+		}else if(surplusTime ==0){
+			
+				window.location.href = "index.html";
+			
+		}
+	});
+	setTimeout("updateEndTime()",1000);
+}
+
+$(function(){
+	//setTimeout(function(){
+		updateEndTime();
+	//},1000);
+
+});
+
+</script>	
+
+<script>
+var kifpwebindex = kifpwebindex || {};
+kifpwebindex.successproductlist = {
+
+ 
+		init:function(){
+			var self = this;
+			Handlebars.registerHelper("amountformat",function(number){
+				return (parseFloat(number)/10000).toFixed(2);;
+			});
+			Handlebars.registerHelper("dateformat",function(date){
+				if(date=="M"){
+					return "个月";
+				}else if(date=="D"){
+					return "天";
+				}else if(date=="Y"){
+					return "年";
+				}else{
+					return "个月";
+				}
+				
+			});
+			self.getSuccessProductList();
+		}
+		,getSuccessProductList:function(){
+			$.post(
+					"/mall/bondshow!getIndexSuccessPoductList.do?ajax=yes",
+					{},
+					function(retData){						
+						if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+							var items = retData.kdjson.items; 
+							kifpwebindex.successproductlist.template = Handlebars.compile( $("#index_successproductlist_tpl").html() );	
+							var renderHtml = kifpwebindex.successproductlist.template(items);							
+							$("#successproduct").html(renderHtml);
+							//kifpwebindex.successproductlist.reloadImg();
+						//	$.kd.kdMsg("change to js template data");
+						}	
+					},"json");
+			
+		}
+		
+};
+
+
+
+
+</script>
+<script id="index_successproductlist_tpl" type="text/x-handlebars-template">
+<!--
+<table class="thead">
+	<thead>
+		<tr>
+			<th style="width: 44%;">项目名称</th>
+			<th style="width: 12%;">融资期限</th>
+			<th style="width: 12%;">年化利率</th>
+			<th style="width: 12%;">发行规模</th>
+			<th style="width: 20%;">操作</th>
+		</tr>
+	</thead>
+</table>
+-->
+{{#each this}}
+	<ul class="product">
+				<li class="name"><a href="bondsdetai_{{borrowid}}.html">{{borrowtitle}}</a></li>
+				<li class="monthes">{{deadline}}
+					{{dateformat deadlineunit}}
+				</li>
+				<li class="rate"><em>{{annualrate}}%</em></li>
+				<li class="total">{{amountformat borrowamount}}万元</li>
+				<li class="btn"><a class="X-Btn infoBtn" href="bondsdetai_{{borrowid}}.html">详情</a></li>
+	</ul>
+{{/each}}	
+</script>

@@ -1,0 +1,874 @@
+
+		<div class="titlebar">
+		    <h2 class="title">绑定银行卡</h2>
+		    <span class="sub-title">（个人账户）</span>
+		</div>
+
+		<div class="user-type" id="sfcg_open" style="display:none;">
+		    <form class="personal-account awesomeform" id="sfcg_openForm" method="post">
+		        <div class="identity clearfix">
+		            <input name="personalaccount" value="0" type="hidden" />
+                	<div class="border-titlebar">
+			            <h3 class="title">
+			                身份信息
+			            </h3>
+                	</div>
+		            <div class="floor full">
+		                <label class="property" for="realname">
+		                    真实姓名
+		                </label>
+		                <div class="value">
+		                    <input name="certificateName" class="xs" type="text" datatype="zh2-4"
+		                    nullmsg="请输入真实姓名！" errormsg="请输入2-4个中文的真实姓名！" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property" for="idnum">
+		                    身份证号
+		                </label>
+		                <div class="value">
+		                    <input type="hidden" name="certificatetype" id="certificatetype" value="0"
+		                    />
+		                    <input name="certificateNo" class="sm" type="text" datatype="idcard" nullmsg="请输入真实的身份证号！"
+		                    errormsg="身份证号输入有误！" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property">
+		                    开户机构
+		                </label>
+		                <div class="value">
+		                    <select id="yyb" name="branchcode" style="height: auto;">
+		                        <#if yywd?exists>
+		                            <#list yywd as yyb>
+		                                <option value="${yyb.BRANCHID}">
+		                                    ${yyb.BRANCHNAME}
+		                                </option>
+		                            </#list>
+		                        </#if>
+		                    </select>
+		                    <input name="branchcodeflag" value="1" style="display:none" type="text">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="banks">
+                    <div class="border-titlebar">
+                        <h3 class="title">选择银行</h3>
+                    </div>
+		            <ul>
+		                <li class="tieonBanks clearfix" name="sfcgbank">
+		                    <#if banklist?exists>
+		                        <#list banklist as item>
+		                            <#if item.bankcode?exists>
+		                                <a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>" code="${item.bankcode!''}" _bankId="${item.bankcode!''}" _bankcode="${item.bankname!''}">
+		                                    <img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}"/>
+		                                    <i class="iconfont">
+		                                        &#xe60e;
+		                                    </i>
+		                                    <input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd!''}"/>
+		                                    <input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard!''}"/>
+		                                    <input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd!''}"/>
+		                                    <input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"/>
+		                                    <input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"/>
+		                                    <div class="hide">
+		                                        <input type="hidden" id="v_remark_${item.bankcode}" value="${item.remark!''}"/>
+		                                    </div>
+		                                </a>
+		                            </#if>
+		                        </#list>
+		                    </#if>
+		                    <input name="bankcode" type="hidden" id="J_bankcode" value="" readonly="readonly"/>
+		                    <input name="channelcode" type="hidden" id="J_channelcode" readonly="readonly" style="display:none" />
+		                </li>
+		            </ul>
+		            <div class="floor full" id="J_li_bankacount">
+		                <label class="property" for="cardNum">
+		                    银行卡号
+		                </label>
+		                <div class="value">
+		                    <input id="bancodeinput" class="sm" name="bankaccount" type="text" datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+		                </div>
+		            </div>
+		            <div class="floor full" id="J_li_bankpwd">
+		                <label class="property" for="cardNum">
+		                    银行密码
+		                </label>
+		                <div class="value">
+		                    <input id="J_bankpwd" class="sm" name="bankpwd" type="text" nullmsg="请输入银行密码！" errormsg="银行密码输入有误！" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property" for="realname">
+		                    交易密码
+		                </label>
+		                <div class="value">
+		                    <input id="tradePWD1" class="xs" name="tradePWD1" type="password" datatype="/^[0-9]{6,6}$/" nullmsg="请输入6位数字交易密码！" errormsg="交易密码只能是6位数字" placeholder="请输入6位数字"/>
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property" for="idnum">
+		                    再输入一次
+		                </label>
+		                <div class="value">
+		                    <input id="tradePWD2" class="xs" name="tradePWD1" type="password" datatype="*" recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！" placeholder="请再次输入6位数字"/>
+		                </div>
+		            </div>
+		            <div class="floor full" id="J_li_remark">
+		                <label class="property">
+		                    温馨提示:
+		                </label>
+		                <div class="value" id="J_remark">
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property">
+		                </label>
+		                <div class="value">
+		                    <input id="J_bankpwd" type="checkbox" id="terms" name="terms" datatype="*"/>
+		                    <label for="terms">
+		                        请您确认使用本人有效身份证件信息注册，并保证提供的证件信息的真实、准确、合法、有效，若您使用非本人身份证件信息，或者填写错误信息进行注册，引起的一切后果包括但不限于资金划拨等相关经济与法律责任由您本人承担。
+		                    </label>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="actionArea clearfix">
+		            <input class="continue btn-md btn-red" type="button" id="openAccountBtn_sfcg"   value="下一步" />
+		            <input type="hidden" name="tradepassword" />
+		        </div>
+		    </form>
+		</div>
+		<!-- 机构开户 -->
+		<div class="user-type" id="sfcg_open_org">
+		    <form class="personal-account awesomeform" id="sfcg_openForm_org" method="post">
+		        <div class="identity clearfix">
+		            <input name="organizeaccount" value="1" type="hidden" />
+                	<div class="border-titlebar">
+			            <h3 class="title">
+			                机构信息
+			            </h3>
+                	</div>
+		            <div class="floor full">
+		                <label class="property" for="realname">
+		                    企业名称
+		                </label>
+		                <div class="value">
+		                    <input class="xs" id="certificateName" name="certificateName" type="text"
+		                    datatype="zh2-999" nullmsg="请输入名称！" errormsg="请输入中文名称！" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property">
+		                    证件类型
+		                </label>
+		                <div class="value">
+		                    <select id="certificatetype" name="certificatetype" style="height: auto;">
+		                        <#if certTypeList?exists>
+		                            <#list certTypeList as item>
+		                                <option value="${item.subitem}">
+		                                    ${item.subitemname}
+		                                </option>
+		                            </#list>
+		                        </#if>
+		                    </select>
+		                    <input name="branchcodeflag" value="1" style="display:none" type="text">
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property" for="idnum">
+		                    证件号码
+		                </label>
+		                <div class="value">
+		                    <input class="sm" id="certificateNo" name="certificateNo" type="text"
+		                    datatype="*" nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property">
+		                    开户机构
+		                </label>
+		                <div class="value">
+		                    <select id="yyb" name="branchcode" style="height: auto;">
+		                        <#if yywd?exists>
+		                            <#list yywd as yyb>
+		                                <option value="${yyb.BRANCHID}">
+		                                    ${yyb.BRANCHNAME}
+		                                </option>
+		                            </#list>
+		                        </#if>
+		                    </select>
+		                    <input name="branchcodeflag" value="1" style="display:none" type="text">
+		                </div>
+		            </div>
+		        </div>
+		        <div class="banks">
+                    <div class="border-titlebar">
+                        <h3 class="title">选择银行</h3>
+                    </div>
+		            <ul>
+		                <li class="tieonBanks clearfix" name="sfcgbank">
+		                    <#if banklist?exists>
+		                        <#list banklist as item>
+		                            <#if item.bankcode?exists>
+		                                <a href="javascript:void(0);" class="<#if item.selected=='1'>selected</#if>"
+		                                code="${item.bankcode!''}" _bankId_org="${item.bankcode!''}" _bankcode_org="${item.bankname!''}">
+		                                    <img src="${kasp_url }${item.banklogo!''}" title="${item.bankname!''}"
+		                                    />
+		                                    <i class="iconfont">
+		                                        &#xe60e;
+		                                    </i>
+		                                    <input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd!''}"
+		                                    />
+		                                    <input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard!''}"
+		                                    />
+		                                    <input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd!''}"
+		                                    />
+		                                    <input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"
+		                                    />
+		                                    <input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount!''}"
+		                                    />
+		                                    <div class="hide">
+		                                        <input type="hidden" id="v_remark_${item.bankcode}_org" value="${item.remark!''}"
+		                                        />
+		                                    </div>
+		                                </a>
+		                            </#if>
+		                        </#list>
+		                    </#if>
+		                    <input name="bankcode" type="hidden" id="J_bankcode_org" value="" readonly="readonly"
+		                    />
+		                    <input name="channelcode" type="hidden" id="J_channelcode_org" readonly="readonly"
+		                    style="display:none" />
+		                </li>
+		            </ul>
+		            <div class="floor full" id="J_li_bankacount_org">
+		                <label class="property" for="cardNum">
+		                    银行卡号
+		                </label>
+		                <div class="value">
+		                    <input id="bancodeinput_org" class="sm" name="bankaccount" type="text"
+		                    datatype="n10-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" />
+		                </div>
+		            </div>
+		            <div class="floor full" id="J_li_bankpwd_org">
+		                <label class="property" for="cardNum">
+		                    银行密码
+		                </label>
+		                <div class="value">
+		                    <input id="J_bankpwd" class="sm" name="bankpwd" type="text" nullmsg="请输入银行密码！"
+		                    errormsg="银行密码输入有误！" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property" for="realname">
+		                    交易密码
+		                </label>
+		                <div class="value">
+		                    <input id="tradePWD1_org" class="xs" name="tradePWD1" type="password"
+		                    datatype="/^[0-9]{6,6}$/" nullmsg="请输入6位数字交易密码！" errormsg="交易密码只能是6位数字"
+		                    placeholder="请输入6位数字" />
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property" for="idnum">
+		                    再输入一次
+		                </label>
+		                <div class="value">
+		                    <input id="tradePWD2" class="xs" name="tradePWD1" type="password" datatype="*"
+		                    recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！" placeholder="请再次输入6位数字"
+		                    />
+		                </div>
+		            </div>
+		            <div class="floor full" id="J_li_remark_org">
+		                <label class="property">
+		                    温馨提示:
+		                </label>
+		                <div class="value" id="J_remark_org">
+		                </div>
+		            </div>
+		            <div class="floor full">
+		                <label class="property">
+		                </label>
+		                <div class="value">
+		                    <input id="J_bankpwd" type="checkbox" id="terms" name="terms" datatype="*"
+		                    />
+		                    <label for="terms">
+		                        请您确认使用本人有效身份证件信息注册，并保证提供的证件信息的真实、准确、合法、有效，若您使用非本人身份证件信息，或者填写错误信息进行注册，引起的一切后果包括但不限于资金划拨等相关经济与法律责任由您本人承担。
+		                    </label>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="actionArea clearfix">
+		            <input class="continue btn-md btn-red" type="button" id="openAccountBtn_sfcg_org"
+		            value="下一步" />
+		            <input type="hidden" name="tradepassword" />
+		        </div>
+		    </form>
+		</div>
+
+<script type="text/javascript">
+
+    var banktype = 1000;
+    var riskflag = $("#riskflag").val();
+    var kifpwebregister_cg = kifpwebregister_cg || {};
+    $sfcg_openForm = $("#sfcg_openForm").kdValidform();
+    $sfcg_openForm_org = $("#sfcg_openForm_org").kdValidform();
+
+    kifpwebregister_cg.registerbingding = {
+        init: function() {
+            var self = this;
+            //初始化
+            $("#J_channelcode").val($("li[name=sfcgbank] a.selected").attr("_bankid"));
+            $("#J_bankcode").val($("li[name=sfcgbank] a.selected").attr("_bankcode"));
+            $("#J_channelcode_org").val($("li[name=sfcgbank] a.selected").attr("_bankid"));
+            $("#J_bankcode_org").val($("li[name=sfcgbank] a.selected").attr("_bankcode"));
+            $("#openAccountBtn_sfcg").on("click",
+            function() {
+                var $sfcg_openForm;
+                $sfcg_openForm = $("#sfcg_openForm").kdValidform();
+                if ($sfcg_openForm.check() && $("input.kdValidform_error").size() == 0) {
+                    var _tradepwd_ = $("#tradePWD1").val();
+                    var _tradepwd_ = $.des.getDes(_tradepwd_, 'kingdom');
+                    $("#sfcg_openForm [name='tradepassword']").val(_tradepwd_);
+	        		$("#openAccountBtn_sfcg").val("处理中...");
+                    $("#openAccountBtn_sfcg").attr("disabled", true);
+                    //$.kd.showLoading($("#openAccountBtn_sfcg"));
+                    //$("#sfcg_openForm").ajaxSubmit(options);
+                    var url = "${kasp_url}mall/zhongyuan_register!openAccount.do?ajax=yes";
+                    $.post(url, $("#sfcg_openForm").serializeArray(),
+                    function(data) {
+                        var rs = eval("(" + data + ")");
+                        if (rs.result == 1) {
+                            if (riskflag == '1') { //根据风险测评参数显示不同页面
+                                zhejiang_alert("消息", rs.message,
+                                function() {
+                                    $("#sfcg_openForm").hide();
+                                    //	$("#settrdpwdForm").show();
+                                    window.location.href = "register.html?type=fxcp";
+                                });
+                            } else {
+                                riskEstimate();
+                            }
+                        } else {
+                            zhejiang_alert("消息", rs.message,
+                            function() {
+                                //window.location.href = "register.html?type=sfcg&"+new Date().getTime();
+                                $.kd.closeLoading($("#openAccountBtn_sfcg"));
+                                $("#openAccountBtn_sfcg").attr("disabled", false);
+                            });
+                        }
+                    });
+                }
+            });
+
+            $("#openAccountBtn_sfcg_org").on("click",
+            function() {
+                var $sfcg_openForm_org;
+                $sfcg_openForm_org = $("#sfcg_openForm_org").kdValidform();
+                if ($sfcg_openForm_org.check() && $("input.kdValidform_error").size() == 0) {
+                    var _tradepwd_ = $("#tradePWD1_org").val();
+                    var _tradepwd_ = $.des.getDes(_tradepwd_, 'kingdom');
+                    $("#sfcg_openForm_org [name='tradepassword']").val(_tradepwd_);
+	        		$("#openAccountBtn_sfcg_org").val("处理中...");
+                    $("#openAccountBtn_sfcg_org").attr("disabled", true);
+                    //$.kd.showLoading($("#openAccountBtn_sfcg_org"));
+                    var url = "${kasp_url}mall/zhongyuan_register!openAccount.do?ajax=yes";
+                    $.post(url, $("#sfcg_openForm_org").serializeArray(),
+                    function(data) {
+                        var rs = eval("(" + data + ")");
+                        if (rs.result == 1) {
+                            if (riskflag == '1') { //根据风险测评参数显示不同页面
+                                zhejiang_alert("消息", rs.message,
+                                function() {
+                                    $("#sfcg_openForm_org").hide();
+                                    //	$("#settrdpwdForm").show();
+                                    window.location.href = "register.html?type=fxcp";
+                                });
+                            } else {
+                                riskEstimate();
+                            }
+
+                        } else {
+                            zhejiang_alert("消息", rs.message,
+                            function() {
+                                //window.location.href = "register.html?type=sfcg&"+new Date().getTime();
+                                $.kd.closeLoading($("#openAccountBtn_sfcg"));
+                                $("#openAccountBtn_sfcg").attr("disabled", false);
+                            });
+
+                        }
+                    });
+                }
+            });
+
+        }
+
+        ,
+        bankselected: function() {
+            var current = $(this);
+            $(".tieonBanks a").removeClass("selected");
+            current.addClass("selected");
+        }
+    }
+
+    $(function() {
+
+        kifpwebregister_cg.registerbingding.init();
+
+    });
+
+    //设置交易密码
+    var $settrdpwdForm;
+
+    $settrdpwdForm = $("#settrdpwdForm").kdValidform();
+
+    $("#J_settrdpwd_sfcg").bind("click",
+    function() {
+
+        $settrdpwdForm = $("#settrdpwdForm").kdValidform();
+
+        var _tradepwd_ = $("#tradePWD1").val();
+
+        var _tradepwd_ = $.des.getDes(_tradepwd_, 'kingdom');
+
+        var dataPWD = {
+            npassword: _tradepwd_
+        };
+
+        var options = {
+
+            type: "POST",
+
+            dataType: "json",
+
+            async: true,
+
+            data: dataPWD,
+
+            url: "${kasp_url}mall/zhongyuan_register!addtradePwd.do?ajax=yes",
+
+            success: function(data) {
+
+                $.kd.closeLoading();
+
+                if (data.result == 1) {
+
+                    if (riskflag == '1') {
+
+                        window.location.href = 'register.html?type=fxcp';
+
+                    } else {
+
+                        window.location.href = 'account_asset.html';
+
+                    }
+
+                } else {
+
+                    $.kd.kdMsg("添加交易密码失败,请重试!");
+
+                    $("input[type=button]").attr("disabled", false);
+
+                }
+
+            },
+
+            error: function(data) {
+
+                zhejiang_alert('消息', "添加交易密码失败,请重试!");
+
+                $("input[type=button]").attr("disabled", false);
+
+            }
+
+        };
+
+        if ($settrdpwdForm.check()) {
+
+            $("#J_settrdpwd_sfcg").attr("disabled", true);
+
+            $.kd.showLoading($("#settrdpwd_sfcg"));
+
+            $("#settrdpwdForm").ajaxSubmit(options);
+
+        }
+
+    });
+
+    //机构设置交易密码
+    var $settrdpwdForm_org;
+
+    $settrdpwdForm_org = $("#settrdpwdForm_org").kdValidform();
+
+    $("#J_settrdpwd_sfcg_org").bind("click",
+    function() {
+
+        $settrdpwdForm_org = $("#settrdpwdForm_org").kdValidform();
+
+        var _tradepwd_ = $("#tradePWD1_org").val();
+
+        var _tradepwd_ = $.des.getDes(_tradepwd_, 'kingdom');
+
+        var dataPWD = {
+            npassword: _tradepwd_
+        };
+
+        var options = {
+
+            type: "POST",
+
+            dataType: "json",
+
+            async: true,
+
+            data: dataPWD,
+
+            url: "${kasp_url}mall/zhongyuan_register!addtradePwd.do?ajax=yes",
+
+            success: function(data) {
+
+                $.kd.closeLoading();
+
+                if (data.result == 1) {
+
+                    if (riskflag == '1') {
+
+                        window.location.href = 'register.html?type=fxcp';
+
+                    } else {
+
+                        window.location.href = 'account_asset.html';
+
+                    }
+
+                } else {
+
+                    $.kd.kdMsg("添加交易密码失败,请重试!");
+
+                    $("input[type=button]").attr("disabled", false);
+
+                }
+
+            },
+
+            error: function(data) {
+
+                zhejiang_alert('消息', "添加交易密码失败,请重试!");
+
+                $("input[type=button]").attr("disabled", false);
+
+            }
+
+        };
+
+        if ($settrdpwdForm_org.check()) {
+
+            $("#J_settrdpwd_sfcg_org").attr("disabled", true);
+
+            $.kd.showLoading($("#settrdpwd_sfcg_org"));
+
+            $("#settrdpwdForm_org").ajaxSubmit(options);
+
+        }
+
+    });
+
+    //进入风险测评方法，不执行方法
+    function riskEstimate() {
+
+        $.ajax({
+
+            type: "post",
+
+            async: false,
+
+            dataType: "text",
+
+            url: "${kasp_url}mall/zhongyuan_riskmate!doEstimate.do?ajax=yes",
+
+            success: function(redata) {
+
+                var redta = eval("(" + redata + ")");
+
+                if (redta.result == 1) {
+
+                    zhejiang_alert('消息', "恭喜您完成注册及绑定",
+                    function() {
+
+                        $("#sfcg_openForm").hide();
+
+                        $("#settrdpwdForm").show();
+
+                        //window.location.href='account_asset.html';
+                    });
+
+                } else {
+
+                    $.kd.kdAlert("交易权限申请失败！",
+                    function() {
+
+                        window.location.href = 'account_asset.html';
+
+                    });
+
+                }
+
+            },
+
+            error: function(redata) {
+
+                $.kd.kdAlert("交易权限申请失败！",
+                function() {
+
+                    window.location.href = 'account_asset.html';
+
+                });
+
+            }
+
+        });
+
+    }
+
+    $(function() {
+
+        var $J_li_bankpwd = $("#J_li_bankpwd");
+
+        var $J_li_bankacount = $("#J_li_bankacount");
+
+        var $J_li_bankpwd_org = $("#J_li_bankpwd_org");
+
+        var $J_li_bankacount_org = $("#J_li_bankacount_org");
+
+        <#if banklist ? exists >
+
+        	<#list banklist as item >
+
+        		<#if item.selected = "1" >
+
+        $("#J_li_remark").hide();
+        $("#J_remark").text("");
+
+        $("#J_li_remark_org").hide();
+        $("#J_remark_org").text("");
+
+        var vcard = "${item.vacard!''}";
+
+        var vcardpwd = "${item.vacardpwd!''}";
+
+        //			var vtradepwd = "${item.vatradepwd!''}";
+        var vcardaccount = "${item.vacardaccount!''}";
+
+        var v_remark = '${item.remark!''}';
+
+        $li_bankaccount = $('#bancodeinput').parent().parent();
+
+        $li_bankaccount_org = $('#bancodeinput').parent().parent();
+
+        $li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+
+        $li_tradepwd_org = $('#openAccountBankPwd__').parent().parent();
+
+        if (vcard == '0' && vcardpwd == '0') {
+            $("#J_li_remark").show();
+            $("#J_remark").html(v_remark);
+
+            $("#J_li_remark_org").show();
+            $("#J_remark_org").html(v_remark);
+        } else {
+            $("#J_li_remark").hide();
+            $("#J_remark").text("");
+
+            $("#J_li_remark_org").hide();
+            $("#J_remark_org").text("");
+        }
+
+        if (vcard == '0') {
+
+            $('#bancodeinput').val("");
+
+            $J_li_bankacount.hide();
+
+        }
+
+        if (vcardpwd == '0') {
+
+            $J_li_bankpwd.hide();
+
+            $('#J_bankpwd').val("");
+
+            $('#J_bankpwd_org').val("");
+
+        }
+
+		        </#if>
+		
+			</#list>
+		
+		</#if>
+
+	$("a[_bankId]").on("click",function(){
+		
+		$("#J_li_remark").hide();
+		$("#J_remark").text("");
+	
+		$("#J_channelcode").val();
+	
+		$("#J_bankcode").val();
+	
+		var current = $(this);
+	
+		$(".tieonBanks a").removeClass("selected");
+	
+		current.addClass("selected");
+	
+		var channelcode = current.attr("_bankid");
+	
+		var bankcode = current.attr("_bankcode")
+	
+		$("#J_channelcode").val(channelcode);
+	
+		$("#J_bankcode").val(bankcode);
+	
+		$("#J_channelcode").val(channelcode);
+	
+		
+	
+		
+	
+		var bankcode = $(this).attr("code");
+	
+		var v_cardpwd = $("#v_cardpwd_"+bankcode).val();
+	
+		var v_card = $("#v_card_"+bankcode).val();
+
+/ /
+        var v_tradepwd = $("#v_tradepwd_" + bankcode).val();
+
+        var v_cardaccount = $("#v_cardaccount_" + bankcode).val();
+
+        var v_remark = $("#v_remark_" + bankcode).val();
+
+        $li_bankaccount = $('#bancodeinput').parent().parent();
+
+        $li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+
+        if (v_card == '0' && v_cardpwd == '0') {
+            $("#J_li_remark").show();
+            $("#J_remark").html(v_remark);
+        } else {
+            $("#J_li_remark").hide();
+            $("#J_remark").text("");
+        }
+
+        $('input', $("#J_li_bankacount")).attr("datatype", "n10-19");
+
+        if (v_card == '0') {
+
+            $('#bancodeinput').val("");
+
+            $J_li_bankacount.hide();
+            $('input', $("#J_li_bankacount")).removeAttr("datatype");
+        } else {
+
+            $J_li_bankacount.show();
+
+        }
+
+        if (v_cardpwd == '0') {
+
+            $('#J_bankpwd').val("");
+
+            $J_li_bankpwd.hide();
+
+        } else {
+
+            $J_li_bankpwd.show();
+
+        }
+
+        $("input[name=channelcode]").val($(this).attr('code'));
+
+    });
+
+    $("a[_bankId_org]").on("click",
+    function() {
+
+        $("#J_li_remark").hide();
+        $("#J_remark").text("");
+
+        $("#J_channelcode").val();
+
+        $("#J_bankcode").val();
+
+        $("#J_channelcode").val();
+
+        var current = $(this);
+
+        $(".tieonBanks a").removeClass("selected");
+
+        current.addClass("selected");
+
+        var channelcode = current.attr("_bankid_org");
+
+        var bankcode = current.attr("_bankcode_org")
+
+        $("#J_channelcode").val(channelcode);
+
+        $("#J_bankcode").val(bankcode);
+
+        $("#J_channelcode").val(channelcode);
+
+        var bankcode = $(this).attr("code");
+
+        var v_cardpwd = $("#v_cardpwd_" + bankcode).val();
+
+        var v_card = $("#v_card_" + bankcode).val();
+
+        //	var v_tradepwd = $("#v_tradepwd_"+bankcode).val();
+        var v_cardaccount = $("#v_cardaccount_" + bankcode).val();
+
+        var v_remark = $("#v_remark_" + bankcode + "_org").val();
+
+        $li_bankaccount = $('#bancodeinput').parent().parent();
+
+        $li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+
+        if (v_card == '0' && v_cardpwd == '0') {
+            $("#J_li_remark_org").show();
+            $("#J_remark_org").html(v_remark);
+        } else {
+            $("#J_li_remark_org").hide();
+            $("#J_remark_org").text("");
+        }
+
+        $('input', $("#J_li_bankacount_org")).attr("datatype", "n10-19");
+        if (v_card == '0') {
+
+            $('#bancodeinput').val("");
+
+            $J_li_bankacount_org.hide();
+            $('input', $("#J_li_bankacount_org")).removeAttr("datatype");
+        } else {
+
+            $J_li_bankacount_org.show();
+
+        }
+
+        if (v_cardpwd == '0') {
+
+            $('#J_bankpwd_org').val("");
+
+            $J_li_bankpwd_org.hide();
+
+        } else {
+
+            $J_li_bankpwd_org.show();
+
+        }
+
+        $("input[name=channelcode]").val($(this).attr('code'));
+
+    });
+
+})
+</script>

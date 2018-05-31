@@ -1,0 +1,14 @@
+/* apply the gallery design - links slider */
+#gallery_container {width:560px ; height:52px; display:block; float: left; margin-top: 22px;}
+/* the width is set to show the number of thumbnails that will be visible */
+#thumb_container{ position:relative ; overflow:hidden ; width:442px ; height:52px ; margin:0px auto 0px;  }
+/* the thumbnails container */
+#thumbs { white-space:nowrap; display:block; position:relative; }
+
+#thumbs a { padding:0px; margin:0px; }
+#thumbs a img{ border:1px #dcdcdc solid; }
+
+/* the forward and backward buttons */
+.addfwd { display:block; position:relative; cursor:pointer; width:25px; height:50px; top:0px; right:0px; background:url(../images/gallery_fwd.png) no-repeat;  }
+.addbkwd { display:block; position:relative; cursor:pointer; width:25px; height:50px; top:0px; left:0px; background:url(../images/gallery_back.png) no-repeat;  }
+/* thumbnail slider end */

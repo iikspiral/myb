@@ -1,0 +1,224 @@
+<div class="thefilter">
+	<ul class="nav-filter clearfix" id="investtype">
+		<!-- <li><a  href="javascript:void(0);" val="" 	<#if investtype == "">class="current" </#if>>全部</a></li> -->
+		<li><a  href="javascript:void(0);" val="00" <#if investtype == "00">class="current" </#if>>领投的项目</a></li>
+		<li><a  href="javascript:void(0);" val="01" <#if investtype == "01">class="current" </#if>>跟投的项目</a></li><!-- 
+		<li><a  href="javascript:void(0);" val="02" <#if investtype == "02">class="current" </#if>>询价的项目</a></li> -->
+	</ul>
+	<ul class="nav-filter clearfix" id="paystatus">
+		<li><a href="javascript:void(0);" val="" <#if paystatus == "">class="current" </#if>>全部</a></li>
+		<li><a href="javascript:void(0);" val="02" <#if paystatus == "02">class="current" </#if>>已支付</a></li>
+		<li><a href="javascript:void(0);" val="00" <#if paystatus == "00">class="current" </#if>>未支付</a></li>
+	</ul>
+</div>
+<table class="records-list">
+<thead>
+	<tr>
+		<th style="width: 55%;">项目信息</th>
+		<th style="width: 20%;">实付款（万元）</th>
+		<th style="width: 10%;">交易状态</th>
+		<th style="width: 15%;">操作</th>
+	</tr>
+</thead>
+<tbody>
+<#if stockHold?exists>
+<#list stockHold as sth>
+	<tr>
+		<td class="project clearfix">
+			<a target="_blank" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}projectdetail_${sth.project_id}.html?status=${sth.status}" class="avatar">
+				<div class="avatar">
+					<img src="${fileserver}${sth.cover_image!''}" alt="项目名称">
+					<input id="projectid" value="${sth.project_id!''}" type="hidden"/>
+				</div>
+			</a>
+			<div class="info">
+				<h4 class="title">
+					<a target="_blank" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}projectdetail_${sth.project_id}.html?status=${sth.status}">${sth.project_name!''}</a>
+				</h4>
+				<div class="labels">
+					<span class="label label-blue">股权众筹</span>
+					<#if  sth.status == "2">
+					<span class="label label-grey" href="javascript:void(0);">预热中</span>
+					<#elseif sth.status == "1">
+					<span class="label label-grey" href="javascript:void(0);">筹资中</span>
+					<#elseif sth.status == "3">
+					<span class="label label-grey" href="javascript:void(0);">成功的</span>
+					<#else>
+					<span class="label label-grey" href="javascript:void(0);">失败的</span>
+					</#if>
+				</div>
+				<div class="properties clearfix">
+					<dl>
+						<dt>筹资进度</dt>
+						<dd>${sth.percent!''}%</dd>
+					</dl>
+					<dl>
+						<dt>已筹集</dt>
+						<dd>${sth.current_fund?number / 10000}万元</dd>
+					</dl>
+					<dl>
+						<dt>剩余时间</dt>
+						<dd>${sth.leftdays!''}天</dd>
+					</dl>
+				</div>
+			</div>
+		</td>
+		<td class="achieved">
+			<span class="num">${sth.investamount?number / 10000}</span>
+		</td>
+		<#if  sth.paystatus == "0000" >
+		<td class="status">已退款</td>
+		<#elseif  sth.paystatus =="02">
+		<td class="status"><a href="javascript:void(0);">已支付</a></td>
+		<#elseif  sth.paystatus =="00" >
+		<td class="status"><a href="javascript:void(0);">未支付</a></td>
+		<#else>
+		<td class="status"><a href="javascript:void(0);"></a></td>
+		</#if>
+		<td class="action">
+		<#if  sth.paystatus == "0000" >
+		<#else>
+			 <#if sth.investtype =="">	
+				<#if sth.applystatus == "0">
+					<span>领投资格申请中</span>
+				<#elseif sth.applystatus == "1">
+				    <span>您已是领投人</span>
+					<a href="javascript:uploaddue('${sth.project_id!''}','${sth.leaderid!''}');">上传文件</a>
+					<a href="javascript:dosubscription('0','${sth.project_id!''}','${sth.status!''}');">申请认购</a>
+				<#else>
+					<span>领投资格申请未通过</span>
+				</#if>
+			 <#elseif sth.investtype =="00">
+					<span>您已是领投人</span>
+					<a href="javascript:uploaddue('${sth.project_id!''}','${sth.leaderid!''}');">上传文件</a>
+					<#if  sth.checkstatus =="00">
+						<span>投资申请正在审核中</span>
+					<#elseif  sth.checkstatus =="01">
+					    <span >投资审核通过</span>
+						<#if sth.paystatus == "00" && sth.status == "1">
+							<#if isonlinepay == "1">
+								<a href="javascript:void(0);"  onclick="pay('${sth.project_id!''}','${sth.investamount!''}','${sth.id!''}');">继续支付</a>
+							<#else>
+							</#if>
+					    </#if>
+					<#else>
+						<span>投资申请未通过</span>
+						<a href="javascript:dosubscription('0','${sth.project_id!''}','${sth.status!''}');">申请认购</a>
+					</#if>
+				
+			<#elseif sth.investtype =="01">
+				<#if sth.checkstatus =="">
+					<a href="javascript:dosubscription('1','${sth.project_id!''}','${sth.status!''}');">申请认购</a>
+				<#elseif  sth.checkstatus =="00">
+					<span>投资申请正在审核中</span>
+				<#elseif  sth.checkstatus =="01">
+				    <span >投资审核通过</span>
+					<#if sth.paystatus == "00" && sth.status == "1">
+						<#if isonlinepay == "1">
+							<a href="javascript:void(0);"  onclick="pay('${sth.project_id!''}','${sth.investamount!''}','${sth.id!''}');">继续支付</a>
+						<#else>
+						</#if>
+				    </#if>
+				<#else>
+					<span>投资申请未通过</span>
+					<a href="javascript:dosubscription('1','${sth.project_id!''}','${sth.status!''}');">申请认购</a>
+				</#if>
+			</#if>
+		</#if>
+		</td>
+	</tr>  
+</#list>
+</#if>
+</tbody>
+</table>
+<input id="currentinvesttype" value="${investtype!''}" type="hidden"/>
+<input id="currentpaystatus" value="${paystatus!''}" type="hidden"/>
+<div id="page_invest" class="pager-info"></div>
+<script type="text/javascript">
+$(function(){
+//投资的项目
+	$.kd.kdPager.init({
+		pager : 'page_invest',
+		currentPage: '${page_invest!'1'}',
+		totalPage: '${totalPage_invest!'1'}',
+		totalRecords: '${totalCount_invest!'0'}',
+		prefix: 'myCrowdfunding.html',
+		suffix: function(n) {
+			return generalParam()+"&page_invest=" + n;
+		},
+	});
+
+		$("#investtype li a").click(function() {				
+			$(this).parent().find(".current").removeClass("current");
+			$(this).addClass("current");
+			var investtype = $(this).attr("val");
+			var currentpaystatus = $("#currentpaystatus").val();
+			var url = "myCrowdfunding.html?type=invest";
+			var data = {investtype:investtype,paystatus:currentpaystatus};
+			$.kutil.pageReload(url,data);
+		});
+		
+		$("#paystatus li a").click(function() {				
+			$(this).parent().find(".current").removeClass("current");
+			$(this).addClass("current");
+			var paystatus = $(this).attr("val");
+			var currentinvesttype = $("#currentinvesttype").val();
+			var url = "myCrowdfunding.html?type=invest";
+			var data = {paystatus:paystatus,investtype:currentinvesttype};
+			$.kutil.pageReload(url,data);
+		});
+		
+		
+})
+		function dosubscription(p_investtype, p_projectid,p_status){
+			if(p_status == "1"){
+				window.location.href = "ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}projectinvest.html?investtype="+p_investtype+"&projectid="+p_projectid);
+			}else{
+				zhejiang_alert("提示信息","项目处于筹资中状态才能认购！")
+			}
+		}
+		
+function generalParam() {
+			var param = "";
+			param += "type="+$("#currenttype").val()+"&";
+	    	param += "investtype="+$("#currentinvesttype").val()+"&";
+	    	param += "paystatus="+$("#currentpaystatus").val();
+	    	return param;
+		}
+		
+function pay(projectid,investamount,id) {	
+
+	var options = {
+		type: "POST",
+		dataType:"json",
+		async:true,
+		data:{projectid: projectid,investamount:investamount,v_id:id},
+		url:"mall/bbw_projectorder!addProjectOrder.do?ajax=yes",                   
+		success:function(data) {
+			if(data.result == 1){
+				var v_orderno = data.data.items[0].orderno;
+				var datas = {
+					orderno:v_orderno
+				}
+				window.location.href="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}orderpay.html?orderno="+v_orderno);
+			}else{
+		
+				$.kd.kdAlert(data.message, function() {
+					window.location.reload();
+				});
+			}
+	  	},
+	  	error:function(data) {
+		
+		}
+	}
+	$.ajax(options);
+}
+
+function uploaddue(projectid,leaderid){
+	var v_projectid=projectid;
+	var v_leaderid=leaderid;
+	window.location.href = "crowdfund_leader_due_diligence.html?projectid="+v_projectid+'&id='+v_leaderid;
+}
+		
+</script>

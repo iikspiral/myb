@@ -1,0 +1,44 @@
+<div class="account-body">
+<div class="account-investor">
+    <div class="panel-border">
+        <div class="titlebar border-titlebar">
+            <h2 class="title">验证 Email</h2>
+        </div>
+        <div class="panel-form">
+            <form class="awesomeform" id="emailform">
+                <div class="floor full height-auto">
+                    <label class="property" for="captcha">Email</label>
+                    <div class="value">
+						<input class="sm" type="text" id="emailAddress" value="${email!''}" name="emailAddress">
+                        <input type="button" id="sendemail" onclick="sendEmail()" class="btn btn-md btn-grey" value="发送邮件" />
+                    </div>
+                </div>
+            </form>
+            <div class="tips-downthere">
+                <h3 class="title"><i class="iconfont">&#xe60d;</i>温馨提示</h3>
+                <ul>
+                    <li>1. 请填写真实有效的邮箱地址。</li>
+                    <li>2. 本平台会对用户的所有资料进行严格保密。</li>
+                    <li>3. 使用过程遇到问题，请联系客服。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript"	src="${staticserver}/zhongyuan/js/libs/kjax.des.js"></script>
+<script type="text/javascript" src="${staticserver}/zhongyuan/js/selfinfo/acctcenter.js"></script>
+<script>
+    $('.adsBG').bxSlider({
+      mode: 'fade',
+      captions: false,
+      responsive: true,
+      auto: true,
+      speed: 800,
+      autoHover: false,
+      controls: false,
+      adaptiveHeight: false,
+      pager: false
+    });
+</script>

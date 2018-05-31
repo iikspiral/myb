@@ -1,0 +1,30 @@
+<div class="contentAndSideBar clearfix" style="min-height:400px;">
+	<div class="pageNav">
+		<div style="width:1000px;margin:0 auto;">
+			当前位置：<a href="account_asset.html">账户中心</a>&gt;<span class="current">邮箱验证</span>
+		</div>
+	</div>
+	<div style="border:0px solid #d0d0d0;width:1000px;margin: 10px auto;border: 1px solid #DDD;box-shadow: 0px 0px 3px #DDD;min-height:400px;">
+		<div class="  form-style" 	style="text-align: center; padding-top: 150px;">
+		 sorry，邮箱验证失败! 系统将会在<span id="successPHO">&nbsp;5&nbsp;</span>秒后自动跳回账户中心
+	</div>
+
+	</div>
+</div>
+
+<script>
+$(function(){
+	  timeOutRelocate(5, 'myselfinfo.html','successPHO');
+})
+
+
+	function timeOutRelocate(time, url,id){
+		var n = time, temp = setInterval(function() {
+			if(n == 0) {
+				clearInterval(temp);
+				window.location.href = url;
+			}
+			$("#"+id).text(n--);
+		}, 1000);
+	}
+</script>

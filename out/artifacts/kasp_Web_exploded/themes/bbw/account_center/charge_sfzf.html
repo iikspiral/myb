@@ -1,0 +1,205 @@
+
+			<div class="user-box-con-1" id="sfzfpage" style="display:block">
+			    <#if sfzflist?exists && sfzflist?size != 0>
+				<form id="rechargeForm_sfzf"  method="post">
+			        <dl id="selectBank_sfzf" class="user-pay-list clearfix">
+			        <dt>选择三方支付</dt>
+			            <dd>
+			            <div id="sfzf" class="bank-list" style="height:102px;min-height:102px;overflow:hidden;">
+			            	<ul class="clearfix">
+							<#if sfzfBanklist?exists && sfzfBanklist?size != 0>
+			            		<#list sfzfBanklist as myBank>
+				                        <#if myBank.bankcode?exists && myBank.bankcode == "701">
+										<li  class="isBank selected" _bankid="${myBank.bankcode!''}">
+				                        <label>
+				                            <img src="${myBank.banklogo!''}" width="143" height="38"><span class="icon-duigou1"></span>
+				                        </label>
+				                        <input name="capitalaccount_${myBank.bankcode!''}" value="" type="text" class="input" readonly style="display:none"/>
+				                        <input name="channelno_${myBank.bankcode!''}" value="${channelno!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="channelname_${myBank.bankcode!''}" value="" type="text" class="input" readonly style="display:none"/>
+				                        <input name="custname_${myBank.bankcode!''}" value="" type="text" class="input" readonly style="display:none"/>
+				                        <input name="bankaccount_${myBank.bankcode!''}" value="${myBank.bankaccount!''}" type="text" class="input" readonly style="display:none"/>
+				                        <input name="bankid_${myBank.bankcode!''}" value="${myBank.bankcode!''}" type="text" class="input" readonly style="display:none"/>
+			                        </li>
+									</#if>
+			                   </#list>
+							   </#if>
+			                </ul>
+			             </div>
+			            
+			            </dd>
+			        </dl>
+			        <div class="kd-form-style clearfix" style="padding-top:0px;">
+			         <ul  class="kd-form-style"  >
+						<#if sfzflist?exists>
+							<#assign i=0>
+							<#list sfzflist as myBank>
+							<#if i lt 1>
+							<#assign i = i+1>
+			                <li   class="kd-form-style-item">
+			                    <label class="kd-form-style-label">账户余额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<i><strong class="user-pay-balance">${myBank.enablebalance?default("0.00")?number?string("###,###,###,##0.00")}元</strong></span></i>
+			                    </span>
+			                </li>
+							</#if>
+							</#list>
+						</#if>
+			                <li class="kd-form-style-item" style="width:550px;">
+			                    <label class="kd-form-style-label">充值金额</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+				                    <input id="money" name="money" value="" type="text" class="input" datatype="/^[0-9]\d*(\.\d+)?$/" nullmsg="金额不能为空" errormsg="金额必须大于0">
+				                    <span>元</span>
+			                    </span>
+			                </li>
+			               
+			                <!-- <li id="liBankPwd" class="kd-form-style-item" style="width:550px;">
+			                    <label class="kd-form-style-label">交易密码</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="rechargePwd" name="capitalpwd" type="password" class="input" datatype="*" nullmsg="密码不能为空">
+			                    </span>
+			                </li>-->
+			              
+			                
+			                <li class="kd-form-style-item" style="display:none">
+			                    <label class="kd-form-style-label"> </label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    <input id="businesscode"  name="businesscode" type="input" value="charge_in" class="input" readonly style="display:none">
+			                    </span>
+			                </li>
+			                
+			                <li class="kd-form-style-item" style="width:650px;">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="important" type="checkbox" name="importantInfo" datatype="*" nullmsg="请先阅读下方重要提示"  >&nbsp;&nbsp;
+			                    	<label for="important">我已阅读并确认下方重要提示信息</label>
+		                    	</span>
+			                </li>
+			               
+			                <li class="kd-form-style-item">
+			                    <label class="kd-form-style-label">&nbsp;</label>
+			                    <span class="kd-form-style-value" style="width:350px;">
+			                    	<input id="rechargeSubmit_sfzf"  type="button" class="linkButton" value="确认充值">
+			                </span>
+			               </li>
+			            </ul>
+			        </div>
+					</form>
+	            	</#if>	
+
+			 </div>
+<div id="zhifubond"  style="display:none">
+		<from>
+		<div class="zhifu" >
+		<div class="zhifutips">请您在新打开的页面进行支付，支付完成前请不要关闭该窗口。</div>
+		<div class="buttondiv" >
+			<a  class="kdmall-btn" style="width:60px;" href="charge.html" id="zhifu">支付成功 </a> 
+			<a  class="kdmall-btn" href="helper.html?type=help&pid=helper">支付遇到问题 </a> 
+		</div>
+		<input type="hidden" value="" id="orderno"/>
+		</div>
+		</from>
+ </div>
+ <style>
+ .zhifu{
+	width:399px;
+	height:80px;
+	margin:0 auto;
+	margin-top:10px;
+	text-align:center;
+	
+	
+}
+
+.zhifutips{
+	width: 209px;
+    height: 43px;
+	background: url("${staticserver}/images/tanhaotishi.png") no-repeat scroll 20px 5px rgba(0, 0, 0, 0);
+    color: #999;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 9px 35px 12px 105px;
+}
+.buttondiv{
+	height: 6px;
+    width: 205px;
+    margin: 0 auto;
+}
+ </style>	
+			
+<script type="text/javascript">
+    var $rechargeForm_sfzf;
+	$(function() {
+		$rechargeForm_sfzf = $("#rechargeForm_sfzf").kdValidform();
+		$("li.isBank").bind("click", function() {
+			$("li.isBank.selected").removeClass("selected");
+			$(this).addClass("selected");
+			$("table.bank-data").hide();
+			$("table.bank-data").eq($(this).prevAll("li.isBank").size() % 4).show();
+		});
+		
+		$("#rechargeSubmit_sfzf").bind('click',function(){
+			if($rechargeForm_sfzf.check()){
+				
+			
+			var _tradepwd_ =$("#rechargePwd").val();
+			var tmp = _tradepwd_;
+			var _tradepwd_ = _tradepwd_ ? $.des.getDes(_tradepwd_,'kingdom') : "";
+			$("#rechargePwd").val(_tradepwd_);
+			var bankid=$("li.isBank.selected").attr("_bankid");
+			var capitalaccount=$("li.isBank.selected input[name='capitalaccount_"+bankid+"']").val();
+			var channelno=$("li.isBank.selected input[name='channelno_"+bankid+"']").val();
+			var channelname=$("li.isBank.selected input[name='channelname_"+bankid+"']").val();
+			var custname=$("li.isBank.selected input[name='custname_"+bankid+"']").val();
+			var bankaccount=$("li.isBank.selected input[name='bankaccount_"+bankid+"']").val();
+			if($.type(channelno)=="undefined" || $.type(channelno)==""){
+			    $.kd.kdConfirm("请选择第三方支付!", function(){
+							window.location.href = "/charge.html";
+				});	
+			}else{
+			var param ={};
+			param.capitalaccount=capitalaccount;
+			param.channelno=channelno;
+			param.channelname=channelname;
+			param.custname=custname;
+			param.bankaccount=bankaccount;
+			param.bankid=bankid;
+			param.businesscode=$("#businesscode").val();
+			param.money= $("input[name=money]").val();
+			$.kutil.newTabPage("mall/newcharge!chargeInOut2.do",param);
+			$.kd.kdZhifu($('#zhifubond').html(),function(){},"充值提示");
+			
+			
+			if($rechargeForm_sfzf.check()){
+			
+				$("input[type=button]").attr("disabled", true);
+				
+				$("#rechargePwd").val(tmp);
+			}					
+					
+			}
+			}
+			
+			
+			
+			
+		});
+		
+		if($("li.isBank[_bankid=1002]").size() > 0) $("#liBankPwd").remove();
+	});
+</script>
+<script type="text/javascript">
+//更多银行
+ 	function showMorBank(){
+		var $bank_list = $(".bank-list");
+		$bank_list.css("height","auto");
+		var $moreless = $("#MorLess");
+		$moreless.attr("onclick","closeMorBank()");
+	};
+	function closeMorBank(){
+		var $bank_list = $(".bank-list");
+		var $moreless = $("#MorLess");
+		$bank_list.css("height","102px");
+		$moreless.attr("onclick","showMorBank()")
+	}
+</script>

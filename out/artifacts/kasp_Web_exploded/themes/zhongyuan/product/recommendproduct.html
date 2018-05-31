@@ -1,0 +1,190 @@
+<!-- 推荐产品 -->
+<ul class="container clearfix">
+	<!-- 今日畅销 -->
+	<li class="product product-one">
+		<div class="tag transition">
+			<span>今日畅销</span>
+		</div>
+
+		<h2><a href="bondsdetai_${dayMap.id!''}.html">${dayMap.borrowtitle!''}</a></h2>
+		<ul>
+			<li>
+				<span>预期年化收益率：</span>
+				<strong>${dayMap.annualrate!''}%</strong>
+			</li>
+			<li>
+				<span>起购金额：</span>
+				<span>
+				<#if dayMap.mintenderedsum?exists>
+					${dayMap.mintenderedsum}
+				<#else>
+				</#if>
+				元</span>
+			</li>
+			<li>
+				<span>融资期限：</span>
+				<span>${dayMap.deadline!'0'}
+					 <#if (dayMap.deadlineunit)?exists && (dayMap.deadlineunit) =='M'>
+						个月
+					 <#elseif (dayMap.deadlineunit)?exists && (dayMap.deadlineunit) =='D'>
+						天
+					 <#elseif (dayMap.deadlineunit)?exists && (dayMap.deadlineunit) =='Y'>
+						年
+					 <#else>
+						个月
+					 </#if>
+				</span>
+			</li>
+			<li>
+				<span>剩余可投金额：</span>
+				<em>
+				<#if dayMap.leftamount?exists>
+					${dayMap.leftamount?number / 10000}
+				<#else>
+				</#if>
+				万元</em>
+			</li>
+		</ul>
+		<#if (dayMap.status)?exists && (dayMap.status == '3' || dayMap.status == '5')>
+			<#if dayMap.leftamount?number <= 0&& ( dayMap.allowtime =='3'|| dayMap.allowtime =='4')>
+				<button class="soldout">认购结束</button>
+			<#elseif dayMap.allowtime =='1'>
+				<button class="soldout">敬请期待</button>
+			<#elseif dayMap.allowtime =='2'>
+				<button class="soldout">即将开始</button>
+			<#else>
+				<button onclick="window.location.href='bondorderdeal.html?id=${dayMap.id!''}'">立即投资</button>
+			</#if>
+		<#elseif (dayMap.status)?exists && (dayMap.status == '4')>
+			<button class="soldout">认购结束</button>
+		<#else>
+			<button class="soldout">敬请期待</button>
+		</#if>
+	</li>
+	
+	<!-- 本月畅销 -->
+	<li class="product product-two">
+		<div class="tag transition">
+			<span>本月畅销</span>
+		</div>
+		<h2><a href="bondsdetai_${monthMap.id!''}.html">${monthMap.borrowtitle!''}</a></h2>
+		<ul>
+			<li>
+				<span>预期年化收益率：</span>
+				<strong>${monthMap.annualrate!''}%</strong>
+			</li>
+			<li>
+				<span>起购金额：</span>
+				<span>
+				<#if monthMap.mintenderedsum?exists>
+					${monthMap.mintenderedsum}
+				<#else>
+				</#if>
+				元</span>
+			</li>
+			<li>
+				<span>融资期限：</span>
+				<span>${monthMap.deadline!'0'}
+				     <#if (monthMap.deadlineunit)?exists && (monthMap.deadlineunit) =='M'>
+						个月
+					 <#elseif (monthMap.deadlineunit)?exists && (monthMap.deadlineunit) =='D'>
+						天
+					 <#elseif (monthMap.deadlineunit)?exists && (monthMap.deadlineunit) =='Y'>
+						年
+					 <#else>
+						个月
+					 </#if>
+				</span>
+			</li>
+			<li>
+				<span>剩余可投金额：</span>
+				<em>
+				<#if monthMap.leftamount?exists>
+					${monthMap.leftamount?number / 10000}
+				<#else>
+				</#if>
+				万元</em>
+			</li>
+		</ul>
+		<#if (monthMap.status)?exists && (monthMap.status == '3' || monthMap.status == '5')>
+			<#if monthMap.leftamount?number <= 0&& ( monthMap.allowtime =='3'|| monthMap.allowtime =='4')>
+				<button class="soldout">认购结束</button>
+			<#elseif monthMap.allowtime =='1'>
+				<button class="soldout">敬请期待</button>
+			<#elseif monthMap.allowtime =='2'>
+				<button class="soldout">即将开始</button>
+			<#else>
+				<button onclick="window.location.href='bondorderdeal.html?id=${monthMap.id!''}'">立即投资</button>
+			</#if>
+		<#elseif (monthMap.status)?exists && (monthMap.status == '4')>
+			<button class="soldout">认购结束</button>
+		<#else>
+			<button class="soldout">敬请期待</button>
+		</#if>
+	</li>
+
+	<!-- 年度畅销 -->
+	<li class="product product-three">
+		<div class="tag transition">
+			<span>年度畅销</span>
+		</div>
+		<h2><a href="bondsdetai_${yearMap.id!''}.html">${yearMap.borrowtitle!''}</a></h2>
+		<ul>
+			<li>
+				<span>预期年化收益率：</span>
+				<strong>${yearMap.annualrate!''}%</strong>
+			</li>
+			<li>
+				<span>起购金额：</span>
+				<span>
+				<#if yearMap.mintenderedsum?exists>
+					${yearMap.mintenderedsum}
+				<#else>
+				</#if>
+				元</span>
+			</li>
+			<li>
+				<span>融资期限：</span>
+				<span>${yearMap.deadline!'0'}
+					  <#if (yearMap.deadlineunit)?exists && (yearMap.deadlineunit) =='M'>
+						个月
+					 <#elseif (yearMap.deadlineunit)?exists && (yearMap.deadlineunit) =='D'>
+						天
+					 <#elseif (yearMap.deadlineunit)?exists && (yearMap.deadlineunit) =='Y'>
+						年
+					 <#else>
+						个月
+					 </#if>
+				
+				</span>
+			</li>
+			<li>
+				<span>剩余可投金额：</span>
+				<em>
+				<#if yearMap.leftamount?exists>
+					${yearMap.leftamount?number / 10000}
+				<#else>
+				</#if>
+				万元</em>
+			</li>
+		</ul>
+		
+		<#if (yearMap.status)?exists && (yearMap.status == '3' || yearMap.status == '5')>
+			<#if yearMap.leftamount?number <= 0&& ( yearMap.allowtime =='3'|| yearMap.allowtime =='4')>
+				<button class="soldout">认购结束</button>
+			<#elseif yearMap.allowtime =='1'>
+				<button class="soldout">敬请期待</button>
+			<#elseif yearMap.allowtime =='2'>
+				<button class="soldout">即将开始</button>
+			<#else>
+				<button onclick="window.location.href='bondorderdeal.html?id=${yearMap.id!''}'">立即投资</button>
+			</#if>
+		<#elseif (yearMap.status)?exists && (yearMap.status == '4')>
+			<button class="soldout">认购结束</button>
+		<#else>
+			<button class="soldout">敬请期待</button>
+		</#if>
+		
+		
+	</li>
+</ul>

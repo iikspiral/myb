@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="GBK"?>
+<cacheConfig>
+	<cacheFile resource="/WEB-INF/conf/cache-config/ws/cache.xml" />
+</cacheConfig>

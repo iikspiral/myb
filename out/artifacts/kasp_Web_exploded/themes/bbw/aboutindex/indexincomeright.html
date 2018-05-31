@@ -1,0 +1,216 @@
+<ul id="incomeright">
+	<#if incomerightlist?exists>
+		<#if (incomerightlist?size>0)>
+			<#assign i = 0>
+			<#list incomerightlist as incomeright>
+			<#if i lt 5>
+			<#assign i = i + 1>
+			<#setting number_format="currency"/>
+			<li class="product clearfix">
+				<a href="bondsdetai_${incomeright.id!''}.html" class="p-img"><img class="lazyload" src="${staticserver}/common/images/project_min.gif" imgsrc="${fileserver}${incomeright.img!''}" imgval="${incomeright.img!''}"></a>
+				<div class="product-info">
+					<h3><a style="width: 100%" href="bondsdetai_${incomeright.id!''}.html" title="${incomeright.name!''}">${incomeright.name!''}</a></h3>
+					<dl>
+						<dt>发行规模</dt>
+						<dd>
+							<#if incomeright.borrowamount?exists>
+								${incomeright.borrowamount?number / 10000}
+							<#else>
+							0
+							</#if>
+							万元
+						</dd>
+						<dt>认购起点</dt>
+						<dd>${incomeright.mintenderedsum!'0'}元</dd>
+					</dl>
+					<dl>
+						<dt>融资期限</dt>
+						<dd>${incomeright.deadline!'0'}
+						<#if (incomeright.deadlineunit)?exists && (incomeright.deadlineunit) =='M'>
+							个月
+						<#elseif (incomeright.deadlineunit)?exists && (incomeright.deadlineunit) =='D'>
+							天
+						<#elseif (incomeright.deadlineunit)?exists && (incomeright.deadlineunit) =='Y'>
+							年
+						<#else>
+						    个月
+						</#if>
+						</dd>
+						<dt>剩余可投</dt>
+						<dd>
+						<#if incomeright.leftamount?exists>
+							${incomeright.leftamount?number / 10000}
+						<#else>
+							0
+						</#if>
+						万元</dd>
+					</dl>
+					<dl>
+						<dt class="rate">预期年化收益率</dt>
+						<dd class="rate">${incomeright.annualrate!''}%</dd>
+						<dt>产品等级</dt>
+						<dd class="level">${incomeright.productlevel!''}</dd>
+					</dl>
+				</div>
+				<div class="actionArea">
+				<#if incomeright.status == '3' || incomeright.status == '5'>
+					<#if incomeright.leftamount?number <= 0 && ( incomeright.allowtime =='3'|| incomeright.allowtime =='4')>
+						<input type="button" class="XL-Btn infoBtn" value="认购结束"/>
+					<#elseif incomeright.allowtime =='1'>
+						<input type="button" class="XL-Btn infoBtn" value="敬请期待"/>
+						<span class="begintime">${incomeright.year}年${incomeright.month}月${incomeright.day}日${incomeright.hour}:00</span>
+					<#elseif incomeright.allowtime =='2'>
+						<input type="button" class="XL-Btn infoBtn" value="即将开始"/>
+						<span class="endtime" surplusTime="${incomeright.djs!""}"></span>
+					<#else>
+						<button class="actionBtn XL-Btn" onclick="window.location.href='bondorderdeal.html?id=${incomeright.id!''}'">立即投资</button>
+					</#if>
+				</#if>
+				<#if incomeright.status == '4'>
+					<input type="button" class="XL-Btn infoBtn" value="认购结束"/>
+				</#if>
+				</div>
+			</li> 
+			</#if>
+			</#list>
+		</#if>
+	</#if>
+</ul>
+	
+
+ 
+<script>
+var kifpwebindex = kifpwebindex || {};
+kifpwebindex.incomerightlist = {
+
+ 
+		init:function(){
+			var self = this;
+			self.getIncomeRightList();
+			Handlebars.registerHelper("incomeright_info_format",function(product){
+			   var t = "";
+				if(product.status=="3" || product.status=="5"){
+					if(parseFloat(product.leftamount)<=0){
+						if(product.allowtime == "3" || product.allowtime == "4"){
+							t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"认购结束\"/>";
+						}
+					
+					}else if(product.allowtime == "1"){
+						t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"敬请期待\"/>";
+						t += "<span class=\"begintime\">"+product.year+"年"+product.month+"月"+product.day+"日"+product.hour+":00</span>";
+					}else if(product.allowtime == "2"){
+						t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"即将开始\"/>";
+						t += "<span class=\"endtime\" surplusTime=\""+product.djs+"\">"+"</span>";
+					}else{
+						t = "<a class=\"XL-Btn actionBtn\" href=\"bondorderdeal.html?id="+product.id+"\">立即投资</a>";
+					}
+				}
+				if(product.status=="4"){
+					t = "<input type=\"button\" class=\"XL-Btn infoBtn\" value=\"认购结束\"/>";
+				}
+			   return new Handlebars.SafeString(t);
+			});
+			
+			Handlebars.registerHelper("amountformat",function(number){
+				return (parseFloat(number)/10000).toFixed(2);;
+			});
+			
+			Handlebars.registerHelper("dateformat",function(date){
+				if(date=="M"){
+					return "个月";
+				}else if(date=="D"){
+					return "天";
+				}else if(date=="Y"){
+					return "年";
+				}else{
+					return "个月";
+				}
+				
+			});
+			
+			 
+		}
+		,getIncomeRightList:function(){
+			$.post(
+					"/mall/bondshow!getIndexPoductList.do?ajax=yes",
+					{productcatid:"pc001"},
+					function(retData){						
+						if ( retData && retData.kdjson && retData.kdjson.flag == "1") {
+							
+							var items = retData.kdjson.items; 
+							kifpwebindex.incomerightlist.template = Handlebars.compile( $("#index_incomerightlist_tpl").html() );	
+							var renderHtml = kifpwebindex.incomerightlist.template(items);							
+							$("#incomeright").html(renderHtml);
+							kifpwebindex.incomerightlist.reloadImg();
+							//kifpwebindex.incomerightlist.updateEndTime();
+							 
+						//	$.kd.kdMsg("change to js template data");
+							kifpwebindex.privateproductlist.init();
+						}else{
+							 
+							kifpwebindex.privateproductlist.init();
+						
+						}
+						
+												
+						
+					},"json");
+					
+			
+		}
+		,reloadImg:function(){
+			$(".p-img img").each(function() {
+				var current = $(this);
+				var imgval = current.attr("imgval");
+				var imgsrc = current.attr("imgsrc");
+				if(imgval!=undefined && imgval!=null && imgval!=""){
+					current.attr("src",imgsrc);
+				}
+				/*else{
+					current.attr("src","${staticserver}/common/images/project_min.gif");
+				}*/
+				//new $.kd.kdLoadImage(current, current.attr("imgsrc"), "${staticserver}/common/images/project_min.gif").load();
+			});
+			
+		}
+		 
+		
+};
+
+
+
+
+</script>
+<script id="index_incomerightlist_tpl" type="text/x-handlebars-template">
+{{#each this}}
+		<li class="product clearfix">
+			<a href="bondsdetai_{{id}}.html" class="p-img"><img class="lazyload" imgsrc="${fileserver}{{img}}"  src="${staticserver}/common/images/project_min.gif"  imgval="{{img}}"/></a>
+			<div class="product-info">
+				<h3><a style="width: 100%" href="bondsdetai_{{id}}.html" title="{{name}}">{{name}}</a></h3>
+				<dl>
+					<dt>发行规模</dt>
+					<dd>{{amountformat borrowamount}}万元</dd>
+					<dt>认购起点</dt>
+					<dd>{{mintenderedsum}}元</dd>
+				</dl>
+				<dl>
+					<dt>融资期限</dt>
+					<dd>{{deadline}}
+						{{dateformat deadlineunit}}
+					</dd>
+					<dt>剩余可投</dt>
+					<dd>{{amountformat leftamount}}万元</dd>
+				</dl>
+				<dl>
+					<dt class="rate">预期年化收益率</dt>
+					<dd class="rate">{{annualrate}}%</dd>
+					<dt>产品等级</dt>
+					<dd class="level">{{productlevel}}</dd>
+				</dl>
+			</div>
+			<div class="actionArea">
+				{{incomeright_info_format  this}}
+			</div>
+		</li> 
+{{/each}}	
+</script>

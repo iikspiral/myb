@@ -1,0 +1,225 @@
+<div class="user-type" id="sfcg_open">
+<form class="personal-account" id="sfcg_openForm" method="post">
+	<!-- 此层为个人基本信息---------------------------->
+	<#include 'register_basic_person.html'>
+	<!--  start 此层分为三方存管----------------------------------------------------------------------------------------------------------->
+	<#include 'register_cg_bankinfo.html'>
+		<!--  end -------------------------------------------------------------------------------------------------------------->
+	</form>	
+	<!--     设置交易密码----------------------------------------------------------------------------->
+	<form  id="settrdpwdForm" name="settrdpwdForm" class="personal-account" style="display:none">
+          <h3>设置交易密码</h3>
+          <ul>
+            <li>
+			<label for="idnum"></label>
+			<input id="tradePWD1" name="tradePWD1" type="password"   datatype="/^[0-9]{6,6}$/" nullmsg="请输入6位数字交易密码！" errormsg="交易密码只能是6位数字" placeholder="请输入6位数字" />
+			</li>
+			<li>
+				<label for="idnum"></label>
+				<input id="tradePWD2" name="tradePWD1" type="password"  datatype="*"  recheck="tradePWD1" nullmsg="再输一遍！" errormsg="交易密码不一致！" placeholder="请再次输入6位数字" />
+			</li>
+          </ul>
+          <div class="actionArea">
+           <input id="J_settrdpwd_sfcg" class="btn btn-lg btn-lg btn-orange" value="下一步" type="button"  />	
+          </div>
+	</form>
+</div>
+<script>
+var banktype=1000;
+var riskflag = $("#riskflag").val();
+var kifpwebregister_cg = kifpwebregister_cg || {};
+kifpwebregister_cg.registerbingding = {
+	init:function(){
+		var self = this;
+		$sfcg_openForm = $("#sfcg_openForm").kdValidform();
+		//初始化
+		$("#J_channelcode").val($("li[name=sfcgbank] a.selected").attr("_bankid"));		$("#J_bankcode").val($("li[name=sfcgbank] a.selected").attr("_bankcode"));		$("#tchannelcode").val($("li[name=sfcgbank] a.selected").attr("_bankid"));
+		$("#openAccountBtn_sfcg").on("click",function(){
+			self.openaccount_sfcg();
+		});
+	}
+	,openaccount_sfcg:function(){
+	//	$("#tradepassword").val("");
+		var $sfcg_openForm;
+		$sfcg_openForm = $("#sfcg_openForm").kdValidform();
+		var _tradepwd =$("#J_tradepwd").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd);	
+		$("#J_tradepassword").val(_tradepwd_);
+		var options = {
+				type:"post",
+				dataType:"json",
+				async:true,
+				url :"${kasp_url}mall/bbw_register!openAccount.do?ajax=yes",
+				success : function(data) {
+					if(data.result == 1){
+						if(riskflag == '1'){//根据风险测评参数显示不同页面
+							zhejiang_alert("消息","开户成功",function(){
+								//	$("#sfcg_openForm").hide();
+								//	$("#settrdpwdForm").show();
+								window.location.href = "register.html?type=fxcp";
+							});
+						}else{
+							riskEstimate();
+						}
+					}else if(data.result == 0){
+						zhejiang_alert("消息",data.message, function(){						$.kd.closeLoading($("#openAccountBtn_sfcg"))						$("#openAccountBtn_sfcg").attr("disabled",false);
+						//window.location.href = "register.html?type=sfcg&"+new Date().getTime();
+					});
+					}
+				},
+				error:function(data) {
+					zhejiang_alert("消息","系统异常，请联系管理员！",function(){						$.kd.closeLoading($("#openAccountBtn_sfcg"))						$("#openAccountBtn_sfcg").attr("disabled",false);					});
+				}
+		};
+		if($sfcg_openForm.check()){
+			$("#openAccountBtn_sfcg").attr("disabled",true);
+			$.kd.showLoading($("#openAccountBtn_sfcg"));
+			$("#sfcg_openForm").ajaxSubmit(options);						
+		}
+	}
+	,bankselected:function(){
+		var current = $(this);
+		$(".tieonBanks a").removeClass("selected");
+		current.addClass("selected");
+	}
+}
+$(function(){
+	kifpwebregister_cg.registerbingding.init();
+});
+//设置交易密码
+	var $settrdpwdForm;
+	$settrdpwdForm = $("#settrdpwdForm").kdValidform();
+	$("#J_settrdpwd_sfcg").bind("click",function(){
+		$settrdpwdForm = $("#settrdpwdForm").kdValidform();
+		var _tradepwd_ =$("#tradePWD1").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd_,'kingdom'); 
+		var dataPWD = {npassword:_tradepwd_};
+		var options = {
+			type: "POST",
+			dataType:"json",
+			async:true,
+			data:dataPWD,
+			url: "${kasp_url}mall/bbw_register!addtradePwd.do?ajax=yes",  
+			success: function(data){
+				 $.kd.closeLoading();
+				if(data.result == 1){
+					 if(riskflag == '1'){
+						window.location.href='register.html?type=fxcp';
+					}else{
+						window.location.href='account_asset.html';
+					}	
+				}else{
+					 $.kd.kdMsg( "添加交易密码失败,请重试!");
+					$("input[type=button]").attr("disabled", false);
+				}
+			},
+			error: function(data) {
+				zhejiang_alert( '消息',"添加交易密码失败,请重试!");
+				$("input[type=button]").attr("disabled", false);
+			}
+		};
+		if($settrdpwdForm.check()){
+			$("#J_settrdpwd_sfcg").attr("disabled",true);
+			$.kd.showLoading($("#settrdpwd_sfcg"));			$("#J_tradepwd").val("");			$("#J_tradepassword").val("");
+			$("#settrdpwdForm").ajaxSubmit(options);
+		}
+	});
+//进入风险测评方法，不执行方法
+function riskEstimate(){
+	$.ajax({
+		  type:"post" ,
+		  async:false,
+		  dataType : "text",
+		  url: "${kasp_url}mall/bbw_riskmate!doEstimate.do?ajax=yes",
+		  success: function(redata){
+			var redta = eval("("+redata+")");
+			if(redta.result == 1){
+				zhejiang_alert('消息',"恭喜您完成注册及绑定", function() {
+				$("#sfcg_openForm").hide();
+				$("#settrdpwdForm").show();
+				//window.location.href='account_asset.html';
+			});	
+			}else{
+				$.kd.kdAlert("交易权限申请失败！", function() {
+				window.location.href='account_asset.html';
+			});
+			}
+		  },
+		  error:function(redata){
+			$.kd.kdAlert("交易权限申请失败！", function() {
+				window.location.href='account_asset.html';
+			});
+		  }
+	  });  
+}
+$(function(){
+var $J_li_bankpwd = $("#J_li_bankpwd");
+var $J_li_bankacount = $("#J_li_bankacount");
+<#if banklist?exists>
+	<#list banklist as item>
+		<#if item.selected="1">			$("#J_li_remark").hide();			$("#J_remark").text("");	
+			var vcard = "${item.vacard!''}";
+			var vcardpwd = "${item.vacardpwd!''}";
+//			var vtradepwd = "${item.vatradepwd!''}";
+			var vcardaccount = "${item.vacardaccount!''}";
+			var v_remark = '${item.remark!''}';
+			$li_bankaccount = $('#bancodeinput').parent().parent();
+			$li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+			if(vcard == '0' && vcardpwd =='0' ){
+				$("#J_li_remark").show();				$("#J_remark").html(v_remark);
+			}else{
+				$("#J_li_remark").hide();				$("#J_remark").text("");
+			}
+			if(vcard == '0'){
+				$('#bancodeinput').val("");
+				$J_li_bankacount.hide();
+				$("#J_li_bankacount > input").removeAttr("datatype");
+			}
+			if(vcardpwd =='0'){
+				$J_li_bankpwd.hide();
+				$('#J_bankpwd').val("");
+			}
+		</#if>
+	</#list>
+</#if>
+$("a[_bankId]").on("click",function(){	$("#J_li_remark").hide();	$("#J_remark").text("");
+	$("#channelcode").val();
+	$("#bankcode").val();
+	$("#channelcode").val();
+	var current = $(this);
+	$(".tieonBanks a").removeClass("selected");
+	current.addClass("selected");
+	var channelcode = current.attr("_bankid");
+	var bankcode = current.attr("_bankcode")
+	$("#channelcode").val(channelcode);
+	$("#bankcode").val(bankcode);
+	$("#channelcode").val(channelcode);
+	var bankcode = $(this).attr("code");
+	var v_cardpwd = $("#v_cardpwd_"+bankcode).val();
+	var v_card = $("#v_card_"+bankcode).val();
+//	var v_tradepwd = $("#v_tradepwd_"+bankcode).val();
+	var v_cardaccount = $("#v_cardaccount_"+bankcode).val();
+	var v_remark = $("#v_remark_"+bankcode).val();
+	$li_bankaccount = $('#bancodeinput').parent().parent();
+	$li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+	if(v_card == '0' && v_cardpwd =='0' ){
+		$("#J_li_remark").show();		$("#J_remark").html(v_remark);
+	}else{		$("#J_li_remark").hide();		$("#J_remark").text("");
+	}
+	$("#J_li_bankacount > input").attr("datatype","n10-19");
+	if(v_card == '0'){
+		$('#bancodeinput').val("");
+		$J_li_bankacount.hide();		$("#J_li_bankacount > input").removeAttr("datatype");
+	}else{
+		$J_li_bankacount.show();
+	}
+	if(v_cardpwd =='0'){
+		$('#J_bankpwd').val("");
+		$J_li_bankpwd.hide();
+	}else{
+		$J_li_bankpwd.show();
+	}
+	$("input[name=channelcode]").val($(this).attr('code'));
+});
+})
+</script>

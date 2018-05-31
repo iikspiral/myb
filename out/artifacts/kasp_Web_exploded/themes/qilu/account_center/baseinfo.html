@@ -1,0 +1,66 @@
+<style>
+#capitalaccount{
+	 font-size:12px;
+
+}
+</style>
+
+
+	<div class="user-content" >
+		<div class="ueser_baseinfo ueser_baseinfo_left">
+			<span>嗨！${username!''}</span></br>
+			<span>账户类别：
+			<#if safeStatus?exists>
+				<#if safeStatus.individualorinstitution == "1">
+					机构用户 
+				<#else>
+					个人用户
+				</#if>
+			<#else>
+				游客	
+			</#if>
+			</span>
+		</div>
+		<div class="ueser_baseinfo ueser_baseinfo_right">
+			<div class="ueser_baseinfo_hr">
+				信用等级:<b>HR</b><label>管理</label>
+			</div>
+			<div class="ueser_baseinfo_hr">
+				信用积分:<b>0</b><label>[积分明细]</label>
+			</div>
+			<div class="ueser_baseinfo_mer">
+				<div>退出登录</div>
+				<div>会员等级：普通会员</div>
+				<div><b>升级/缴费</b></div>
+			</div>
+		</div>	
+	</div>
+	
+
+<script>
+$(function(){
+
+
+	//关注的项目
+	$.kd.kdPager.init({
+		pager : 'page_focus',
+		currentPage: '${page_focus!'1'}',
+		totalPage: '${totalPage_focus!'1'}',
+		totalRecords: '${totalCount_focus!'0'}',
+		prefix: '/account_base_info.html',
+		suffix: function(n) {
+			return "page_focus=" + n;
+		},
+		tagurl:'/account_base_info.html?page_focus='
+	});
+
+	var urlstr = window.location.href;
+
+	if( urlstr.indexOf("?refresh=true") > -1 ){ 
+		 //var parts = urlstr.split("?");
+		window.location.href= "/account_base_info.html?_"+new Date().getTime();	
+
+	}
+
+})
+</script>

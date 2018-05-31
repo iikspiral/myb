@@ -1,0 +1,96 @@
+/*************************************收益计算器********************************************/
+.calculator-wrapper{
+	width: 900px;
+	margin: 30px auto;
+}
+.calculator-wrapper .title{
+	font-size: 18px;
+	line-height: 30px;
+	height: 40px;
+	color: #000;
+	padding-left: 5px;
+}
+.calculator-wrapper .calculatorBoard{
+	padding: 60px 0 40px;
+	background-color: #fafafa;
+	border: 1px solid #ececec;
+}
+.calculator-wrapper .calculatorForm{
+	margin-top: 20px;
+	margin-left: 200px;
+}
+.calculatorForm ul li{
+	height: 38px;
+	margin-bottom: 15px;
+	font-size: 16px;
+	color: #333;
+	line-height: 38px;
+	clear: both;
+}
+.calculatorForm ul li input[type=text], .calculatorForm ul li select{
+	width: 260px;
+	font-size: 16px;
+	color: #000;
+	line-height: 24px;
+	height: 24px;
+	padding: 6px;
+	border: 1px solid #cacaca;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	cursor: text;
+}
+.calculatorForm ul li select{
+	height: 38px;
+	cursor: default;
+}
+.calculatorForm ul li label{
+	float: left;
+	width: 110px;
+	padding-right: 15px;
+	text-align: right;
+}
+.calculatorForm ul li.rate input[type=text]{
+	width: 60px;
+}
+.calculatorForm ul li.actionArea{
+	margin-top: 30px;
+}
+.calculatorForm ul li.actionArea .actionBtn{
+	float: left;
+	margin: 0 30px 0 80px;
+}
+.calculatorForm ul li.actionArea .infoBtn{
+	float: left;
+	color: #fff;
+	background-color: #bdc3c7;
+	border: none;
+}
+
+.calculatorResult h2{
+	font-size: 16px;
+	margin-top: 20px;
+	line-height: 40px;
+	height: 40px;
+	color: #000;
+	padding-left: 5px;
+}
+.calculatorResult table{
+	font-size: 12px;
+	line-height: 40px;
+	color: #666;
+	width: 100%;
+}
+.calculatorResult table thead tr th{
+	border: 1px solid #e0e0e0;
+	text-align: center;
+	background-color: #fafafa;
+}
+.calculatorResult table tbody tr td{
+	border: 1px solid #ececec;
+	text-align: center;
+	background-color: #fff;
+}
+.calculatorResult table tbody tr td.changeBG{
+	background-color: #fcfcfc;
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>欢迎登录 - e路投 | 广西北部湾股权交易所旗下互联网综合金融平台</title>
+		<meta name="keywords" content="e路投">
+		<meta name="description" content="e路投">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+		<link rel="shortcut icon" href="${staticserver}/bbw/ico/favicon.ico">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/bbw/bootstrap/css/bootstrap-modal.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/bbw/common/css/kd.ui.plugin.css">
+		<link rel="stylesheet" type="text/css" href="${staticserver}/bbw/css/platform/kd.tools.validate.css">
+		<!--
+		
+		<link href="${staticserver}/bbw/common/js/libs/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet"> 
+		-->
+		<link rel="stylesheet" href="${staticserver}/bbw/css/home.css">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/iconfont/iconfont.css">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/account.css">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/common.css">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/normalize.css">
+		<!-- Plugins -->
+		<link rel="stylesheet" href="${staticserver}/bbw/css/jquery.bxslider.css">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/jquery.myslider.css">
+		<link rel="stylesheet" href="${staticserver}/bbw/css/gray.css">
+		
+		<script src="${staticserver}/bbw/js/jquery-1.11.1.min.js"></script>
+		<script src="${staticserver}/bbw/js/jquery-migrate-1.2.1.js"></script>
+		<script src="${staticserver}/bbw/js/libs/jquery-form.js"></script>
+		
+		<script type="text/javascript" src="${staticserver}/bbw/bootstrap/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="${staticserver}/bbw/standard/js/jquery.autoscroll.js"></script>		
+		
+
+		<script type="text/javascript" src="${staticserver}/bbw/common/js/kd.tools.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/common/js/kd.tools.validate.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/js/pop-up box.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/js/json2.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/js/jquery.bex.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/js/jquery.kutil.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/js/organictabs.jquery.js"></script>
+		<script type="text/javascript" src="${staticserver}/bbw/common/js/kd.ui.plugin.js"></script> 
+
+		<script src="${staticserver}/bbw/js/jquery.bxslider.min.js"></script>
+		<script src="${staticserver}/bbw/js/jquery.myslider.js"></script>
+	</head>
+<body>
+
+<div class="shx_nav">
+	<div class="nav_con">
+    	<ul class="nav_l">
+        	<li class="app"><a href="javascript:void(0);"><i class="iconfont">&#xe636;</i><span>移动客户端</span></a></li>
+        	<li><a href="javascript: void(0);" onclick="guid()">新手指引</a></li>
+        	<li class="hotline">服务电话：<b>0771-5716611</b></li>
+        </ul>
+        <div class="nav_r">
+            <#if isLogin>
+	        	<ul>
+	                <li class="colored">
+	                	<a href="${kasp_url}account_asset.html"><i class="iconfont">&#xe626;</i>${username!''}</a>
+	                </li>
+					<#if personcount?number gt 0>
+						<li class="colored">
+							<a href="${kasp_url}ssologin.html?deal_action=accout_center&pageto=my_msg.html">
+							<i class="iconfont">&#xe61f;</i>
+							${personcount!''}
+							</a>
+						</li>
+					<#else>
+						<li>
+							<a href="${kasp_url}ssologin.html?deal_action=accout_center&pageto=my_msg.html">
+							<i class="iconfont">&#xe61f;</i>
+							${personcount!''}
+							</a>
+						</li>
+				</#if>
+	                <li class="last"><a id="J_custlogout" href="javascript: void(0);">退出</a></li>
+	            </ul>
+        	<#else>
+        		<ul>
+	                <li><a href="login.html">登录</a></li>
+	                <li><a href="register.html">个人注册</a></li>
+	                <li class="last"><a href="registerorg.html" style="background:none;">机构注册</a></li>
+	            </ul>	
+        	</#if>
+        </div>
+    </div>
+</div>
+<div class="header">
+    <div class="container">
+    	<h1 class="logo">
+       	  <a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}index.html">e路投 - 北部湾投融资在线</a>
+        </h1>
+        <ul>
+        	<li><a class="current" href="ssologin.html?deal_action=jump&pageto=${kfsp_url}index.html">首页</a></li>
+        	<li><a href="ssologin.html?deal_action=jump&pageto=${kisp_url}">债权众筹</a></li>
+        	<li><a href="ssologin.html?deal_action=jump&pageto=${kcsp_url}">股权众筹</a></li>
+        	<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}notice.html">平台公告</a></li>
+        	<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}aboutus.html">关于我们</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+	//主导航下拉菜单
+	$(document).ready(function(){
+		$('li.nav').mousemove(function(){
+		$(this).find('ul').slideDown();//you can give it a speed
+		});
+		$('li.nav').mouseleave(function(){
+		$(this).find('ul').slideUp("fast");
+		});
+	});
+
+    setTimeout(function(){
+    	var rightlogin = $("#rightlogin1");
+    	rightlogin.css("display","block").animate({top:0,right:190},600).animate({top:0,right:115},800)},1200);
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+	
+	$(window).scroll(function(){
+	if ($(this).scrollTop() > 200){
+		$('.go-top').slideDown('normal');
+	} else {
+		$('.go-top').slideUp('normal');
+	}
+   });
+	// 返回顶部动画效果
+	$('.go-top').click(function(event) {
+		event.preventDefault();
+		$('html, body').animate({scrollTop: 0}, 600);
+	}); 
+	   
+});
+
+function guid(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=guide_bbw_kfsp");
+ }  
+
+</script>
+
+<script type="text/javascript">
+	var fileserver = "${fileserver}";
+	var fileaction = "${fileserver}/file!upload.do";
+	window.umesession = document.cookie.replace("undefined; ", "").replace(" undefined;", "");
+	
+	$(function() {
+		$("#J_custlogout").bind("click", function() {
+			zhejiang_confirm("提示","确定要退出吗？", function() {
+				$.post("mall/bbw_login!newlogout.do",
+						{},
+						function(data) {
+							var result = $.parseJSON(data); 
+							if ( result.result == 1) {
+								window.location.href = "login.html";
+							
+							} else {
+								rdmAlert(result.message);
+							}   					
+						}
+					);
+			});    	
+		});
+	});
+	var cookies =  document.cookie.split(";");
+	for (idx in cookies) {
+	if ( cookies[idx].indexOf("JSESSIONID") > -1) {
+		window.umesession = cookies[idx];				 
+	   }
+	}
+</script>
+

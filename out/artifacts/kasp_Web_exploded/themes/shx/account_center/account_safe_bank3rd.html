@@ -1,0 +1,469 @@
+<!--   撤销三方存管   -->  
+			<div id="dropform" class="form-box" style="display: none;">
+			<#if signBanklist?exists>
+			<#list signBanklist as signbank>
+			<#if signbank.channeltype == '06'>
+			
+				<div id="openAndBind" class="form-box-content">
+					<div class="options-step" >
+						<div class="options-step-con">
+							<span class="options-step-current">撤销三方存管 <strong>1</strong></span>
+							<span>选择新银行<strong>2</strong></span>
+							<span>成功<strong>3</strong></span>
+						</div>
+					</div>
+					<div class="step form-style" style="height:auto!important;height:430px;min-height:430px;overflow:hidden">
+						<div class="form-box-left1">
+							<form id="dropThenOpendsptAccountForm" method="post">
+							<div class="tttt">
+								<div class="bank-list">
+									<ul>
+										<li class="isBank selected" title="${signbank.bankname}" code="${signbank.bankcode}">
+											<label>
+											<!--
+												<img src="${staticserver}/common/images/bank/bank_42.png" width="143" height="38">
+											-->	
+												<img src="${signbank.banklogo}" width="143" height="38">
+												<span class="checked"></span>
+											</label>
+										</li>
+										
+									</ul>
+								</div>
+								<ul>
+									<li class="kd-form-style-item need itemWidth">
+											<label class="kd-form-style-label">银行卡号<em>*</em></label>
+											<span class="kd-form-style">
+												<input id="bancodeinput" name="bankaccount" type="text"   
+												value="${signbank.bankaccount}" readonly="readonly" class="readonly input"  />
+											</span>
+											<input name="channelcode" value="${signbank.channelno}" type="hidden">
+											<input name="bankid" value="${signbank.bankcode}" type="hidden">
+										</li>
+									<li class="kd-form-style-item need itemWidth" style="display: block">
+										<label class="kd-form-style-label">交易密码<em>*</em></label>
+										<span class="kd-form-style">
+											<input id="originPwd1" name="trdpwd" type="password" class="readonly input" datatype="n6-6" 
+											 nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" ignore="ignore"  />
+										</span>
+									</li>
+								</ul>
+							</div>
+							<#if safeStatus?exists>
+								<#if safeStatus.individualorinstitution == "1">
+							<span class="form-item-title">机构信息</span>
+									<ul id="userinfo" class="kd-form-style" style="height: 90px">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">企业名称<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" type="text" class="input readonly" 
+										datatype="zh2-18" nullmsg="请输入真实姓名！" errormsg="请输入2-18个中文的真实姓名！"
+										value="${chineseName!''}" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">证件号码<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" type="text" class="readonly input" datatype="*" 
+										nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" value="${certificateno!''}"/>
+									</span>
+								</li>
+							</ul>
+								<#else>
+								<span class="form-item-title">身份信息</span>
+									<ul id="userinfo" class="kd-form-style" style="height: 90px">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">真实姓名<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" type="text" class="input readonly" 
+										datatype="zh2-18" nullmsg="请输入真实姓名！" errormsg="请输入2-18个中文的真实姓名！"
+										value="${chineseName!''}" />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">身份证号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" type="text" class="readonly input" datatype="*" 
+										nullmsg="请输入真实的证件号码！" errormsg="证件号码输入有误！" value="${certificateno!''}"/>
+									</span>
+								</li>
+							</ul>
+								</#if>
+					 
+							<ul class="kd-form-style">
+								<li class="kd-form-style-item" style="margin-top: 20px">
+									<label class="kd-form-style-label" style="width: 50px"></label>
+									<span class="kd-form-style-value">
+										<!-- <input id="9000000" class="kdmall-btn" value="上一步" type="button" onclick="bankprev()" style="display:none"/> -->
+										<input id="openAccountBtn1" class="kdmall-btn" value="下一步" type="button" 
+										onclick="step1AlterSfcg($(this))" />
+									</span>
+								</li>
+							</ul>
+							
+						</div>
+						<div class="form-box-right1">
+							<span>请确保输入的姓名与身份证号码跟银行卡的姓名、身份证号一致，否则将无法绑定成功。<br>不想绑定了，先去<a href="/index.html">逛逛吧</a>！<br>温馨提示：请在工作日的交易时间绑定银行卡，交易时间为9:00-15:30。</span>
+						</div>
+					</div>
+					
+					<div class="step   form-style" style="height: auto ! important; min-height: 530px; overflow: hidden; display: none;">
+						<div class="form-box-left1">
+							
+							<div class="tttt">
+								<ul style="display: none;">
+									<li class="kd-form-style-item need itemWidth">
+										<label class="kd-form-style-label">原银行卡密码（20140703改为交易密码了）<em>*</em></label>
+										<span class="kd-form-style-value">
+											<input id="originPwd" name="orgpwd" type="password" class="input"  value=""  />
+										</span>
+									</li>
+								</ul>
+							</div>
+							
+								<#if safeStatus.individualorinstitution == "1">
+								<span class="form-item-title">机构信息</span>
+									<ul id="userinfo" class="kd-form-style" style="height: 90px">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">企业名称<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" type="text" class="input readonly" datatype="zh2-18" nullmsg="请输入真实姓名！" 
+										errormsg="请输入2-18个中文的真实姓名！" value="${chineseName!''}"  />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+								<label class="kd-form-style-label">证件类型<em>*</em></label>
+								<span class="kd-form-style-value">
+									<select id="certificatetype" name="certificatetype" class="select" >
+									 	<#if certTypeList?exists>
+									 	<#list certTypeList as item >
+									 		<option value="${item.subitem}">${item.subitemname}</option>
+									 	</#list>
+									 	</#if>
+							 	 	</select>	
+								</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">证件号码<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" type="text" class="readonly input" datatype="*" nullmsg="请输入真实的证件号码！" 
+										errormsg="证件号码输入有误！" value="${certificateno!''}" />
+									</span>
+								</li>
+							</ul>
+								<#else>
+								<span class="form-item-title">身份信息</span>
+									<ul id="userinfo" class="kd-form-style" style="height: 90px">
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">真实姓名<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateName" type="text" class="input readonly" datatype="zh2-18" nullmsg="请输入真实姓名！" 
+										errormsg="请输入2-18个中文的真实姓名！" value="${chineseName!''}"  />
+									</span>
+								</li>
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">身份证号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="certificateNo" type="text" class="readonly input" datatype="*" nullmsg="请输入真实的证件号码！" 
+										errormsg="证件号码输入有误！" value="${certificateno!''}" />
+									</span>
+								</li>
+							</ul>
+							</#if>
+							</#if>
+							<span class="form-item-title">选择银行</span>
+							<#if banklist?exists && (banklist?size>6)>
+							<span class="form-item-title" style="float:right;padding-right:48px"> <a href="javascript:void(0)" onclick="showMorBank(this)" >更多&gt;</a></span>
+							</#if>
+							<div class="bank-list" style="height:100px;min-height:60px;overflow:hidden;width:500px;">
+								<ul>
+									<#if banklist?exists>
+										<#list banklist as item> 
+										<li class='isBank3 <#if item.selected="1">selected</#if>' title="${item.bankname!''}" code="${item.bankcode!''}">
+											<label>
+												<img src="${item.banklogo!''}" width="143" height="38">
+												<span class="checked"></span>
+												<input type="hidden" id="v_cardpwd_${item.bankcode}" value="${item.vacardpwd}"/>
+												<input type="hidden" id="v_card_${item.bankcode}" value="${item.vacard}"/>
+												<input type="hidden" id="v_tradepwd_${item.bankcode}" value="${item.vatradepwd}"/>
+												<input type="hidden" id="v_cardaccount_${item.bankcode}" value="${item.vacardaccount}"/>
+											</label>
+										</li>
+										<div style="display:none" id="bankcode_${item.bankcode!''}">
+											${item.remark!''}
+										</div>
+									    </#list> 
+ 	  								</#if> 
+								</ul>
+							</div>
+							<div class="bank-list-remark" style="display: none">
+								<span class="bank-list-remark-title">温馨提示：</span>
+								<p>
+									请确保您已开通中国工商银行网银业务，此步骤完成后须到工行网上银行进行三方存管指定操作后才可进行投资交易。 
+									<br><a href="/getmore.html?type=icbc">工行指定三方存管操作指引</a>
+								</p>
+							</div>
+							<ul class="kd-form-style">
+							 	<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">所选银行<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input name="opnbankname" value="" type="text" class="input readonly" datatype="*" nullmsg="请选择银行卡！"  readonly />
+										<input name="opnbanki" type="hidden" class="input readonly" value="" />
+										<input id="sfcgqd" name="opnchannelno" type="hidden" class="input readonly" value="" />
+									</span>
+								</li>
+							     
+								<li class="kd-form-style-item need itemWidth">
+									<label class="kd-form-style-label">银行卡号<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input id="bancodeinput" name="opnbankaccount" type="text" datatype="n9-19" class="input" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！"/>
+									</span>
+								</li>
+								 <!--  
+								<li class="kd-form-style-item need itemWidth" style="display:none">
+									<label class="kd-form-style-label">交易密码<em>*</em></label>
+									<span class="kd-form-style-value">
+										<input id="openAccountBankPwd__" name="bankpwd__" type="password" value=""
+										class="input" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！"  />
+		                    			<input id="openAccountBankPwd" name="bankpwd" type="password" value=""
+		                    			class="input" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！" style="display:none" />
+									</span>
+								</li>
+								 -->
+								<li class="kd-form-style-item" style="margin-top: 20px">
+									<label class="kd-form-style-label" style="width: 50px"></label>
+									<span class="kd-form-style-value">
+										<!-- 
+										<input class="kdmall-btn" value="上一步" type="button" onclick="bankprev()" />
+										 -->
+										<input id="openAccountBtn" class="kdmall-btn" value="下一步" type="button" onclick="doopennewaccount($(this))" />
+									</span>
+								</li>
+							</ul>
+							</form>
+						</div>
+						<div class="form-box-right1">
+							<span>请确保输入的姓名与身份证号码跟银行卡的姓名、身份证号一致，否则将无法绑定成功。<br>不想绑定了，先去<a href="/index.html">逛逛吧</a>！<br>温馨提示：请在工作日的交易时间绑定银行卡，交易时间为9:00-15:30。</span>
+						</div>
+						
+					</div>
+					
+					<div class="step  form-style" style="display: none; height: 250px">  
+						<div class="form-box-left1">
+							<div style="text-align: center; padding-top: 60px;">恭喜你，绑定成功！
+								<a style="text-decoration: underline" href="javascript: window.location.href = 'account_bank_manage.html';">点击此处</a>返回“账户中心页面”
+							</div>
+						</div>
+						<div class="form-box-right1">
+							<span>您的账户资金将由第三方支付平台托管,为了您的资金安全，请您在充值前完成邮箱、手机绑定及密码保护，我要<a>设置密码保护</a>！</span>
+						</div>
+					</div>
+				</div>
+				</#if>
+			</#list>	
+			</#if>	
+				
+				
+				<div class="link-trigger" onclick="toggleRemark($(this))">绑定三方存管前你需要了解<span> </span></div>
+				<div class="list-info">
+					<ul class="list-rule">
+						<li class="list-rule-item">
+							1.您的账户资金通过第三方支付。
+						</li>
+						<li class="list-rule-item">
+							2.为了您的资金安全，请您在充值前完成手机绑定，身份认证及交易密码设置。
+						</li>
+						<li class="list-rule-item">
+							3.绑定三方存管过程遇到问题，请联系客服，0931-8735132（09：00 - 17：00）
+						</li>
+					</ul>
+				</div>
+			</div>
+ 
+<script>
+var $bindAccountForm, $openNewAccountForm,$dropThenOpendsptAccountForm;
+$(function(){
+	$bindAccountForm = $("#bindAccountForm").kdValidform();
+	$openNewAccountForm = $("#openNewAccountForm").kdValidform();
+	$dropThenOpendsptAccountForm = $("#dropThenOpendsptAccountForm").kdValidform();
+})
+
+function step1AlterSfcg($btn){
+	//if($dropThenOpendsptAccountForm.check()) {
+	var orgpwd = $("#originPwd1").val();
+	var _bankpwd_ = orgpwd;
+	if(   $.trim(_bankpwd_).length>6){
+		_bankpwd_ =$.trim(_bankpwd_).substring(0,6);
+		orgpwd = _bankpwd_;
+	}
+	var _orgpwdtradepwd_ = $.des.getDes(orgpwd,'kingdom');
+	$("#originPwd").val(_orgpwdtradepwd_);//
+	$("#originPwd1").val(_orgpwdtradepwd_);
+	banknext();
+	nextBYD($btn);
+	//}
+} 
+/**
+ * 
+ * msg返回值定义：
+ *  * 7:开户失败, 非交易时间
+ */
+function doopennewaccount($btn) {
+	//$("#dropThenOpendsptAccountForm").kdValidform();
+	//if($dropThenOpendsptAccountForm.check()) {
+		var generalResult = function(data) {
+			changeStatus($("#dropThenOpendsptAccountForm"), true);
+			//var json = eval("("+data+")");
+			if(!data) {
+				$.kd.kdAlert(" 修改银行卡失败!!!", function() {
+					window.location.href = "/account_certification_center.html";
+				});
+			}
+	 		
+	 		try {
+	 		  	var res = eval("("+data+")");//eval(data)[0];
+	 		  	if(res.message == "重新开通三方存管成功") {
+	 		  		nextBYD($btn);
+	 		  	} else {
+	 		  		  if(res.message == "非交易时间"){
+		 				 $.kd.kdAlert(data.msg, function() {
+			 					window.location.href = "/account_bank_manage.html";
+							 });
+		 			  } else {
+		 			 	$.kd.kdAlert(res.message , function() {
+		 			 		window.location.href = "/account_bank_manage.html";
+						});
+	 		  		}
+	 		  	}
+ 		  	} catch(e) {
+ 		  		$.kd.kdAlert(res.message, function() {
+ 		  			window.location.href = "/account_bank_manage.html";
+ 		  		});
+ 		  	}
+		}
+		
+		var _bankpwd_ = $("#openAccountBankPwd__").val();
+	 
+		 if(  typeof(_bankpwd_)== "undefined" || _bankpwd_.length ==0){
+			 _bankpwd_ ="111111";
+		 }
+		 
+		if(   $.trim(_bankpwd_).length>6){
+			_bankpwd_ =$.trim(_bankpwd_).substring(0,6);
+		}
+		var _bankpwd_ = $.des.getDes(_bankpwd_,'kingdom');
+		$("#openAccountBankPwd").val(_bankpwd_);
+		var orgpwd = $("#originPwd").val();
+		_bankpwd_ = orgpwd ;
+		 
+		var _orgpwdtradepwd_=orgpwd; //= $.des.getDes(orgpwd,'kingdom');
+		$("#originPwd ").val(_orgpwdtradepwd_);
+		
+		changeStatus($("#dropThenOpendsptAccountForm"));
+		$.kd.showLoading($("#openAccountBtn"));
+		$("#dropThenOpendsptAccountForm").ajaxSubmit({
+			async: true,
+			type: "POST",
+			dataType: "text",
+			url: "mall/newDropAcct!dropAcct.do?ajax=yes",
+			success: function(data){
+				$.kd.closeLoading();
+				generalResult(data);
+			},
+			error: function(data) {
+				$.kd.closeLoading();
+				try {
+					data = $.trim(data.responseText);
+				} catch(e) {
+					data = null;
+				}
+				generalResult(data);
+			}
+		});
+	//}
+}
+
+function nextBYD($this) {
+	var $content = $this.closest("div").parent().parent();
+	var $step = $("div.options-step", $content);
+	var $curstep = $("span.options-step-current", $step);
+	var $next = $curstep.next();
+
+	if ($next.size() > 0) {
+		$curstep = $curstep.removeClass("options-step-current").next()
+				.addClass("options-step-current");
+	}
+
+	$this.prev().attr("disabled", false).removeClass("disabled");
+	$(".step", $content).hide().eq($curstep.prevAll("span").size()).show();
+	if ($curstep.next().size() == 0)
+		$this.attr("disabled", true).addClass("disabled");
+}
+
+function showMorBank(self){
+	$this = $(self);
+	//var text= $this.attr("text");
+	//var html = $this.text();
+	//$this.css("color","gray").attr("text",html).text(text);
+	/**
+	if(text == "<<less"){
+		$(".bank-list").css("height","auto");
+	}else{
+		$(".bank-list").css("height","100px");
+		$this.css("color","blue");
+	}*/
+	$(".bank-list").css("height","auto");	
+}
+
+$("li.isBank3").live("click", function() {
+			$("li.isBank3").removeClass("selected");
+			$(this).addClass("selected");
+			$("input[name='opnbankname']").val($(this).attr('title'));
+			$("input[name='opnbankid']").val($(this).attr('code'));
+			var bankcode = $(this).attr("code");
+			var channelno = bankcode+"06";
+			var v_cardpwd = $("#v_cardpwd_"+bankcode).val();
+			var v_card = $("#v_card_"+bankcode).val();
+			var v_tradepwd = $("#v_tradepwd_"+bankcode).val();
+			var v_cardaccount = $("#v_cardaccount_"+bankcode).val();
+			var v_remark = $("#bankcode_"+bankcode).html();
+			
+			$("#sfcgqd").val(channelno);
+			$li_bankaccount = $('#bancodeinput').parent().parent();
+			$li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+			
+			if(v_card == '0' && v_cardpwd =='0' && v_tradepwd =='0'){
+				$("#bancodeinput, #openAccountBankPwd__, #openAccountBankPwd").val("");
+				$(".bank-list-remark").children("p").html(v_remark);
+				$(".bank-list-remark").show();
+				var $li = $(".kdmall-btn", $(".bank-list-remark").next()).closest("li");
+				$("li", $(".bank-list-remark").next()).not($li).hide();
+			}else{
+				$(".bank-list-remark").hide();
+				$("li", $(".bank-list-remark").next()).show();
+			}
+			
+			if(v_card == '0'){
+				$('#bancodeinput').val("");
+				$li_bankaccount.hide();
+			}
+			if(v_cardpwd =='0'){
+				$('#openAccountBankPwd__').val("");
+				$('#openAccountBankPwd').val("");
+				$li_tradepwd.hide();
+			}
+			$("input[name=tchannelcode]").val($(this).attr('code'));
+		});
+
+		<#if banklist?exists>
+			<#list banklist as item>
+			<#if item.selected =="1">
+				var opnbankname = "${item.bankname}";
+				var opnbankid = "${item.bankcode}";
+				//$("input[name='opnbankname']").val(opnbankname);
+				$("input[name='opnbankid']").val(opnbankid);
+			</#if>
+			</#list>
+		</#if>
+
+</script>	

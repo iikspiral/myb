@@ -1,0 +1,224 @@
+<script type="text/javascript" src="${staticserver}/common/js/libs/jquery.json-2.4.js"></script>
+<style>
+	.ext-add {
+		padding: 10px;
+		font-size: 14px;
+		margin-top: 10px;
+		text-align: center;
+		background: #F9F9F9;
+		border: 1px solid #CCC;
+	}
+	
+	.ext-add a {
+		width: 130px;
+		height: 30px;
+		display: block;
+		margin: 0 auto;
+		line-height: 30px;
+		background: url("${staticserver}/common/images/icons.png") no-repeat -21px -1449px;
+	}
+	.ext-add a:hover {
+		background-position: -13px -1932px;
+	}
+	
+	.operate-bar {
+		width: 36px;
+	    float: right;
+		cursor: pointer;
+		margin-top: 15px;
+		margin-left: -36px;
+	}
+	.operate-bar a {
+	    width: 30px;
+	    height: 32px;
+	    display: block;
+	    border: 1px solid #CCCCCC;
+		background: url("${staticserver}/common/images/icons.png") no-repeat;
+	}
+	.operate-bar a.del {
+	    background-position: -20px -1555px;
+	}
+	.operate-bar a.del:hover {
+	    background-position: -45px -1555px;
+	}
+	.operate-bar a.up {
+	    background-position: -21px -1487px;
+	}
+	.operate-bar a.up:hover {
+	    background-position: -46px -1487px;
+	}
+	.operate-bar a.down {
+	    border-top: 0 none;
+	    border-bottom: 0 none;
+	    background-position: -21px -1521px;
+	}
+	.operate-bar a.down:hover {
+	    background-position: -46px -1521px;
+	}
+</style>
+
+<div class="right-title">
+    <h2>其他信息</h2>
+</div>
+<div id="otherinfoarea" style="padding-top: 10px;">
+<#assign key = 0>
+<#list borrow as b>
+<#assign key = key + 1>
+<ul id="ul_${key}" tid="e_${key}" eid="${b.id!''}" isdefault="${b.isdefault!''}" class="kd-form-style clearfix" style="border-bottom: 1px dashed #CDCDCD;padding-bottom: 20px;">
+	<div class="operate-bar">
+        <a class="up" title="上移" href="javascript: jump(0, '${b.id!''}');"></a>
+        <a class="down" title="下移" href="javascript: jump(1, '${b.id!''}');" <#if b.isdefault == 'Y'>style="border-bottom: 1px solid #CCC;"</#if>></a>
+        <a class="del remove" title="删除" href="javascript: void(0);" <#if b.isdefault == 'Y'>style="display: none;"</#if>></a>
+    </div>
+    
+	<li class="kd-form-style-item oneline need long" style="width: 690px;">
+		<label class="kd-form-style-label" style="width: 690px">
+			<span>标题<em>*</em></span>
+		</label>
+		<span class="kd-form-style-value">
+			<input name="paramBorrow.title" class="input" type="text" value="${b.title!''}" style="width: 650px;"/>
+		</span>				
+	</li>
+	
+ 	<li class="kd-form-style-item oneline need long" style="width: 690px;">
+		<label class="kd-form-style-label">内容<em>*</em></label>
+		<span class="kd-form-style-value">
+			<textarea id="e_${key}" name="paramBorrow.content">${b.content!''}</textarea>
+		</span>				
+	</li>
+</ul>
+</#list>
+</div>
+
+<div class="ext-add" onclick="addExt();"><a>新增章节</a></div>
+
+<ul class="kd-form-style clearfix">
+	<li class="kd-form-style-item oneline need">
+		<label class="kd-form-style-label">&nbsp;</label>
+		<span class="kd-form-style-value">
+			<input type="button" class="kdmall-btn" value="保存" onclick="save();" style="width: 80px;float: left;">
+			<input type="button" class="kdmall-btn" value="重置" onclick="$form.resetForm();" style="width: 80px;float: left;">
+		</span>
+	</li>
+</ul>
+<input id="otherinfo" name="otherinfo" type="hidden" value="${otherinfo!''}">
+<!--<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/umeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/libs/ueditor/lang/zh-cn/zh-cn.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="${staticserver}/common/js/kindeditor/lang/zh_CN.js"></script>
+<link type="text/css" rel="stylesheet" href="${staticserver}/common/js/kindeditor/themes/default/default.css" />
+<script>
+    window.editors =  window.editors  || {};
+	$(function() {
+		$(".remove").bind("click", function() {
+			$(".deleting").removeClass("deleting");
+			$(this).closest(".kd-form-style").addClass("deleting");
+			$.kd.kdConfirm("确定要删除吗？", function() {
+				$(".deleting").addClass("deleted").slideUp("fast");
+			});
+		});
+		
+		$("textarea").each(function() {
+			var tid = $(this).attr('id');
+			var options = {
+			   width: '700px',
+			   height: '400px',
+				minWidth: 250,
+			   minHeight: 50,
+			   uploadJson : fileaction,
+			   filePostName:"upfile",
+			   extraParams:{ a: 'a'} ,
+		       afterBlur : function(){this.sync()},
+			   formatUploadUrl:function( url) {
+				 return fileserver+url;
+			   }
+		 
+			};
+			window.editors[tid] = KindEditor.create('textarea[id=' + tid+']', options);
+				
+		});
+	});
+	
+	function addExt() {
+		var html = [], date = new Date(), id = date.getTime();
+		
+		html.push('<ul id="ul_' + id + '" tid="e_' + id + '" class="kd-form-style clearfix" style="border-bottom: 1px dashed #CDCDCD;padding-bottom: 20px;">');
+		html.push('	<div class="operate-bar">');
+		html.push('        <a class="up" title="上移" href="javascript: jump(0, \'ul_' + id + '\');"></a>');
+		html.push('        <a class="down" title="下移" href="javascript: jump(1, \'ul_' + id + '\');"></a>');
+		html.push('        <a class="del remove" title="删除" href="javascript: void(0);"></a>');
+		html.push(' </div>');
+		    
+		html.push('	<li class="kd-form-style-item oneline need long" style="width: 690px;">');
+		html.push('		<label class="kd-form-style-label" style="width: 690px">标题<em>*</em></label>');
+		html.push('		<span class="kd-form-style-value">');
+		html.push('			<input name="paramBorrow.title" class="input" type="text" style="width: 650px;"/>');
+		html.push('		</span>');
+		html.push('	</li>');
+		html.push(' <li class="kd-form-style-item oneline need long" style="width: 690px;">');
+		html.push('		<label class="kd-form-style-label">内容<em>*</em></label>');
+		html.push('		<span class="kd-form-style-value">');
+		html.push('			<textarea id="e_' + id + '" name="paramBorrow.content"></textarea>');
+		html.push('		</span>');
+		html.push('	</li>');
+		html.push('</ul>');
+		
+		$("#otherinfoarea").append(html.join(""));
+		var options = {
+		   // cssPath : '/css/index.css',
+		   width: '700px',
+		   height: '400px',
+			minWidth: 250,
+		   minHeight: 50,
+		   uploadJson : fileaction,
+		   filePostName:"upfile",
+		   extraParams:{ a: 'a'} ,
+	       afterBlur : function(){this.sync()},
+		   formatUploadUrl:function( url) {
+			 return fileserver+url;
+		   }
+ 
+        };
+			window.editors["e_"+id] = KindEditor.create('textarea[id="e_"' + id+']', options);
+		$("#otherinfoarea .remove").bind("click",function(){
+		     $(".deleting").removeClass("deleting");
+			$(this).closest(".kd-form-style").addClass("deleting");
+		     $.kd.kdConfirm("确定要删除吗？", function() {
+				$(".deleting").addClass("deleted").slideUp("fast");
+			});
+		});	
+	}
+	
+	function generateOtherInfo() {
+		var info, result = [];
+		
+		$(".kd-form-style", "#otherinfoarea").each(function(i) {
+			info = {};
+			info.sn = i;
+			info.id = $(this).attr("eid");
+			info.bid = $("#bid").val();
+			info.title = $("input[type=text]", $(this)).val();
+			info.isvalid = $(this).hasClass("deleted") ? "N" : "Y";
+			info.isdefault = $(this).attr("isdefault");
+			var tid=$(this).attr("tid");
+			$("textarea", $(this)).val($("#"+tid).val());
+			
+			if(info.id || info.isvalid == "Y") result.push(info);
+		});
+		
+		$("#otherinfo").val($.toJSON(result));
+	}
+	
+	function jump(flag, pid) {
+		var $temp = $("#ul_" + pid);
+		if(flag == 1) {
+			var $next = $temp.next(".kd-form-style:visible");
+			if($next.size() > 0) $next.after($temp);
+		} else {
+			var $prev = $temp.prev(".kd-form-style:visible");
+			if($prev.size() > 0) $prev.before($temp);
+		};
+		$temp[0].scrollIntoView();
+	}
+</script>

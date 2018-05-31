@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<body  >
+ 
+ 
+ <#if form_action?exists>
+ <form id="autosubmit" action="${form_action!''}" method="post" style="display:none;">
+ 
+ <#if deal_action?exists && deal_action?trim != "" >
+ <input type="text" name="deal_action" value="${deal_action!''}"  placeholder="deal_action"/>
+ </#if>
+ 
+  <#if pageto?exists && pageto?trim != "" >
+ <input id="page_to" type="text" name="pageto" value="${pageto!''}"  placeholder="pageto"/> 
+  </#if>
+  
+  
+ <#if ticket?exists && ticket?trim !=  "" >
+ <input type="text" name="ticket" value="${ticket!''}"  placeholder="ticket"/>  
+  </#if>
+
+<#if pagetoparams?exists>
+	<#list pagetoparams as item>
+	<input type ="text" name="${item.name!''}" value="${item.value!''}"/>
+	</#list>
+
+</#if>
+ 
+</form>
+ 
+<script type="text/javascript">	
+  <#if pageto?exists && pageto?trim != "" >
+ 			document.getElementById("page_to").value =encodeURIComponent( document.getElementById("page_to").value );
+</#if> 			
+ 			
+ 	<#if    form_action?contains("ssologin")    && deal_action?exists && deal_action?trim != "" >
+ 	  <#if login_flag?exists>
+ 	  		setTimeout(function(){
+ 	  			document.getElementById("autosubmit").submit();
+ 	  		},3000);
+ 	  <#else>
+ 	  		document.getElementById("autosubmit").submit(); 
+ 	  </#if>
+			
+	<#elseif  form_action?trim != "">
+			document.getElementById("autosubmit").submit(); 	
+	</#if>
+ </script>
+ 
+ </#if>
+ 
+ 
+</body>
+</html>

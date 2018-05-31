@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.facewhite.dao.FacewhiteDao">
+    
+    <sql id="entityColumns">
+		a.*
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	<select id="get" resultType="Facewhite">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM FACE_WHITE a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="Facewhite">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM FACE_WHITE a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag}
+		<if test="idCardNum != null and idCardNum != ''">
+			AND a.ID_CARD_NUM = #{idCardNum}
+		</if>
+		<if test="isEffect != null and isEffect != ''">
+			AND a.IS_EFFECT = #{isEffect}
+		</if>
+		<if test="userName != null and userName != ''">
+			AND a.USER_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{userName}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{userName}, '%')</if>
+		</if>
+		)
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO FACE_WHITE(
+			ID,
+			ID_CARD_NUM,
+			USER_NAME,
+			USER_PHONE,
+			IS_EFFECT,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{idCardNum},
+			#{userName},
+			#{userPhone},
+			#{isEffect},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE FACE_WHITE SET 
+			ID_CARD_NUM = #{idCardNum},
+			USER_NAME = #{userName},
+			USER_PHONE = #{userPhone},
+			IS_EFFECT = #{isEffect},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE FACE_WHITE SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+</mapper>

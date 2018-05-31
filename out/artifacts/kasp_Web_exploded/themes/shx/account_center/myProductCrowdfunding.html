@@ -1,0 +1,66 @@
+<div class="account-main">
+	<!-- <div class="messager">
+		<i class="iconfont">&#xe61c;</i>
+		<a class="link" href="ssologin.html?deal_action=jump&pageto=${kcsp_url}aboutus.html?type=news_shx_crowdfunding">此处显示最及时的新闻以便投资者了解众筹相关的信息</a>
+		<i class="close iconfont">&#xe624;</i>
+	</div> -->
+	<div class="simple-titlebar">
+		<h3 class="title">我的众筹</h3>
+	</div>
+	<div class="actionbar clearfix">
+		<a class="btn-start btn-sm btn-orange" href="javascript:void(0);"  onclick="check();">发起众筹</a>
+	</div>
+	<div class="tabs-filter">
+		<ul class="activite-tabs clearfix">
+			<li><a href="myCrowdfunding.html">股权众筹</a></li>
+			<li><a href="myProductCrowdfunding.html" class="active">产品众筹</a></li>
+		</ul>
+		<ul class="nav clearfix">
+				<li><a href="myProductCrowdfunding.html?type=start" <#if type = "start"> class="current"</#if>>我发起的</a></li>
+				<li><span>|</span></li>
+				<li><a href="myProductCrowdfunding.html?type=support" <#if type = "support"> class="current"</#if>>我支持的</a></li>
+				<li><span>|</span></li>
+				<li><a href="myProductCrowdfunding.html?type=focus" <#if type = "focus"> class="current"</#if>>我关注的</a></li>
+				<li><span>|</span></li>
+				<li><a href="myProductCrowdfunding.html?type=trash" <#if type = "trash"> class="current"</#if>>回收站</a></li>
+		</ul>
+		<div class="container-full">
+				<#if type="focus">
+					<#include 'crowdfunding_product_focus.html'>
+				</#if>
+				<#if type="support">
+					<#include 'crowdfunding_project_support.html'>
+				</#if>
+				<#if type="start">
+					<#include 'crowdfunding_product_start.html'>
+				</#if>
+				<#if type="trash">
+					<#include 'crowdfunding_product_trash.html'>
+				</#if>
+		</div>	
+	</div>
+</div>
+<input id="currenttype" value="${type!''}" type="hidden"/>	
+<link rel="stylesheet" href="${staticserver}/qilu/css/account_extra.css">
+<script type="text/javascript">		
+	function check(){
+			    $.post("mall/qilu_startcrowdfunding!startCrowdfunding.do?ajax=yes",
+		    			function(data){
+						    var msg=eval("("+data+")");
+						    if("0"==msg[0].result){
+		    					zhejiang_alert("提示信息","您还未绑定银行卡，请先绑定银行卡!", function(){
+								window.location.href="bankmanage.html"; 
+								});
+		    				}else if("1"==msg[0].result){
+								zhejiang_alert("提示信息","您还没有身份资质，请进行身份资质申请！", function(){
+								window.location.href="apply_usertype.html"; 
+								});											
+		    				}else{
+								window.location.href="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kcsp_url}project_publish.html?type=basic"); 
+							}
+		    		});
+    }
+	
+	
+</script>
+

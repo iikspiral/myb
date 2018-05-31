@@ -1,0 +1,185 @@
+<link rel="stylesheet" type="text/css" href="${staticserver}/common/css/account-new.css">
+<style type="text/css">
+.msg_check {background-color:#CAFFFF;}
+tr:hover td {background-color:#FFEEAC;}
+</style>
+<script type="text/javascript">
+    $(function () {
+     	if($("tr.ck").size() == $("tr.ck.msg_check").size()) {
+	       		$("#check_all").attr("checked", true);
+	       	 }
+      	$(".tr_ck").bind("click", function() {
+		//console.info('-----11')
+      		$(this).closest("tr").toggleClass("msg_check");
+      		/* console.info($("tr.ck").closest("input"));
+      		if(($("tr.ck").closest("input").attr("checked"))=="checked"){
+      		$("tr.ck").closest("input").removeAttr("checked");
+      		}else{
+      		$("tr.ck").closest("input").attr("checked", true);
+      		} */
+      		if($("tr.ck").size() == $("tr.ck.msg_check").size()) {
+	       		$("#check_all").attr("checked", true);
+	       	} else {
+	       		$("#check_all").attr("checked", false);
+	       	}
+      	});
+      	
+        $("#check_all").bind("change", function() {
+		//console.info('-----12')
+			if($("#check_all").attr("checked")=="checked")
+			{
+        	$("tr.ck").addClass("msg_check");
+        	$(".tr_ck").attr("checked",true);
+			}else{
+			$("tr.ck").removeClass("msg_check");
+        	$(".tr_ck").removeAttr("checked");
+			}
+        });
+      	
+        $("#invert").bind("change", function() {
+		//console.info('-----13')
+	       	$("tr.ck").toggleClass("msg_check");
+	       	if($("tr.ck").size() == $("tr.ck.msg_check").size()) {
+	       		$("#check_all").attr("checked", true);
+	       	} else {
+	       		$("#check_all").attr("checked", false);
+	       	}
+        });
+       
+ 
+})
+</script>
+<div class="rightcontent formdiv ">	      
+		<div class="tab-content-wrap-account">
+        <div class="head-content">
+			<h1 class="content-title">投资人管理</h1>												
+			<input class="linkMore" type="button" value="投资人管理">
+		</div> 
+		 <ul class="operation-panel clearfix">
+            <li class="li">
+				<label><input type="checkbox" id="check_all" >&nbsp;&nbsp;全选</label> 
+            </li>
+        </ul>
+		 		
+        <table class="list-table hidden" style="display: table;" >
+            <thead>
+				<tr>					
+					<th class="time" style="border-right:#e0e0e0 1px solid;width:100px;">客户名称</th>
+					<th class="origin" style="border-right:#e0e0e0 1px solid;text-align:center;">投资金额</th>
+					<th class="origin" style="border-right:#e0e0e0 1px solid;text-align:center;">投资时间</th>
+					<th class="origin" style="border-right:#e0e0e0 1px solid;">是否为本项目最终投资人</th>
+				</tr>
+            </thead>
+            <tbody id="msg-list-content">
+            <#if investlist?exists>
+            <#list investlist as il>
+	            <tr  <#if il.investstatus == "1111"> class="ck msg_check" <#else> class = "ck"</#if> style="border-top:#e0e0e0 1px solid;height:5px;" >
+					<td style="border-right:#e0e0e0 1px solid;">
+					<input type="checkbox" class="tr_ck"  valcustid ="${il.id!''}" <#if il.investstatus == "1111">checked</#if> />
+					${il.investor!''}
+					</td>
+					<td style="border-right:#e0e0e0 1px solid;text-align:center;">
+						<a><span class="msg-title">&emsp;&emsp;${il.investamount?number?string("###,###,###,###,##0.00")}</span></a>
+					</td>
+					<td style="border-right:#e0e0e0 1px solid;text-align:center;">
+						<a><span class="msg-title">&emsp;&emsp;${il.investdate!''}</span></a>
+					</td>
+					<td>
+					<#if il.investstatus == "1111">
+					是
+					<#else>
+					否
+					</#if>
+					</td>							
+				</tr>
+			</#list>
+			</#if>	
+			</tbody>
+		</table>
+    </div>
+    <div id="page_area" class="pager-info"></div>
+    <form method="post" id="investform">
+    <input  type ="button" class="linkButton btn_beginwarmup"  id="selectinvest" value="选择投资者" style="height :27px;"/>
+    <input  type ="button" class="linkButton btn_beginwarmup"  id="deleteinvest" value="撤销投资者" style="height :27px;"/>
+    </form> 
+</div>
+<script type="text/javascript">
+	$(function() {
+		$.kd.kdPager.init({
+			currentPage: '${investpage}',
+			totalPage: '${totalPage_invest}',
+			totalRecords: '${totalCount_invest}',
+			prefix: '/myproject.html',
+			suffix: function(n) {
+				return generalParam() + "&page=" + n;
+			}
+		});
+	});
+	function generalParam() {
+		var param = "type=investdetail";
+		var productid ="${prodcutid!''}"
+		return param + (productid ? ("&productid=" + productid) : "");
+	}
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$("#selectinvest").click(function(){
+		$("#selectinvest").attr("disabled",true);
+		var $capitallist = "";
+		$(".tr_ck").each(function(){
+			var $val ="";
+			if($(this).attr("checked")){
+			     $val = $(this).attr("valcustid");				
+			 }
+			if(($capitallist).indexOf($val)==-1){
+				$capitallist +=$val+",";			 			
+			  }
+		   });
+		doajax("selectinvest","1111",$capitallist);   
+		});
+		$("#deleteinvest").click(function(){
+			$("#deleteinvest").attr("disabled",true);
+			var $capitallist = "";
+			$(".tr_ck").each(function(){
+				var $val ="";
+				if($(this).attr("checked")){
+					$val = $(this).attr("valcustid");
+				 }
+				if(($capitallist).indexOf($val)==-1){
+					$capitallist +=$val+",";			 			
+			 	 }
+		      });
+		doajax("deleteinvest","0000",$capitallist);   		
+		 });
+		
+   	function doajax(buttonid,investsatus,$capitallist){
+   		if($capitallist ==""){
+			 $.kd.kdAlert("请选择投资人");
+		 	$("#"+buttonid+"").attr("disabled",false);
+			 return false;
+			}
+   		$.ajax({
+			type : "post",
+			url : "/mall/choiceinvest!ChoiceInvest.do?ajax=yes",
+			dataType : "json",
+			data : {capitallist : $capitallist,investstatus:investsatus},
+			success :function(data){
+				  if(data.result == "0"){
+				  	$.kd.kdAlert(data.message,function(){
+				  	$("#"+buttonid+"").attr("disabled",false);
+				  	window.location.href = "myproject.html?type=investdetail&productid=${prodcutid!''}&page=${investpage}&_"+new Date().getTime()+"";
+				  		},"提示信息");
+				  }else{
+					$.kd.kdAlert(data.message,function(){
+				  	$("#"+buttonid+"").attr("disabled",false);
+				  		},"提示信息");				 
+					}				
+			      }
+		  });	
+		 }
+	});
+
+</script>
+
+

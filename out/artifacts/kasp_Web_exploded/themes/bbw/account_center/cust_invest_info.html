@@ -1,0 +1,50 @@
+
+	  
+
+	
+		<table class="table">
+			<tr>				
+				<th style="width:40px;">序号</th>
+				<th style="width:200px;">产品名称</th>
+				<th style="width:150px;">投资人</th>
+				<th style="width:150px;">投资日期</th>
+				<th style="width:150px;">投资额度</th>	
+			</tr>
+			<#if investlist?exists>
+  			<#list investlist as item>
+			<input id="investcustomerno" value="${item.customerno}" type="hidden">
+			<tr style="font-size:12px;">							
+			<td>${item.ROWNUM_!""}</td>												
+			<td>${item.borrowtitle!""}</td>	
+			<td>${item.chinesename!''}</td>			
+			<td>${item.sbrq?substring(0,4)}-${item.sbrq?substring(4,6)}-${item.sbrq?substring(6,8)}</td>
+			
+			<td>${item.paymoney?default("0.00")?number?string("###,###,###,###,##0.00")}</td>
+			</tr>			
+			</#list>
+			<#else>
+			<td colspan="5" style="text-align:center;">暂无投资记录</td>
+			</#if>
+		</table>
+		<div id="page_detail" class="pager-info"></div>
+
+	
+	</div>
+
+		<script type="text/javascript">
+			$(function() {
+				var investcustomerno = $("#investcustomerno").val()
+				$.kd.kdPager.init({
+					pager:'page_detail',
+					currentPage: '${currentPage_investinfo!"1"}',
+					totalPage: '${totalPage_investinfo!"0"}',
+					totalRecords: '${totalCount_investinfo!"0"}',
+					prefix: '/recommend_records.html',
+					suffix: function(n) {
+						return 'type=detail&investcustomerno='+investcustomerno+'&page=' + n;
+					},
+					tagurl:'/recommend_records.html?type=detail&investcustomerno='+investcustomerno+'&page='
+				});
+			});
+		</script>
+</div>

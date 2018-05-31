@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.idinfo.dao.UserInfoDao">
+    
+    <sql id="entityColumns">
+		a.ID as id,
+		a.USER_INFO_NAME as username,
+		a.USER_PHONE_NUM as phonenum,
+		a.USER_CONTACT_ADDR as usercontactaddr,
+		a.IDCARD_TYPE as idtype,
+		a.USER_INFO_IDCARD_NUM as useridcardnum,
+		a.USER_ORG as org,
+		a.RA_USER_ID as raUserId,
+		a.USER_STATE as userState,
+		a.USER_TYPE as userType,
+		a.IS_FACE as isFace,
+		a.EXTRA1 as extra1,
+		a.EXTRA2 as extra2,
+		a.EXTRA3 as extra3,
+		a.EXTRA4 as extra4,
+		a.EXTRA5 as extra5,
+		a.EXTRA6 as extra6,
+		a.EXTRA7 as extra7,
+		a.EXTRA8 as extra8,
+		a.EXTRA9 as extra9,
+		a.EXTRA10 as extra10,
+		a.REMARKS as remarks
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+	<select id="get" resultType="UserInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM USER_INFO a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="UserInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM USER_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag})
+		<if test="username != null and username != ''">
+			AND a.USER_INFO_NAME LIKE
+			<if test="dbName == 'oracle'">'%'||#{username}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{username}, '%')</if>
+		</if>
+		<if test="usercontactaddr != null and usercontactaddr != ''">
+			AND a.USER_CONTACT_ADDR LIKE
+			<if test="dbName == 'oracle'">'%'||#{usercontactaddr}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{usercontactaddr}, '%')</if>
+		</if>
+		<if test="org != null and org != ''">
+			AND a.USER_ORG LIKE
+			<if test="dbName == 'oracle'">'%'||#{org}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{org}, '%')</if>
+		</if>
+		<if test="idtype != null and idtype != ''">
+			AND a.IDCARD_TYPE = #{idtype}
+		</if>
+		<if test="useridcardnum != null and useridcardnum != ''">
+			AND a.USER_INFO_IDCARD_NUM = #{useridcardnum}
+		</if>
+		<if test="raUserId != null and raUserId != ''">
+			AND a.RA_USER_ID = #{raUserId}
+		</if>
+		<if test="phonenum != null and phonenum != ''">
+			AND a.USER_PHONE_NUM = #{phonenum}
+		</if>
+		<if test="userType != null and userType != ''">
+			AND a.USER_TYPE = #{userType}
+		</if>
+		<if test="id != null and id != ''">
+			AND a.ID = #{id}
+		</if>
+		<if test = 'strList != null and strList.size() >0'> 
+			and a.ID not in
+			<foreach collection="strList" item="userids" index="index"
+	            open="(" close=")" separator=",">
+	            #{userids}
+	        </foreach>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO USER_INFO(
+			ID,
+			USER_INFO_NAME,
+			USER_PHONE_NUM,
+			USER_CONTACT_ADDR,
+			IDCARD_TYPE,
+			USER_INFO_IDCARD_NUM,
+			USER_ORG,
+			RA_USER_ID,
+			USER_STATE,
+			USER_TYPE,
+			IS_FACE,
+			EXTRA1,
+			EXTRA2,
+			EXTRA3,
+			EXTRA4,
+			EXTRA5,
+			EXTRA6,
+			EXTRA7,
+			EXTRA8,
+			EXTRA9,
+			EXTRA10,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{username},
+			#{phonenum},
+			#{usercontactaddr},
+			#{idtype},
+			#{useridcardnum},
+			#{org},
+			#{raUserId},
+			#{userState},
+			#{userType},
+			#{isFace},
+			#{extra1},
+			#{extra2},
+			#{extra3},
+			#{extra4},
+			#{extra5},
+			#{extra6},
+			#{extra7},
+			#{extra8},
+			#{extra9},
+			#{extra10},
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE USER_INFO SET 
+			USER_INFO_NAME = #{username},
+			USER_PHONE_NUM = #{phonenum},
+			USER_CONTACT_ADDR = #{usercontactaddr},
+			IDCARD_TYPE = #{idtype},
+			USER_INFO_IDCARD_NUM = #{useridcardnum},
+			USER_ORG = #{org},
+			RA_USER_ID = #{raUserId},
+			USER_STATE = #{userState},	
+			USER_TYPE = #{userType},
+			IS_FACE = #{isFace},
+			EXTRA1 = #{extra1},
+			EXTRA2 = #{extra2},
+			EXTRA3 = #{extra3},
+			EXTRA4 = #{extra4},
+			EXTRA5 = #{extra5},
+			EXTRA6 = #{extra6},
+			EXTRA7 = #{extra7},
+			EXTRA8 = #{extra8},
+			EXTRA9 = #{extra9},
+			EXTRA10 = #{extra10},
+			UPDATE_BY = #{updateBy.id},
+			UPDATE_DATE = #{updateDate},
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE USER_INFO SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="getUserInfoList" resultType="UserInfo">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM USER_INFO a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = '0')
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	
+	<select id="findUserByCertSn" resultType="UserInfo">
+		SELECT
+			<include refid="entityColumns"/>
+		FROM
+		USER_INFO a
+		LEFT JOIN CERT_INFO c ON  a.RA_USER_ID=c.USERINFO_ID
+		WHERE (c.del_flag = '0' AND a.del_flag='0')
+		<if test="_parameter != null and _parameter != ''">
+			AND c.CERT_SN = #{certs}
+		</if> 
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	
+	
+	<select id="fingByids" resultType="UserInfo" parameterType="list">
+		SELECT 
+		a.ID as id,
+		a.USER_INFO_NAME as username,
+		a.USER_PHONE_NUM as phonenum,
+		a.USER_CONTACT_ADDR as usercontactaddr,
+		a.IDCARD_TYPE as idtype,
+		a.USER_INFO_IDCARD_NUM as useridcardnum,
+		a.USER_ORG as org
+		FROM USER_INFO a
+		WHERE (a.del_flag = 0)
+		and a.ID in
+		<foreach collection="list" item="userids" index="index"
+            open="(" close=")" separator=",">
+            #{userids}
+        </foreach>
+		ORDER BY a.CREATE_DATE
+	</select>
+	
+	
+	
+	<select id="findProUserlist" resultType="UserInfo">
+		SELECT
+		a.ID as id,
+		a.USER_INFO_NAME as username,
+		a.USER_PHONE_NUM as phonenum,
+		a.USER_CONTACT_ADDR as usercontactaddr,
+		a.IDCARD_TYPE as idtype,
+		a.USER_INFO_IDCARD_NUM as useridcardnum,
+		a.USER_ORG as org
+		FROM USER_INFO a
+		WHERE (a.del_flag = 0)
+		<!-- <if test="username != null and username != ''">
+			AND c.USER_INFO_NAME = #{username}
+		</if> -->
+		<if test = 'strList != null and strList.size() >0'> 
+			and a.ID not in
+			<foreach collection="strList" item="userids" index="index"
+	            open="(" close=")" separator=",">
+	            #{userids}
+	        </foreach>
+		</if>
+		 
+		
+	</select>
+</mapper>

@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="${staticserver}/hunan/css/common.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/normalize.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/account.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/register.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/jquery.bxslider.css">
+<link rel="stylesheet" href="${staticserver}/hunan/css/iconfont/iconfont.css">
+<script type="text/javascript" src="${staticserver}/hunan/common/js/libs/kjax.des.js"></script>
+
+<div class="account_register">				<table <#if type == "regist">				class="process-cells step-one"				<#elseif customerno?exists>					<#if type == "sfcg">						class="process-cells step-two"					<#elseif type == "fxcp">						class="process-cells step-three"					</#if>				<#else>					class="process-cells step-one"				</#if> >
+			<tr>
+			<#if riskflag?exists>
+				<#if riskflag == '1'>
+					<td style="width: 33.3%" <#if type == "regist"> class="current" </#if> > 注册</td>
+					<td style="width: 33.3%"<#if customerno?exists> <#if type == "sfcg"> class="current" </#if> </#if> > 绑定银行卡</td>	
+					<td style="width: 33.3%"<#if customerno?exists> <#if type == "fxcp"> class="current" </#if> </#if>> 风险测评</td>
+				<#elseif riskflag == '0'>
+					<td style="width: 50%" <#if type == "regist"> class="current" </#if> > 注册</td>
+					<td style="width: 50%" <#if customerno?exists> <#if type == "sfcg"> class="current" </#if> </#if> > 绑定银行卡</td>
+				</#if>
+			</#if>
+			</tr>
+        </table>
+	<input id="riskflag" type="hidden" value="${riskflag}">
+
+	<#switch type>
+		<#case "regist">
+			<#include 'register_zhuce.html' />
+		<#break>
+		<#case "sfcg">
+			<#if customerno?exists>
+				<#include 'register_sfcg.html' />
+			<#else>
+			   <#include 'register_zhuce.html' />
+			</#if>
+		<#break>
+		<#case "fxcp">
+			<#if customerno?exists>
+				<#include 'register_fxcp.html' />
+			<#else>
+			   <#include 'register_zhuce.html' />
+			</#if>
+	</#switch>
+	
+</div>

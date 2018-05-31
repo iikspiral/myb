@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">  
+<sqlMap namespace="com.szkingdom.aus.entity.AusAuthOneEntity">
+	<select id="queryAuthOne" parameterClass="com.szkingdom.aus.entity.AusAuthOneEntity" resultClass="com.szkingdom.aus.entity.AusAuthOneEntity">
+		<![CDATA[
+		    select * from aus.aus_authone 
+		    where serverid = #serverId#
+		       and exchangeid = #exchangeId#
+		       and (custid = #custid# 
+		         or email = #custid#
+		         or mobiletelno = #custid#)
+		]]>
+	</select>
+	
+	<update id="updateAuthOne" parameterClass="com.szkingdom.aus.entity.AusAuthOneEntity">
+		<![CDATA[
+		    update aus.aus_authone
+		         set custtype     	= #custtype#,
+				email           	= #email#,
+				mobiletelno     	= #mobiletelno#,
+				name            	= #name#,
+				status		= #status#,
+				password        = #password#,
+				lastupdatedate = #lastupdatedate#,
+				failcount       	= #failcount#,
+				onlinestatus    	= #onlinestatus#,
+				lastipaddress   = #lastipaddress#,	
+				lastmacaddress= #lastmacaddress#,		
+				ipaddress   	= #ipaddress#,		
+				macaddress   	= #macaddress#,		
+				lastauthdate   	= #lastauthdate#,		
+				lastauthtime   	= #lastauthtime#,		
+				authdate   	= #authdate#,		
+				authtime   	= #authtime#		
+		    where  serverid = #serverId#
+		       and exchangeid = #exchangeId#
+		       and custid = #custid#
+		]]>
+	</update>
+
+</sqlMap>  

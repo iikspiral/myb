@@ -1,0 +1,110 @@
+<script type="text/javascript"
+	src="${staticserver}/common/js/libs/kjax.des.js"></script>
+
+<!--  	<h5>找回密码页面</h5> -->
+<div>
+	<div>
+		<div class="out-container">
+			<div class="navi-container">
+				<ol class="ui-step">
+					<li class="ui-step-active">
+						<div class="ui-step-line">-</div>
+						<div class="ui-step-icon">
+							<i class="iconfont"></i> <i class="ui-step-number">1</i> <span
+								class="ui-step-text">用户基本信息</span>
+						</div>
+					</li>
+
+					<li class="ui-step-active">
+						<div class="ui-step-line">-</div>
+						<div class="ui-step-icon">
+							<i class="iconfont"></i> <i class="ui-step-number">2</i> <span
+								class="ui-step-text">安全问题</span>
+						</div>
+					</li>
+					<li>
+						<div class="ui-step-line">-</div>
+						<div class="ui-step-icon">
+							<i class="iconfont"></i> <i class="ui-step-number">3</i> <span
+								class="ui-step-text">输入新密码</span>
+						</div>
+					</li>
+
+					<li class="ui-step-end">
+						<div class="ui-step-line"></div>
+						<div class="ui-step-icon">
+							<i class="iconfont successnever"></i> <span class="ui-step-text">成功</span>
+						</div>
+					</li>
+				</ol>
+			</div>
+
+			<div class="form-box">
+
+				<div class="formcontent" style="padding-left: 140px;height:200px">   
+					<form id="find_pwd_safequestion_form" class="find_pwd_safequestion_form">
+						<input type="hidden" name="openid" value="">
+						<ul class="kd-form-style">
+			       
+				   
+							<li class="kd-form-style-item need" style="width: 650px;">
+							<label class="kd-form-style-label">请选择问题<em >*</em></label>
+							
+							 <select id="question"
+										name="question" class="select">
+											<option value="1">你爸爸的名字叫什么</option>
+											<option value="2">你爸爸的生日是哪天</option>
+											<option value="3">你妈妈的名字叫什么</option>
+											<option value="4">你妈妈的生日是哪天</option>
+											<option value="5">最难忘的日子</option>
+											<option value="6">你的学号是多少</option>
+											<option value="7">你最想去的地方是哪里</option>
+											<option value="8">你孩子的名字叫什么</option>
+											<option value="9">你孩子的生日是哪天</option>
+									</select>
+							 
+							</li>
+ 
+						
+							<li class="kd-form-style-item  need"  style="width: 650px;">
+							<label class="kd-form-style-label">请输入答案<em  >*</em></label>
+								<input class="input" name="answer" type="text"  id="answer"  datatype="notNull" 
+								 nullmsg="请输入安全问题答案！" errormsg="安全问题答案不能为空！" />
+								 <span class="Validform_checktip">&nbsp;</span>
+							</li>
+							<li class="kd-form-style-item clear-left">
+								 
+											
+									<label class="kd-form-style-label"> </label>
+									<span class="kd-form-style-value"> 
+									<input
+										id="safe_next" class="kdmall-btn cancel" value="下一步" type="button"
+										 />
+									</span>
+								 
+							</li>
+							<li style="display:none">
+								 <input type="text" name="username" id="username" class="input" value="${username!''}"  style="display:none">
+								 <input type="text" name="mobile" id="mobile" class="input" value="${mobile!''} style="display:none">
+							</li>
+						</ul>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+  		$("#safe_next").bind('click',function(){
+  			var username = $("#username").val();
+			var mobile = $("#mobile").val();
+			var appendStr = "&username="+username+"&mobile="+mobile;
+			window.location.href='/resetpwd.html?type=find_pwd_newpwd'+appendStr;
+  		});
+  })
+</script>
+

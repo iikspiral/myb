@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<bexConfig> 	
+	<bexHandle type="mybatis-bex">
+		<bean>myBatisBex</bean>
+		<class>com.websuites.esb.plugins.mybatis.MyBatisBex</class>
+		<method>doMybatisBex</method>
+		<verify>checkMyBatisBex</verify>
+	</bexHandle>
+	<bexHandle type="service-bex">
+		<bean>serviceBex</bean>
+		<class>com.websuites.esb.plugins.service.ServiceBex</class>
+		<method>doServiceBex</method>
+		<verify>checkServiceBex</verify>
+	</bexHandle>	
+	<bexHandle type="kesb-bex">
+		<bean>kesbBex</bean>
+		<class>com.websuites.esb.plugins.kesb.KesbBex</class>
+		<method>doKesbBex</method>
+		<verify>checkKesbBex</verify>
+	</bexHandle>
+	<bexHandle type="http-bex">
+			<bean>httpBex</bean>
+			<class>com.websuites.esb.plugins.http.HttpBex</class>
+			<method>doHttpBex</method>
+			<verify>checkHttpBex</verify>
+	</bexHandle>
+	
+</bexConfig>

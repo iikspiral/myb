@@ -1,0 +1,86 @@
+<ul class="nav">
+	<form id="J_queryForm"  name="queryForm" method="post" action="recommend_users.html?type=list"  >
+		<div class="floorform">
+			<div class="floor">
+				<label class="property" style="width:60px;">用户名：</label>
+				<div class="value">
+					<input type="text" name="username" id="J_username" />
+					<a  type="submit" class="btn-start btn-sm btn-orange" id="J_query">查询</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</ul>
+<div class="table-wrap">
+	<table id="recently" class="records-list">
+	<thead>
+		<tr>
+			<th style="width: 20%;">序号</th>
+			<th style="width: 10%;">登录名</th>			<th style="width: 10%;">姓名</th>			<th style="width: 20%;">手机号</th>			<th style="width: 30%;">推荐时间</th>			<th style="width: 10%;">状态</th>
+		</tr>
+	</thead>
+	<#if invitorlist?exists>
+		<#list invitorlist as item>
+		<tr>
+			<td>${item.rownum_!""}</td>			<td>${item.name!""}</td>
+			<td>${item.chinesename!''}</td>			<td>${item.mobiletelno!''}</td>			<td>${item.bindingdate!''}&nbsp;${item.bindingtime?substring(0,2)}:${item.bindingtime?substring(2,4)}:${item.bindingtime?substring(4,6)}</td>
+			<td>			<#if item.totalinvestamount!=''>				已投资				<#elseif item.totalconfirmedamount!=''>					已充值					<#elseif item.chinesename!=''>						已绑卡						<#else>							未绑卡			</#if>			</td>		</tr>
+		</#list>
+	<#else>
+		<tr>
+		<td colspan="3">暂无推荐记录!</td>
+		</tr>
+	</#if>
+	</table>
+	<#if invitorlist?exists>
+	<div id="page_tjr" class="pager-info" style="width:750px;"></div>
+	</#if>
+</div>
+
+
+
+
+<script type="text/javascript">
+	$(function() {
+		$.kd.kdPager.init({
+			pager:'page_area',
+			currentPage: '${currentPage_custinfo!"1"}',
+			totalPage: '${totalPage_custinfo!"0"}',
+			totalRecords: '${totalCount_custinfo!"0"}',
+			prefix: '/recommend_records.html',
+			suffix: function(n) {
+				return "page=" + n;
+			}
+		});
+	});
+	
+	$(function() {
+		$.kd.kdPager.init({
+			pager:'page_tjr',
+			currentPage: '${currentPage_invitor!"1"}',
+			totalPage: '${totalPage_invitor!"0"}',
+			totalRecords: '${totalCount_invitor!"0"}',
+			prefix: 'recommend_users.html',
+			suffix: function(n) {
+				return "page=" + n + '&type=list';
+			}
+		});
+	});
+	
+	$(function() {
+		$.kd.kdPager.init({
+			pager:'page_capitain',
+			currentPage: '${currentPage_agentinfo!"1"}',
+			totalPage: '${totalPage_agentinfo!"0"}',
+			totalRecords: '${totalCount_agentinfo!"0"}',
+			prefix: '/recommend_records.html',
+			suffix: function(n) {
+				return "page=" + n;
+			}
+		});
+	});
+	
+	$("#J_query").on("click",function(){
+		$("#J_queryForm").submit();
+	})
+</script>

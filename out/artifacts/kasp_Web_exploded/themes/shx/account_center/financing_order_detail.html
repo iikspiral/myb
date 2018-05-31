@@ -1,0 +1,79 @@
+﻿
+<div class="account-main order-page">
+	<div class="simple-titlebar">
+		<h2 class="title">订单详情</h2>
+	</div>
+	<#if orderlist?exists> <#list orderlist as order> <#if bond?exists>
+	<#list bond as bond> <#if order.smrjg?exists && order.smrjg!="">
+	<div class="order-page order-board">
+		<h3 class="project-name">${bond.name!''}</h3>
+		<div class="floorform">
+			<div class="floor">
+				<label class="property">订单状态</label>
+				<div class="value">
+					<#if paymethod1 == "2"> <em>已付款</em> <#elseif paymethod1
+					== "0"> <em>未付款</em> <span>【您的订单还需支付<b>${(order.smrjg!'0.00'?number-order.paymoney!'0.00'?number)}</b>元】</span>
+					</li><#elseif paymethod1 == "3"><em>已取消</> </#if> 
+				</div>
+			</div>
+			<div class="floor">
+				<label class="property">订单编号</label>
+				<div class="value">
+					<span class="en">${order.sbbh!''}</span>
+				</div>
+			</div>
+			<div class="floor">
+
+				<label class="property">产品编号</label>
+				<div class="value">
+					<span class="en">${bond.id!''}</span>
+				</div>
+			</div>
+			<div class="floor">
+				<label class="property">下单时间</label>
+				<div class="value">
+					<span class="en">${order.yxrq!''}${order.sbsj!''}</span>
+				</div>
+			</div>
+			<div class="floor">
+				<hr style="height: 1px; border: none; border-top: 1px dashed #ccc;">
+			</div>
+			<div class="floor">
+				<label class="property">认购金额</label>
+				<div class="value">
+					<span class="en"><em>${order.smrjg!'0.00'?number?string("###,###,###,##0.00")}</em>
+					</span>元
+				</div>
+			</div>
+			<div class="floor">
+				<label class="property">年化收益率</label>
+				<div class="value">
+					<span class="en">${bond.annualrate}%</span>
+				</div>
+			</div>
+			<div class="floor">
+				<label class="property">还款方式</label>
+				<div class="value">${bond.paymentmodevalue}</div>
+			</div>
+			<div class="floor">
+				<label class="property">融资期限</label>
+				<div class="value">
+					<span class="en">${bond.deadline}</span> <#if
+					(bond.deadlineunit)?exists && (bond.deadlineunit) =='M'> 个月
+					<#elseif (bond.deadlineunit)?exists && (bond.deadlineunit) =='D'> 天
+					<#elseif (bond.deadlineunit)?exists && (bond.deadlineunit) =='Y'> 年
+					<#else> 个月 </#if>
+				</div>
+			</div>
+			<div class="actionArea">
+				<#if paymethod1 == "2"> <a class="btn btn-lg btn-orange"
+					href="javascript:void(0);">完成</a> <#elseif paymethod1 == "3">
+				<a class="btn btn-lg btn-orange" href="javascript:void(0);">已取消</a>
+				<#elseif paymethod1 == "0"> <a class="btn btn-lg btn-orange"
+					href="ssologin.html?deal_action=jump&pageto=${kisp_url}orderpay.html?orderno=${order.sbbh!''}">立即支付</a>
+				</#if>
+			</div>
+		</div>
+	</div>
+	</#if> </#list> </#if> </#list> </#if>
+</div>

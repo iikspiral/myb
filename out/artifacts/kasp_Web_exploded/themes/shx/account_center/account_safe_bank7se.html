@@ -1,0 +1,168 @@
+<script type="text/javascript" src="${staticserver}/common/js/libs/kjax.des.js"></script>
+<!------------------------------------------------三方支付机构开户------------------------------------------------------------------------->
+
+<ul class="kd-form-style" id="jg_sfzf">
+	<li class="kd-form-style-item need itemWidth">
+		<label class="kd-form-style-label">所选银行<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input name="tbankcode" type="text" class="input readonly" value="" readonly />
+			<input name="tchannelcode" type="hidden" class="input readonly" value="" />
+		</span>
+	</li>
+	<li class="kd-form-style-item need itemWidth">
+		<label class="kd-form-style-label">银行卡号<em>*</em></label><!--checkBankNo-->
+		<span class="kd-form-style-value">
+			<input id="" name="tbankaccount" type="text" datatype="n9-19" nullmsg="请输入银行卡号！" errormsg="银行卡号输入有误！" class="input" />
+		</span>
+	</li>
+	<li class="kd-form-style-item need itemWidth" >
+		<label class="kd-form-style-label">开户行省份<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="" name="province" type="text" datatype="*" class="input" nullmsg="请输入省份！" errormsg="省份输入有误！"  />
+			
+		</span>
+	</li>
+	<li class="kd-form-style-item need itemWidth" >
+		<label class="kd-form-style-label">开户行城市<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="" name="city" type="text" datatype="*" class="input" nullmsg="请输入城市！" errormsg="省份输入有误！"  />
+			
+		</span>
+	</li>
+	<li class="kd-form-style-item need itemWidth" >
+		<label class="kd-form-style-label">开户行地址<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="" name="openbankaddr" type="text" datatype="*" class="input" nullmsg="请输入地址！" errormsg="地址输入有误！"  />
+			
+		</span>
+	</li>
+	<!--
+	<li class="kd-form-style-item need itemWidth" >
+		<label class="kd-form-style-label">银行卡密码<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="openthirdpayAccountBankPwd" name="" type="password" datatype="*6-6" class="input" nullmsg="请输入6位银行卡密码！" errormsg="银行卡密码输入有误！"  />
+			
+	</li>
+	-->
+	<li class="kd-form-style-item need itemWidth" >
+		<label class="kd-form-style-label">交易密码<em>*</em></label>
+		<span class="kd-form-style-value">
+			<input id="tradepassword" name="" type="password" datatype="*6-6" class="input" nullmsg="请输入6位交易密码！" errormsg="交易密码输入有误！"  />
+			
+		</span>
+	</li>
+	<li id="openthirdpayAccountli" class="kd-form-style-item" style="margin-top:20px;display:none;">
+		<label class="kd-form-style-label" style="width: 50px"></label>
+		<span  class="kd-form-style-value">
+			<input id="bankprev" class="kdmall-btn" value="上一步" type="button" onclick="bankprev()" />
+			<input id="openthirdpayAccountBtn" class="kdmall-btn" value="下一步" type="button" onclick="doopenthirdpayaccount()" />	
+		</span>
+	</li>
+	
+	<li id="openthirdpayOrgAccountli" class="kd-form-style-item" style="margin-top:20px;">
+		<label class="kd-form-style-label" style="width: 50px"></label>
+		<span  class="kd-form-style-value">
+			<input id="bankprev" class="kdmall-btn" value="上一步" type="button" onclick="bankprev()" />
+			<input id="openthirdpayOrgAccountBtn" class="kdmall-btn" value="下一步" type="button" onclick="doopenthirdpayOrgaccount()"  />
+		</span>
+	</li>
+</ul>
+
+<script>
+	
+	/**
+	三方支付机构开户
+	**/
+	function doopenthirdpayOrgaccount(){
+		var $openOrgAccountForm;
+		$openOrgAccountForm = $("#openOrgAccountForm").kdValidform();
+		
+		var _tradepwd =$("#tradepassword").val();
+		var _tradepwd_ = $.des.getDes(_tradepwd,'kingdom');	
+		var dataPWD = {tradepassword:_tradepwd_};
+		var options = {
+				data:dataPWD,
+				type:"post",
+				url :"mall/newRegister!openThirdpayAccount.do?ajax=yes",
+				dataType : "text",
+				success : function(data) {
+					var json = eval("("+data+")");
+					if(json.result == 1){
+						if(riskflag == '1'){
+							$.kd.kdConfirm(json.data.msg,function(){
+								window.location.href = "/account_bank_manage.html";
+							});
+						}else{
+							fxcp_unuseful();
+					}
+						
+					}else if(json.result == 0){
+						$.kd.kdAlert(json.message, function(){
+							window.location.href = "/account_bank_manage.html";
+					});
+					}
+				},
+				error:function(data) {
+					$.kd.kdAlert("系统异常，请联系管理员！");
+				}
+		
+		};
+			if($openOrgAccountForm.check()){
+					$("#bankprev").attr("disabled",true);
+					$("#openthirdpayOrgAccountBtn").attr("disabled",true);
+					$.kd.showLoading($("#openthirdpayOrgAccountBtn"));
+					$("#openOrgAccountForm").ajaxSubmit(options);
+				}
+	}
+
+	$("li.isBank1").live("click", function() {
+			$("li.isBank1").removeClass("selected");
+			$(this).addClass("selected");
+			$("input[name='tbankcode']").val($(this).attr('title'));
+			
+			var bankcode = $(this).attr("code");
+			var v_cardpwd = $("#v_cardpwd_"+bankcode).val();
+			var v_card = $("#v_card_"+bankcode).val();
+			var v_tradepwd = $("#v_tradepwd_"+bankcode).val();
+			var v_cardaccount = $("#v_cardaccount_"+bankcode).val();
+			var v_remark = $("#bankcode_"+bankcode).html();
+			
+			$li_bankaccount = $('#bancodeinput').parent().parent();
+			$li_tradepwd = $('#openAccountBankPwd__').parent().parent();
+			
+			if(v_card == '0' && v_cardpwd =='0' && v_tradepwd =='0'){
+				$("#bancodeinput, #openAccountBankPwd__, #openAccountBankPwd").val("");
+				$(".bank-list-remark").children("p").html(v_remark);
+				$(".bank-list-remark").show();
+				var $li = $(".kdmall-btn", $(".bank-list-remark").next()).closest("li");
+				$("li", $(".bank-list-remark").next()).not($li).hide();
+			}else{
+				$(".bank-list-remark").hide();
+				$("li", $(".bank-list-remark").next()).show();
+			}
+			
+			if(v_card == '0'){
+				$('#bancodeinput').val("");
+				$li_bankaccount.hide();
+			}
+			if(v_tradepwd =='0'){
+				$('#openAccountBankPwd__').val("");
+				$('#openAccountBankPwd').val("");
+				$li_tradepwd.hide();
+			}
+			$("input[name=tchannelcode]").val($(this).attr('code'));
+		});
+
+		<#if thirdpaybanklist?exists>
+			<#list thirdpaybanklist as item>
+			<#if item.selected =="1">
+				var tbankname = "${item.bankname}";
+				var tchannelcode = "${item.bankcode}";
+				$("input[name='tbankcode']").val(tbankname);
+				$("input[name=tchannelcode]").val(tchannelcode);
+			</#if>
+			</#list>
+		</#if>
+		
+
+</script>

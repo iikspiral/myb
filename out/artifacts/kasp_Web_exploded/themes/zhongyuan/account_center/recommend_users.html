@@ -1,0 +1,69 @@
+ <link rel="stylesheet" href="${staticserver}/common/css/user-promoter.css">
+ <script type="text/javascript" src="${staticserver}/common/js/ZeroClipboard/ZeroClipboard.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function() {
+
+  var clip = new ZeroClipboard($("#copy"));
+  clip.on("ready", function() {
+    this.on("aftercopy", function(event) {
+	  $.kd.kdMsg("已复制到剪切板!");
+    });
+  });
+  clip.on("error", function(event) {
+    $(".demo-area").hide();
+    ZeroClipboard.destroy();
+  });
+});
+ $(function(){
+ 	<#if invitorurl?exists>
+ 		$(".div-none-ermissions-warring").css({
+ 			display: 'none'
+ 		});
+ 	<#else>
+ 		$(".div-none-ermissions-warring").nextAll($("div")).css({
+ 			display: 'none'
+ 		});
+ 	</#if>
+ });
+ </script>
+ <div class="account-main">
+	<div class="user-con user-safety-options">
+	<div class="user-box-1">
+	<div class="user-box-title-1">
+		<h2>推广管理</h2>
+	</div>
+	<div class="user-box-con-1">
+		<div class="div-none-ermissions-warring">
+			您还未绑定银行卡，请先<a href="account_bank_manage.html">绑定银行卡</a>
+		</div>
+		<!--
+		<div title="推广奖励说明" class="div-promoter-explain">
+		<span style="font-style:italic;font-weight:bold">推广奖励说明</span>
+		<ul>
+			<li>1、邀请好友或其他朋友注册成功，即可建立推广关系；</li>
+			<li>2、好友或其他朋友投资成功，系统将自动根据投资推广抽成比例给予奖励；</li>
+			<li>3、好友或其他朋友借款成功，还款时系统自动根据借款推广抽成比例给予奖励。</li>
+		</ul>
+		</div>
+		--> 
+		<div class="div-promoter-note">
+			<span class="span-title-promote">如何推广：</span>
+			<ul>
+				<li><span class="span-content-promote">1、发送下面的邀请链接给好友等（建议不要发送给陌生人），通过此链接注册并绑定银行卡成功即可成为您的推荐用户 </span></li>
+				<li class="li-style-center">
+					邀请连接：<input class="li-input-style" type="text"  value="${invitorurl!''}" id="promoteurl" name="promoteurl">&nbsp;&nbsp;&nbsp;  &nbsp;
+					<input class="kdmall-btn cancel" data-clipboard-text="${invitorurl!''}" id="copy" type="button" value="复制"  />
+				</li>
+			  	<li><span class="span-content-promote">2、用户注册时，在“推荐人”处填写您的用户名，注册并绑定银行卡成功即可成为您的推荐用户。如下图：</span></li>
+				<li class="li-style-left">
+					<img src="themes/hebei/images/investor.jpg"/>
+				</li>
+				<!--
+				<li><span class="span-content-promote">3、如用户漏填“推荐人”，则可让用户成功注册并绑定银行卡后，由用户联系客服人员建立推荐关系。</span></li>
+				-->
+			   </ul>
+		</div>
+	</div>
+	</div>
+	</div>
+</div>

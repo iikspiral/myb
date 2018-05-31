@@ -1,0 +1,76 @@
+<div class="out-container">
+	<div class="navi-container">
+		<ol class="ui-step">
+			<li class="ui-step-done">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">1</i>
+		            <span class="ui-step-text">注册</span>
+		        </div>
+		    </li>		
+		    
+			<li class="ui-step-done">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">2</i>
+		            <span class="ui-step-text">绑定银行卡</span>
+		        </div>
+		    </li>		
+			
+			<li class="ui-step-done">
+		        <div class="ui-step-line">-</div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont"></i>
+		            <i class="ui-step-number">3</i>
+		            <span class="ui-step-text">风险测评</span>
+		        </div>
+		    </li>
+			
+			<li class="ui-step-end ui-step-active">
+		        <div class="ui-step-line"></div>    
+		        <div class="ui-step-icon">        
+		            <i class="iconfont successnever"></i>
+		            <span class="ui-step-text">成功</span>
+		        </div>
+		    </li>	
+		</ol>
+	</div>
+    
+    <div class="form-box">
+    	<div class="form-box-content" style="height: 250px">
+			<div class="form-box-left1">
+	           	<div class="regist_result"></div>
+			</div>
+			<div class="form-box-right1" style="width: 180px">
+				<span>绑定银行卡结果<br><span style="padding-left: 20px">绑定银行成功</span><br><br>风险测评结果<br>
+				<div style="padding-left: 20px">高风险承受能力类（A）<br>您的风险承受能力很强。您适合的投资产品为股权、私募债、小贷债、众筹产品及其他权益类产品。</div>
+				<!-- 
+				中等风险承受能力类 (B)<br>
+				您的风险承受能力尚可，您适合的投资产品为小额众筹产品及其他权益产品。
+				低风险偏好类(C)<br>
+				您不太适合风险投资，建议您不投资。
+				 -->
+				</span>
+			</div>
+		</div>
+		<div style="width:100%;text-align: center;font-size: 14px;">
+			恭喜你，开户成功！
+			<span id="second" style="color: red">5</span>&nbsp;秒钟后页面将自动跳转到“我的账户”，如果浏览器不能自动跳转，请
+			<a style="text-decoration: underline" href="javascript: window.location.href = 'account_asset.html';">点击此处</a>
+		</div>
+	</div>
+</div>
+
+<script>
+$(function() {
+	var n = 4, temp = setInterval(function() {
+		if(n == 0) {
+			clearInterval(temp);
+			window.location.href = 'account_asset.html';
+		}
+		$("#second").text(n--);
+	}, 1000);
+});
+</script>

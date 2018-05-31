@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.problem.dao.ProblemDao">
+    
+    <sql id="entityColumns">
+    	a.ID,
+ 		a.FEEDBACK_PROBLEM, 
+		a.CONTACT, 
+ 		a.SCORE, 
+ 		a.PIC, 
+		a.CREATE_BY, 
+ 		a.CREATE_DATE, 
+		a.UPDATE_BY, 
+		a.UPDATE_DATE, 
+ 		a.REMARKS, 
+ 		a.DEL_FLAG
+	</sql>
+	
+	<sql id="entityJoins">
+    </sql>
+	
+	
+	<select id="get" resultType="Problem">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM PROBLEM a
+		<include refid="entityJoins"/>
+		WHERE a.ID = #{id}
+	</select>
+	
+	<select id="findList" resultType="Problem">
+		SELECT 
+			<include refid="entityColumns"/>
+		FROM PROBLEM a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = #{delFlag}) 
+		<if test="feedbackProblem != null and feedbackProblem != ''">
+			AND a.FEEDBACK_PROBLEM LIKE
+			<if test="dbName == 'oracle'">'%'||#{feedbackProblem}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{feedbackProblem}, '%')</if>
+		</if>
+		 ORDER BY a.CREATE_DATE desc
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO PROBLEM(
+			ID,
+			FEEDBACK_PROBLEM,
+			CONTACT,
+			SCORE,
+			PIC,
+			CREATE_BY,
+			CREATE_DATE,
+			UPDATE_BY,
+			UPDATE_DATE,
+			REMARKS,
+			DEL_FLAG
+		) VALUES (
+			#{id}, 
+			#{feedbackProblem}, 
+			#{contact}, 
+			#{score}, 
+			#{pic}, 
+			#{createBy.id}, 
+			#{createDate}, 
+			#{updateBy.id}, 
+			#{updateDate}, 
+			#{remarks}, 
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE PROBLEM SET 
+			FEEDBACK_PROBLEM = #{feedbackProblem}, 
+			CONTACT = #{contact}, 
+			SCORE = #{score}, 
+			PIC = #{pic}, 
+			UPDATE_DATE = #{updateDate}, 
+			REMARKS = #{remarks},
+			DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE PROBLEM SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,30 @@
+
+	<!--#include virtual="public/header.shtm"-->
+	<div class="page-wrap">
+		<ul class="breadcrumb">
+			<li><span>当前位置：</span></li>
+			<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}index.html">首页</a></li>
+			<li><i class="iconfont">&#xe602;</i></li>
+			<li><span><a href="account_asset_investor.html">投资者账户</a></span></li>
+			<li><i class="iconfont">&#xe602;</i></li>
+			<li><span><a href="risk_evaluation.html">风险测评</a></span></li>
+		</ul>
+	<!-- div class="panel-border">
+		<div class="titlebar border-titlebar">
+			<h3 class="title">风险测评</h3>
+		</div -->
+		
+	</div>
+	<div class="container">
+		<div class="account-register">
+			<#include 'register_fxcp.html' />
+		</div>
+	</div>
+	<script>
+		//选项卡
+		$(function() {
+            $(".btn-tabs").organicTabs({
+                "speed": 200
+            });
+        });
+    </script>

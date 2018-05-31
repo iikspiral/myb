@@ -1,0 +1,61 @@
+/*
+	 Organic Tabs
+	 by Chris Coyier
+	 http://css-tricks.com
+*/
+
+html { overflow-y: scroll; }
+a:focus { outline: 0; }
+
+#page-wrap { 
+	width: 100%; 
+	height: auto; 
+
+}
+
+/* Generic Utility */
+.hide { position: absolute; top: -9999px; left: -9999px; }
+
+
+/* Specific to example two */
+
+
+#example-two ul li a:hover { background: #333; color: white; }
+#example-two ul li:last-child a { 
+    border-right: 1px solid #eeecec;
+	border-top: 1px solid #eeecec;
+	border-left: 1px solid #eeecec;
+}
+
+#example-two .nav { 
+	overflow: hidden; 
+	}
+
+#example-two .nav li { 
+	width: 140px; 
+	float: left; 
+	margin: 0 5px 0 0;
+}
+#example-two .nav li.last { margin-right: 0; }
+
+#example-two .nav li a { 
+	display: block; 
+	padding: 5px; 
+	background: #3371DD; 
+	color: white; 
+	font-size: 18px; 
+	text-align: center; 
+	border: 0; 
+}
+
+/*选项卡link*/
+#example-two li a.current, #example-two li a.current:hover {
+	background-color: #fff !important;
+	color: #666;
+	border: 1px solid #eeecec;
+}
+
+/*选项卡hover*/
+#example-two .nav li a:hover, #example-two .nav li a:focus { 
+	background: rgba(14, 208, 215, 0.8);
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">    
+<sqlMap namespace="com.szkingdom.spm.entity.SpmDictValueEntity">
+	<select id="queryDictValue" parameterClass="java.util.HashMap" resultClass="java.util.LinkedHashMap">
+		<![CDATA[
+        		select dictitem, subitem, subitemname from spm.spm_dictvalue order by dictitem, showorder
+		]]>
+	</select>	
+</sqlMap>  

@@ -1,0 +1,28 @@
+  
+		<li class="user-safety-options-item">
+			<a name="bankCard" style="height: 0;"></a>
+			
+			<div class="user-safety-options-show">
+			<#if signBanklist?exists>
+			<span class="user-safety-options-name">
+					<i class="icon-check"></i>
+					<strong>银行卡管理</strong>
+				</span>
+				<span class="user-safety-options-value user-safety-options-value-false" style="height:10px;"></span>
+				<span class="user-safety-options-state" switchtext="查看">查看</span>
+			<#else>
+			<span class="user-safety-options-name">
+					<i class="icon-tanhao"></i>
+					<strong>银行卡管理</strong>
+				</span>
+				<span class="user-safety-options-value user-safety-options-value-false">未绑定</span>
+				<span class="user-safety-options-state" switchtext="查看">查看</span>
+			</#if>	
+			</div>
+			<#if invsertortype?exists?string!="1">
+				<#include 'account_safe_bank1st.html' /> 
+			<#else>
+			</#if>
+			
+		</li>
+		 

@@ -1,0 +1,273 @@
+		<div class="page-wrap">
+			<ul class="breadcrumb border-bottom">
+				<li><span>当前位置：</span></li>
+				<li><a href="ssologin.html?deal_action=jump&pageto=${kssp_url}index.html">首页</a></li>
+				<li><i class="iconfont">&#xe602;</i></li>
+				<li><span><a href="account_asset_member.html">会员服务</a></span></li>
+			</ul>
+			<div class="account-page clearfix">
+				<div class="page-title clearfix">
+					<i class="iconfont">&#xe60b;</i>
+					<h2>会员服务</h2>
+				</div>
+				<div class="left-sidebar">
+					<ul class="account-sidemenu">
+						<li class="active"><a href="account_asset_member.html">企业融资申请</a><i class="iconfont">&#xe609;</i></li>
+						<li><a href="account_asset_member_download.html">下载专区</a><i class="iconfont">&#xe609;</i></li>
+						<li><a href="member_info.html">信息披露</a><i class="iconfont">&#xe609;</i></li>
+						<li><a href="account_asset_member_applylist.html">我的申请单</a><i class="iconfont">&#xe609;</i></li>
+				</div>
+				<div class="account-body">
+<div class="account-member-service">
+	<form class="search-field awesomeform clearfix">
+		<div class="input-field">
+			<label>企业名称</label>
+			<input type="text" name="companyname"  id="companyname" value="${companyname!''}">
+			<select name="apptype" id = "apptype" >
+				<option value="">- 请选择申请类型 -</option>
+				<option value="1" <#if apptype?exists && apptype=='1'>selected</#if>>挂牌申请</option>
+				<option value="2" <#if apptype?exists && apptype=='2'>selected</#if>>定向增资申请</option>
+				<option value="3" <#if apptype?exists && apptype=='3'>selected</#if>>私募债融资申请</option>
+				<option value="4" <#if apptype?exists && apptype=='4'>selected</#if>>股权质押融资申请</option>
+			</select>
+		</div>
+		<input class="action btn-red btn-md" type="button" value="搜索" id="btn_query_apply">
+	</form>
+	<table class="records-table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>申请列表</th>
+				<th>状态</th>
+				<th>附件</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		<#if applylist?exists>
+			<#list applylist as item>
+			<tr>
+			    <td class="num">${item.rown!''}</td>
+				<td>
+					<a <#if item.apptype=='1'>onClick="pageToapply('1',${item.appsheetserialno!''})"
+					<#elseif item.apptype=='2'>onClick="pageToapply('2',${item.appsheetserialno!''})"
+					<#elseif item.apptype=='3'>onClick="pageToapply('3',${item.appsheetserialno!''})"
+					<#else>onClick="pageToapply('4',${item.appsheetserialno!''})"
+					</#if>
+					 >${item.appname!''}</a>
+				</td>
+				<td>${item.appstatusname!''}</td>
+				<td>${item.docname!''}</td>
+				<td>
+				    <#if item.docname==''>
+						<#if item.appstatus=='02'>
+						 	<a href="javascript:void(0)" onClick="uploadfile('${item.apptype}','${item.appsheetserialno}','${item.customerno}','${wsuser}')">上传附件</a>
+						 	<a href="javascript:void(0)" onClick="oprate('${item.apptype}','${item.appsheetserialno}')">会员处理</a>
+						</#if>
+					<#else>
+						<#if item.appstatus=='02'>
+							<a href="javascript:void(0)" onClick="deleteuploadfile('${item.docid}')">删除附件</a>
+						 	<a href="javascript:void(0)" onClick="oprate('${item.apptype}','${item.appsheetserialno}')">会员处理</a>
+						<#else>
+							<a class="item"  href="${fileserver}/otcpdoc${item.filepath}">下载附件</a>
+						</#if>
+					</#if>
+				</td>
+			</tr>
+			</#list>
+		</#if>
+		</tbody>
+		
+	</table>
+	<div id="page_area" class="pager-info"></div>
+</div>
+
+<div class="modal fade" id="uploadfile" data-placement="left" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:600px;">
+		<div class="modal-content" style="height:300px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+			</button>
+		</div>
+		<div id="modalbody" class="modal-body">
+			<form id="form_info_apply" class="awesomeform clearfix">
+				<div class="floor">
+					<label class="property required">上传文件</label>
+					<div class="value" >
+						<input type="file" name="doc" id="doc" class="input"/>
+						<input type="hidden" name="businessid" id="businessid"/>
+						<input type="hidden" name="owner" id="owner"/>
+						<input type="hidden" name="docid" value="" id="docid"/>
+						<input type="hidden" name="typeno" id="typeno"/>
+						<input type="hidden" name="pagenumber" value="1" id="pagenumber"/>
+						<input type="hidden" name="funcid" id="funcid"/>
+						<input type="hidden" name="wsuser" id="wsuser"/>
+					</div>
+				</div>
+				<div class="actionArea">
+					<input type="button" onclick="javascript:doUpload();" class="btn-lg btn-red" value="提交">
+				</div>
+			</form>
+		</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+var $pager = null;
+	$(function() {
+		var urlparam = generalParam();
+		$pager = $.kd.kdPager.init({
+			currentPage: '${page!'1'}',
+			totalPage: '${totalPage!''}',
+			totalRecords: '${totalCount}',
+			prefix: 'account_asset_member.html',
+			suffix: function(n) {
+				return  urlparam + '&page=' + n;
+			}
+		});
+		
+		$("#btn_query_apply").bind('click',function(){
+		   generalUrl();
+		});
+	});
+		
+	function generalUrl(page) {
+		var param = generalParam();
+		if(page) {
+			param += (param ? "&page=" : "?page=") + page;
+		}
+		window.location.href = "account_asset_member.html" + (param ? "?" + param : "");
+	}
+	
+	function generalParam() {
+		var reg = /[\w\W]+/, param = "";
+		var companyname = $("#companyname").val();
+		if(companyname && reg.test(companyname))param +=(reg.test(param)?"&" : "")+("companyname="+companyname);
+		var apptype = $("#apptype").val();
+		if(apptype && reg.test(apptype))param +=(reg.test(param)?"&" : "")+("apptype="+apptype);
+		return param;
+	}
+	
+	function uploadfile(apptype,appsheetserialno,customerno,wsuser){
+	   alert(wsuser);
+		var v_funcid ="";
+		if(apptype=="1"){//挂牌申请
+		  v_funcid = "2001";
+		}else if(apptype=="2"){//增资
+		  v_funcid = "2002";
+		}else if(apptype=="3"){//私募债
+		  v_funcid = "2004";
+		}else if(apptype=="4"){//质押
+		  v_funcid = "2003";
+		}
+	    $('#businessid').val(appsheetserialno);
+	    $('#owner').val(customerno);
+	    $('#wsuser').val(wsuser);//登陆者ID
+	    $('#typeno').val(v_funcid);
+	    $('#funcid').val(v_funcid);
+		$('#uploadfile').modal('show');
+	}
+	
+  //上传附件
+  function doUpload(){
+       //判断是否选择文件
+       var ufile = $('#doc').val();
+       if(''==ufile){
+         alert("请选择文件上传！");
+         return;
+       }
+		var options = {
+			url : "/otcpdoc/file.FileUpload",
+			type : "POST",
+			dataType : "json",
+			success : function(data) {
+				window.location.href = "account_asset_member.html";
+			},
+			error : function(e) {
+				var json = eval('(' + e.responseText + ')');
+				if(json.status == "SUCCESS") {
+					zhejiang_alert("消息","上传成功！",function(){
+						window.location.href = "account_asset_member.html";
+					});
+				} else {
+					zhejiang_alert("消息","上传成功！",function(){
+						window.location.href = "account_asset_member.html";
+					});
+				}
+			}
+		};
+		$("#form_info_apply").ajaxSubmit(options);  
+	}
+	
+    function deleteuploadfile(v_docid){
+    	zhejiang_confirm('确认','您确定要删除附件吗？',function(){
+			var options = {
+					data:{docid:v_docid,pagenumber:'1'},
+					url :"${kasp_url}mall/docfile!deleteDocFile.do?ajax=yes",
+					type : "POST",
+					dataType : "json",
+					success : function(data) {
+						if(data.flag=="1"){
+							zhejiang_alert("消息",data.msg,function(){
+								window.location.href = "account_asset_member.html";
+							});
+						}else{
+							zhejiang_alert("消息","删除失败！",function(){
+								window.location.href = "account_asset_member.html";
+							});
+						}
+					},
+					error : function(data) {
+						zhejiang_alert("消息","删除失败！",function(){
+							window.location.href = "account_asset_member.html";
+						});
+					}
+			};	
+			$.ajax(options);
+		});		
+	}
+	
+	 function oprate(v_apptype,v_appsheetserialno){
+    	zhejiang_confirm('确认','您确定要完成操作吗？',function(){
+			var options = {
+					data:{apptype:v_apptype,appsheetserialno:v_appsheetserialno},
+					url :"${kasp_url}mall/oprateApp!oprateAppapply.do?ajax=yes",
+					type : "POST",
+					dataType : "json",
+					success : function(data) {
+						if(data.flag=="1"){
+							zhejiang_alert("消息","处理成功！",function(){
+								window.location.href = "account_asset_member.html";
+							});
+						}else{
+							zhejiang_alert("消息","处理失败！",function(){
+								window.location.href = "account_asset_member.html";
+							});
+						}
+					},
+					error : function(data) {
+						zhejiang_alert("消息","处理失败！",function(){
+							window.location.href = "account_asset_member.html";
+						});
+					}
+			};	
+			$.ajax(options);
+		});		
+	}
+	function pageToapply(apptype,appsheetserialno) {
+	 if (apptype=='1'){
+	 window.location="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kssp_url}apply_listing_detail.html?appsheetserialno="+appsheetserialno);
+	}else if(apptype=='2'){
+	 window.location="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kssp_url}apply_addpublish_detail.html?appsheetserialno="+appsheetserialno);
+	}else if(apptype=='3'){
+	 window.location="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kssp_url}apply_bonds_detail.html?appsheetserialno="+appsheetserialno);
+	}else{
+	window.location="ssologin.html?deal_action=jump&pageto="+encodeURIComponent("${kssp_url}apply_pledge_detail.html?appsheetserialno="+appsheetserialno);
+   }
+}
+
+
+</script>
+

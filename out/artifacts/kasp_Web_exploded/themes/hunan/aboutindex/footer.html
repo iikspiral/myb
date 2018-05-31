@@ -1,0 +1,51 @@
+<div class="footer-wrap container-full">
+	<div class="footer container clearfix">
+		<a class="logo-bottom" href="">
+			<img src="${staticserver}/hunan/images/logo.png" alt="湘众投 - 湖南股权交易所" title="湘众投 - 湖南股权交易所">
+		</a>
+		<div class="sitemap">
+			<ul class="nav">
+				<li><a href="ssologin.html?deal_action=jump&pageto=${kfsp_url}aboutus.html">关于湘众投</a></li>
+				<li><a href="javascript: void(0);" onclick="contact()">联系我们</a></li>
+				<li><a href="javascript: void(0);" onclick="quest()">常见问题</a></li>
+				<li><a href="javascript: void(0);" onclick="disclaimer()">免责声明</a></li>
+			</ul>
+			<div class="contact clearfix">
+				<dl>
+					<dt>咨询电话</dt>
+					<dd class="serviceLine">0731-85581382</dd>
+					<dd class="serviceLine">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 84432367</dd>
+				</dl>
+				<dl>
+					<dt>联系邮箱</dt>
+					<dd>gjscxb@163.com</dd>
+				</dl>
+			</div>
+			<p class="copyright">&copy; 2015　湖南股权交易所　版权所有 湘ICP备 11003049号</p>
+		</div>
+		<div class="QRcodes clearfix">
+			 <dl>
+				<dt><img src="${staticserver}/hunan/images/website.png" /></dt>
+				<dd>湘股交所</dd>
+			</dl>
+			<dl>
+				<dt><img src="${staticserver}/hunan/images/wechat.png" /></dt>
+				<dd>湘众投</dd>
+			</dl>
+	</div>
+</div>
+<script>
+
+function contact(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=contact_hunan_kfsp");
+}
+
+function quest(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=question_hunan_kfsp");
+}
+
+function disclaimer(){
+	window.location.href ='ssologin.html?deal_action=jump&pageto='+encodeURIComponent("${kfsp_url}aboutus.html?type=declaration_hunan_kfsp");
+}	
+
+</script>

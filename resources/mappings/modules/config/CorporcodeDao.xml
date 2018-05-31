@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxca.myb.modules.config.corporcode.dao.CorporcodeDao">
+
+	<sql id="entityColumns">
+		a.*
+	</sql>
+
+	<sql id="entityJoins">
+	</sql>
+
+
+	<select id="get" resultType="CorporationRequestCode">
+		SELECT
+		<include refid="entityColumns" />
+		FROM CORPORATION_REQUEST_CODE a
+		<include refid="entityJoins" />
+		WHERE a.ID = #{id}
+	</select>
+
+	<select id="getCorporuserByid" resultType="CorporationRequestCode">
+		SELECT a.*,
+		b.ID_CARD as "corporationUserInfo.idCard",
+		b.PHONE_NUM as "corporationUserInfo.phoneNum"
+		from corporation_request_code a
+		left outer join corporation_user_Info b
+		on a.corpor_user_id = b.id
+		WHERE A.ID =#{id}
+	</select>
+	
+	<select id="getByCorUserId" resultType="CorporationRequestCode" parameterType="String">
+		SELECT
+			a.*
+		FROM CORPORATION_REQUEST_CODE a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = '0')
+		<if test="_parameter != null and _parameter != ''">
+			AND a.CORPOR_USER_RELA_ID = #{corUserId}
+		</if>
+	</select>
+
+	<select id="getWaitcorporWhitelist" resultType="CorporationRequestCode">
+		SELECT a.*,
+		b.ID_CARD as "corporationUserInfo.idCard",
+		b.PHONE_NUM as "corporationUserInfo.phoneNum"
+		from corporation_request_code a
+		left outer join corporation_user_Info b
+		on a.corpor_user_id = b.id
+		WHERE a.del_flag = '0' AND b.del_flag = '0' and a.status = '0'
+		<if test="corporationUserInfo.idCard != null and corporationUserInfo.idCard != ''">
+			AND b.ID_CARD = #{corporationUserInfo.idCard}
+		</if>
+		<if test="corporationUserInfo.phoneNum != null and corporationUserInfo.phoneNum != ''">
+			AND b.PHONE_NUM = #{corporationUserInfo.phoneNum}
+		</if>
+		<if test="type != null and type != ''">
+			AND a.TYPE = #{type}
+		</if>
+	</select>
+
+	<select id="findList" resultType="CorporationRequestCode">
+		SELECT a.*,
+		b.ID_CARD as "corporationUserInfo.idCard",
+		b.PHONE_NUM as "corporationUserInfo.phoneNum",
+		c.cert_subject as searchCertSubject
+		from corporation_request_code a
+		left outer join corporation_user_Info b
+		on a.corpor_user_id = b.id
+		left outer join cert_info c 
+		on a.cert_sn = c.cert_sn
+		WHERE a.del_flag = '0' AND b.del_flag = '0'	
+		<if test="corporationId != null and corporationId != ''">
+			AND a.CORPORATION_ID = #{corporationId}
+		</if>
+		<if test="corporUserId != null and corporUserId != ''">
+			AND a.CORPOR_USER_ID = #{corporUserId}
+		</if>
+		<if test="projectId != null and projectId != ''">
+			AND a.PROJECT_ID = #{projectId}
+		</if>
+		<if test="type != null and type != ''">
+			AND a.TYPE = #{type}
+		</if>
+		<if test="corporUserRelaId != null and corporUserRelaId != ''">
+			AND a.CORPOR_USER_RELA_ID = #{corporUserRelaId}
+		</if>
+		<if test="status != null and status != ''">
+			AND a.STATUS = #{status}
+		</if>
+		<if test="certSn != null and certSn != ''">
+			AND a.CERT_SN = #{certSn}
+		</if>
+		<if test="searchCertSubject != null and searchCertSubject != ''">
+			AND c.cert_subject LIKE
+			<if test="dbName == 'oracle'">'%'||#{searchCertSubject}||'%'</if>
+			<if test="dbName == 'mysql'">CONCAT('%', #{searchCertSubject}, '%')</if>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	<insert id="insert">
+		INSERT INTO CORPORATION_REQUEST_CODE(
+		ID,
+		CORPORATION_ID,
+		CORPOR_USER_ID,
+		CORPOR_USER_RELA_ID,
+		PROJECT_ID,
+		STATUS,
+		TYPE,
+		APPLICANT,
+		OPT_TIME,
+		CERT_SN,
+		IS_FACE,
+		CERT_SUBJECT,
+		CREATE_BY,
+		CREATE_DATE,
+		UPDATE_BY,
+		UPDATE_DATE,
+		REMARKS,
+		DEL_FLAG
+		) VALUES (
+		#{id},
+		#{corporationId},
+		#{corporUserId},
+		#{corporUserRelaId},
+		#{projectId},
+		#{status},
+		#{type},
+		#{applicant},
+		#{optTime},
+		#{certSn},
+		#{isFace},
+		#{certSubject},
+		#{createBy.id},
+		#{createDate},
+		#{updateBy.id},
+		#{updateDate},
+		#{remarks},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE CORPORATION_REQUEST_CODE SET
+		CORPORATION_ID = #{corporationId},
+		CORPOR_USER_ID = #{corporUserId},
+		CORPOR_USER_RELA_ID = #{corporUserRelaId},
+		PROJECT_ID = #{projectId},
+		STATUS = #{status},
+		TYPE = #{type},
+		APPLICANT = #{applicant},
+		OPT_TIME = #{optTime},
+		CERT_SN = #{certSn},
+		IS_FACE = #{isFace},
+		CERT_SUBJECT = #{certSubject},
+		UPDATE_BY = #{updateBy.id},
+		UPDATE_DATE = #{updateDate},
+		REMARKS = #{remarks},
+		DEL_FLAG = #{delFlag}
+		WHERE id = #{id}
+	</update>
+
+	<update id="delete">
+		UPDATE CORPORATION_REQUEST_CODE SET
+		del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<select id="findUseCorpor" resultType="CorporationRequestCode">
+		SELECT
+		<include refid="entityColumns" />
+		FROM CORPORATION_REQUEST_CODE a
+		<include refid="entityJoins" />
+		WHERE (a.del_flag = 0
+		and a.status = 0
+		and a.type = 0
+		and a.project_id = #{projectId}
+		)
+		ORDER BY a.CREATE_DATE
+	</select>
+
+	<select id="findCertCorpor" resultType="CorporationRequestCode">
+		SELECT
+		<include refid="entityColumns" />
+		FROM CORPORATION_REQUEST_CODE a
+		WHERE a.del_flag = 0
+		and a.status = 0
+		and a.type = 1
+		ORDER BY a.CREATE_DATE
+	</select>
+
+	<select id="getNotInvalidCorpcode" resultType="CorporationRequestCode">
+		SELECT
+		a.*
+		FROM CORPORATION_REQUEST_CODE a
+		<include refid="entityJoins"/>
+		WHERE (a.del_flag = '0')
+		<if test="corporUserRelaId != null and corporUserRelaId != ''">
+			AND a.CORPOR_USER_RELA_ID = #{corporUserRelaId}
+		</if>
+		<if test="status != null and status != ''">
+			AND a.STATUS = #{status}
+		</if>
+		<if test="projectId != null and projectId != ''">
+			AND a.PROJECT_ID = #{projectId}
+		</if>
+	</select>
+</mapper>

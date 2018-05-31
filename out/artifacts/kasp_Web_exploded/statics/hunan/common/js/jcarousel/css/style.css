@@ -1,0 +1,20 @@
+.ui-carousel {height: 100px;margin: 0;overflow: auto;padding: 0;position: relative; width: 300px}
+.ui-carousel > .wrapper {margin: 0;padding: 0;width: 9999px;}
+.ui-carousel > .wrapper > * {border: 0;display: block;float: left;height: 100px;overflow: hidden;width: 100px;}
+#container{position: relative;margin: 0 auto;}
+#carousel{width: 980px;margin: 0 auto;}
+#ui-carousel-next, #ui-carousel-prev{width: 60px;height: 280px;background: url(../img/arrow-left.png) #fff center center no-repeat;display: block;position: absolute;top: 0;z-index: 100;opacity:0;filter:alpha(opacity=0)}
+#ui-carousel-next{right: 0;background-image: url(../img/arrow-right.png);opacity:0;filter:alpha(opacity=0)}
+#ui-carousel-prev{left: 0;}
+#ui-carousel-next > span, #ui-carousel-prev > span{display: none;}
+.slide{margin: 0;position: relative;}
+.slide h1{font: 72px/1 Anton, sans-serif;color: #ff5c43;margin: 0;padding: 0;}
+.slide p{font: 32px/1 Ubuntu, sans-serif;color: #4d4d4d;margin: 0;padding: 0;}
+.slide img{position: absolute;bottom: 0px;left: 0px;}
+.slide .text{bottom: 0px;position: absolute;line-height: 60px;width:100%;opacity: 0.5;background:#000;filter:alpha(opacity=50)}
+.slide .text .inner{color: #FFFFFF;line-height: 60px;margin: 0 auto;text-align: left;width: 980px;font-size:14px;}
+.pagediv{width:100%;position: absolute;bottom: 0px;line-height: 60px;height: 60px;}
+ .pagediv .inner{margin: 0 auto;width: 1210px; }
+.pagediv .inner #pages{line-height: 60px;height: 60px;width:165px;float:right;margin-right:200px;}
+.bullet{background: url(../img/page-off.png) center center no-repeat;display: block;width: 18px;margin: 0;margin-right: 8px;float: left;line-height: 60px;height: 60px;}
+:focus {outline: 0;}

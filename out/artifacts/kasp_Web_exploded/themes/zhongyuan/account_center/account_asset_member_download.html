@@ -1,0 +1,35 @@
+<div class="member-service">
+	<form class="search-field awesomeform clearfix">
+		<div class="input-field">
+			<label>企业名称</label>
+			<input type="text" name="chinesename" class="input-field">
+			<select>
+				<option>- 请选择申请类型 -</option>
+				<option>挂牌申请</option>
+				<option>股权融资申请</option>
+				<option>股权质押融资申请</option>
+				<option>私募债融资申请</option>
+			</select>
+		</div>
+		<input class="action btn-red btn-md" type="button" value="搜索">
+	</form>
+	<table class="records-table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>下载列表</th>
+			</tr>
+		</thead>
+		<tbody>
+		<#if applylist?exists>
+			<#list applylist as item>
+			<tr>
+				<td class="num">${item.rown!''}</td>
+				<td>${item.appname!''}</td>
+			</tr>
+			</#list>
+		</#if>
+		</tbody>
+	</table>
+</div>
+

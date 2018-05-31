@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GB2312"?>
+<websuites>
+
+	<bex id="f_kfipsvc_otcpsvc_call" type="http-bex"  httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="kifpsvcbexid"  	            type="string" />	
+			<!-- f_kifpsvc_bex_for_otcpsvc_common_call -->
+			<param name="otcpsvcbexid"  	            type="string" />	  
+		</request>
+	</bex>
+
+	<bex id="f_kfipsvc_excsvc_call" type="http-bex"  httpserver="kifpsvc" target="kifpSvcCall" service="kifpServiceCall" lparam="false" parameterType="java.util.HashMap">
+		<request>
+			<param name="kifpsvcbexid"  	            type="string" />	
+			<!-- f_kifpsvc_bex_for_otcpsvc_common_call -->
+			<param name="excsvcbexid"  	            type="string" />	  
+		</request>
+	</bex>
+</websuites>
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- reference MyBatis 3.0 -->
+	<!--<bean id="myBatisBex" class="com.websuites.esb.plugins.mybatis.MyBatisBex">
+		<property name="batisDaoImpl" ref="myBatisDaoImpl" />  
+	</bean>
+	<bean id="myBatisGroupBex" class="com.websuites.esb.plugins.mybatis.MyBatisGroupBex">
+		<property name="batisDaoImpl" ref="myBatisDaoImpl" />  				   
+		<property name="configLocation">
+			<value>WEB-INF\conf\mybatis-config\sql-map-group-config.xml</value>
+		</property>
+	</bean>-->
+	
+	<!-- reference IBatis 2.0 -->
+	<bean id="myBatisBex" class="com.websuites.esb.plugins.mybatis.MyBatisBex">		
+	    	<property name="batisDaoImpl" ref="iBatisDaoImpl" />		
+	</bean>
+	<bean id="myBatisGroupBex" class="com.websuites.esb.plugins.mybatis.MyBatisGroupBex">	
+	    	<property name="batisDaoImpl" ref="iBatisDaoImpl" />		   
+		<property name="configLocation">
+			<value>WEB-INF\conf\mybatis-config\sql-map-group-config.xml</value>
+		</property>
+	</bean>
+
+</beans>
